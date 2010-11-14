@@ -41,6 +41,8 @@
 		</Compiler>
 		<Unit filename="assets\cb.bmp" />
 		<Unit filename="src\main.cpp" />
+		<Unit filename="src\window.cpp" />
+		<Unit filename="src\window.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
