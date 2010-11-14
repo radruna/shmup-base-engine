@@ -28,7 +28,7 @@ int main()
         }
 
         //Rotate image
-        Sprite.Rotate(0.01);
+        Sprite.Rotate(-0.1);
         // Clear screen
         App.Clear();
 
