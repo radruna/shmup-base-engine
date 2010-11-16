@@ -11,6 +11,8 @@
 #include <iostream> //Debug output
 #include <map> //Map for objects
 
+#include <string>
+
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 namespace sbe
@@ -26,8 +28,10 @@ namespace sbe
             {
 
             }
-
-            sf::Image getImage();
+            std::map<std::string, sf::Image> imageList; //Image list
+            void loadAssets(std::string& assetFile);    //Load images listed in the asset file
+            void unloadAssets();    //Unload all images
+            sf::Image getImage(std::string& imageKey);  //Request image
         private:
     };
 }

@@ -18,4 +18,22 @@ namespace sbe
     {
 
     }
+
+    void loadAssets(std::string& assetFile){    //Load images listed in the asset file
+    }
+    void unloadAssets(){    //Unload all images
+    }
+
+    sf::Image getImage(std::string& imageFile){  //TEMPORARY
+        if(imageFile == "testShip")
+        {
+            sf::Image img;
+            img.LoadFromFile("assets/jet.png");
+            return img;
+        }
+    }
 }
+    /*
+    sf::Image getImage(std::string& imageKey){
+    }
+    */
