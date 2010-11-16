@@ -31,10 +31,7 @@ namespace sbe
                    const bool& showIntro = true,
                    unsigned long WindowStyle = sf::Style::Resize | sf::Style::Close, //Style of the window, used for fullscreen etc
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
-            ~Window()
-            {
-                delete imgHandler;
-            }
+            ~Window();
 
             int exec(); //Main game loop
         private:
@@ -42,7 +39,8 @@ namespace sbe
             //sbe::EventHandler *evtHandler; //One of several
             //sbe::Panel *mainMenu;
             //DebugHandler?
-            //add vectors/maps with stuff
+            std::map<std::string, sf::Sprite> *ships;
+            sf::Sprite *testShip;
     };
 }
 #endif WINDOW_H_INCLUDED
