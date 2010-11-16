@@ -9,6 +9,8 @@
 #include <fstream>   //Read script files
 #include <map> //Map for objects
 
+#include <string> //For strings
+
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "imagehandler.h"   //Class def
@@ -21,17 +23,31 @@ namespace sbe
     }
 
     void ImageHandler::loadAssets(const std::string& assetFile){    //Load images listed in the asset file
+        std::cout << std::endl << "Loading assets from: '" << assetFile << "'..." << std::endl;
         char str[255];
         strcpy(str, assetFile.c_str()); //Convert string to char array
         fileReader.open(str);   //Open specified file
-        char output[255];   //Char array output, should be replaced by a list with dynamic length
         if(fileReader.is_open())
         {
-            while(!fileReader.eof())    //Read until end of file
+            int spacePos;
+            std::string output;
+            std::string imageKey;
+            std::string imagePath;
+            while(!fileReader.eof())    //Loop until end of file
             {
-                fileReader >> output;
-                std::cout << output;
+                getline(fileReader,output);
+                spacePos = output.find (' ');   //Find space
+                imageKey = output.substr(0,spacePos);   //Set image key
+                imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));  //Set image path
+                std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
+                sf::Image img;
+                img.LoadFromFile(imagePath);
+                imageList[imageKey] = img;
             }
+            std::cout << "Finished loading assets from: '" << assetFile << "'" << std::endl;
+        }else
+        {
+            std::cout << "The image handler was unable to open the specified asset file." << std::endl;
         }
         fileReader.close(); //Close file
     }
@@ -42,16 +58,14 @@ namespace sbe
 
     sf::Image ImageHandler::getImage(const std::string& imageKey){  //TEMPORARY
         sf::Image img;
-        if(imageKey == "testShip")
+        std::cout << imageKey;
+        //if( imageList.find(imageKey) != imageList.end() )   //Search imageList
+        if(true)
         {
-            img.LoadFromFile("assets/jet.png");
+            img = imageList[imageKey];  //Assign image
         }else{
-            img.LoadFromFile("assets/debug/error.png");
+            img.LoadFromFile("assets/debug/error.png"); //Assign error image
         }
         return img;
     }
 }
-    /*
-    sf::Image getImage(std::string& imageKey){
-    }
-    */
