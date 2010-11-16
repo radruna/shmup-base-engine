@@ -21,19 +21,14 @@ namespace sbe
             Used to handle image requests and image management
         */
         public:
-            ImageHandler()
-            {
-
-            }
+            ImageHandler();
             ~ImageHandler()
             {
 
             }
 
             sf::Image getImage();
-            int getImageCount();
         private:
-            static int imageCount;
     };
 }
 #endif IMAGEHANDLER_H_INCLUDED

@@ -1,42 +1,57 @@
-//GOTY
+/*
+/ The main function
+/ Author: Victor Rådmark, Felix Westin, Jonathan Orrö
+/ File created: 2010-11-14
+/ File updated: 2010-11-16
+/ License: GPLv3
+*/
 #include <SFML/Graphics.hpp>
+
+#include "window.h"
 
 int main()
 {
-    // Create the main window
-    sf::RenderWindow App(sf::VideoMode(800, 600), "SFML window");
+    // Create the main mainWindow
+    sbe::Window mainWindow(sf::VideoMode(1024, 768), "SBE Window");
 
     // Load a sprite to display
     sf::Image Image;
-    if (!Image.LoadFromFile("assets/cb.bmp"))
+    if (!Image.LoadFromFile("assets/jet.png"))
         return EXIT_FAILURE;
 
     sf::Sprite Sprite(Image);
-    Sprite.SetPosition(400.f, 300.f);
-    Sprite.SetCenter(75, 60);
+    Sprite.SetPosition(0.f, 0.f);
+    Sprite.SetCenter(128, 128);
+    Sprite.SetScale(0.25,0.25);
+
+    mainWindow.SetFramerateLimit(60);
 
 	// Start the game loop
-    while (App.IsOpened())
+	int temp = 0;
+    while (mainWindow.IsOpened())
     {
         // Process events
         sf::Event Event;
-        while (App.GetEvent(Event))
+        while (mainWindow.GetEvent(Event))
         {
-            // Close window : exit
+            // Close mainWindow : exit
             if (Event.Type == sf::Event::Closed)
-                App.Close();
+                mainWindow.Close();
         }
 
         //Rotate image
-        Sprite.Rotate(-0.1);
+        //Sprite.Rotate(-20);
+        Sprite.SetRotation(Sprite.GetRotation() + temp);
+        Sprite.SetX(Sprite.GetPosition().x + temp);
+        Sprite.SetY(Sprite.GetPosition().y + temp++);
         // Clear screen
-        App.Clear();
+        mainWindow.Clear();
 
         // Draw the sprite
-        App.Draw(Sprite);
+        mainWindow.Draw(Sprite);
 
-        // Update the window
-        App.Display();
+        // Update the mainWindow
+        mainWindow.Display();
     }
 
     return EXIT_SUCCESS;

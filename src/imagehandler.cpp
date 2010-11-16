@@ -5,7 +5,6 @@
 / File updated: 2010-11-16
 / License: GPLv3
 */
-
 #include <iostream> //Debug output
 #include <map> //Map for objects
 
@@ -18,9 +17,5 @@ namespace sbe
     ImageHandler::ImageHandler()
     {
 
-    }
-
-    int ImageHandler::getImageCount(){
-        return imageCount;
     }
 }

@@ -18,7 +18,7 @@
 
 namespace sbe
 {
-    PlatformGame::PlatformGame(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
+    Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
         : RenderWindow(Mode, Title, WindowStyle, Params)
     {
         /*
@@ -29,7 +29,7 @@ namespace sbe
         //mainMenu = new sbe::Panel();
     }
 
-    int PlatformGame::exec()
+    int Window::exec()
     {
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
