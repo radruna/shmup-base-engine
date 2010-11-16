@@ -10,6 +10,7 @@
 #include <map> //For mapping objects
 
 #include <SFML/Graphics.hpp> //Graphics and everything above
+#include <SFML/Audio.hpp> //hurr durr
 
 #include "window.h" //Class def
 #include "imagehandler.h"
@@ -43,6 +44,7 @@ namespace sbe
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
+        imgHandler->loadAssets("scripts/assets/test.ast");
         //Test stuff with a really kawaii ship
         sf::Image img = imgHandler->getImage("testShip");
         testShip = new sf::Sprite(img);
@@ -50,9 +52,28 @@ namespace sbe
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
 
-        //sf::Shape;
-
+        sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
+        sf::Shape shot2 = shot;
+        shot2.SetColor(sf::Color::Yellow);
         float acc = 0.f;
+        int speed = 600;
+        int counter = 0;
+        bool gun = true;
+        int gunPosX = 0;
+
+        sf::Music loli;
+
+        if(!loli.OpenFromFile("assets/music/loli.ogg"))
+            std::cout << ":<";
+
+        loli.Play();
+
+        sf::SoundBuffer laserBuffer;
+        if(!laserBuffer.LoadFromFile("assets/sound/durr.wav"))
+            std::cout << ":<";
+
+        sf::Sound laser(laserBuffer);
+
         while(IsOpened())
         {
             // Process events, to be replaced by evtHandler
@@ -67,20 +88,68 @@ namespace sbe
             // Get elapsed time
             float ElapsedTime = GetFrameTime();
 
+            if(GetInput().IsKeyDown(sf::Key::LShift))
+            {
+                speed = 300;
+                acc = 0;
+            }
+            else
+                speed = 600;
+
             // Move the sprite
-            if (GetInput().IsKeyDown(sf::Key::Left))  testShip->Move((-1000 - (acc++ * 10)) * ElapsedTime, 0);
-            if (GetInput().IsKeyDown(sf::Key::Right)) testShip->Move((1000 + (acc++ * 10)) * ElapsedTime, 0);
-            if (GetInput().IsKeyDown(sf::Key::Up))    testShip->Move(0, (-1000 - (acc++ * 10)) * ElapsedTime);
-            if (GetInput().IsKeyDown(sf::Key::Down))  testShip->Move(0,  (1000 + (acc++ * 10)) * ElapsedTime);
+            if (GetInput().IsKeyDown(sf::Key::Left))  testShip->Move((-speed - (acc++ * 10)) * ElapsedTime, 0);
+            if (GetInput().IsKeyDown(sf::Key::Right)) testShip->Move((speed + (acc++ * 10)) * ElapsedTime, 0);
+            if (GetInput().IsKeyDown(sf::Key::Up))    testShip->Move(0, (-speed - (acc++ * 10)) * ElapsedTime);
+            if (GetInput().IsKeyDown(sf::Key::Down))  testShip->Move(0,  (speed + (acc++ * 10)) * ElapsedTime);
 
             if(acc > 0)
                 acc -= 0.9;
+
+            if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
+            {
+                counter = 100;
+                shot.SetCenter(0, 1000.f);
+                if(gun)
+                {
+                    shot.SetColor(sf::Color::Yellow);
+                    gun = false;
+                    gunPosX = 42;
+                }
+                else
+                {
+                    shot.SetColor(sf::Color::Cyan);
+                    gun = true;
+                    gunPosX = 80;
+                }
+
+                shot.SetPosition(testShip->GetPosition().x + gunPosX, testShip->GetPosition().y + 58);
+                laser.Play();
+            }
+            else if(counter < 40)
+            {
+                shot.Move(0, (-2000 * ElapsedTime));
+            }
+
+            if(GetInput().IsKeyDown(sf::Key::L))
+            {
+                if(loli.GetStatus() == sf::Sound::Playing)
+                    loli.Pause();
+                else
+                    loli.Play();
+            }
+
 
             // Clear screen
             Clear();
 
             // Draw the ship
             Draw(*testShip);
+
+            if(counter > 0)
+            {
+                --counter;
+                Draw(shot);
+            }
 
             // Update the window
             Display();
