@@ -40,6 +40,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="assets\cb.bmp" />
+		<Unit filename="assets\jet.png" />
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
