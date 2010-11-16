@@ -6,6 +6,7 @@
 / License: GPLv3
 */
 #include <iostream> //Debug output
+#include <fstream>   //Read script files
 #include <map> //Map for objects
 
 #include <SFML/Graphics.hpp> //Sfml stuff
@@ -24,13 +25,14 @@ namespace sbe
     void unloadAssets(){    //Unload all images
     }
 
-    sf::Image getImage(std::string& imageFile){  //TEMPORARY
-        if(imageFile == "testShip")
+    sf::Image ImageHandler::getImage(std::string& imageKey){  //TEMPORARY
+        sf::Image img;
+        if(imageKey == "testShip")
         {
-            sf::Image img;
             img.LoadFromFile("assets/jet.png");
             return img;
         }
+        return img;
     }
 }
     /*

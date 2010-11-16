@@ -9,6 +9,7 @@
 #define IMAGEHANDLER_H_INCLUDED
 
 #include <iostream> //Debug output
+#include <fstream>   //Read script files
 #include <map> //Map for objects
 
 #include <string>
@@ -20,7 +21,7 @@ namespace sbe
     class ImageHandler
     {
         /*
-            Used to handle image requests and image management
+            Loads images, stores them and handles requests
         */
         public:
             ImageHandler();
@@ -28,6 +29,7 @@ namespace sbe
             {
 
             }
+            std::ifstream fileReader;
             std::map<std::string, sf::Image> imageList; //Image list
             void loadAssets(std::string& assetFile);    //Load images listed in the asset file
             void unloadAssets();    //Unload all images
