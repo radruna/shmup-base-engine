@@ -6,13 +6,14 @@
 / License: GPLv3
 */
 #include <iostream> //Debug output
+#include <string> //For strings
 #include <map> //For mapping objects
 
 #include <SFML/Graphics.hpp> //Graphics and everything above
 
 #include "window.h" //Class def
-//#include "imagehandler.h" //Not done yet
-//#include "eventhandler.h"
+#include "imagehandler.h"
+//#include "eventhandler.h" //Not done yet
 //#include "panel.h"
 
 namespace sbe
@@ -23,7 +24,7 @@ namespace sbe
         /*
             Purpose: Constructor for sbe::Window.
         */
-        //imgHandler = new sbe::ImageHandler();
+        imgHandler = new sbe::ImageHandler();
         //evtHandler = new sbe::EventHandler();
         //mainMenu = new sbe::Panel();
     }

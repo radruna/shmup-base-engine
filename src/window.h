@@ -9,12 +9,13 @@
 #define WINDOW_H_INCLUDED
 
 #include <iostream> //Debug output
+#include <string> //For strings
 #include <map> //Map for objects
 
 #include <SFML/Graphics.hpp> //Pretty much everything else
 
-//#include "imagehandler.h"  //Not done yet
-//#include "eventhandler.h"
+#include "imagehandler.h"
+//#include "eventhandler.h" //Not done yet
 //#include "panel.h"
 
 namespace sbe
@@ -32,12 +33,12 @@ namespace sbe
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window()
             {
-
+                delete imgHandler;
             }
 
             int exec(); //Main game loop
         private:
-            //sbe::ImageHandler *imgHandler;
+            sbe::ImageHandler *imgHandler;
             //sbe::EventHandler *evtHandler; //One of several
             //sbe::Panel *mainMenu;
             //DebugHandler?
