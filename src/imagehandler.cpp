@@ -21,7 +21,21 @@ namespace sbe
     }
 
     void ImageHandler::loadAssets(const std::string& assetFile){    //Load images listed in the asset file
+        char str[255];
+        strcpy(str, assetFile.c_str()); //Convert string to char array
+        fileReader.open(str);   //Open specified file
+        char output[255];   //Char array output, should be replaced by a list with dynamic length
+        if(fileReader.is_open())
+        {
+            while(!fileReader.eof())    //Read until end of file
+            {
+                fileReader >> output;
+                std::cout << output;
+            }
+        }
+        fileReader.close(); //Close file
     }
+
     void ImageHandler::unloadAssets(){    //Unload all images
         imageList.clear();
     }
