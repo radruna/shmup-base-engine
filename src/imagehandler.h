@@ -30,10 +30,14 @@ namespace sbe
 
             }
             std::ifstream fileReader;
-            std::map<std::string, sf::Image> imageList; //Image list
-            void loadAssets(const std::string& assetFile);    //Load images listed in the asset file
-            void unloadAssets();    //Unload all images
-            sf::Image getImage(const std::string& imageKey);  //Request image
+            //Image list
+            std::map<std::string, sf::Image> imageList;
+            //Load images listed in the asset file
+            void loadAssets(const std::string& assetFile);
+            //Unload all images
+            void unloadAssets();
+            //Handleimage requests
+            sf::Image getImage(const std::string& imageKey);
         private:
     };
 }

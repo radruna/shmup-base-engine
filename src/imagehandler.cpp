@@ -22,22 +22,29 @@ namespace sbe
 
     }
 
-    void ImageHandler::loadAssets(const std::string& assetFile){    //Load images listed in the asset file
+    //Load images listed in the asset file
+    void ImageHandler::loadAssets(const std::string& assetFile){
         std::cout << std::endl << "Loading assets from: '" << assetFile << "'..." << std::endl;
         char str[255];
-        strcpy(str, assetFile.c_str()); //Convert string to char array
-        fileReader.open(str);   //Open specified file
+        //Convert string to char array
+        strcpy(str, assetFile.c_str());
+        //Open specified file
+        fileReader.open(str);
         if(fileReader.is_open())
         {
             int spacePos;
             std::string output;
             std::string imageKey;
             std::string imagePath;
-            while(!fileReader.eof())    //Loop until end of file
+
+            //Loop until end of file
+            while(!fileReader.eof())
             {
                 getline(fileReader,output);
-                spacePos = output.find (' ');   //Find space
-                imageKey = output.substr(0,spacePos);   //Set image key
+                //Find space
+                spacePos = output.find (' ');
+                //Set image key
+                imageKey = output.substr(0,spacePos);
                 imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));  //Set image path
                 std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
                 sf::Image img;
@@ -49,22 +56,26 @@ namespace sbe
         {
             std::cout << "The image handler was unable to open the specified asset file." << std::endl;
         }
-        fileReader.close(); //Close file
+        //Close file
+        fileReader.close();
     }
 
-    void ImageHandler::unloadAssets(){    //Unload all images
+    //Unload all images
+    void ImageHandler::unloadAssets(){
         imageList.clear();
     }
 
-    sf::Image ImageHandler::getImage(const std::string& imageKey){  //TEMPORARY
+    //Handle image requests
+    sf::Image ImageHandler::getImage(const std::string& imageKey){
         sf::Image img;
-        std::cout << imageKey;
-        //if( imageList.find(imageKey) != imageList.end() )   //Search imageList
-        if(true)
+        //Search imageList
+        if( imageList.find(imageKey) != imageList.end() )
         {
-            img = imageList[imageKey];  //Assign image
+            //Assign image
+            img = imageList[imageKey];
         }else{
-            img.LoadFromFile("assets/debug/error.png"); //Assign error image
+            //Assign error image
+            img.LoadFromFile("assets/debug/error.png");
         }
         return img;
     }
