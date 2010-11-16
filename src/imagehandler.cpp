@@ -20,17 +20,19 @@ namespace sbe
 
     }
 
-    void loadAssets(std::string& assetFile){    //Load images listed in the asset file
+    void ImageHandler::loadAssets(const std::string& assetFile){    //Load images listed in the asset file
     }
-    void unloadAssets(){    //Unload all images
+    void ImageHandler::unloadAssets(){    //Unload all images
+        imageList.clear();
     }
 
-    sf::Image ImageHandler::getImage(std::string& imageKey){  //TEMPORARY
+    sf::Image ImageHandler::getImage(const std::string& imageKey){  //TEMPORARY
         sf::Image img;
         if(imageKey == "testShip")
         {
             img.LoadFromFile("assets/jet.png");
-            return img;
+        }else{
+            img.LoadFromFile("assets/debug/error.png");
         }
         return img;
     }
