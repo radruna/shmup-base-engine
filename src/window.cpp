@@ -47,6 +47,7 @@ namespace sbe
         imgHandler->loadAssets("scripts/assets/test.ast");
         //Test stuff with a really kawaii ship
         sf::Image img = imgHandler->getImage("testShip");
+        sf::Image img2 = imgHandler->getImage("kawaiiShip");
         testShip = new sf::Sprite(img);
         //*ships["testShip"] = *testShip;
         testShip->SetPosition(0.f, 0.f);
@@ -83,6 +84,24 @@ namespace sbe
                 // Close mainWindow : exit
                 if (Event.Type == sf::Event::Closed)
                     Close();
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::L))
+                {
+                    if(loli.GetStatus() == sf::Sound::Playing)
+                        loli.Pause();
+                    else
+                        loli.Play();
+                }
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::B))
+                {
+                    testShip->SetImage(img2);
+
+                    loli.Stop();
+
+                    if(!loli.OpenFromFile("assets/music/8bitloli.ogg"))
+                        std::cout << "3:";
+
+                    loli.Play();
+                }
             }
 
             // Get elapsed time
@@ -128,14 +147,6 @@ namespace sbe
             else if(counter < 40)
             {
                 shot.Move(0, (-2000 * ElapsedTime));
-            }
-
-            if(GetInput().IsKeyDown(sf::Key::L))
-            {
-                if(loli.GetStatus() == sf::Sound::Playing)
-                    loli.Pause();
-                else
-                    loli.Play();
             }
 
 

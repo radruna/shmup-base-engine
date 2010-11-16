@@ -41,6 +41,7 @@
 		</Compiler>
 		<Unit filename="assets\cb.bmp" />
 		<Unit filename="assets\jet.png" />
+		<Unit filename="scripts\assets\test.ast" />
 		<Unit filename="src\imagehandler.cpp" />
 		<Unit filename="src\imagehandler.h" />
 		<Unit filename="src\main.cpp" />
