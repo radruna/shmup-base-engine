@@ -30,56 +30,54 @@ namespace sbe
         //Convert string to char array
         strcpy(str, assetFile.c_str());
         //Open specified file
-        fileReader.open(str);
-        if(fileReader.is_open())
-        {
-            int spacePos;
-            std::string output;
-            std::string imageKey;
-            std::string imagePath;
-
-            //Loop until end of file
-            while(!fileReader.eof())
-            {
-                //Read line
-                getline(fileReader,output);
-                //Check if line is empty
-                if(output != "")
-                {
-                    //Find space
-                    spacePos = output.find (' ');
-                    //Set image key
-                    imageKey = output.substr(0,spacePos);
-
-                    //Search imageList
-                    if( imageList.find(imageKey) != imageList.end() )
-                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
-                    else
-                    {
-                        //Set image path
-                        imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
-                        sf::Image img;
-                        //Load image file
-                        if(!img.LoadFromFile(imagePath))
-                            std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
-                        else
-                        {
-                            //Add to imageList
-                            imageList[imageKey] = img;
-                            //Debug output
-                            std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
-                        }
-                    }
-                }
-            }
-            //Debug output
-            std::cout << "Finished loading assets from \"" << assetFile << "\"" << std::endl;
-        }
-        else
+        if(!fileReader.open(str))
         {
             //Debug output
             std::cout << "The image handler was unable to open the specified asset file" << std::endl;
+            return;
         }
+
+        int spacePos;
+        std::string output;
+        std::string imageKey;
+        std::string imagePath;
+
+        //Loop until end of file
+        while(!fileReader.eof())
+        {
+            //Read line
+            getline(fileReader,output);
+            //Check if line is empty
+            if(output != "")
+            {
+                //Find space
+                spacePos = output.find (' ');
+                //Set image key
+                imageKey = output.substr(0,spacePos);
+
+                //Search imageList
+                if( imageList.find(imageKey) != imageList.end() )
+                    std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+                else
+                {
+                    //Set image path
+                    imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
+                    sf::Image img;
+                    //Load image file
+                    if(!img.LoadFromFile(imagePath))
+                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
+                    else
+                    {
+                        //Add to imageList
+                        imageList[imageKey] = img;
+                        //Debug output
+                        std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
+                    }
+                }
+            }
+        }
+        //Debug output
+        std::cout << "Finished loading assets from \"" << assetFile << "\"" << std::endl;
         //Close file
         fileReader.close();
     }

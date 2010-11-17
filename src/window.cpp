@@ -55,7 +55,7 @@ namespace sbe
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
         imgHandler->loadAssets("scripts/assets/test.ast");
-        audHandler->loadSounds("scripts/assets/sound.ast");
+        audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
         //Test stuff with a really kawaii ship
         sf::Image img = imgHandler->getImage("testShip");
@@ -115,6 +115,8 @@ namespace sbe
 
                     loli.Play();
                 }
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
+                    debug = true;
             }
 
             // Get elapsed time
@@ -150,7 +152,7 @@ namespace sbe
                 if(speed.y > 0) speed.y--;
             }
 
-            testShip->Move(speed.x * ElapsedTime,speed.y * ElapsedTime);
+            testShip->Move(speed.x * ElapsedTime * 100, speed.y * ElapsedTime * 100);
 
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {

@@ -12,7 +12,7 @@
 #include <map> //Map for objects
 #include <string>
 
-#include <SFML/Graphics.hpp> //Sfml stuff
+#include <SFML/Audio.hpp> //Audio header
 
 #include "filehandler.h" //Abstract base class
 
@@ -30,9 +30,14 @@ namespace sbe
                 unloadAudio();
             }
 
-            //Load audio listed in the asset file
-            void loadAudio(const std::string& soundFile);
-            void loadMusic(const std::string& soundFile);
+            //Load audio listed in the asset files
+            void loadSound(const std::string& soundFile);
+            void loadMusic(const std::string& musicFile);
+            //Loading function
+            void loadAudio(const std::string& soundFile, LoadType load);
+            //Saving functions
+            void saveSound(const std::string& soundKey, const std::string& soundPath, const std::string& output)
+            void saveMusic(const std::string& musicKey, const std::string& musicPath, const std::string& output)
             //Unload all sound
             void unloadSound()
             {
@@ -50,19 +55,26 @@ namespace sbe
             //Get sound
             sf::Sound getSound(const std::string& soundKey);
             //Set master volume
-            void setVolume(short int& v = 100);
+            void setVolume(short& v = 100);
             //Set SFX volume
-            void setSFXVol(short int& s = 100);
+            void setSFXVol(short& s = 100);
             //Set music volume
-            void setMusicVol(short int& m = 100);
+            void setMusicVol(short& m = 100);
             //Set current music playing.
-            bool setMusic(const string& strM);
+            bool setMusic(const std::string& strM);
             //Stop current music.
             void stopMusic();
             //Pause/play current music
             void pauseMusic();
             //Set music to loop
             void setMusicLoop();
+
+            enum LoadType
+            {
+                Sound,
+                Music
+            };
+
         private:
             //Sound list
             std::map<std::string, sf::Sound> soundList;
