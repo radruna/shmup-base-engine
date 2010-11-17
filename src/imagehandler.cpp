@@ -1,8 +1,8 @@
 /*
 / Image handler class
-/ Author: Felix Willebrand Westin
+/ Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-16
+/ File updated: 2010-11-17
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -40,20 +40,31 @@ namespace sbe
             //Loop until end of file
             while(!fileReader.eof())
             {
+                //Read line
                 getline(fileReader,output);
-                //Find space
-                spacePos = output.find (' ');
-                //Set image key
-                imageKey = output.substr(0,spacePos);
-                imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));  //Set image path
-                std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
-                sf::Image img;
-                img.LoadFromFile(imagePath);
-                imageList[imageKey] = img;
+                //Check if line is empty
+                if(output != "")
+                {
+                    //Find space
+                    spacePos = output.find (' ');
+                    //Set image key
+                    imageKey = output.substr(0,spacePos);
+                    //Set image path
+                    imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
+                    //Debug output
+                    std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
+                    sf::Image img;
+                    //Load image file
+                    img.LoadFromFile(imagePath);
+                    //Add to imageList
+                    imageList[imageKey] = img;
+                }
             }
+            //Debug output
             std::cout << "Finished loading assets from: '" << assetFile << "'" << std::endl;
         }else
         {
+            //Debug output
             std::cout << "The image handler was unable to open the specified asset file." << std::endl;
         }
         //Close file

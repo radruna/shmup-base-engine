@@ -56,11 +56,13 @@ namespace sbe
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
-        float acc = 0.f;
-        int speed = 600;
+        double speed = 5;
         int counter = 0;
         bool gun = true;
         int gunPosX = 0;
+
+        double speedX = 0;
+        double speedY = 0;
 
         sf::Music loli;
 
@@ -109,20 +111,37 @@ namespace sbe
 
             if(GetInput().IsKeyDown(sf::Key::LShift))
             {
-                speed = 300;
-                acc = 0;
+                speed = 1;
             }
             else
-                speed = 600;
+                speed = 10;
 
             // Move the sprite
+            /*
             if (GetInput().IsKeyDown(sf::Key::Left))  testShip->Move((-speed - (acc++ * 10)) * ElapsedTime, 0);
             if (GetInput().IsKeyDown(sf::Key::Right)) testShip->Move((speed + (acc++ * 10)) * ElapsedTime, 0);
             if (GetInput().IsKeyDown(sf::Key::Up))    testShip->Move(0, (-speed - (acc++ * 10)) * ElapsedTime);
             if (GetInput().IsKeyDown(sf::Key::Down))  testShip->Move(0,  (speed + (acc++ * 10)) * ElapsedTime);
+            */
 
-            if(acc > 0)
-                acc -= 0.9;
+            if (GetInput().IsKeyDown(sf::Key::Left) && speedX > -15){
+                speedX -= speed;
+            }else if(GetInput().IsKeyDown(sf::Key::Right) && speedX < 15){
+                speedX += speed;
+            }else{
+                if(speedX < 0) speedX++;
+                if(speedX > 0) speedX--;
+            }
+            if (GetInput().IsKeyDown(sf::Key::Up) && speedY > -15){
+                speedY -= speed;
+            }else if (GetInput().IsKeyDown(sf::Key::Down) && speedY < 15){
+                speedY += speed;
+            }else{
+                if(speedY < 0) speedY++;
+                if(speedY > 0) speedY--;
+            }
+
+            testShip->Move(speedX,speedY);
 
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {

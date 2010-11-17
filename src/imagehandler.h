@@ -1,8 +1,8 @@
 /*
 / Image handler class
-/ Author: Felix Willebrand Westin
+/ Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-16
+/ File updated: 2010-11-17
 / License: GPLv3
 */
 #ifndef IMAGEHANDLER_H_INCLUDED
