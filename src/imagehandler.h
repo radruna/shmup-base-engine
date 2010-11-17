@@ -42,4 +42,4 @@ namespace sbe
     };
 }
 
-#endif IMAGEHANDLER_H_INCLUDED
+#endif

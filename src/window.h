@@ -48,4 +48,4 @@ namespace sbe
     };
 }
 
-#endif WINDOW_H_INCLUDED
+#endif
