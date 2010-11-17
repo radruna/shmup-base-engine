@@ -49,15 +49,22 @@ namespace sbe
                     spacePos = output.find (' ');
                     //Set image key
                     imageKey = output.substr(0,spacePos);
-                    //Set image path
-                    imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
-                    //Debug output
-                    std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
-                    sf::Image img;
-                    //Load image file
-                    img.LoadFromFile(imagePath);
-                    //Add to imageList
-                    imageList[imageKey] = img;
+
+                    //Search imageList
+                    if( imageList.find(imageKey) != imageList.end() )
+                    {
+                        std::cout << "Image key '" << imageKey << "' already in system. Skipping..." << std::endl;
+                    }else{
+                        //Set image path
+                        imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
+                        //Debug output
+                        std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
+                        sf::Image img;
+                        //Load image file
+                        img.LoadFromFile(imagePath);
+                        //Add to imageList
+                        imageList[imageKey] = img;
+                    }
                 }
             }
             //Debug output
