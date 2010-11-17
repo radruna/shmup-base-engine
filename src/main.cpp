@@ -2,7 +2,7 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2010-11-16
+/ File updated: 2010-11-17
 / License: GPLv3
 */
 #include <SFML/Graphics.hpp>
@@ -11,7 +11,7 @@
 
 int main()
 {
-    // Create the main mainWindow
+    // Create the main window
     sbe::Window mainWindow(sf::VideoMode(1024, 768), "SBE Window");
 
     return mainWindow.exec();

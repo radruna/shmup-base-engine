@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-11-16
+/ File updated: 2010-11-17
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -14,7 +14,8 @@
 
 #include <SFML/Graphics.hpp> //Pretty much everything else
 
-#include "imagehandler.h"
+#include "imagehandler.h" //Loading images
+#include "audiohandler.h" //Playing sound/music
 //#include "eventhandler.h" //Not done yet
 //#include "panel.h"
 
@@ -36,6 +37,7 @@ namespace sbe
             int exec(); //Main game loop
         private:
             sbe::ImageHandler *imgHandler;
+            sbe::AudioHandler *audHandler;
             //sbe::EventHandler *evtHandler; //One of several
             //sbe::Panel *mainMenu;
             //DebugHandler?
@@ -43,4 +45,5 @@ namespace sbe
             sf::Sprite *testShip;
     };
 }
+
 #endif WINDOW_H_INCLUDED

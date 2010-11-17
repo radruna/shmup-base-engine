@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-11-16
+/ File updated: 2010-11-17
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -13,7 +13,8 @@
 #include <SFML/Audio.hpp> //hurr durr
 
 #include "window.h" //Class def
-#include "imagehandler.h"
+#include "imagehandler.h" //For loading images
+#include "audiohandler.h" //For loading and playing sound and music
 //#include "eventhandler.h" //Not done yet
 //#include "panel.h"
 
@@ -25,16 +26,25 @@ namespace sbe
         /*
             Purpose: Constructor for sbe::Window.
         */
+        std::cout << "Window loaded!" << std::endl;
         RenderWindow::Window::SetFramerateLimit(60);
         imgHandler = new ImageHandler();
+        audHandler = new AudioHandler();
         //evtHandler = new sbe::EventHandler();
+        std::cout << "Handlers loaded!" << std::endl;
         //mainMenu = new sbe::Panel();
+        //std::cout << "Main menu loaded." << std::endl;
         ships = new std::map<std::string, sf::Sprite>;
+        std::cout << "Objects loaded" << std::endl;
     }
 
     Window::~Window()
     {
+        /*
+            Purpose: Deconstructor for sbe::Window
+        */
         delete imgHandler;
+        delete audHandler;
         delete ships;
         delete testShip;
     }
@@ -45,6 +55,8 @@ namespace sbe
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
         imgHandler->loadAssets("scripts/assets/test.ast");
+        audHandler->loadSounds("scripts/assets/sound.ast");
+        audHandler->loadMusic("scripts/assets/music.ast");
         //Test stuff with a really kawaii ship
         sf::Image img = imgHandler->getImage("testShip");
         sf::Image img2 = imgHandler->getImage("kawaiiShip");
@@ -56,13 +68,12 @@ namespace sbe
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
-        double speed = 5;
+        double speedVar = 5;
         int counter = 0;
         bool gun = true;
         int gunPosX = 0;
 
-        double speedX = 0;
-        double speedY = 0;
+        sf::Vector2f speed(0.f, 0.f);
 
         sf::Music loli;
 
@@ -108,13 +119,11 @@ namespace sbe
 
             // Get elapsed time
             float ElapsedTime = GetFrameTime();
-
+            //Process inputs, to be replaced by evtHandler
             if(GetInput().IsKeyDown(sf::Key::LShift))
-            {
-                speed = 1;
-            }
+                speedVar = 1;
             else
-                speed = 10;
+                speedVar = 10;
 
             // Move the sprite
             /*
@@ -124,24 +133,24 @@ namespace sbe
             if (GetInput().IsKeyDown(sf::Key::Down))  testShip->Move(0,  (speed + (acc++ * 10)) * ElapsedTime);
             */
 
-            if (GetInput().IsKeyDown(sf::Key::Left) && speedX > -15){
-                speedX -= speed;
-            }else if(GetInput().IsKeyDown(sf::Key::Right) && speedX < 15){
-                speedX += speed;
+            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15){
+                speed.x -= speedVar;
+            }else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15){
+                speed.x += speedVar;
             }else{
-                if(speedX < 0) speedX++;
-                if(speedX > 0) speedX--;
+                if(speed.x < 0) speed.x++;
+                if(speed.x > 0) speed.x--;
             }
-            if (GetInput().IsKeyDown(sf::Key::Up) && speedY > -15){
-                speedY -= speed;
-            }else if (GetInput().IsKeyDown(sf::Key::Down) && speedY < 15){
-                speedY += speed;
+            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15){
+                speed.y -= speedVar;
+            }else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15){
+                speed.y += speedVar;
             }else{
-                if(speedY < 0) speedY++;
-                if(speedY > 0) speedY--;
+                if(speed.y < 0) speed.y++;
+                if(speed.y > 0) speed.y--;
             }
 
-            testShip->Move(speedX,speedY);
+            testShip->Move(speed.x * ElapsedTime,speed.y * ElapsedTime);
 
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
@@ -185,7 +194,6 @@ namespace sbe
             Display();
 
             //Display the intro and then the main menu
-            //evtHandler.Handle(); //hurr!!!
         }
 
         return 0;

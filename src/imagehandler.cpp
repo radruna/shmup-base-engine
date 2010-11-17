@@ -8,22 +8,23 @@
 #include <iostream> //Debug output
 #include <fstream>   //Read script files
 #include <map> //Map for objects
-
 #include <string> //For strings
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "imagehandler.h"   //Class def
+#include "filehandler.h" //Base class
 
 namespace sbe
 {
     ImageHandler::ImageHandler()
     {
-
+        //Load intro or menu stuff
     }
 
     //Load images listed in the asset file
-    void ImageHandler::loadAssets(const std::string& assetFile){
+    void ImageHandler::loadAssets(const std::string& assetFile)
+    {
         std::cout << std::endl << "Loading assets from: \"" << assetFile << "\"..." << std::endl;
         char str[255];
         //Convert string to char array
@@ -52,14 +53,17 @@ namespace sbe
 
                     //Search imageList
                     if( imageList.find(imageKey) != imageList.end() )
-                    {
                         std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
-                    }else{
+                    else
+                    {
                         //Set image path
                         imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
                         sf::Image img;
                         //Load image file
-                        if(img.LoadFromFile(imagePath)){
+                        if(!img.LoadFromFile(imagePath))
+                            std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+                        else
+                        {
                             //Add to imageList
                             imageList[imageKey] = img;
                             //Debug output
@@ -70,7 +74,8 @@ namespace sbe
             }
             //Debug output
             std::cout << "Finished loading assets from \"" << assetFile << "\"" << std::endl;
-        }else
+        }
+        else
         {
             //Debug output
             std::cout << "The image handler was unable to open the specified asset file" << std::endl;
@@ -81,6 +86,7 @@ namespace sbe
 
     //Unload all images
     void ImageHandler::unloadAssets(){
+        //FileHandler::unloadAssets(imageList);
         imageList.clear();
     }
 

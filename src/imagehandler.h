@@ -8,17 +8,17 @@
 #ifndef IMAGEHANDLER_H_INCLUDED
 #define IMAGEHANDLER_H_INCLUDED
 
-#include <iostream> //Debug output
 #include <fstream>   //Read script files
 #include <map> //Map for objects
-
 #include <string>
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "filehandler.h" //Abstract base class
+
 namespace sbe
 {
-    class ImageHandler
+    class ImageHandler : public FileHandler
     {
         /*
             Loads images, stores them and handles requests
@@ -27,18 +27,19 @@ namespace sbe
             ImageHandler();
             ~ImageHandler()
             {
-
+                unloadAssets();
             }
-            std::ifstream fileReader;
-            //Image list
-            std::map<std::string, sf::Image> imageList;
+
             //Load images listed in the asset file
             void loadAssets(const std::string& assetFile);
             //Unload all images
             void unloadAssets();
-            //Handleimage requests
+            //Handle image requests
             sf::Image getImage(const std::string& imageKey);
         private:
+            //Image list
+            std::map<std::string, sf::Image> imageList;
     };
 }
+
 #endif IMAGEHANDLER_H_INCLUDED
