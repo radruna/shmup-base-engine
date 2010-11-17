@@ -24,7 +24,7 @@ namespace sbe
 
     //Load images listed in the asset file
     void ImageHandler::loadAssets(const std::string& assetFile){
-        std::cout << std::endl << "Loading assets from: '" << assetFile << "'..." << std::endl;
+        std::cout << std::endl << "Loading assets from: \"" << assetFile << "\"..." << std::endl;
         char str[255];
         //Convert string to char array
         strcpy(str, assetFile.c_str());
@@ -53,26 +53,27 @@ namespace sbe
                     //Search imageList
                     if( imageList.find(imageKey) != imageList.end() )
                     {
-                        std::cout << "Image key '" << imageKey << "' already in system. Skipping..." << std::endl;
+                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
                     }else{
                         //Set image path
                         imagePath = output.substr(spacePos+1,output.length() - (spacePos + 1));
-                        //Debug output
-                        std::cout << "Loaded image: '" << imageKey << "' with filepath: '" << imagePath << "'" << std::endl;
                         sf::Image img;
                         //Load image file
-                        img.LoadFromFile(imagePath);
-                        //Add to imageList
-                        imageList[imageKey] = img;
+                        if(img.LoadFromFile(imagePath)){
+                            //Add to imageList
+                            imageList[imageKey] = img;
+                            //Debug output
+                            std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
+                        }
                     }
                 }
             }
             //Debug output
-            std::cout << "Finished loading assets from: '" << assetFile << "'" << std::endl;
+            std::cout << "Finished loading assets from \"" << assetFile << "\"" << std::endl;
         }else
         {
             //Debug output
-            std::cout << "The image handler was unable to open the specified asset file." << std::endl;
+            std::cout << "The image handler was unable to open the specified asset file" << std::endl;
         }
         //Close file
         fileReader.close();
