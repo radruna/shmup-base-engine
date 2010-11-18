@@ -59,7 +59,10 @@ namespace sbe
             return;
         }
         //Saving vars
+        int tabPos;
         int spacePos;
+        int commentPos;
+        int lineVar = 0;
         std::string output;
         std::string audioKey;
         std::string audioPath;
@@ -72,15 +75,49 @@ namespace sbe
             //Check if line is empty
             if(output != "")
             {
-                //Find space
-                spacePos = output.find (' ');
-                //Set audio key
-                audioKey = output.substr(0,spacePos);
-                //Load into memory as sound or memory
-                if(load == Sound)
-                    saveSound(audioKey, audioPath, output, spacePos);
+                //Register new line
+                lineVar++;
+                //Replace tabs with spaces
+                while(output.find('\t') != std::string::npos)
+                {
+                    tabPos = output.find('\t');
+                    output.replace(tabPos,1," ");
+                }
+
+                //Find first space
+                if(output.find(' ' ) == std::string::npos)
+                {
+                    //If not found
+                    std::cout << "Incorrect audio file on line " << lineVar << " in file \"" << audioFile << "\"" << std::endl;
+                }
                 else
-                    saveMusic(audioKey, audioPath, output, spacePos);
+                {
+                    //Find first space
+                    spacePos = output.find (' ');
+                    if(output.find("//") != std::string::npos)
+                    {
+                         //Find comment
+                        commentPos = output.find("//");
+                        //Cut comment
+                        output = output.substr(0,commentPos);
+                    }
+
+                    //Set audio key
+                    audioKey = output.substr(0,spacePos);
+                    //Search and remove any spaces. Should be replaced by a stringStripSpace function.
+                    audioKey.erase(std::remove(audioKey.begin(), audioKey.end(), ' '), audioKey.end());
+
+                    //Set audio path
+                    audioPath = output.substr(audioKey.length(),output.length());
+                    //Search and remove any spaces or tabs. Should be replaced by a stringStripSpace function.
+                    audioPath.erase(std::remove(audioPath.begin(), audioPath.end(), ' '), audioPath.end());
+
+                    //Load into memory as sound or music
+                    if(load == Sound)
+                        saveSound(audioKey, audioPath, output);
+                    else
+                        saveMusic(audioKey, audioPath, output);
+                }
             }
         }
 
@@ -90,7 +127,7 @@ namespace sbe
         fileReader.close();
     }
 
-    void AudioHandler::saveSound(std::string& soundKey, std::string& soundPath, std::string& output, int spacePos)
+    void AudioHandler::saveSound(std::string& soundKey, std::string& soundPath, std::string& output)
     {
         /*
             Purpose: Save file from loadAudio() as sound.
@@ -100,8 +137,6 @@ namespace sbe
             std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Sound key already in system" << std::endl;
         else
         {
-            //Set sound file path
-            soundPath = output.substr(spacePos + 1, output.length() - (spacePos + 1));
             //Create soundbuffer to assign sound from file
             sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
             //Load sound file
@@ -123,7 +158,7 @@ namespace sbe
         }
     }
 
-    void AudioHandler::saveMusic(std::string& musicKey, std::string& musicPath, std::string& output, int spacePos)
+    void AudioHandler::saveMusic(std::string& musicKey, std::string& musicPath, std::string& output)
     {
         /*
             Purpose: Save file from loadAudio() as music.
@@ -133,26 +168,22 @@ namespace sbe
             std::cout << "Failed to load music \"" << musicPath << "\". Reason: Music key already in system" << std::endl;
         else
         {
-            //Set music file path
-            musicPath = output.substr(spacePos + 1, output.length() - (spacePos + 1));
             //Create music to assign from file
-            sbe::Music *msc = new sbe::Music();
+            sbe::Music msc;
             //Load music file
-            if(!msc->OpenFromFile(musicPath))
+            if(!msc.OpenFromFile(musicPath))
                 std::cout << "Failed to load music \"" << musicPath << "\". Reason: Unable to open music file" << std::endl;
             else
             {
                 //Set current volume, 100 at default
-                msc->SetVolume(mVol);
+                msc.SetVolume(mVol);
                 //Add to musicList
-                musicList.insert(std::pair<std::string, sbe::Music> (musicKey, (*msc)));
+                musicList.insert(std::pair<std::string, sbe::Music> (musicKey, msc));
                 //String for quicker access
                 curSong = musicKey;
                 //Debug output
                 std::cout << "Loaded music \"" << musicKey << "\" with filepath \"" << musicPath << "\"" << std::endl;
             }
-
-            delete msc;
         }
     }
 

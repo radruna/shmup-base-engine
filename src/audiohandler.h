@@ -46,8 +46,8 @@ namespace sbe
             //Loading function
             void loadAudio(const std::string& soundFile, LoadType load);
             //Saving functions
-            void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output, int savePos);
-            void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output, int savePos);
+            void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output);
+            void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output);
             //Unload all sound
             void unloadSound()
             {

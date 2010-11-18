@@ -14,8 +14,7 @@
 namespace sbe
 {
     Music::Music()
-        :   //myFile(NULL),
-            myDuration(0.f)
+        //:   myFile(NULL)
     {
         sf::Music();
     }

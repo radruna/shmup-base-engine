@@ -65,7 +65,6 @@ namespace sbe
             //Music& operator = (const Music& other);
         private:
             //priv::SoundFile*   myFile;
-            float myDuration;
             //sf::ResourcePtr<Music> myBuffer;
     };
 }
