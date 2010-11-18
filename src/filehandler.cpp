@@ -15,10 +15,15 @@
 
 namespace sbe
 {
-    //Unload all assets
     template <class genMedia>
+    //Unload all assets
     void FileHandler::unloadAssets(std::map<std::string, genMedia> genMap)
     {
         genMap.clear();
+    }
+    //Search and remove any spaces
+    void stripStringSpace(const std::string& stripper)
+    {
+        stripper.erase(std::remove(stripper.begin(), stripper.end(), ' '), stripper.end());
     }
 }

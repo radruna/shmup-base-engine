@@ -81,13 +81,13 @@ namespace sbe
 
                     //Set image key
                     imageKey = output.substr(0,spacePos);
-                    //Search and remove any spaces. Should be replaced by a stringStripSpace function.
-                    imageKey.erase(std::remove(imageKey.begin(), imageKey.end(), ' '), imageKey.end());
+                    //Search and remove any spaces
+                    fileHandler::stringStripSpace(imageKey);
 
                     //Set image path
                     imagePath = output.substr(imageKey.length(),output.length());
-                    //Search and remove any spaces or tabs. Should be replaced by a stringStripSpace function.
-                    imagePath.erase(std::remove(imagePath.begin(), imagePath.end(), ' '), imagePath.end());
+                    //Search and remove any spaces
+                    fileHandler::stringStripSpace(imagePath);
 
                     //Search imageList
                     if(imageList.find(imageKey) != imageList.end())

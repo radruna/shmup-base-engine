@@ -21,9 +21,11 @@ namespace sbe
             FileHandler() {}
             ~FileHandler() {}
 
-            //Unload all media
             template <class genMedia>
+            //Unload all media
             void unloadAssets(std::map<std::string, genMedia> genMap);
+            //Search and remove any spaces
+            void stripStringSpace(const std::string& stripper);
 
         protected:
             std::ifstream fileReader;
