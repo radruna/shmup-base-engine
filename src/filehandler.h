@@ -25,7 +25,7 @@ namespace sbe
             //Unload all media
             void unloadAssets(std::map<std::string, genMedia> genMap);
             //Search and remove any spaces
-            void stripStringSpace(const std::string& stripper);
+            void stripStringSpace(std::string& stripper);
 
         protected:
             std::ifstream fileReader;

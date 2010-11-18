@@ -22,7 +22,7 @@ namespace sbe
         genMap.clear();
     }
     //Search and remove any spaces
-    void stripStringSpace(const std::string& stripper)
+    void FileHandler::stripStringSpace(std::string& stripper)
     {
         stripper.erase(std::remove(stripper.begin(), stripper.end(), ' '), stripper.end());
     }
