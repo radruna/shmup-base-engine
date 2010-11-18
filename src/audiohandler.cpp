@@ -21,6 +21,7 @@ namespace sbe
     AudioHandler::AudioHandler(int s, int m)
         : sVol(s), mVol(m), curSong("")
     {
+
         //Add intro/menu sounds
     }
 
@@ -138,23 +139,23 @@ namespace sbe
         else
         {
             //Create soundbuffer to assign sound from file
-            sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
+            sf::SoundBuffer sndbfr;
             //Load sound file
-            if(!sndbfr->LoadFromFile(soundPath))
+            if(!sndbfr.LoadFromFile(soundPath))
                 std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Unable to open sound file" << std::endl;
             else
             {
                 //Create sound for saving to memory and assign it the loaded soundbuffer
-                sf::Sound snd(*sndbfr);
+                sf::Sound snd(sndbfr);
                 //Set current volume, 100 at default
                 snd.SetVolume(sVol);
+
+                snd.Play();
                 //Add to soundList
                 soundList[soundKey] = snd;
                 //Debug output
                 std::cout << "Loaded sound \"" << soundKey << "\" with filepath \"" << soundPath << "\"" << std::endl;
             }
-
-            delete sndbfr;
         }
     }
 
@@ -278,5 +279,14 @@ namespace sbe
     void AudioHandler::setMusicLoop(bool loop)
     {
         musicList[curSong].SetLoop(loop);
+    }
+
+    void AudioHandler::getAudioList()
+    {
+        for(soundMap::iterator it = soundList.begin(); it != soundList.end(); it++)
+            std::cout << (*it).first << " " << std::endl;
+        for(musicMap::iterator it = musicList.begin(); it != musicList.end(); it++)
+            std::cout << (*it).first << " " << std::endl;
+
     }
 }

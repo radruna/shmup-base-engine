@@ -75,8 +75,14 @@ namespace sbe
 
         sf::Vector2f speed(0.f, 0.f);
 
-        audHandler->setMusic("loli");
-        sf::Sound laser = audHandler->getSound("laser");
+        /*audHandler->setMusic("loli");
+        sf::Sound laser = audHandler->getSound("laser");*/
+        sf::Music loli;
+        loli.OpenFromFile("assets/music/loli.ogg");
+        loli.Play();
+        sf::SoundBuffer lsrBfr;
+        lsrBfr.LoadFromFile("assets/sound/durr.wav");
+        sf::Sound laser(lsrBfr);
 
         while(IsOpened())
         {
@@ -97,7 +103,10 @@ namespace sbe
                 {
                     testShip->SetImage(img2);
 
-                    audHandler->setMusic("8bitloli");
+                    //audHandler->setMusic("8bitloli");
+                    loli.Stop();
+                    loli.OpenFromFile("assets/music/8bitloli.ogg");
+                    loli.Play();
                 }
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
                     debug = true;
@@ -156,6 +165,7 @@ namespace sbe
                 }
 
                 shot.SetPosition(testShip->GetPosition().x + gunPosX, testShip->GetPosition().y + 58);
+                laser.Play();
 
             }
             else if(counter < 40)

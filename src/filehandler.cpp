@@ -26,9 +26,9 @@ namespace sbe
     {
         int spacePos;
         while(stripper.find(' ') != std::string::npos)
-                {
-                    spacePos = stripper.find(' ');
-                    stripper.erase(spacePos,1);
-                }
+        {
+            spacePos = stripper.find(' ');
+            stripper.erase(spacePos,1);
+        }
     }
 }

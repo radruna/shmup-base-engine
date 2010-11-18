@@ -44,7 +44,7 @@ namespace sbe
             void loadSound(const std::string& soundFile);
             void loadMusic(const std::string& musicFile);
             //Loading function
-            void loadAudio(const std::string& soundFile, LoadType load);
+            void loadAudio(const std::string& audioFile, LoadType load);
             //Saving functions
             void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output);
             void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output);
@@ -78,8 +78,7 @@ namespace sbe
             void pauseMusic();
             //Set music to loop
             void setMusicLoop(bool loop);
-
-
+            void getAudioList();
 
         private:
             //Sound list
