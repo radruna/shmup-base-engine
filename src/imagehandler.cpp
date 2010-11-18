@@ -102,6 +102,7 @@ namespace sbe
                             //This is already handled by SFML
                             std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
                             */
+                            return;
                         }
                         else
                         {
@@ -118,6 +119,34 @@ namespace sbe
         std::cout << "Finished loading images from \"" << assetFile << "\"" << std::endl;
         //Close file
         fileReader.close();
+    }
+
+    //Load a single image without the use of an asset file
+    void ImageHandler::loadAsset(const std::string& imageKey,const std::string& imagePath)
+    {
+        //Search imageList
+        if(imageList.find(imageKey) != imageList.end())
+            std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+        else
+        {
+            sf::Image img;
+            //Load image file
+            if(!img.LoadFromFile(imagePath))
+            {
+                /*
+                //This is already handled by SFML
+                std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
+                */
+                return;
+            }
+            else
+            {
+                //Add to imageList
+                imageList[imageKey] = img;
+                //Debug output
+                std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
+            }
+        }
     }
 
     //Unload all images

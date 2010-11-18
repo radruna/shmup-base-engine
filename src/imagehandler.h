@@ -32,6 +32,8 @@ namespace sbe
 
             //Load images listed in the asset file
             void loadAssets(const std::string& assetFile);
+            //Load a single image without the use of an asset file
+            void loadAsset(const std::string& imageKey,const std::string& filePath);
             //Unload all images
             void unloadAssets();
             //Handle image requests
