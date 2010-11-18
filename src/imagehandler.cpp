@@ -2,7 +2,7 @@
 / Image handler class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-17
+/ File updated: 2010-11-18
 / License: GPLv3
 */
 #include <iostream> //Debug output
