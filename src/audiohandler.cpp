@@ -105,13 +105,12 @@ namespace sbe
                     //Set audio key
                     audioKey = output.substr(0,spacePos);
                     //Search and remove any spaces
-                    audioKey.erase(std::remove(audioKey.begin(), audioKey.end(), ' '), audioKey.end());
-                    fileHandler::stringStripSpace(audioKey);
+                    FileHandler::stringStripSpace(audioKey);
 
                     //Set audio path
                     audioPath = output.substr(audioKey.length(),output.length());
                     //Search and remove any spaces
-                    fileHandler::stringStripSpace(audioPath);
+                    FileHandler::stringStripSpace(audioPath);
 
                     //Load into memory as sound or music
                     if(load == Sound)

@@ -82,12 +82,12 @@ namespace sbe
                     //Set image key
                     imageKey = output.substr(0,spacePos);
                     //Search and remove any spaces
-                    fileHandler::stringStripSpace(imageKey);
+                    FileHandler::stringStripSpace(imageKey);
 
                     //Set image path
                     imagePath = output.substr(imageKey.length(),output.length());
                     //Search and remove any spaces
-                    fileHandler::stringStripSpace(imagePath);
+                    FileHandler::stringStripSpace(imagePath);
 
                     //Search imageList
                     if(imageList.find(imageKey) != imageList.end())
