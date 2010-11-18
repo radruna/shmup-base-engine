@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-17
+/ File updated: 2010-11-18
 / License: GPLv3
 */
 #ifndef AUDIOHANDLER_H_INCLUDED
@@ -15,6 +15,10 @@
 #include <SFML/Audio.hpp> //Audio header
 
 #include "filehandler.h" //Abstract base class
+#include "music.h" //Copyable music
+
+typedef std::map<std::string, sf::Sound> soundMap;
+typedef std::map<std::string, sbe::Music> musicMap;
 
 namespace sbe
 {
@@ -24,7 +28,13 @@ namespace sbe
             Handles audio (sounds and music), loading, storing it and returning it upon request.
         */
         public:
-            AudioHandler();
+            enum LoadType
+            {
+                Sound,
+                Music
+            };
+
+            AudioHandler(int s = 100, int m = 100);
             ~AudioHandler()
             {
                 unloadAudio();
@@ -36,8 +46,8 @@ namespace sbe
             //Loading function
             void loadAudio(const std::string& soundFile, LoadType load);
             //Saving functions
-            void saveSound(const std::string& soundKey, const std::string& soundPath, const std::string& output)
-            void saveMusic(const std::string& musicKey, const std::string& musicPath, const std::string& output)
+            void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output, int savePos);
+            void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output, int savePos);
             //Unload all sound
             void unloadSound()
             {
@@ -55,11 +65,11 @@ namespace sbe
             //Get sound
             sf::Sound getSound(const std::string& soundKey);
             //Set master volume
-            void setVolume(short& v = 100);
+            void setVolume(short v = 100);
             //Set SFX volume
-            void setSFXVol(short& s = 100);
+            void setSFXVol(short s = 100);
             //Set music volume
-            void setMusicVol(short& m = 100);
+            void setMusicVol(short m = 100);
             //Set current music playing.
             bool setMusic(const std::string& strM);
             //Stop current music.
@@ -67,19 +77,19 @@ namespace sbe
             //Pause/play current music
             void pauseMusic();
             //Set music to loop
-            void setMusicLoop();
+            void setMusicLoop(bool loop);
 
-            enum LoadType
-            {
-                Sound,
-                Music
-            };
+
 
         private:
             //Sound list
-            std::map<std::string, sf::Sound> soundList;
+            soundMap soundList;
             //Music list
-            std::map<std::string, sf::Music> musicList;
+            musicMap musicList;
+
+            int sVol,
+                mVol;
+            std::string curSong;
     };
 }
 

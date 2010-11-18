@@ -39,8 +39,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="assets\cb.bmp" />
-		<Unit filename="assets\jet.png" />
+		<Unit filename="assets\debug\error.png" />
+		<Unit filename="assets\image\8bjet.png" />
+		<Unit filename="assets\image\cb.bmp" />
+		<Unit filename="assets\image\jet.png" />
+		<Unit filename="assets\image\kawaii.png" />
+		<Unit filename="assets\music\8bitloli.ogg" />
+		<Unit filename="assets\music\loli.ogg" />
+		<Unit filename="assets\sound\durr.wav" />
+		<Unit filename="scripts\assets\music.ast" />
+		<Unit filename="scripts\assets\sound.ast" />
 		<Unit filename="scripts\assets\test.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
@@ -49,6 +57,8 @@
 		<Unit filename="src\imagehandler.cpp" />
 		<Unit filename="src\imagehandler.h" />
 		<Unit filename="src\main.cpp" />
+		<Unit filename="src\music.cpp" />
+		<Unit filename="src\music.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>

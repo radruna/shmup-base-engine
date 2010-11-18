@@ -30,7 +30,8 @@ namespace sbe
         //Convert string to char array
         strcpy(str, assetFile.c_str());
         //Open specified file
-        if(!fileReader.open(str))
+        fileReader.open(str);
+        if(!fileReader)
         {
             //Debug output
             std::cout << "The image handler was unable to open the specified asset file" << std::endl;

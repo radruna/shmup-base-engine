@@ -44,7 +44,7 @@ namespace sbe
             std::map<std::string, sf::Sprite> *ships;
             sf::Sprite *testShip;
 
-            bool debug = false;
+            bool debug;
     };
 }
 

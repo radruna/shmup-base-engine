@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-11-17
+/ File updated: 2010-11-18
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -21,7 +21,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params)
+        : RenderWindow(Mode, Title, WindowStyle, Params), debug(false)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -75,18 +75,8 @@ namespace sbe
 
         sf::Vector2f speed(0.f, 0.f);
 
-        sf::Music loli;
-
-        if(!loli.OpenFromFile("assets/music/loli.ogg"))
-            std::cout << ":<";
-
-        loli.Play();
-
-        sf::SoundBuffer laserBuffer;
-        if(!laserBuffer.LoadFromFile("assets/sound/durr.wav"))
-            std::cout << ":<";
-
-        sf::Sound laser(laserBuffer);
+        audHandler->setMusic("loli");
+        sf::Sound laser = audHandler->getSound("laser");
 
         while(IsOpened())
         {
@@ -97,23 +87,17 @@ namespace sbe
                 // Close mainWindow : exit
                 if (Event.Type == sf::Event::Closed)
                     Close();
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::Escape))
+                    Close();
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::L))
                 {
-                    if(loli.GetStatus() == sf::Sound::Playing)
-                        loli.Pause();
-                    else
-                        loli.Play();
+                    audHandler->pauseMusic();
                 }
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::B))
                 {
                     testShip->SetImage(img2);
 
-                    loli.Stop();
-
-                    if(!loli.OpenFromFile("assets/music/8bitloli.ogg"))
-                        std::cout << "3:";
-
-                    loli.Play();
+                    audHandler->setMusic("8bitloli");
                 }
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
                     debug = true;
@@ -152,7 +136,7 @@ namespace sbe
                 if(speed.y > 0) speed.y--;
             }
 
-            testShip->Move(speed.x * ElapsedTime * 100, speed.y * ElapsedTime * 100);
+            testShip->Move(speed.x * ElapsedTime * 50, speed.y * ElapsedTime * 50);
 
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
@@ -172,7 +156,7 @@ namespace sbe
                 }
 
                 shot.SetPosition(testShip->GetPosition().x + gunPosX, testShip->GetPosition().y + 58);
-                laser.Play();
+
             }
             else if(counter < 40)
             {

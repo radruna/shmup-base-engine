@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-17
+/ File updated: 2010-11-18
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -14,48 +14,51 @@
 
 #include "filehandler.h" //Abstract base class
 #include "audiohandler.h" //Def
+#include "music.h" //Copyable music, hurr
 
 namespace sbe
 {
-    AudioHandler::AudioHandler()
+    AudioHandler::AudioHandler(int s, int m)
+        : sVol(s), mVol(m), curSong("")
     {
         //Add intro/menu sounds
     }
 
-    void AudioHandler::loadSound(const std::string& soundKey)
+    void AudioHandler::loadSound(const std::string& soundFile)
     {
         /*
             Purpose: Load the sound assets into memory.
         */
-        loadAudio(soundKey, Sound);
+        loadAudio(soundFile, Sound);
     }
 
-    void AudioHandler::loadMusic(const std::string& musicKey)
+    void AudioHandler::loadMusic(const std::string& musicFile)
     {
         /*
             Purpose: Load the sound assets into memory.
         */
-        loadAudio(soundKey, Sound);
+        loadAudio(musicFile, Music);
     }
 
-    void AudioHandler::loadAudio(const std::string& audioKey, LoadType load)
+    void AudioHandler::loadAudio(const std::string& audioFile, LoadType load)
     {
         /*
             Purpose: Load audio assets into memory, and then save them as either sound or music
             based on if it was called by loadSound() or loadMusic().
         */
-        std::cout << std::endl << "Loading assets from: \"" << assetFile << "\"..." << std::endl;
+        std::cout << std::endl << "Loading assets from: \"" << audioFile << "\"..." << std::endl;
         char str[255];
         //Convert string to char array
-        strcpy(str, assetFile.c_str());
+        strcpy(str, audioFile.c_str());
         //Open specified file
-        if(!fileReader.open(str))
+        fileReader.open(str);
+        if(!fileReader)
         {
             //Debug output
             std::cout << "The audio handler was unable to open the specified asset file" << std::endl;
             return;
         }
-
+        //Saving vars
         int spacePos;
         std::string output;
         std::string audioKey;
@@ -75,19 +78,19 @@ namespace sbe
                 audioKey = output.substr(0,spacePos);
                 //Load into memory as sound or memory
                 if(load == Sound)
-                    saveSound(audioKey, audioPath, output);
+                    saveSound(audioKey, audioPath, output, spacePos);
                 else
-                    saveMusic(audioKey, audioPath, output);
+                    saveMusic(audioKey, audioPath, output, spacePos);
             }
         }
 
         //Debug output
-        std::cout << "Finished loading audio from \"" << assetFile << "\"" << std::endl;
+        std::cout << "Finished loading audio from \"" << audioFile << "\"" << std::endl;
         //Close file
         fileReader.close();
     }
 
-    void AudioHandler::saveSound(const std::string& soundKey, const std::string& soundPath, const std::string& output)
+    void AudioHandler::saveSound(std::string& soundKey, std::string& soundPath, std::string& output, int spacePos)
     {
         /*
             Purpose: Save file from loadAudio() as sound.
@@ -100,23 +103,27 @@ namespace sbe
             //Set sound file path
             soundPath = output.substr(spacePos + 1, output.length() - (spacePos + 1));
             //Create soundbuffer to assign sound from file
-            sf::SoundBuffer sndbfr;
+            sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
             //Load sound file
-            if(!sndbfr.LoadFromFile(soundPath))
+            if(!sndbfr->LoadFromFile(soundPath))
                 std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Unable to open sound file" << std::endl;
             else
             {
                 //Create sound for saving to memory and assign it the loaded soundbuffer
-                sf::Sound snd(sndbfr);
+                sf::Sound snd(*sndbfr);
+                //Set current volume, 100 at default
+                snd.SetVolume(sVol);
                 //Add to soundList
-                soundList[soundKey] = sndbfr;
+                soundList[soundKey] = snd;
                 //Debug output
                 std::cout << "Loaded sound \"" << soundKey << "\" with filepath \"" << soundPath << "\"" << std::endl;
             }
+
+            delete sndbfr;
         }
     }
 
-    void AudioHandler::saveMusic(const std::string& musicKey, const std::string& musicPath, const std::string& output)
+    void AudioHandler::saveMusic(std::string& musicKey, std::string& musicPath, std::string& output, int spacePos)
     {
         /*
             Purpose: Save file from loadAudio() as music.
@@ -129,33 +136,116 @@ namespace sbe
             //Set music file path
             musicPath = output.substr(spacePos + 1, output.length() - (spacePos + 1));
             //Create music to assign from file
-            sf::Music msc;
+            sbe::Music *msc = new sbe::Music();
             //Load music file
-            if(!msc.LoadFromFile(musicPath))
+            if(!msc->OpenFromFile(musicPath))
                 std::cout << "Failed to load music \"" << musicPath << "\". Reason: Unable to open music file" << std::endl;
             else
             {
+                //Set current volume, 100 at default
+                msc->SetVolume(mVol);
                 //Add to musicList
-                musicList[musicKey] = msc;
+                musicList.insert(std::pair<std::string, sbe::Music> (musicKey, (*msc)));
+                //String for quicker access
+                curSong = musicKey;
                 //Debug output
                 std::cout << "Loaded music \"" << musicKey << "\" with filepath \"" << musicPath << "\"" << std::endl;
             }
+
+            delete msc;
         }
     }
 
     sf::Sound AudioHandler::getSound(const std::string& soundKey)
     {
+        /*
+            Purpose: Return a sound clip which can then be copied or played.
+        */
         sf::Sound snd;
 
         if(soundList.find(soundKey) == soundList.end())
         {
-            std::cout << "Failed to get sound \"" << soundKey << "\""".
-            return;
+            std::cout << "Failed to get sound \"" << soundKey << "\"." << std::endl;
+            return snd;
         }
         else
-        {
+            snd = soundList[soundKey];
 
+        return snd;
+    }
+
+    void AudioHandler::setVolume(short v)
+    {
+        //Set master volume
+        setSFXVol(v);
+        setMusicVol(v);
+    }
+
+    void AudioHandler::setSFXVol(short s)
+    {
+        //Set SFX volume
+        sVol = 100;
+
+        soundMap::iterator it;
+
+        if(!soundList.empty())
+        {
+            for(it = soundList.begin(); it != soundList.end(); it++)
+                it->second.SetVolume(s);
+        }
+    }
+
+    void AudioHandler::setMusicVol(short m)
+    {
+        //Set music volume
+        mVol = 100;
+
+        musicMap::iterator it;
+
+        if(!musicList.empty())
+        {
+            for(it = musicList.begin(); it != musicList.end(); it++)
+                it->second.SetVolume(m);
+        }
+    }
+
+    bool AudioHandler::setMusic(const std::string& musicKey)
+    {
+        //Set current music playing.
+        stopMusic();
+
+        if(musicList.find(musicKey) == musicList.end())
+        {
+            std::cout << "Music not found";
+            return 1;
         }
 
+        musicList[musicKey].Initialize(2, 44100);
+        musicList[musicKey].Play();
+        curSong = musicKey;
+        std::cout << "Music \"" << musicKey << "\" now playing.";
+
+        return 0;
+    }
+
+    void AudioHandler::stopMusic()
+    {
+        //Stop current music.
+        if(musicList[curSong].GetStatus() != sf::Sound::Stopped)
+            musicList[curSong].Stop();
+    }
+
+    void AudioHandler::pauseMusic()
+    {
+        //Pause/play current music
+        if(musicList[curSong].GetStatus() != sf::Sound::Playing)
+            musicList[curSong].Play();
+        else
+            musicList[curSong].Pause();
+    }
+
+    void AudioHandler::setMusicLoop(bool loop)
+    {
+        musicList[curSong].SetLoop(loop);
     }
 }
