@@ -1,5 +1,4 @@
-testShip assets/image/kawaii.png
-logo01 assets/image/cb.bmp
-testship assets/image/poop.bmp
-kawaiiShip assets/image/8bjet.png
-testShip assets/image/poo.bmp
+testShip		assets/image/kawaii.png		//Very kawaii head
+logo01			assets/image/cb.bmp			//Code Blocks logo
+kawaiiShip		assets/image/8bjet.png		//8bit jet
+kawaiiShip2		assets/image/8bjet2.png		//8bit jet
