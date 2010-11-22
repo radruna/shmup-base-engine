@@ -59,8 +59,8 @@
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\music.cpp" />
 		<Unit filename="src\music.h" />
-		<Unit filename="src\particlehandler.cpp" />
-		<Unit filename="src\particlehandler.h" />
+		<Unit filename="src\particlesystem.cpp" />
+		<Unit filename="src\particlesystem.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>
