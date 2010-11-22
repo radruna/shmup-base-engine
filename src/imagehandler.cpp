@@ -19,7 +19,7 @@ namespace sbe
 {
     ImageHandler::ImageHandler()
     {
-        //Load intro or menu stuff
+
     }
 
     //Load images listed in the asset file
