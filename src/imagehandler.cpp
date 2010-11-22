@@ -51,6 +51,14 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
+             //Check line for comment
+            if(output.find("//") != std::string::npos)
+            {
+                 //Find comment
+                commentPos = output.find("//");
+                //Cut comment
+                output = output.substr(0,commentPos);
+            }
             //Check if line is empty
             if(output != "")
             {
@@ -64,20 +72,13 @@ namespace sbe
                 }
 
                 //Find first space
-                if(output.find(' ' ) == std::string::npos)
+                if(output.find(' ') == std::string::npos)
                         //If not found
                         std::cout << "Incorrect asset on line " << lineVar << " in file \"" << assetFile << "\"" << std::endl;
                 else
                 {
                     //Find first space
                     spacePos = output.find (' ');
-                    if(output.find("//") != std::string::npos)
-                    {
-                         //Find comment
-                        commentPos = output.find("//");
-                        //Cut comment
-                        output = output.substr(0,commentPos);
-                    }
 
                     //Set image key
                     imageKey = output.substr(0,spacePos);

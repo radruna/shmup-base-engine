@@ -73,6 +73,14 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
+             //Check line for comment
+            if(output.find("//") != std::string::npos)
+            {
+                 //Find comment
+                commentPos = output.find("//");
+                //Cut comment
+                output = output.substr(0,commentPos);
+            }
             //Check if line is empty
             if(output != "")
             {
@@ -95,13 +103,6 @@ namespace sbe
                 {
                     //Find first space
                     spacePos = output.find (' ');
-                    if(output.find("//") != std::string::npos)
-                    {
-                         //Find comment
-                        commentPos = output.find("//");
-                        //Cut comment
-                        output = output.substr(0,commentPos);
-                    }
 
                     //Set audio key
                     audioKey = output.substr(0,spacePos);

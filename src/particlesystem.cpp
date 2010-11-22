@@ -4,6 +4,7 @@
 / File created: 2010-11-16
 / File updated: 2010-11-22
 / License: GPLv3
+/ TODO: Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
 #include <iostream> //Debug output
 #include <fstream>   //Read script files
@@ -50,6 +51,14 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
+            //Check line for comment
+            if(output.find("//") != std::string::npos)
+            {
+                 //Find comment
+                commentPos = output.find("//");
+                //Cut comment
+                output = output.substr(0,commentPos);
+            }
             //Check if line is empty
             if(output != "")
             {
@@ -70,13 +79,6 @@ namespace sbe
                 {
                     //Find first space
                     spacePos = output.find (' ');
-                    if(output.find("//") != std::string::npos)
-                    {
-                         //Find comment
-                        commentPos = output.find("//");
-                        //Cut comment
-                        output = output.substr(0,commentPos);
-                    }
 
                     //Set parameter
                     parameterKey = output.substr(0,spacePos);
@@ -88,16 +90,14 @@ namespace sbe
                     //Search and remove any spaces
                     FileHandler::stringStripSpace(parameterValue);
 
-                    //Search particle parameter list
-                    if(parameterList.find(parameterKey) != parameterList.end())
-                        std::cout << "Failed to load image \"" << parameterValue << "\". Reason: Image key already in system" << std::endl;
-                    else
-                    {
-                        //Add to parameterList
-                        parameterList[parameterKey] = parameterValue;
-                        //Debug output
-                        std::cout << "Loaded particle \"" << parameterKey << "\" with filepath \"" << parameterValue << "\"" << std::endl;
-                    }
+                    //Assign parameter value based on the type of parameter. There's no fancier way than just looping through all possible cases so DEAL WITH IT
+                    if(parameterKey == "name")
+                        name = parameterValue;
+                    if(parameterKey == "sprite")
+                        spriteName = parameterValue;
+                    if(parameterKey == "size")
+                        size = atoi(parameterValue.c_str());    //Convert string to int
+
                 }
             }
         }
