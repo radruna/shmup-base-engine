@@ -60,10 +60,6 @@ namespace sbe
             return;
         }
         //Saving vars
-        int tabPos;
-        int spacePos;
-        int commentPos;
-        int lineVar = 0;
         std::string output;
         std::string audioKey;
         std::string audioPath;
@@ -73,54 +69,15 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
-             //Check line for comment
-            if(output.find("//") != std::string::npos)
+            //Check if line is empty and perform string operation
+            if(output != "" && strReadLine(output,audioKey,audioPath) != -1)
             {
-                 //Find comment
-                commentPos = output.find("//");
-                //Cut comment
-                output = output.substr(0,commentPos);
-            }
-            //Check if line is empty
-            if(output != "")
-            {
-                //Register new line
-                lineVar++;
-                //Replace tabs with spaces
-                while(output.find('\t') != std::string::npos)
-                {
-                    tabPos = output.find('\t');
-                    output.replace(tabPos,1," ");
-                }
-
-                //Find first space
-                if(output.find(' ' ) == std::string::npos)
-                {
-                    //If not found
-                    std::cout << "Incorrect audio file on line " << lineVar << " in file \"" << audioFile << "\"" << std::endl;
-                }
+                //Load into memory as sound or music
+                //TODO (Liag#1#): Get this to work, currently the audio doesn't load at all, but its attributes does.
+                if(load == Sound)
+                    saveSound(audioKey, audioPath, output);
                 else
-                {
-                    //Find first space
-                    spacePos = output.find (' ');
-
-                    //Set audio key
-                    audioKey = output.substr(0,spacePos);
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(audioKey);
-
-                    //Set audio path
-                    audioPath = output.substr(audioKey.length(),output.length());
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(audioPath);
-
-                    //Load into memory as sound or music
-                    //TODO (Liag#1#): Get this to work, currently the audio doesn't load at all, but its attributes does.
-                    if(load == Sound)
-                        saveSound(audioKey, audioPath, output);
-                    else
-                        saveMusic(audioKey, audioPath, output);
-                }
+                    saveMusic(audioKey, audioPath, output);
             }
         }
 

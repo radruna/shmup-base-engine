@@ -37,11 +37,7 @@ namespace sbe
             std::cout << "The image handler was unable to open the specified asset file" << std::endl;
             return;
         }
-
-        int tabPos;
-        int spacePos;
-        int commentPos;
-        int lineVar = 0;
+        //Saving vars
         std::string output;
         std::string imageKey;
         std::string imagePath;
@@ -51,67 +47,30 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
-             //Check line for comment
-            if(output.find("//") != std::string::npos)
+            //Check if line is empty and perform string operation
+            if(output != "" && strReadLine(output,imageKey,imagePath) != -1)
             {
-                 //Find comment
-                commentPos = output.find("//");
-                //Cut comment
-                output = output.substr(0,commentPos);
-            }
-            //Check if line is empty
-            if(output != "")
-            {
-                //Register new line
-                lineVar++;
-                //Replace tabs with spaces
-                while(output.find('\t') != std::string::npos)
-                {
-                    tabPos = output.find('\t');
-                    output.replace(tabPos,1," ");
-                }
-
-                //Find first space
-                if(output.find(' ') == std::string::npos)
-                        //If not found
-                        std::cout << "Incorrect asset on line " << lineVar << " in file \"" << assetFile << "\"" << std::endl;
+                //Search imageList
+                if(imageList.find(imageKey) != imageList.end())
+                    std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
                 else
                 {
-                    //Find first space
-                    spacePos = output.find (' ');
-
-                    //Set image key
-                    imageKey = output.substr(0,spacePos);
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(imageKey);
-
-                    //Set image path
-                    imagePath = output.substr(imageKey.length(),output.length());
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(imagePath);
-
-                    //Search imageList
-                    if(imageList.find(imageKey) != imageList.end())
-                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+                    sf::Image img;
+                    //Load image file
+                    if(!img.LoadFromFile(imagePath))
+                    {
+                        /*
+                        //This is already handled by SFML
+                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
+                        */
+                        return;
+                    }
                     else
                     {
-                        sf::Image img;
-                        //Load image file
-                        if(!img.LoadFromFile(imagePath))
-                        {
-                            /*
-                            //This is already handled by SFML
-                            std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
-                            */
-                            return;
-                        }
-                        else
-                        {
-                            //Add to imageList
-                            imageList[imageKey] = img;
-                            //Debug output
-                            std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
-                        }
+                        //Add to imageList
+                        imageList[imageKey] = img;
+                        //Debug output
+                        std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
                     }
                 }
             }

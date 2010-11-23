@@ -4,7 +4,7 @@
 / File created: 2010-11-16
 / File updated: 2010-11-22
 / License: GPLv3
-/ TODO: Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
+//TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
 #include <iostream> //Debug output
 #include <fstream>   //Read script files
@@ -51,54 +51,17 @@ namespace sbe
         {
             //Read line
             getline(fileReader,output);
-            //Check line for comment
-            if(output.find("//") != std::string::npos)
+            //Check if line is empty and perform string operation
+            if(output != "" && strReadLine(output,parameterKey,parameterValue) != -1)
             {
-                 //Find comment
-                commentPos = output.find("//");
-                //Cut comment
-                output = output.substr(0,commentPos);
-            }
-            //Check if line is empty
-            if(output != "")
-            {
-                //Register new line
-                lineVar++;
-                //Replace tabs with spaces
-                while(output.find('\t') != std::string::npos)
-                {
-                    tabPos = output.find('\t');
-                    output.replace(tabPos,1," ");
-                }
+                //Assign parameter value based on the type of parameter. There's no fancier way than just looping through all possible cases so DEAL WITH IT
+                if(parameterKey == "name")
+                    name = parameterValue;
+                if(parameterKey == "sprite")
+                    spriteName = parameterValue;
+                if(parameterKey == "size")
+                    size = atoi(parameterValue.c_str());    //Convert string to int
 
-                //Find first space
-                if(output.find(' ' ) == std::string::npos)
-                        //If not found
-                        std::cout << "Incorrect asset on line " << lineVar << " in file \"" << particleSystemFile << "\"" << std::endl;
-                else
-                {
-                    //Find first space
-                    spacePos = output.find (' ');
-
-                    //Set parameter
-                    parameterKey = output.substr(0,spacePos);
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(parameterKey);
-
-                    //Set parameter value
-                    parameterValue = output.substr(parameterKey.length(),output.length());
-                    //Search and remove any spaces
-                    FileHandler::stringStripSpace(parameterValue);
-
-                    //Assign parameter value based on the type of parameter. There's no fancier way than just looping through all possible cases so DEAL WITH IT
-                    if(parameterKey == "name")
-                        name = parameterValue;
-                    if(parameterKey == "sprite")
-                        spriteName = parameterValue;
-                    if(parameterKey == "size")
-                        size = atoi(parameterValue.c_str());    //Convert string to int
-
-                }
             }
         }
         //Debug output

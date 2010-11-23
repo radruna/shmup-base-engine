@@ -43,7 +43,7 @@ namespace sbe
             int size;
         private:
             //Parameter list
-            std::map<std::string, std::string> parameterList;   //PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP
+            std::map<std::string, std::string> parameterList;   //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP
     };
 }
 
