@@ -115,6 +115,7 @@ namespace sbe
                     FileHandler::stringStripSpace(audioPath);
 
                     //Load into memory as sound or music
+                    //TODO (Liag#1#): Get this to work, currently the audio doesn't load at all, but its attributes does.
                     if(load == Sound)
                         saveSound(audioKey, audioPath, output);
                     else
