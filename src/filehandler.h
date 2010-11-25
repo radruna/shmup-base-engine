@@ -1,8 +1,8 @@
 /*
 / Abstract file handler class
-/ Author: Victor RÃ¥dmark, Felix Westin
+/ Author: Victor Rådmark, Felix Westin
 / File created: 2010-11-17
-/ File updated: 2010-11-17
+/ File updated: 2010-11-25
 / License: GPLv3
 */
 #ifndef FILEHANDLER_H_INCLUDED
@@ -27,7 +27,7 @@ namespace sbe
             //Search and remove any spaces
             void strStripSpace(std::string& stripper);
             //Read line and output two strings
-            int strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
+            bool strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
 
         protected:
             std::ifstream fileReader;

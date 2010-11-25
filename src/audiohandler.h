@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-18
+/ File updated: 2010-11-25
 / License: GPLv3
 */
 #ifndef AUDIOHANDLER_H_INCLUDED
@@ -17,8 +17,8 @@
 #include "filehandler.h" //Abstract base class
 #include "music.h" //Copyable music
 
-typedef std::map<std::string, sf::Sound> soundMap;
-typedef std::map<std::string, sbe::Music> musicMap;
+typedef std::map<std::string, sf::SoundBuffer> soundMap;
+typedef std::map<std::string, std::string> musicMap;
 
 namespace sbe
 {
@@ -63,21 +63,26 @@ namespace sbe
                 unloadMusic();
             }
             //Get sound
-            sf::Sound getSound(const std::string& soundKey);
+            sf::SoundBuffer getSound(const std::string& soundKey);
+            //Get music path
+            std::string getMusic(const std::string& musicKey)
+            {
+                return musicList[musicKey];
+            }
             //Set master volume
             void setVolume(short v = 100);
             //Set SFX volume
             void setSFXVol(short s = 100);
             //Set music volume
             void setMusicVol(short m = 100);
-            //Set current music playing.
+            /*//Set current music playing.
             bool setMusic(const std::string& strM);
             //Stop current music.
             void stopMusic();
             //Pause/play current music
             void pauseMusic();
             //Set music to loop
-            void setMusicLoop(bool loop);
+            void setMusicLoop(bool loop);*/
             void getAudioList();
 
         private:
@@ -88,7 +93,7 @@ namespace sbe
 
             int sVol,
                 mVol;
-            std::string curSong;
+            //std::string curSong;
     };
 }
 

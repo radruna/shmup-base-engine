@@ -1,8 +1,8 @@
 /*
 / Abstract file handler class
-/ Author: Victor RÃ¥dmark, Felix Westin
+/ Author: Victor Rådmark, Felix Westin
 / File created: 2010-11-17
-/ File updated: 2010-11-17
+/ File updated: 2010-11-25
 / License: GPLv3
 */
 
@@ -32,8 +32,11 @@ namespace sbe
         }
     }
     //Read line and output two strings
-    int FileHandler::strReadLine(std::string& strSource, std::string& strKey, std::string& strValue)
+    bool FileHandler::strReadLine(std::string& strSource, std::string& strKey, std::string& strValue)
     {
+
+        if(strSource == "")
+            return false;
 
         int tabPos;
         int spacePos;
@@ -59,7 +62,7 @@ namespace sbe
 
         //Find first space
         if(strSource.find(' ') == std::string::npos)
-                return -1;
+            return false;
         else
         {
             //Find first space
@@ -74,6 +77,8 @@ namespace sbe
             strValue = strSource.substr(strKey.length(),strSource.length());
             //Search and remove any spaces
             FileHandler::strStripSpace(strValue);
+
+            return true;
         }
 
     }

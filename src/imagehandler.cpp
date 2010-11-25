@@ -2,7 +2,7 @@
 / Image handler class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-18
+/ File updated: 2010-11-25
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -48,7 +48,8 @@ namespace sbe
             //Read line
             getline(fileReader,output);
             //Check if line is empty and perform string operation
-            if(output != "" && strReadLine(output,imageKey,imagePath) != -1)
+
+            if(strReadLine(output,imageKey,imagePath))
             {
                 //Search imageList
                 if(imageList.find(imageKey) != imageList.end())
@@ -63,7 +64,6 @@ namespace sbe
                         //This is already handled by SFML
                         std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
                         */
-                        return;
                     }
                     else
                     {

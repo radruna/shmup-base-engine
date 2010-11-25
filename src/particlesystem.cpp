@@ -38,10 +38,6 @@ namespace sbe
             return;
         }
 
-        int tabPos;
-        int spacePos;
-        int commentPos;
-        int lineVar = 0;
         std::string output;
         std::string parameterKey;
         std::string parameterValue;
@@ -52,7 +48,7 @@ namespace sbe
             //Read line
             getline(fileReader,output);
             //Check if line is empty and perform string operation
-            if(output != "" && strReadLine(output,parameterKey,parameterValue) != -1)
+            if(strReadLine(output,parameterKey,parameterValue))
             {
                 //Assign parameter value based on the type of parameter. There's no fancier way than just looping through all possible cases so DEAL WITH IT
                 if(parameterKey == "name")

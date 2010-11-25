@@ -21,7 +21,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), debug(false)
+        : RenderWindow(Mode, Title, WindowStyle, Params), debug(false), res(1024, 768)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -68,21 +68,21 @@ namespace sbe
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
-        double speedVar = 5;
+        double speedVar = 1;
+        double speedVar2;
         int counter = 0;
         bool gun = true;
         int gunPosX = 0;
 
         sf::Vector2f speed(0.f, 0.f);
 
-        /*audHandler->setMusic("loli");
-        sf::Sound laser = audHandler->getSound("laser");*/
-        sf::Music loli;
-        loli.OpenFromFile("assets/music/loli.ogg");
+        //audHandler->setMusic("loli");
+        sf::SoundBuffer lsrbfr = audHandler->getSound("laser");
+        sf::Sound laser(lsrbfr);
+
+        sbe::Music loli;
+        loli.OpenFromFile(audHandler->getMusic("loli"));
         loli.Play();
-        sf::SoundBuffer lsrBfr;
-        lsrBfr.LoadFromFile("assets/sound/durr.wav");
-        sf::Sound laser(lsrBfr);
 
         while(IsOpened())
         {
@@ -97,7 +97,10 @@ namespace sbe
                     Close();
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::L))
                 {
-                    audHandler->pauseMusic();
+                    if(loli.GetStatus() != sf::Sound::Playing)
+                        loli.Play();
+                    else
+                        loli.Pause();
                 }
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::B))
                 {
@@ -105,9 +108,11 @@ namespace sbe
 
                     //audHandler->setMusic("8bitloli");
                     loli.Stop();
-                    loli.OpenFromFile("assets/music/8bitloli.ogg");
+                    loli.OpenFromFile(audHandler->getMusic("8bitloli"));
                     loli.Play();
                 }
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
+                    testShip->SetPosition(res.x / 2, res.y / 2);
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
                     debug = true;
             }
@@ -116,17 +121,9 @@ namespace sbe
             float ElapsedTime = GetFrameTime();
             //Process inputs, to be replaced by evtHandler
             if(GetInput().IsKeyDown(sf::Key::LShift))
-                speedVar = 1;
+                speedVar2 = 30;
             else
-                speedVar = 10;
-
-            // Move the sprite
-            /*
-            if (GetInput().IsKeyDown(sf::Key::Left))  testShip->Move((-speed - (acc++ * 10)) * ElapsedTime, 0);
-            if (GetInput().IsKeyDown(sf::Key::Right)) testShip->Move((speed + (acc++ * 10)) * ElapsedTime, 0);
-            if (GetInput().IsKeyDown(sf::Key::Up))    testShip->Move(0, (-speed - (acc++ * 10)) * ElapsedTime);
-            if (GetInput().IsKeyDown(sf::Key::Down))  testShip->Move(0,  (speed + (acc++ * 10)) * ElapsedTime);
-            */
+                speedVar2 = 65;
 
             if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15){
                 speed.x -= speedVar;
@@ -145,7 +142,7 @@ namespace sbe
                 if(speed.y > 0) speed.y--;
             }
 
-            testShip->Move(speed.x * ElapsedTime * 50, speed.y * ElapsedTime * 50);
+            testShip->Move(speed.x * ElapsedTime * speedVar2, speed.y * ElapsedTime * speedVar2);
 
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {

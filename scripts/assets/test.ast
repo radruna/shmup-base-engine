@@ -1,4 +1,4 @@
 testShip		assets/image/kawaii.png		//Very kawaii head
-logo01			assets/image/cb.bmp			//Code Blocks logo
+logo01			assets/image/cb.bmp		//Code Blocks logo
 kawaiiShip		assets/image/8bjet.png		//8bit jet
-smoke_01_img	assets/image/smoke01.png	//Test smoke sprite to be used with particle system
+smoke_01_img		assets/image/smoke01.png	//Test smoke sprite to be used with particle system
