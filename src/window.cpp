@@ -21,7 +21,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), debug(false), res(1024, 768)
+        : RenderWindow(Mode, Title, WindowStyle, Params), res(1024, 768), debug(false)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -111,7 +111,7 @@ namespace sbe
                     loli.OpenFromFile(audHandler->getMusic("8bitloli"));
                     loli.Play();
                 }
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
+                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::I))
                     testShip->SetPosition(res.x / 2, res.y / 2);
                 if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
                     debug = true;

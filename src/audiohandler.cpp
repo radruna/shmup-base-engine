@@ -73,7 +73,6 @@ namespace sbe
             if(strReadLine(output, audioKey, audioPath))
             {
                 //Load into memory as sound or music
-                //TODO (Liag#1#): Get this to work, currently the audio doesn't load at all, but its attributes does.
                 if(load == Sound)
                     saveSound(audioKey, audioPath, output);
                 else
@@ -98,17 +97,19 @@ namespace sbe
         else
         {
             //Create soundbuffer to assign sound from file
-            sf::SoundBuffer sndbfr;
+            sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
             //Load sound file
-            if(!sndbfr.LoadFromFile(soundPath))
+            if(!(sndbfr->LoadFromFile(soundPath)))
                 std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Unable to open sound file" << std::endl;
             else
             {
                 //Add to soundList
-                soundList[soundKey] = sndbfr;
+                soundList[soundKey] = *sndbfr;
                 //Debug output
                 std::cout << "Loaded sound \"" << soundKey << "\" with filepath \"" << soundPath << "\"" << std::endl;
             }
+
+            delete sndbfr;
         }
     }
 
@@ -123,9 +124,9 @@ namespace sbe
         else
         {
             //Create music to test from filepath
-            sbe::Music msc;
+            sbe::Music *msc = new sbe::Music();
             //Load music file
-            if(!msc.OpenFromFile(musicPath))
+            if(!(msc->OpenFromFile(musicPath)))
                 std::cout << "Failed to load music \"" << musicPath << "\". Reason: Unable to open music file" << std::endl;
             else
             {
@@ -134,6 +135,8 @@ namespace sbe
                 //Debug output
                 std::cout << "Loaded music \"" << musicKey << "\" with filepath \"" << musicPath << "\"" << std::endl;
             }
+
+            delete msc;
         }
     }
 
