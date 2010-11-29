@@ -2,7 +2,7 @@
 / Copyable music
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-18
+/ File updated: 2010-11-29
 / License: GPLv3
 */
 #ifndef MUSIC_H_INCLUDED
@@ -28,31 +28,31 @@ namespace sbe
 
             //Reimplement stuff
             bool OpenFromFile(const std::string& Filename);
-            void SetVolume(float Volume)
+            inline void SetVolume(float Volume)
             {
                 sf::Music::SetVolume(Volume);
             }
-            void Play()
+            inline void Play()
             {
                 sf::Music::Play();
             }
-            sf::Sound::Status GetStatus() const
+            inline sf::Sound::Status GetStatus() const
             {
                 return sf::SoundStream::GetStatus();
             }
-            void Stop()
+            inline void Stop()
             {
                 sf::SoundStream::Stop();
             }
-            void Pause()
+            inline void Pause()
             {
                 sf::SoundStream::Pause();
             }
-            void SetLoop(bool Loop)
+            inline void SetLoop(bool Loop)
             {
                 sf::SoundStream::SetLoop(Loop);
             }
-            void Initialize(unsigned int ChannelsCount, unsigned int SampleRate)
+            inline void Initialize(unsigned int ChannelsCount, unsigned int SampleRate)
             {
                 sf::Music::Initialize(ChannelsCount, SampleRate);
             }

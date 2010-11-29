@@ -2,7 +2,7 @@
 / Image handler class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-25
+/ File updated: 2010-11-29
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -26,11 +26,8 @@ namespace sbe
     void ImageHandler::loadAssets(const std::string& assetFile)
     {
         std::cout << std::endl << "Loading assets from: \"" << assetFile << "\"..." << std::endl;
-        char str[255];
-        //Convert string to char array
-        strcpy(str, assetFile.c_str());
         //Open specified file
-        fileReader.open(str);
+        fileReader.open(assetFile.c_str());
         if(!fileReader)
         {
             //Debug output

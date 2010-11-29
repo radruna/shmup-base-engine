@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-25
+/ File updated: 2010-11-29
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -48,11 +48,8 @@ namespace sbe
             based on if it was called by loadSound() or loadMusic().
         */
         std::cout << std::endl << "Loading assets from: \"" << audioFile << "\"..." << std::endl;
-        char str[255];
-        //Convert string to char array
-        strcpy(str, audioFile.c_str());
         //Open specified file
-        fileReader.open(str);
+        fileReader.open(audioFile.c_str());
         if(!fileReader)
         {
             //Debug output

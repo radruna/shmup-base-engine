@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-25
+/ File updated: 2010-11-29
 / License: GPLv3
 */
 #ifndef AUDIOHANDLER_H_INCLUDED
@@ -49,15 +49,15 @@ namespace sbe
             void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output);
             void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output);
             //Unload all sound
-            void unloadSound()
+            inline void unloadSound()
             {
                 soundList.clear();
             }
-            void unloadMusic()
+            inline void unloadMusic()
             {
                 musicList.clear();
             }
-            void unloadAudio()
+            inline void unloadAudio()
             {
                 unloadSound();
                 unloadMusic();
@@ -65,7 +65,7 @@ namespace sbe
             //Get sound
             sf::SoundBuffer getSound(const std::string& soundKey);
             //Get music path
-            std::string getMusic(const std::string& musicKey)
+            inline std::string getMusic(const std::string& musicKey)
             {
                 return musicList[musicKey];
             }

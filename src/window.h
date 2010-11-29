@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-11-17
+/ File updated: 2010-11-29
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -14,6 +14,7 @@
 
 #include <SFML/Graphics.hpp> //Pretty much everything else
 
+#include "filehandler.h" //Loading config files
 #include "imagehandler.h" //Loading images
 #include "audiohandler.h" //Playing sound/music
 //#include "eventhandler.h" //Not done yet
@@ -21,7 +22,7 @@
 
 namespace sbe
 {
-    class Window : public sf::RenderWindow
+    class Window : public sf::RenderWindow, public sbe::FileHandler
     {
         /*
             The Window class is simply an extension of the default RenderWindow class that acts as the container for the rest of the game.
@@ -35,6 +36,7 @@ namespace sbe
             ~Window();
 
             int exec(); //Main game loop
+            void readConfig(const std::string& cfgFile = "settings.cfg");
         private:
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
