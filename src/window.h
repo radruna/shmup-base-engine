@@ -14,7 +14,6 @@
 
 #include <SFML/Graphics.hpp> //Pretty much everything else
 
-#include "filehandler.h" //Loading config files
 #include "imagehandler.h" //Loading images
 #include "audiohandler.h" //Playing sound/music
 //#include "eventhandler.h" //Not done yet
@@ -22,7 +21,7 @@
 
 namespace sbe
 {
-    class Window : public sf::RenderWindow, public sbe::FileHandler
+    class Window : public sf::RenderWindow
     {
         /*
             The Window class is simply an extension of the default RenderWindow class that acts as the container for the rest of the game.
@@ -36,7 +35,6 @@ namespace sbe
             ~Window();
 
             int exec(); //Main game loop
-            void readConfig(const std::string& cfgFile = "settings.cfg");
         private:
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;

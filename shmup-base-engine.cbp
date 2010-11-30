@@ -52,6 +52,10 @@
 		<Unit filename="scripts\assets\test.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
+		<Unit filename="src\configreader.cpp" />
+		<Unit filename="src\configreader.h" />
+		<Unit filename="src\eventhandler.cpp" />
+		<Unit filename="src\eventhandler.h" />
 		<Unit filename="src\filehandler.cpp" />
 		<Unit filename="src\filehandler.h" />
 		<Unit filename="src\imagehandler.cpp" />

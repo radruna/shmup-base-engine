@@ -8,6 +8,7 @@
 #ifndef FILEHANDLER_H_INCLUDED
 #define FILEHANDLER_H_INCLUDED
 
+#include <map>
 #include <fstream> //File I/O without the O
 
 namespace sbe

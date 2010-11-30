@@ -1,3 +1,40 @@
-name			smoke_01_p
-sprite			smoke_01_img
-size			1
+//Generic parameters
+name					smoke_01_p
+sprite_name					smoke_01_img
+emission_type				1
+emission_rate				5
+alpha					120
+
+//Lifespan stuff
+lifespan				5
+lifespan_random				1
+lifespan_random_min			4
+lifespan_random_max			6
+
+//Size and stuff
+size					2
+size_random				0
+size_random_min				1
+size_random_max				3
+
+//Rotation parameters
+rotation_rate				50
+rotation_random				1
+
+//Fade thingies
+fade_in					1
+fade_in_time				2
+fade_out				1
+fade_out_time				5
+
+//Size modification
+size_mod_scalar_rate			0
+size_mod_oscillate_freq			2
+size_mod_oscillate_amplitude		120
+size_mod_oscillate_offset		120
+
+//Alpha modification
+alpha_mod_scalar_rate			-0.1
+alpha_mod_oscillate_freq		2
+alpha_mod_oscillate_amplitude		120
+alpha_mod_oscillate_offset		120

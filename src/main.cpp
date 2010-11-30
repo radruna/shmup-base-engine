@@ -8,11 +8,25 @@
 #include <SFML/Graphics.hpp>
 
 #include "window.h"
+#include "configreader.h"
 
 int main()
 {
-    // Create the main window
-    sbe::Window mainWindow(sf::VideoMode(1024, 768), "SBE Window");
+    //Create the config reader
+    sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
 
-    return mainWindow.exec();
+    sbe::Window *mainWindow;
+
+    if(cfgReader->getFS())
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), "SBE Window", sf::Style::Fullscreen);
+    else
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), "SBE Window");
+    // Create the main window
+
+
+    mainWindow->exec();
+
+    delete mainWindow;
+
+    return 0;
 }

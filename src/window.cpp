@@ -8,13 +8,11 @@
 #include <iostream> //Debug output
 #include <string> //For strings
 #include <map> //For mapping objects
-#include <cstdlib> //For converting strings
 
 #include <SFML/Graphics.hpp> //Graphics and everything above
 #include <SFML/Audio.hpp> //hurr durr
 
 #include "window.h" //Class def
-#include "filehandler.h" //Config stuff
 #include "imagehandler.h" //For loading images
 #include "audiohandler.h" //For loading and playing sound and music
 //#include "eventhandler.h" //Not done yet
@@ -23,7 +21,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), debug(false)
+        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), debug(false)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -56,7 +54,6 @@ namespace sbe
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
-        readConfig();
         imgHandler->loadAssets("scripts/assets/test.ast");
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
@@ -193,46 +190,5 @@ namespace sbe
         }
 
         return 0;
-    }
-
-    void Window::readConfig(const std::string& cfgFile)
-    {
-        /*
-            Purpose: Read a config file.
-        */
-        std::cout << std::endl << "Loading settings from: \"" << cfgFile << "\"..." << std::endl;
-        //Open specified file
-        fileReader.open(cfgFile.c_str());
-        if(!fileReader)
-        {
-            //Debug output
-            std::cout << "The config reader was unable to open the specified configuration file" << std::endl;
-            return;
-        }
-        //Saving vars
-        std::string output;
-        std::string setting;
-        std::string value;
-
-        //Loop until end of file
-        while(!fileReader.eof())
-        {
-            //Read line
-            getline(fileReader,output);
-            //Check if line is empty and perform string operation
-
-            if(strReadLine(output,setting,value))
-            {
-                //TODO (#
-                if(setting == "width")
-                    res.x = atoi(value.c_str());
-                else if(setting == "height")
-                    res.y = atoi(value.c_str());
-            }
-        }
-        //Debug output
-        std::cout << "Finished loading settings from \"" << cfgFile << "\"" << std::endl;
-        //Close file
-        fileReader.close();
     }
 }
