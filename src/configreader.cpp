@@ -17,6 +17,7 @@ namespace sbe
     ConfigReader::ConfigReader()
         : fs(false)
     {
+        title = "SBE Window";
         readConfig();
     }
 
@@ -40,13 +41,10 @@ namespace sbe
         std::string value;
 
         //Loop until end of file
-        while(!fileReader.eof())
+        while(getline(fileReader,output))
         {
-            //Read line
-            getline(fileReader,output);
             //Check if line is empty and perform string operation
-
-            if(strReadLine(output,setting,value))
+            if(strReadLine(output, setting, value))
             {
                 if(setting == "width")
                     res.x = atoi(value.c_str());
@@ -54,6 +52,8 @@ namespace sbe
                     res.y = atoi(value.c_str());
                 else if(setting == "fullscreen")
                     fs = true;
+                else if(setting == "title")
+                    title = value;
             }
         }
         //Debug output

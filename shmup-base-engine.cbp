@@ -54,6 +54,8 @@
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\configreader.cpp" />
 		<Unit filename="src\configreader.h" />
+		<Unit filename="src\entity.cpp" />
+		<Unit filename="src\entity.h" />
 		<Unit filename="src\eventhandler.cpp" />
 		<Unit filename="src\eventhandler.h" />
 		<Unit filename="src\filehandler.cpp" />
@@ -63,6 +65,8 @@
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\music.cpp" />
 		<Unit filename="src\music.h" />
+		<Unit filename="src\particle.cpp" />
+		<Unit filename="src\particle.h" />
 		<Unit filename="src\particlesystem.cpp" />
 		<Unit filename="src\particlesystem.h" />
 		<Unit filename="src\window.cpp" />

@@ -18,9 +18,9 @@ int main()
     sbe::Window *mainWindow;
 
     if(cfgReader->getFS())
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), "SBE Window", sf::Style::Fullscreen);
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true, sf::Style::Fullscreen);
     else
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), "SBE Window");
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true);
     // Create the main window
 
 

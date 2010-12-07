@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-29
+/ File updated: 2010-12-07
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -36,7 +36,7 @@ namespace sbe
     void AudioHandler::loadMusic(const std::string& musicFile)
     {
         /*
-            Purpose: Load the sound assets into memory.
+            Purpose: Load the music assets into memory.
         */
         loadAudio(musicFile, Music);
     }

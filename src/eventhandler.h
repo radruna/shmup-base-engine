@@ -34,9 +34,9 @@ namespace sbe
 
         private:
 
-            bool isKeyDown(std::string key, sf::Event evt);
+            bool isKeyReleased(sf::Key::Code key, sf::Event evt);
 
-            std::map<std::string, bool> keyPressed;
+            std::map<std::string, bool> keyReleased;
 
 
 

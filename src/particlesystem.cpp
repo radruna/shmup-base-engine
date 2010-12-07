@@ -54,67 +54,67 @@ namespace sbe
                 //Generic parameters
                 if(parameterKey == "name")
                     name = parameterValue;
-                if(parameterKey == "sprite_name")
+                else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
-                if(parameterKey == "emission_type")
+                else if(parameterKey == "emission_type")
                     emissionType = atoi(parameterValue.c_str());//Convert string to int
-                if(parameterKey == "emission_rate")
+                else if(parameterKey == "emission_rate")
                     emissionRate = atof(parameterValue.c_str());//Convert string to float
 
                 //Lifespan parameters
-                if(parameterKey == "lifespan")
+                else if(parameterKey == "lifespan")
                     lifeSpan = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "lifespan_random")
+                else if(parameterKey == "lifespan_random")
                     lifeSpanRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                if(parameterKey == "lifespan_random_min")
+                else if(parameterKey == "lifespan_random_min")
                     lifeSpanRandomMin = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "lifespan_random_max")
+                else if(parameterKey == "lifespan_random_max")
                     lifeSpanRandomMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Size parameters
-                if(parameterKey == "size")
+                else if(parameterKey == "size")
                     size = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "size_random")
+                else if(parameterKey == "size_random")
                     sizeRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                if(parameterKey == "size_random_min")
+                else if(parameterKey == "size_random_min")
                     sizeRandomMin = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "size_random_max")
+                else if(parameterKey == "size_random_max")
                     sizeRandomMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Rotation parameters
-                if(parameterKey == "rotation_rate")
+                else if(parameterKey == "rotation_rate")
                     rotRate = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "rotation_random")
+                else if(parameterKey == "rotation_random")
                     rotRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
                 //Fade parameters
-                if(parameterKey == "fade_in")
+                else if(parameterKey == "fade_in")
                     fadeModifier.fadeIn = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                if(parameterKey == "fade_out")
+                else if(parameterKey == "fade_out")
                     fadeModifier.fadeOut = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                if(parameterKey == "fade_in_time")
+                else if(parameterKey == "fade_in_time")
                     fadeModifier.fadeInTime = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "fade_out_time")
+                else if(parameterKey == "fade_out_time")
                     fadeModifier.fadeOutTime = atof(parameterValue.c_str());//Convert string to float
 
-                if(parameterKey == "size_mod_scalar_rate")
+                else if(parameterKey == "size_mod_scalar_rate")
                     sizeModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "size_mod_oscillate_freq")
+                else if(parameterKey == "size_mod_oscillate_freq")
                     sizeModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "size_mod_oscillate_amplitude")
+                else if(parameterKey == "size_mod_oscillate_amplitude")
                     sizeModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "size_mod_oscillate_offset")
+                else if(parameterKey == "size_mod_oscillate_offset")
                     sizeModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
-                if(parameterKey == "alpha")
-                    alpha = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "alpha_mod_scalar_rate")
+                else if(parameterKey == "alpha")
+                    alpha = atoi(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_scalar_rate")
                     alphaModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "alpha_mod_oscillate_freq")
+                else if(parameterKey == "alpha_mod_oscillate_freq")
                     alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "alpha_mod_oscillate_amplitude")
+                else if(parameterKey == "alpha_mod_oscillate_amplitude")
                     alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
-                if(parameterKey == "alpha_mod_oscillate_offset")
+                else if(parameterKey == "alpha_mod_oscillate_offset")
                     alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
             }

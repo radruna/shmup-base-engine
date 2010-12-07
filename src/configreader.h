@@ -2,11 +2,13 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-11-30
+/ File updated: 2010-12-07
 / License: GPLv3
 */
 #ifndef CONFIGREADER_H_INCLUDED
 #define CONFIGREADER_H_INCLUDED
+
+#include <string>
 
 #include <SFML/System.hpp>
 
@@ -33,10 +35,15 @@ namespace sbe
             {
                 return fs;
             }
+            std::string getTitle()
+            {
+                return title;
+            }
 
         private:
             sf::Vector2i res;
             bool fs;
+            std::string title;
     };
 }
 
