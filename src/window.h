@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-11-29
+/ File updated: 2010-12-07
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
