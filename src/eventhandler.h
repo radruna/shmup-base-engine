@@ -2,7 +2,7 @@
 / Event handler class
 / Author: Jonathan Orrö
 / File created: 2010-11-30
-/ File updated: 2010-12-13
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 
@@ -13,6 +13,8 @@
 #include <string> //For strings
 
 #include <SFML/Window.hpp> //Event header
+
+typedef std::map<std::string, bool> boolMap;
 
 namespace sbe
 {
@@ -30,16 +32,13 @@ namespace sbe
             }
 
             //Returns what buttons are being pressed
-            std::map<std::string, bool> returnEvents(sf::Event evt);
+            static void returnEvents(sf::Event evt, boolMap& keyReleased);
 
         private:
 
-            bool isKeyReleased(sf::Key::Code key, sf::Event evt);
+            static bool isKeyReleased(sf::Key::Code key, sf::Event evt);
 
-            std::map<std::string, bool> keyReleased;
-
-
-
+            //boolMap keyReleased;
     };
 }
 

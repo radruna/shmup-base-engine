@@ -15,7 +15,7 @@
 #include "window.h" //Class def
 #include "imagehandler.h" //For loading images
 #include "audiohandler.h" //For loading and playing sound and music
-//#include "eventhandler.h" //Not done yet
+#include "eventhandler.h" //Not done yet
 //#include "panel.h"
 
 namespace sbe
@@ -30,7 +30,8 @@ namespace sbe
         RenderWindow::Window::SetFramerateLimit(60);
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
-        //evtHandler = new sbe::EventHandler();
+        //evtHandler = new EventHandler();
+        //events = new boolMap;
         std::cout << "Handlers loaded!" << std::endl;
         //mainMenu = new sbe::Panel();
         //std::cout << "Main menu loaded." << std::endl;
@@ -45,6 +46,8 @@ namespace sbe
         */
         delete imgHandler;
         delete audHandler;
+        //delete evtHandler;
+        //delete events;
         delete ships;
         delete testShip;
     }
@@ -54,7 +57,7 @@ namespace sbe
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
-        imgHandler->loadAssets("scripts/assets/test.ast");
+        imgHandler->loadAssets("scripts/assets/images.ast");
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
         //Test stuff with a really kawaii ship
@@ -86,23 +89,27 @@ namespace sbe
 
         while(IsOpened())
         {
+            std::cout << "nej" << std::endl;
             // Process events, to be replaced by evtHandler
-            sf::Event Event;
-            while (GetEvent(Event))
+            sf::Event event;
+            //boolMap::Iterator it;
+            while (GetEvent(event))
             {
+                std::cout << "Goddagens!" << std::endl;
+                EventHandler::returnEvents(event, events);
                 // Close mainWindow : exit
-                if (Event.Type == sf::Event::Closed)
+                if (event.Type == sf::Event::Closed)
                     Close();
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::Escape))
+                if (events["Escape"])
                     Close();
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::L))
+                if (events["L"])
                 {
                     if(loli.GetStatus() != sf::Sound::Playing)
                         loli.Play();
                     else
                         loli.Pause();
                 }
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::B))
+                if(events["B"])
                 {
                     testShip->SetImage(img2);
 
@@ -111,12 +118,14 @@ namespace sbe
                     loli.OpenFromFile(audHandler->getMusic("8bitloli"));
                     loli.Play();
                 }
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::I))
+                if (events["L"])
                     testShip->SetPosition(res.x / 2, res.y / 2);
-                if ((Event.Type == sf::Event::KeyReleased) && (Event.Key.Code == sf::Key::F1))
+                if (events["L1"])
                     debug = true;
-            }
 
+                events.clear();
+            }
+            std::cout << "hej" << std::endl;
             // Get elapsed time
             float ElapsedTime = GetFrameTime();
             //Process inputs, to be replaced by evtHandler
@@ -125,25 +134,29 @@ namespace sbe
             else
                 speedVar2 = 65;
 
-            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15){
+            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15)
                 speed.x -= speedVar;
-            }else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15){
+            else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15)
                 speed.x += speedVar;
-            }else{
+            else
+            {
                 if(speed.x < 0) speed.x++;
                 if(speed.x > 0) speed.x--;
             }
-            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15){
+
+            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15)
                 speed.y -= speedVar;
-            }else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15){
+            else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15)
                 speed.y += speedVar;
-            }else{
+            else
+            {
                 if(speed.y < 0) speed.y++;
                 if(speed.y > 0) speed.y--;
             }
 
+            std::cout << "lol" << std::endl;
             testShip->Move(speed.x * ElapsedTime * speedVar2, speed.y * ElapsedTime * speedVar2);
-
+            std::cout << "fan" << std::endl;
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
                 counter = 100;
@@ -170,7 +183,7 @@ namespace sbe
                 shot.Move(0, (-2000 * ElapsedTime));
             }
 
-
+            std::cout << "satan" << std::endl;
             // Clear screen
             Clear();
 
@@ -182,7 +195,7 @@ namespace sbe
                 --counter;
                 Draw(shot);
             }
-
+            std::cout << "helvete" << std::endl;
             // Update the window
             Display();
 

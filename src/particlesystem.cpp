@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-22
+/ File updated: 2010-12-14
 / License: GPLv3
 //TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
@@ -56,10 +56,16 @@ namespace sbe
                     name = parameterValue;
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
+
+                //Emission parameters
                 else if(parameterKey == "emission_type")
                     emissionType = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "emission_rate")
                     emissionRate = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_min")
+                    emissionAngleMin = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_angle_max")
+                    emissionAngleMax = atoi(parameterValue.c_str());//Convert string to int
 
                 //Lifespan parameters
                 else if(parameterKey == "lifespan")
@@ -97,6 +103,7 @@ namespace sbe
                 else if(parameterKey == "fade_out_time")
                     fadeModifier.fadeOutTime = atof(parameterValue.c_str());//Convert string to float
 
+                //Size modification parameters
                 else if(parameterKey == "size_mod_scalar_rate")
                     sizeModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_oscillate_freq")
@@ -106,6 +113,7 @@ namespace sbe
                 else if(parameterKey == "size_mod_oscillate_offset")
                     sizeModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
+                //Alpha parameters
                 else if(parameterKey == "alpha")
                     alpha = atoi(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_scalar_rate")
@@ -117,6 +125,9 @@ namespace sbe
                 else if(parameterKey == "alpha_mod_oscillate_offset")
                     alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
+                //Parameter not found
+                else
+                    std::cout << "Invalid particle system parameter" << std::endl;
             }
         }
         //Debug output

@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-12-07
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -16,8 +16,10 @@
 
 #include "imagehandler.h" //Loading images
 #include "audiohandler.h" //Playing sound/music
-//#include "eventhandler.h" //Not done yet
+#include "eventhandler.h" //Not done yet
 //#include "panel.h"
+
+typedef std::map<std::string, bool> boolMap;
 
 namespace sbe
 {
@@ -46,6 +48,8 @@ namespace sbe
 
             sf::Vector2i res;
             bool debug;
+
+            boolMap events;
     };
 }
 

@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-12-07
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 #ifndef CONFIGREADER_H_INCLUDED

@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-12-07
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 
@@ -17,6 +17,8 @@ namespace sbe
     ConfigReader::ConfigReader()
         : fs(false)
     {
+        res.x = 1280;
+        res.y = 1024;
         title = "SBE Window";
         readConfig();
     }
@@ -51,9 +53,15 @@ namespace sbe
                 else if(setting == "height")
                     res.y = atoi(value.c_str());
                 else if(setting == "fullscreen")
-                    fs = true;
+                    fs = atoi(value.c_str());
                 else if(setting == "title")
                     title = value;
+                else
+                {
+                    std::cout << "Failed to open configuration file " << cfgFile.c_str() << "." << std::endl;
+                    fileReader.close();
+                    break;
+                }
             }
         }
         //Debug output

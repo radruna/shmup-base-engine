@@ -2,7 +2,7 @@
 / Abstract file handler class
 / Author: Victor Rådmark, Felix Westin
 / File created: 2010-11-17
-/ File updated: 2010-11-25
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 
@@ -34,10 +34,42 @@ namespace sbe
     //Read line and output two strings
     bool FileHandler::strReadLine(std::string& strSource, std::string& strKey, std::string& strValue)
     {
+        //Find and remove comment
+        strSource = strSource.substr(0, strSource.find("\\"));
 
+        //Is line empty?
         if(strSource == "")
             return false;
 
+        //Quotation mark position array
+        int qPos[4];
+
+        //Find first quotation mark
+        qPos[0] = strSource.find("\"");
+        if(qPos[0] == std::string::npos)
+            return false;
+        else
+            qPos[0] = strSource.find("\"");
+
+        //Find second, third and fourth quotation mark
+        for(int i=1;i<=3;i++){
+            qPos[i] = strSource.find("\"", qPos[i-1] + 1);
+            if(qPos[i] == std::string::npos)
+            {
+                return false;
+            }
+        }
+
+        //Set values
+        strKey = strSource.substr(qPos[0] + 1,qPos[1] - qPos[0] -1);
+        strValue = strSource.substr(qPos[2] + 1,qPos[3] - qPos[2] -1);
+
+        return true;
+
+        //-----------------------------------------
+        //----------------Old code-----------------
+        //-----------------------------------------
+        /*
         int tabPos;
         int spacePos;
         int commentPos;
@@ -80,6 +112,6 @@ namespace sbe
 
             return true;
         }
-
+        */
     }
 }

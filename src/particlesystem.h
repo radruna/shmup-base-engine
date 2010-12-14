@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-11-22
+/ File updated: 2010-12-14
 / License: GPLv3
 */
 #ifndef PARTICLESYSTEM_H_INCLUDED
@@ -51,23 +51,25 @@ namespace sbe
             void loadParticleSystem(const std::string& particleSystemFile);
         private:
             //Parameters
-            std::string     name;                   //The particle system name
-            std::string     spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
-            bool            sizeRandom;             //Particle size randomization
-            bool            lifeSpanRandom;         //Particle size randomization
-            bool            rotRandom;              //Particle rotation randomization
-            int             emissionType;           //Particle system type
-            int             alpha;                  //Initial alpha of particles emitted by particle system. 0 = invisible, 255 = opaque
-            float           size;                   //Initial size of particles emitted by particle system. 1 = 1:1 sprite pixel to screen pixel ratio
-            float           sizeRandomMin;          //If sizeRandom = 1, then this is set as the minimum value
-            float           sizeRandomMax;          //If sizeRandom = 1, then this is set as the maximum value
-            float           lifeSpan;               //Lifetime, in seconds
-            float           lifeSpanRandomMin;      //If lifeSpanRandom = 1, then this is set as the minimum value
-            float           lifeSpanRandomMax;      //If lifeSpanRandom = 1, then this is set as the maximum value
-            float           emissionRate;           //Emission rate
-            float           rotRate;                //Rotation speed
-            ValueMod        sizeModifier;           //Size modifiers
-            ValueMod        alphaModifier;          //Alpha modifier
+            std::string     name,                   //The particle system name
+                            spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
+            bool            sizeRandom,             //Particle size randomization
+                            lifeSpanRandom,         //Particle lifetime randomization
+                            rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
+            int             emissionType,           //Particle system type
+                            alpha,                  //Initial alpha of particles emitted by particle system. 0 = invisible, 255 = opaque. Manipulated alpha value should never go over this.
+                            emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
+                            emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
+            float           size,                   //Initial size of particles emitted by particle system. 1 = 1:1 sprite pixel to screen pixel ratio
+                            sizeRandomMin,          //If sizeRandom = 1, then this is set as the minimum value
+                            sizeRandomMax,          //If sizeRandom = 1, then this is set as the maximum value
+                            lifeSpan,               //Lifetime, in seconds
+                            lifeSpanRandomMin,      //If lifeSpanRandom = 1, then this is set as the minimum value
+                            lifeSpanRandomMax,      //If lifeSpanRandom = 1, then this is set as the maximum value
+                            emissionRate,           //Emission rate
+                            rotRate;                //Rotation speed
+            ValueMod        sizeModifier,           //Size modifiers
+                            alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters
 
             //Parameter list

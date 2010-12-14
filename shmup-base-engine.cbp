@@ -47,9 +47,9 @@
 		<Unit filename="assets\music\8bitloli.ogg" />
 		<Unit filename="assets\music\loli.ogg" />
 		<Unit filename="assets\sound\durr.wav" />
+		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
-		<Unit filename="scripts\assets\test.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\configreader.cpp" />
