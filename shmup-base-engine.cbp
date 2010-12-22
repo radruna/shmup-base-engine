@@ -50,6 +50,7 @@
 		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
+		<Unit filename="scripts\particles\particle_test.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\configreader.cpp" />

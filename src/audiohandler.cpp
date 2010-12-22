@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-12-07
+/ File updated: 2010-12-22
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -18,7 +18,7 @@
 
 namespace sbe
 {
-    AudioHandler::AudioHandler(int s, int m)
+    AudioHandler::AudioHandler(const int& s, const int& m)
         : sVol(s), mVol(m)//, curSong("")
     {
 
@@ -41,7 +41,7 @@ namespace sbe
         loadAudio(musicFile, Music);
     }
 
-    void AudioHandler::loadAudio(const std::string& audioFile, LoadType load)
+    void AudioHandler::loadAudio(const std::string& audioFile, const LoadType& load)
     {
         /*
             Purpose: Load audio assets into memory, and then save them as either sound or music
@@ -71,9 +71,9 @@ namespace sbe
             {
                 //Load into memory as sound or music
                 if(load == Sound)
-                    saveSound(audioKey, audioPath, output);
+                    saveSound(audioKey, audioPath);
                 else
-                    saveMusic(audioKey, audioPath, output);
+                    saveMusic(audioKey, audioPath);
             }
         }
 
@@ -83,7 +83,7 @@ namespace sbe
         fileReader.close();
     }
 
-    void AudioHandler::saveSound(std::string& soundKey, std::string& soundPath, std::string& output)
+    void AudioHandler::saveSound(const std::string& soundKey, const std::string& soundPath)
     {
         /*
             Purpose: Save file from loadAudio() as sound.
@@ -110,7 +110,7 @@ namespace sbe
         }
     }
 
-    void AudioHandler::saveMusic(std::string& musicKey, std::string& musicPath, std::string& output)
+    void AudioHandler::saveMusic(const std::string& musicKey, const std::string& musicPath)
     {
         /*
             Purpose: Save file from loadAudio() as music.
@@ -137,39 +137,39 @@ namespace sbe
         }
     }
 
-    sf::SoundBuffer AudioHandler::getSound(const std::string& soundKey)
+    sf::SoundBuffer& AudioHandler::getSound(const std::string& soundKey)
     {
         /*
             Purpose: Return a sound buffer which can then be assigned to a sound and then played or something.
         */
-        sf::SoundBuffer sndbfr;
+        sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
 
         if(soundList.find(soundKey) == soundList.end())
         {
             std::cout << "Failed to get sound \"" << soundKey << "\"." << std::endl;
-            sndbfr.LoadFromFile("assets/sound/error.wav");
-            return sndbfr;
+            sndbfr->LoadFromFile("assets/sound/error.wav");
+            return *sndbfr;
         }
         else
-            sndbfr = soundList[soundKey];
-
-        return sndbfr;
+        {
+            return soundList[soundKey];
+        }
     }
 
-    void AudioHandler::setVolume(short v)
+    void AudioHandler::setVolume(const short& v)
     {
         //Set master volume
         setSFXVol(v);
         setMusicVol(v);
     }
 
-    void AudioHandler::setSFXVol(short s)
+    void AudioHandler::setSFXVol(const short& s)
     {
         //Set SFX volume
         sVol = 100;
     }
 
-    void AudioHandler::setMusicVol(short m)
+    void AudioHandler::setMusicVol(const short& m)
     {
         //Set music volume
         mVol = 100;

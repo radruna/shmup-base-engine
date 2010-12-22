@@ -2,7 +2,7 @@
 / Event handler class
 / Author: Jonathan Orrö
 / File created: 2010-11-30
-/ File updated: 2010-12-14
+/ File updated: 2010-12-22
 / License: GPLv3
 */
 
@@ -32,11 +32,11 @@ namespace sbe
             }
 
             //Returns what buttons are being pressed
-            static void returnEvents(sf::Event evt, boolMap& keyReleased);
+            static void returnEvents(const sf::Event& evt, boolMap& keyReleased);
 
         private:
 
-            static bool isKeyReleased(sf::Key::Code key, sf::Event evt);
+            static bool isKeyReleased(const sf::Key::Code& key, const sf::Event& evt);
 
             //boolMap keyReleased;
     };

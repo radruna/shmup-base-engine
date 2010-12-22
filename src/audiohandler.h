@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-29
+/ File updated: 2010-12-22
 / License: GPLv3
 */
 #ifndef AUDIOHANDLER_H_INCLUDED
@@ -34,7 +34,7 @@ namespace sbe
                 Music
             };
 
-            AudioHandler(int s = 100, int m = 100);
+            AudioHandler(const int& s = 100, const int& m = 100);
             ~AudioHandler()
             {
                 unloadAudio();
@@ -44,10 +44,10 @@ namespace sbe
             void loadSound(const std::string& soundFile);
             void loadMusic(const std::string& musicFile);
             //Loading function
-            void loadAudio(const std::string& audioFile, LoadType load);
+            void loadAudio(const std::string& audioFile, const LoadType& load);
             //Saving functions
-            void saveSound( std::string& soundKey,  std::string& soundPath,  std::string& output);
-            void saveMusic( std::string& musicKey,  std::string& musicPath,  std::string& output);
+            void saveSound(const std::string& soundKey,  const std::string& soundPath);
+            void saveMusic(const std::string& musicKey,  const std::string& musicPath);
             //Unload all sound
             inline void unloadSound()
             {
@@ -63,18 +63,18 @@ namespace sbe
                 unloadMusic();
             }
             //Get sound
-            sf::SoundBuffer getSound(const std::string& soundKey);
+            sf::SoundBuffer& getSound(const std::string& soundKey);
             //Get music path
             inline std::string getMusic(const std::string& musicKey)
             {
                 return musicList[musicKey];
             }
             //Set master volume
-            void setVolume(short v = 100);
+            void setVolume(const short& v = 100);
             //Set SFX volume
-            void setSFXVol(short s = 100);
+            void setSFXVol(const short& s = 100);
             //Set music volume
-            void setMusicVol(short m = 100);
+            void setMusicVol(const short& m = 100);
             /*//Set current music playing.
             bool setMusic(const std::string& strM);
             //Stop current music.

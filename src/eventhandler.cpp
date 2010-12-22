@@ -2,7 +2,7 @@
 / Event handler class
 / Author: Jonathan Orrö
 / File created: 2010-11-30
-/ File updated: 2010-12-14
+/ File updated: 2010-12-22
 / License: GPLv3
 */
 
@@ -18,7 +18,7 @@ namespace sbe
     }
 
     //Returns what buttons are being pressed
-    void EventHandler::returnEvents(sf::Event evt, boolMap& keyReleased)
+    void EventHandler::returnEvents(const sf::Event& evt, boolMap& keyReleased)
     {
         if(evt.Type == sf::Event::KeyReleased)
         {
@@ -36,11 +36,12 @@ namespace sbe
 
     }
 
-    bool EventHandler::isKeyReleased(sf::Key::Code key, sf::Event evt)
+    bool EventHandler::isKeyReleased(const sf::Key::Code& key, const sf::Event& evt)
     {
-        if((evt.Type == sf::Event::KeyReleased) && (evt.Key.Code = key))
+        if((evt.Type == sf::Event::KeyReleased) && (evt.Key.Code == key))
             return true;
         else
             return false;
     }
 }
+

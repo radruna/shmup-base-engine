@@ -30,8 +30,7 @@ namespace sbe
         RenderWindow::Window::SetFramerateLimit(60);
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
-        //evtHandler = new EventHandler();
-        //events = new boolMap;
+        evtHandler = new sbe::EventHandler();
         std::cout << "Handlers loaded!" << std::endl;
         //mainMenu = new sbe::Panel();
         //std::cout << "Main menu loaded." << std::endl;
@@ -46,8 +45,6 @@ namespace sbe
         */
         delete imgHandler;
         delete audHandler;
-        //delete evtHandler;
-        //delete events;
         delete ships;
         delete testShip;
     }
@@ -80,8 +77,8 @@ namespace sbe
         sf::Vector2f speed(0.f, 0.f);
 
         //audHandler->setMusic("loli");
-        sf::SoundBuffer lsrbfr = audHandler->getSound("laser");
-        sf::Sound laser(lsrbfr);
+        const sf::SoundBuffer lsrbfr = audHandler->getSound("laser");
+        sf::Sound laser(audHandler->getSound("laser"));
 
         sbe::Music loli;
         loli.OpenFromFile(audHandler->getMusic("loli"));
@@ -89,13 +86,11 @@ namespace sbe
 
         while(IsOpened())
         {
-            std::cout << "nej" << std::endl;
             // Process events, to be replaced by evtHandler
             sf::Event event;
-            //boolMap::Iterator it;
             while (GetEvent(event))
             {
-                std::cout << "Goddagens!" << std::endl;
+                // Close mainWindow : exit
                 EventHandler::returnEvents(event, events);
                 // Close mainWindow : exit
                 if (event.Type == sf::Event::Closed)
@@ -124,8 +119,9 @@ namespace sbe
                     debug = true;
 
                 events.clear();
+
             }
-            std::cout << "hej" << std::endl;
+
             // Get elapsed time
             float ElapsedTime = GetFrameTime();
             //Process inputs, to be replaced by evtHandler
@@ -134,29 +130,25 @@ namespace sbe
             else
                 speedVar2 = 65;
 
-            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15)
+            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15){
                 speed.x -= speedVar;
-            else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15)
+            }else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15){
                 speed.x += speedVar;
-            else
-            {
+            }else{
                 if(speed.x < 0) speed.x++;
                 if(speed.x > 0) speed.x--;
             }
-
-            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15)
+            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15){
                 speed.y -= speedVar;
-            else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15)
+            }else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15){
                 speed.y += speedVar;
-            else
-            {
+            }else{
                 if(speed.y < 0) speed.y++;
                 if(speed.y > 0) speed.y--;
             }
 
-            std::cout << "lol" << std::endl;
             testShip->Move(speed.x * ElapsedTime * speedVar2, speed.y * ElapsedTime * speedVar2);
-            std::cout << "fan" << std::endl;
+
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
                 counter = 100;
@@ -183,7 +175,7 @@ namespace sbe
                 shot.Move(0, (-2000 * ElapsedTime));
             }
 
-            std::cout << "satan" << std::endl;
+
             // Clear screen
             Clear();
 
@@ -195,7 +187,7 @@ namespace sbe
                 --counter;
                 Draw(shot);
             }
-            std::cout << "helvete" << std::endl;
+
             // Update the window
             Display();
 

@@ -24,6 +24,9 @@ int main()
         mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true);
 
 
-    //Run
-    return mainWindow->exec();
+    mainWindow->exec();
+
+    delete mainWindow;
+
+    return 0;
 }
