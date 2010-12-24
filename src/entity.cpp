@@ -1,8 +1,8 @@
 /*
 / Base entity class
-/ Author: Felix Westin
+/ Authors: Felix Westin and Victor Rådmark
 / File created: 2010-12-07
-/ File updated: 2010-12-07
+/ File updated: 2010-12-23
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -16,7 +16,25 @@
 
 namespace sbe
 {
-    Entity::Entity()
+    Entity::Entity(const sf::Image& img)
     {
+        /*
+            Constructs the entity by setting the image.
+        */
+        SetImage(img);
+    }
+
+    Entity::Entity(const std::string& imgStr, ImageHandler& iHandler)
+    {
+        /*
+            Constructs the entity by setting its image handler and its default image.
+        */
+        imgHandler = &iHandler;
+        setImage(imgStr);
+    }
+
+    Entity::~Entity()
+    {
+        //delete imgHandler;
     }
 }

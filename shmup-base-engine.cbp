@@ -12,6 +12,9 @@
 				<Option object_output="obj\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
 				<Linker>
 					<Add option="-lsfml-audio-s-d" />
 					<Add option="-lsfml-graphics-s-d" />
@@ -70,6 +73,8 @@
 		<Unit filename="src\particle.h" />
 		<Unit filename="src\particlesystem.cpp" />
 		<Unit filename="src\particlesystem.h" />
+		<Unit filename="src\ship.cpp" />
+		<Unit filename="src\ship.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>

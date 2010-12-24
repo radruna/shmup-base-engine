@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-12-22
+/ File updated: 2010-12-23
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -17,6 +17,8 @@
 #include "imagehandler.h" //Loading images
 #include "audiohandler.h" //Playing sound/music
 #include "eventhandler.h" //Handles events
+#include "ship.h" //Ship class
+//#include "player.h" //Player class
 //#include "panel.h"
 
 typedef std::map<std::string, bool> boolMap;
@@ -43,11 +45,14 @@ namespace sbe
             sbe::EventHandler *evtHandler; //One of several
             //sbe::Panel *mainMenu;
             //DebugHandler?
-            std::map<std::string, sf::Sprite> *ships;
-            sf::Sprite *testShip;
+            std::map<std::string, Ship> *ships;
+            sbe::Ship *testShip;
 
             sf::Vector2i res;
             bool debug;
+
+            sf::Color c;
+            short cCount;
 
             boolMap events;
     };

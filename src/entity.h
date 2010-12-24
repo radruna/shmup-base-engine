@@ -1,17 +1,18 @@
 /*
 / Base entity class
-/ Author: Felix Westin
+/ Authors: Felix Westin and Victor Rådmark
 / File created: 2010-12-07
-/ File updated: 2010-12-07
+/ File updated: 2010-12-23
 / License: GPLv3
 */
 #ifndef ENTITY_H_INCLUDED
 #define ENTITY_H_INCLUDED
 
-#include <fstream>   //Read script files
 #include <string>   //For strings
 
 #include <SFML/Graphics.hpp> //Sfml stuff
+
+#include "imagehandler.h"
 
 namespace sbe
 {
@@ -21,10 +22,23 @@ namespace sbe
             Base entity class
         */
         public:
-            Entity();
-            virtual void onThink() =0;
-        private:
+            Entity()
+            {
+
+            }
+            Entity(const sf::Image& img);
+            Entity(const std::string& imgStr, ImageHandler& iHandler);
+            ~Entity();
+
+            void setImage(const std::string& imgStr)
+            {
+                SetImage(imgHandler->getImage(imgStr));
+            }
+
+            virtual void update() =0; //Or onThink(), whatever.
+        protected:
             int z;
+            ImageHandler* imgHandler;
     };
 }
 

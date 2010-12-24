@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-12-07
+/ File updated: 2010-12-23
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -15,27 +15,35 @@
 #include "window.h" //Class def
 #include "imagehandler.h" //For loading images
 #include "audiohandler.h" //For loading and playing sound and music
-#include "eventhandler.h" //Not done yet
+#include "eventhandler.h" //Event handling
+#include "ship.h"
+//#include "player.h"
 //#include "panel.h"
 
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), debug(false)
+        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), debug(false), cCount(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
         */
         std::cout << "Window loaded!" << std::endl;
         RenderWindow::Window::SetFramerateLimit(60);
+
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
-        evtHandler = new sbe::EventHandler();
+        evtHandler = new EventHandler();
         std::cout << "Handlers loaded!" << std::endl;
+
         //mainMenu = new sbe::Panel();
         //std::cout << "Main menu loaded." << std::endl;
-        ships = new std::map<std::string, sf::Sprite>;
+
+        //ships = new std::map<std::string, Ship>;
+        //ship
         std::cout << "Objects loaded!" << std::endl;
+
+         c = sf::Color(255, 105, 108);
     }
 
     Window::~Window()
@@ -57,10 +65,13 @@ namespace sbe
         imgHandler->loadAssets("scripts/assets/images.ast");
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
+
         //Test stuff with a really kawaii ship
         sf::Image img = imgHandler->getImage("testShip");
         sf::Image img2 = imgHandler->getImage("kawaiiShip");
-        testShip = new sf::Sprite(img);
+
+        testShip = new sbe::Ship(img);
+
         //*ships["testShip"] = *testShip;
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
@@ -68,16 +79,13 @@ namespace sbe
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
-        double speedVar = 1;
-        double speedVar2;
+
         int counter = 0;
         bool gun = true;
         int gunPosX = 0;
 
         sf::Vector2f speed(0.f, 0.f);
 
-        //audHandler->setMusic("loli");
-        const sf::SoundBuffer lsrbfr = audHandler->getSound("laser");
         sf::Sound laser(audHandler->getSound("laser"));
 
         sbe::Music loli;
@@ -115,40 +123,35 @@ namespace sbe
                 }
                 if (events["L"])
                     testShip->SetPosition(res.x / 2, res.y / 2);
-                if (events["L1"])
+                if (events["F1"])
                     debug = true;
 
                 events.clear();
 
             }
 
-            // Get elapsed time
-            float ElapsedTime = GetFrameTime();
-            //Process inputs, to be replaced by evtHandler
+            //Process inputs
             if(GetInput().IsKeyDown(sf::Key::LShift))
-                speedVar2 = 30;
+                testShip->setMod(30);
             else
-                speedVar2 = 65;
+                testShip->setMod(65);
 
-            if (GetInput().IsKeyDown(sf::Key::Left) && speed.x > -15){
-                speed.x -= speedVar;
-            }else if(GetInput().IsKeyDown(sf::Key::Right) && speed.x < 15){
-                speed.x += speedVar;
-            }else{
-                if(speed.x < 0) speed.x++;
-                if(speed.x > 0) speed.x--;
-            }
-            if (GetInput().IsKeyDown(sf::Key::Up) && speed.y > -15){
-                speed.y -= speedVar;
-            }else if (GetInput().IsKeyDown(sf::Key::Down) && speed.y < 15){
-                speed.y += speedVar;
-            }else{
-                if(speed.y < 0) speed.y++;
-                if(speed.y > 0) speed.y--;
-            }
+            if(GetInput().IsKeyDown(sf::Key::Left))
+                testShip->fly(Ship::LEFT);
+            else if(GetInput().IsKeyDown(sf::Key::Right))
+                testShip->fly(Ship::RIGHT);
 
-            testShip->Move(speed.x * ElapsedTime * speedVar2, speed.y * ElapsedTime * speedVar2);
+            if(GetInput().IsKeyDown(sf::Key::Up))
+                testShip->fly(Ship::UP);
+            else if(GetInput().IsKeyDown(sf::Key::Down))
+                testShip->fly(Ship::DOWN);
 
+            //Get elapsed time since last frame to ensure constant speed
+            float ElapsedTime = GetFrameTime();
+            //Update the ship with the input data
+            testShip->update(ElapsedTime);
+
+            //TODO (Liag#5#) Add lasers and stuff to the Ship class.
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
                 counter = 100;
@@ -177,7 +180,21 @@ namespace sbe
 
 
             // Clear screen
-            Clear();
+            if(cCount++ % 20 == 0)
+            {
+                if(c == sf::Color(255, 105, 180))
+                    c = sf::Color::Red;
+                else if(c == sf::Color::Red)
+                    c = sf::Color::Green;
+                else if(c == sf::Color::Green)
+                    c = sf::Color::Blue;
+                else if(c == sf::Color::Blue)
+                    c = sf::Color::Magenta;
+                else
+                    c = sf::Color(255, 105, 180);
+            }
+
+            Clear(c);
 
             // Draw the ship
             Draw(*testShip);
