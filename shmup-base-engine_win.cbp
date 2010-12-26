@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="shmup-base-engine" />
+		<Option platforms="Unix;" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="debug">
+				<Option output="bin/sbe-debug" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lsfml-audio" />
+					<Add option="-lsfml-graphics" />
+					<Add option="-lsfml-window" />
+					<Add option="-lsfml-system" />
+				</Linker>
+			</Target>
+			<Target title="release">
+				<Option output="bin/sbe" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lsfml-audio" />
+					<Add option="-lsfml-graphics" />
+					<Add option="-lsfml-window" />
+					<Add option="-lsfml-system" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="assets/debug/error.png" />
+		<Unit filename="assets/image/8bjet.png" />
+		<Unit filename="assets/image/cb.bmp" />
+		<Unit filename="assets/image/jet.png" />
+		<Unit filename="assets/image/kawaii.png" />
+		<Unit filename="assets/music/8bitloli.ogg" />
+		<Unit filename="assets/music/loli.ogg" />
+		<Unit filename="assets/sound/durr.wav" />
+		<Unit filename="scripts/assets/images.ast" />
+		<Unit filename="scripts/assets/music.ast" />
+		<Unit filename="scripts/assets/sound.ast" />
+		<Unit filename="scripts/particles/particle_test.ast" />
+		<Unit filename="src/audiohandler.cpp" />
+		<Unit filename="src/audiohandler.h" />
+		<Unit filename="src/configreader.cpp" />
+		<Unit filename="src/configreader.h" />
+		<Unit filename="src/entity.cpp" />
+		<Unit filename="src/entity.h" />
+		<Unit filename="src/eventhandler.cpp" />
+		<Unit filename="src/eventhandler.h" />
+		<Unit filename="src/filehandler.cpp" />
+		<Unit filename="src/filehandler.h" />
+		<Unit filename="src/imagehandler.cpp" />
+		<Unit filename="src/imagehandler.h" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/music.cpp" />
+		<Unit filename="src/music.h" />
+		<Unit filename="src/particle.cpp" />
+		<Unit filename="src/particle.h" />
+		<Unit filename="src/particlesystem.cpp" />
+		<Unit filename="src/particlesystem.h" />
+		<Unit filename="src/ship.cpp" />
+		<Unit filename="src/ship.h" />
+		<Unit filename="src/window.cpp" />
+		<Unit filename="src/window.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

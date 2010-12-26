@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-12-14
+/ File updated: 2010-12-26
 / License: GPLv3
 //TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
@@ -10,10 +10,11 @@
 #include <fstream>   //Read script files
 #include <map> //Map for objects
 #include <string> //For strings
+#include <cstring> //For strcpy
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
-#include "ParticleSystem.h"   //Class def
+#include "particlesystem.h"   //Class def
 #include "filehandler.h" //Base class
 
 namespace sbe
