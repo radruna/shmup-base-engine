@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-12-14
+/ File updated: 2011-01-04
 / License: GPLv3
 */
 #ifndef PARTICLESYSTEM_H_INCLUDED
@@ -15,6 +15,7 @@
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "filehandler.h" //Abstract base class
+#include "particle.h" //Particle header
 
 struct ValueMod
 {
@@ -67,6 +68,8 @@ namespace sbe
                             lifeSpanRandomMin,      //If lifeSpanRandom = 1, then this is set as the minimum value
                             lifeSpanRandomMax,      //If lifeSpanRandom = 1, then this is set as the maximum value
                             emissionRate,           //Emission rate
+                            emissionForce,          //Emission force
+                            emissionFriction,       //Emission friction
                             rotRate;                //Rotation speed
             ValueMod        sizeModifier,           //Size modifiers
                             alphaModifier;          //Alpha modifier

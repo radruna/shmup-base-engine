@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-12-26
+/ File updated: 2011-01-04
 / License: GPLv3
 //TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
@@ -14,8 +14,9 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
-#include "particlesystem.h"   //Class def
+#include "particlesystem.h" //Class def
 #include "filehandler.h" //Base class
+#include "particle.h" //Particle header
 
 namespace sbe
 {
@@ -26,7 +27,7 @@ namespace sbe
     //Load particle system. This does not work the same as the image or the audio handler as it stores parameters instead of objects
     void ParticleSystem::loadParticleSystem(const std::string& particleSystemFile)
     {
-        std::cout << std::endl << "Loading particle \"" << particleSystemFile << "\"..." << std::endl;
+        std::cout << std::endl << "Loading particle system \"" << particleSystemFile << "\"..." << std::endl;
         char str[255];
         //Convert string to char array
         strcpy(str, particleSystemFile.c_str());
@@ -67,6 +68,10 @@ namespace sbe
                     emissionAngleMin = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "emission_angle_max")
                     emissionAngleMax = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_force")
+                    emissionForce = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_friction")
+                    emissionFriction = atof(parameterValue.c_str());//Convert string to float
 
                 //Lifespan parameters
                 else if(parameterKey == "lifespan")

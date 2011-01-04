@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-12-24
+/ File updated: 2011-01-04
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -16,6 +16,7 @@
 #include "imagehandler.h" //For loading images
 #include "audiohandler.h" //For loading and playing sound and music
 #include "eventhandler.h" //Event handling
+#include "particlesystem.h" //Particle system
 #include "ship.h"
 //#include "player.h"
 //#include "panel.h"
@@ -43,7 +44,8 @@ namespace sbe
         //ship
         std::cout << "Objects loaded!" << std::endl;
 
-         c = sf::Color(255, 105, 108);
+        c = sf::Color(255, 105, 108);
+
     }
 
     Window::~Window()
@@ -66,9 +68,10 @@ namespace sbe
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
 
-        //Test stuff with a really kawaii ship
+        //Test stuff with a really kawaii ship AND A PARTICLE
         sf::Image img = imgHandler->getImage("testShip");
         sf::Image img2 = imgHandler->getImage("kawaiiShip");
+        sf::Image img3 = imgHandler->getImage("smoke_01");
 
         testShip = new sbe::Ship(img);
 
@@ -89,11 +92,26 @@ namespace sbe
         sf::Sound laser(audHandler->getSound("laser"));
 
         sbe::Music loli;
-        loli.OpenFromFile(audHandler->getMusic("loli"));
+        loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.Play();
+
+        //Test particle
+        sbe::Particle *p;
+        p = new sbe::Particle(img3,5,45);
+        p->SetPosition(500.f, 50.f);
+        p->SetCenter(p->GetSize().x / 2, p->GetSize().y / 2);
+        float p_alpha = 255;
 
         while(IsOpened())
         {
+
+            //Update test particle
+            p->update();
+            if(p_alpha > 1)
+                p->SetColor(sf::Color(255, 255, 255, p_alpha-= 0.3));
+            p->setAngle(p->getAngle()+2);
+            p->Rotate(0.2);
+
             // Process events, to be replaced by evtHandler
             sf::Event event;
             while (GetEvent(event))
@@ -194,10 +212,12 @@ namespace sbe
                     c = sf::Color(255, 105, 180);
             }
 
-            Clear(c);
+            //Clear(c);
+            Clear();
 
-            // Draw the ship
+            // Draw the ship AND THE PARTICLE
             Draw(*testShip);
+            Draw(*p);
 
             if(counter > 0)
             {
