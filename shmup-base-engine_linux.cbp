@@ -58,6 +58,7 @@
 		<Unit filename="src/audiohandler.h" />
 		<Unit filename="src/configreader.cpp" />
 		<Unit filename="src/configreader.h" />
+		<Unit filename="src/const.h" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/entity.h" />
 		<Unit filename="src/eventhandler.cpp" />
@@ -67,6 +68,8 @@
 		<Unit filename="src/imagehandler.cpp" />
 		<Unit filename="src/imagehandler.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/movable.cpp" />
+		<Unit filename="src/movable.h" />
 		<Unit filename="src/music.cpp" />
 		<Unit filename="src/music.h" />
 		<Unit filename="src/particle.cpp" />

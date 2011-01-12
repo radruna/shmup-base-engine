@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-04
+/ File updated: 2011-01-07
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -87,8 +87,6 @@ namespace sbe
         bool gun = true;
         int gunPosX = 0;
 
-        sf::Vector2f speed(0.f, 0.f);
-
         sf::Sound laser(audHandler->getSound("laser"));
 
         sbe::Music loli;
@@ -96,22 +94,13 @@ namespace sbe
         loli.Play();
 
         //Test particle
-        sbe::Particle *p;
-        p = new sbe::Particle(img3,5,45);
+        sbe::Particle *p = new Particle(img3, 45, 5);
         p->SetPosition(500.f, 50.f);
-        p->SetCenter(p->GetSize().x / 2, p->GetSize().y / 2);
+        //p->SetCenter(p->GetSize().x / 2, p->GetSize().y / 2);
         float p_alpha = 255;
 
         while(IsOpened())
         {
-
-            //Update test particle
-            p->update();
-            if(p_alpha > 1)
-                p->SetColor(sf::Color(255, 255, 255, p_alpha-= 0.3));
-            p->setAngle(p->getAngle()+2);
-            p->Rotate(0.2);
-
             // Process events, to be replaced by evtHandler
             sf::Event event;
             while (GetEvent(event))
@@ -123,7 +112,7 @@ namespace sbe
                     Close();
                 if (events["Escape"])
                     Close();
-                if (events["L"])
+                if (events["P"])
                 {
                     if(loli.GetStatus() != sf::Sound::Playing)
                         loli.Play();
@@ -196,6 +185,12 @@ namespace sbe
                 shot.Move(0, (-2000 * ElapsedTime));
             }
 
+            //Update test particle
+            p->update(ElapsedTime);
+            if(p_alpha > 1)
+                p->SetColor(sf::Color(255, 255, 255, p_alpha-= 0.3));
+            p->setAngle(p->getAngle()+2);
+            p->Rotate(0.2);
 
             // Clear screen
             if(cCount++ % 20 == 0)
@@ -216,8 +211,8 @@ namespace sbe
             Clear();
 
             // Draw the ship AND THE PARTICLE
-            Draw(*testShip);
             Draw(*p);
+            Draw(*testShip);
 
             if(counter > 0)
             {

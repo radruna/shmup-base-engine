@@ -33,6 +33,7 @@ namespace sbe
 
     void Ship::update(const float& elapsed)
     {
+        //Use angle method instead
         if(xDir == -1 && speed.x > (maxSpeed * -1))
             speed.x--;
         else if(xDir == 1 && speed.x < maxSpeed)
@@ -62,12 +63,12 @@ namespace sbe
     void Ship::fly(const Dir& dir)
     {
         if(dir == UP)
-            yDir = -1;
+            yDir = -1; //angle = 90
         else if(dir == DOWN)
-            yDir = 1;
+            yDir = 1; //angle = 270
         else if(dir == LEFT)
-            xDir = -1;
+            xDir = -1; //angle = 180
         else
-            xDir = 1;
+            xDir = 1; //angle = 0
     }
 }

@@ -35,7 +35,7 @@ namespace sbe
                 SetImage(imgHandler->getImage(imgStr));
             }
 
-            virtual void update() =0; //Or onThink(), whatever.
+            virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
         protected:
             int z;
             ImageHandler* imgHandler;
