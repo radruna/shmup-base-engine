@@ -16,25 +16,25 @@
 
 #include "filehandler.h" //Abstract base class
 #include "particle.h" //Particle header
-
-struct ValueMod
-{
-    float scalarRate;       //Scalar modifier
-    float oscFreq;          //Oscillation frequency
-    float oscAmp;           //Oscillation amplitude
-    float oscOffset;        //Oscillation offset
-};
-
-struct FadeMod
-{
-    bool fadeIn;            //Should particles fade in?
-    bool fadeOut;           //Should particles fade out?
-    float fadeInTime;       //Time, in seconds, for particles to fade in
-    float fadeOutTime;      //Time, in seconds, for particles to fade out
-};
-
 namespace sbe
 {
+    struct ValueMod
+    {
+        float scalarRate;       //Scalar modifier
+        float oscFreq;          //Oscillation frequency
+        float oscAmp;           //Oscillation amplitude
+        float oscOffset;        //Oscillation offset
+    };
+
+    struct FadeMod
+    {
+        bool fadeIn;            //Should particles fade in?
+        bool fadeOut;           //Should particles fade out?
+        float fadeInTime;       //Time, in seconds, for particles to fade in
+        float fadeOutTime;      //Time, in seconds, for particles to fade out
+    };
+
+
     class ParticleSystem : public FileHandler
     {
         /*

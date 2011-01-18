@@ -1,6 +1,6 @@
 /*
 / The rendering window class
-/ Author: Victor Rådmark
+/ Author: Victor RÃ¥dmark
 / File created: 2010-11-14
 / File updated: 2011-01-07
 / License: GPLv3
@@ -19,7 +19,7 @@
 #include "particlesystem.h" //Particle system
 #include "ship.h"
 //#include "player.h"
-//#include "panel.h"
+#include "panel.h"
 
 namespace sbe
 {
@@ -79,6 +79,7 @@ namespace sbe
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
 
+        testPanel = new sbe::Panel(200, 300, 400, 500, sf::Color::Cyan);
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);

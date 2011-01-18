@@ -13,11 +13,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "entity.h" //Base class def
+#include "movable.h" //Base class def
 
 namespace sbe
 {
-    class Ship : public sbe::Entity
+    class Ship : public sbe::Movable
     {
         public:
             Ship(const sf::Image& img, const int& max = 15, const unsigned int& mod = 30);
@@ -32,12 +32,12 @@ namespace sbe
                 RIGHT
             };
 
-            void update()
+            void update() //Abstract override
             {
 
             }
-            void update(const float& elapsed);
-            void fly(const Dir& dir);
+            void update(const float& elapsed); //Run each frame
+            void fly(const Dir& dir); //When something wants the ship to fly
 
             void setMaxSpeed(const int& max)
             {
@@ -50,7 +50,7 @@ namespace sbe
             }
 
         protected:
-            sf::Vector2f speed;
+            sf::Vector2f speedV;
             int maxSpeed;
             unsigned int modifier;
             short xDir, yDir;

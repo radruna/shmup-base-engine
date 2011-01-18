@@ -72,6 +72,8 @@
 		<Unit filename="src\movable.h" />
 		<Unit filename="src\music.cpp" />
 		<Unit filename="src\music.h" />
+		<Unit filename="src\panel.cpp />
+		<Unit filename="src\panel.h />
 		<Unit filename="src\particle.cpp" />
 		<Unit filename="src\particle.h" />
 		<Unit filename="src\particlesystem.cpp" />

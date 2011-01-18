@@ -19,7 +19,7 @@
 #include "eventhandler.h" //Handles events
 #include "ship.h" //Ship class
 //#include "player.h" //Player class
-//#include "panel.h"
+#include "panel.h"
 
 typedef std::map<std::string, bool> boolMap;
 
@@ -47,6 +47,7 @@ namespace sbe
             //DebugHandler?
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
+            sbe::Panel *testPanel;
 
             sf::Vector2i res;
             bool debug;

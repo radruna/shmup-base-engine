@@ -10,21 +10,21 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "entity.h" //Base class def
+#include "movable.h" //Base class def
 #include "ship.h"
 
 namespace sbe
 {
     Ship::Ship(const sf::Image& img, const int& max, const unsigned int& mod)
-        : Entity(img), speed(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
+        : Movable(img, 0, 0), speedV(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
     {
 
     }
 
-    Ship::Ship(const std::string& imgStr, ImageHandler& iHandler, const int& max, const unsigned int& mod)
+    /*Ship::Ship(const std::string& imgStr, ImageHandler& iHandler, const int& max, const unsigned int& mod)
         : Entity(imgStr, iHandler), speed(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
     {
-    }
+    }*/
 
     Ship::~Ship()
     {
@@ -33,31 +33,36 @@ namespace sbe
 
     void Ship::update(const float& elapsed)
     {
+        /*
+            Purpose: Updates the ship's position each frame.
+            It checks the previously set xDir and yDir vars and checks the current speed
+            which makes for a nice flying algorithm.
+        */
         //Use angle method instead
-        if(xDir == -1 && speed.x > (maxSpeed * -1))
-            speed.x--;
-        else if(xDir == 1 && speed.x < maxSpeed)
-            speed.x++;
+        if(xDir == -1 && speedV.x > (maxSpeed * -1))
+            speedV.x--;
+        else if(xDir == 1 && speedV.x < maxSpeed)
+            speedV.x++;
         else
         {
-            if(speed.x < 0) speed.x++;
-            if(speed.x > 0) speed.x--;
+            if(speedV.x < 0) speedV.x++;
+            if(speedV.x > 0) speedV.x--;
         }
 
-        if(yDir == -1 && speed.y > (maxSpeed * -1))
-            speed.y--;
-        else if(yDir == 1 && speed.y < maxSpeed)
-            speed.y++;
+        if(yDir == -1 && speedV.y > (maxSpeed * -1))
+            speedV.y--;
+        else if(yDir == 1 && speedV.y < maxSpeed)
+            speedV.y++;
         else
         {
-            if(speed.y < 0) speed.y++;
-            if(speed.y > 0) speed.y--;
+            if(speedV.y < 0) speedV.y++;
+            if(speedV.y > 0) speedV.y--;
         }
 
         xDir = 0;
         yDir = 0;
 
-        Move(speed.x * elapsed * modifier, speed.y * elapsed * modifier);
+        Move(speedV.x * elapsed * modifier, speedV.y * elapsed * modifier);
     }
 
     void Ship::fly(const Dir& dir)
