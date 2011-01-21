@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-07
+/ File updated: 2011-01-21
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -57,6 +57,7 @@ namespace sbe
         delete audHandler;
         delete ships;
         delete testShip;
+        delete testPanel;
     }
 
     int Window::exec()
@@ -79,7 +80,7 @@ namespace sbe
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
 
-        testPanel = new sbe::Panel(200, 300, 400, 500, sf::Color::Cyan);
+        testPanel = new sbe::Panel(sf::Vector2f(200, 200), sf::Vector2f(600, 500), sf::Color::Cyan);
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
