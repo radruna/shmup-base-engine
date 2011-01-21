@@ -215,6 +215,7 @@ namespace sbe
             // Draw the ship AND THE PARTICLE
             Draw(*p);
             Draw(*testShip);
+            testPanel->Draw();
 
             if(counter > 0)
             {
