@@ -20,11 +20,15 @@ namespace sbe
             Particle class
         */
         public:
-            Particle(const sf::Image& img, const float& a, const float& v);
+            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime);
             ~Particle()
             {
             }
             void update(const float& elapsed);
+            float getLife();
+
+        private:
+            float life;
     };
 }
 

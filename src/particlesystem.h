@@ -11,9 +11,11 @@
 #include <fstream>   //Read script files
 #include <map> //Map for objects
 #include <string>   //For strings
+#include <list>     //For lists
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "imagehandler.h" //For loading images
 #include "filehandler.h" //Abstract base class
 #include "particle.h" //Particle header
 namespace sbe
@@ -35,13 +37,13 @@ namespace sbe
     };
 
 
-    class ParticleSystem : public FileHandler
+    class ParticleSystem : public FileHandler , public sf::Drawable
     {
         /*
             Particle system class
         */
         public:
-            ParticleSystem();
+            ParticleSystem(const std::string& particleSystemFile, ImageHandler& imgHandler);
             ~ParticleSystem()
             {
                 remove();
@@ -49,15 +51,28 @@ namespace sbe
 
             //Remove particle system
             void remove();
-            void loadParticleSystem(const std::string& particleSystemFile);
+            void SetPosition(int x, int y);
+            void Move(int x, int y);
+            void update(const float& elapsed);
+
+        protected:
+            virtual void Render(sf::RenderTarget& Target) const;
+
         private:
+            std::list<Particle> particleList;       //Particle list
+            //Don't move these please
+            int             xPos, yPos;
+            float           counter;
+            sf::Image       sprite;
+
             //Parameters
             std::string     name,                   //The particle system name
                             spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
             bool            sizeRandom,             //Particle size randomization
                             lifeSpanRandom,         //Particle lifetime randomization
                             rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
-            int             emissionType,           //Particle system type
+            int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
+                            emissionMax,            //Amount of particles to emit if type = 2
                             alpha,                  //Initial alpha of particles emitted by particle system. 0 = invisible, 255 = opaque. Manipulated alpha value should never go over this.
                             emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards

@@ -11,21 +11,18 @@
 #include <map> //Map for objects
 #include <string> //For strings
 #include <cstring> //For strcpy
+#include <list>     //For lists
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "particlesystem.h" //Class def
+#include "imagehandler.h" //For loading images
 #include "filehandler.h" //Base class
 #include "particle.h" //Particle header
 
 namespace sbe
 {
-    ParticleSystem::ParticleSystem()
-    {
-    }
-
-    //Load particle system. This does not work the same as the image or the audio handler as it stores parameters instead of objects
-    void ParticleSystem::loadParticleSystem(const std::string& particleSystemFile)
+    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler& imgHandler)
     {
         std::cout << std::endl << "Loading particle system \"" << particleSystemFile << "\"..." << std::endl;
         char str[255];
@@ -62,6 +59,8 @@ namespace sbe
                 //Emission parameters
                 else if(parameterKey == "emission_type")
                     emissionType = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_max")
+                    emissionMax = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "emission_rate")
                     emissionRate = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_angle_min")
@@ -133,18 +132,63 @@ namespace sbe
 
                 //Parameter not found
                 else
-                    std::cout << "Invalid particle system parameter" << std::endl;
+                    std::cout << "Invalid particle system parameter: " << parameterKey << std::endl;
             }
         }
         //Debug output
         std::cout << "Finished loading particle \"" << particleSystemFile << "\"" << std::endl;
         //Close file
         fileReader.close();
+        sprite = imgHandler.getImage(spriteName);
+    }
+
+    void Render(sf::RenderTarget& Target)
+    {
+
     }
 
     //Remove all particles from world
-    void ParticleSystem::remove(){
+    void ParticleSystem::remove()
+    {
         /* Particle remove code */
+    }
+
+    void ParticleSystem::SetPosition(int x, int y)
+    {
+        xPos = x;
+        yPos = y;
+    }
+
+    void ParticleSystem::Move(int x, int y)
+    {
+        xPos += x;
+        yPos += y;
+    }
+
+    void ParticleSystem::update(const float& elapsed)
+    {
+        //Emit new particle
+        if(counter > 1/emissionRate)
+        {
+            particleList.push_back(Particle(sprite, 45, 5, 1));
+            std::cout<<"New particle emitted"<<std::endl;
+            counter = 0;
+        }
+        else
+        {
+            counter += elapsed;
+        }
+
+        std::list<Particle>::iterator pIt = particleList.begin();
+
+        while(pIt != particleList.end())
+        {
+            std::cout<<"Poo"<<std::endl;
+            //Draw(pIt);
+            pIt->SetPosition(500.f, 50.f);
+            pIt++;
+        }
+
     }
 
 }

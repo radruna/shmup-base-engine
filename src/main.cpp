@@ -12,6 +12,9 @@
 
 int main()
 {
+    //Boot message
+    std::cout << " --- Shmup Base Engine version 0.x --- " << std::endl;
+
     //Create the config reader
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
 

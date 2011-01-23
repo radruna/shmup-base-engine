@@ -7,8 +7,9 @@
 "sprite_name"						"smoke_01_img"
 
 //Emission stuff
-"emission_type"						"1"
-"emission_rate"						"5"
+"emission_type"						"1"						//1 = continuous, 2 = instant
+"emission_rate"						"2"						//Particles per second
+"emission_max"						"10"					//Particles to emit if type = 2
 "emission_force"					"1"
 "emission_friction"					"0.9"
 "emission_angle_min"				"-10"

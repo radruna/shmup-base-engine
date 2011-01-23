@@ -14,12 +14,19 @@
 namespace sbe
 {
 
-    Particle::Particle(const sf::Image& img, const float& a, const float& v)
+    Particle::Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime)
         : Movable(img, a, v)
     {
+        life = lifeTime;
     }
+
     void Particle::update(const float& elapsed)
     {
         Movable::update(elapsed);
+    }
+
+    float Particle::getLife()
+    {
+        return life;
     }
 }
