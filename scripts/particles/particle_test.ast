@@ -3,32 +3,32 @@
 //---------------------------------------------------------
 
 //Generic parameters
-"name"								"smoke_01_p"
-"sprite_name"						"smoke_01"
+"name"								"smoke_01_p"			//Particle system name
+"sprite_name"						"smoke_01"				//Sprite to use. Needs to be loaded by asset file
 
 //Emission stuff
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"500"						//Particles per second
+"emission_rate"						"500"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
-"emission_force_min"				"0.5"
-"emission_force_max"				"2"
+"emission_force_min"				"0.5"					//Emission force minimum
+"emission_force_max"				"2"						//Emission force maximum
 "emission_friction"					"0.9"
-"emission_angle_min"				"0"
-"emission_angle_max"				"360"
+"emission_angle_min"				"0"						//Emission angle minimum
+"emission_angle_max"				"360"					//Emission angle maximum
 
 //Lifespan stuff
-"lifespan_min"						"10"
-"lifespan_max"						"15"
+"lifespan_min"						"10"					//Lifespan duration minimum
+"lifespan_max"						"15"					//Lifespan duration maximum
 
 //Size and stuff
-"size"								"2"
-"size_random"						"0"
-"size_random_min"					"1"
-"size_random_max"					"3"
+"size_min"							"1"
+"size_max"							"3"
 
 //Rotation parameters
-"rotation_rate"						"50"
-"rotation_random"					"1"
+"rotation_rate_min"					"-1"					//Rotation rate minimum
+"rotation_rate_max"					"1"						//Rotation rate maximum
+"rotation_random"					"1"						//Particles spawn with random rotation
+"rotation"							"0"						//If not random, then this
 
 //Fade thingies
 "fade_in_duration"					"2"

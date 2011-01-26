@@ -68,23 +68,23 @@ namespace sbe
             //Parameters
             std::string     name,                   //The particle system name
                             spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
-            bool            sizeRandom,             //Particle size randomization
-                            rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
+            bool            rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
                             alpha,                  //Initial alpha of particles emitted by particle system. 0 = invisible, 255 = opaque. Manipulated alpha value should never go over this.
                             emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
-            float           size,                   //Initial size of particles emitted by particle system. 1 = 1:1 sprite pixel to screen pixel ratio
-                            sizeRandomMin,          //If sizeRandom = 1, then this is set as the minimum value
-                            sizeRandomMax,          //If sizeRandom = 1, then this is set as the maximum value
+            float           sizeMin,                //Size min
+                            sizeMax,                //Size max
                             lifeSpanMin,            //Lifespan min
                             lifeSpanMax,            //Lifespan max
                             emissionRate,           //Emission rate
                             emissionForceMin,       //Emission force min
                             emissionForceMax,       //Emission force max
                             emissionFriction,       //Emission friction
-                            rotRate;                //Rotation speed
+                            rotRateMin,             //Rotation speed min
+                            rotRateMax,             //Rotation speed max
+                            rotation;               //Particle rotation if not random
             ValueMod        sizeModifier,           //Size modifiers
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters

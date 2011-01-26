@@ -81,20 +81,20 @@ namespace sbe
                     lifeSpanMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Size parameters
-                else if(parameterKey == "size")
-                    size = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "size_random")
-                    sizeRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                else if(parameterKey == "size_random_min")
-                    sizeRandomMin = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "size_random_max")
-                    sizeRandomMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_min")
+                    sizeMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_max")
+                    sizeMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Rotation parameters
-                else if(parameterKey == "rotation_rate")
-                    rotRate = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "rotation_rate_min")
+                    rotRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "rotation_rate_max")
+                    rotRateMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "rotation_random")
                     rotRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
+                else if(parameterKey == "rotation")
+                    rotation = atof(parameterValue.c_str());//Convert string to float
 
                 //Fade parameters
                 else if(parameterKey == "fade_in_duration")
@@ -166,7 +166,13 @@ namespace sbe
 
     float ParticleSystem::boundsRand(float min, float max)
     {
-        if(min == max)    //If same = one value
+        if(min > max)   //Swap values if user = idiot
+        {
+            float temp = min;
+            min = max;
+            max = temp;
+        }
+        else if(min == max)    //If same = one value
             {
                 return min;
             }else   //If different, value = random value between min and max
@@ -177,7 +183,13 @@ namespace sbe
 
     int ParticleSystem::boundsRand(int min, int max)
     {
-        if(min == max)    //If same = one value
+        if(min > max)   //Swap values if user = idiot
+        {
+            int temp = min;
+            min = max;
+            max = temp;
+        }
+        else if(min == max)    //If same = one value
             {
                 return min;
             }else   //If different, value = random value between min and max
@@ -192,12 +204,24 @@ namespace sbe
         if(counter > 1/emissionRate)
         {
 
-            int emitAngle           = boundsRand(emissionAngleMin, emissionAngleMax); //Generate angle
-            float emissionForce     = boundsRand(emissionForceMin, emissionForceMax); //Generate force
-            float lifeSpan          = boundsRand(lifeSpanMin, lifeSpanMax); //Generate lifespan
+            int emitAngle           = boundsRand(emissionAngleMin, emissionAngleMax);   //Generate angle
+            float emissionForce     = boundsRand(emissionForceMin, emissionForceMax);   //Generate force
+            float lifeSpan          = boundsRand(lifeSpanMin, lifeSpanMax);             //Generate lifespan
 
             particleList.push_back(Particle(sprite, emitAngle - 90, emissionForce, lifeSpan)); //Add new particle to list
             particleList.back().SetPosition(xPos, yPos);
+            if(rotRandom)
+            {
+                particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );
+                particleList.back().SetRotation( rand() % 360 );
+                particleList.back().setRot(boundsRand(rotRateMin, rotRateMax) / 10);
+
+            }
+            else
+            {
+                particleList.back().SetRotation( rotation );
+            }
+
             std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;
 
             counter = 0;
@@ -213,7 +237,6 @@ namespace sbe
             if(pIt->getLife() < 0)
             {
                 pIt = particleList.erase(pIt);
-                //particleList.erase(pIt);
                 std::cout<<"Particle died! =("<<std::endl;
             }
             else

@@ -2,7 +2,7 @@
 / Particle class
 / Author: Felix Westin
 / File created: 2010-12-07
-/ File updated: 2011-01-04
+/ File updated: 2011-01-26
 / License: GPLv3
 */
 #include <SFML/Graphics.hpp> //Sfml stuff
@@ -24,10 +24,25 @@ namespace sbe
     {
         Movable::update(elapsed);
         life -= elapsed;
+        if(rot != 0)
+        {
+            Rotate(rot);
+        }
     }
 
     float Particle::getLife()
     {
         return life;
     }
+
+    float Particle::getRotation()
+    {
+        return rot;
+    }
+
+    void Particle::setRot(float r)
+    {
+        rot = r;
+    }
+
 }

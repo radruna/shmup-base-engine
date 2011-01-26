@@ -2,7 +2,7 @@
 / Particle class
 / Author: Felix Westin
 / File created: 2010-12-07
-/ File updated: 2011-01-04
+/ File updated: 2011-01-26
 / License: GPLv3
 */
 #ifndef PARTICLE_H_INCLUDED
@@ -26,9 +26,12 @@ namespace sbe
             }
             void update(const float& elapsed);
             float getLife();
+            float getRotation();
+            void setRot(float r);
 
         private:
             float life;
+            float rot;
     };
 }
 
