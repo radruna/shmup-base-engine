@@ -8,6 +8,8 @@
 #include <iostream> //Debug output
 #include <string> //For strings
 #include <map> //For mapping objects
+#include <cstdlib>
+#include <sstream>
 
 #include <SFML/Graphics.hpp> //Graphics and everything above
 #include <SFML/Audio.hpp> //hurr durr
@@ -99,14 +101,19 @@ namespace sbe
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/particle_test.ast", imgHandler);
         pSystem1->SetPosition(500.f, 50.f);
 
-        //Test particle
-        sbe::Particle *p = new Particle(img3, 45, 5, 1);
-        p->SetPosition(500.f, 50.f);
+        sf::Font fpsFont;
 
-        float p_alpha = 255;
+        if(!fpsFont.LoadFromFile("assets/font/inconsolata.otf"))
+            std::cout << "Could not load font file!" << std::endl;
+
+        sf::String fps("0", fpsFont, 20);
+        fps.SetPosition(10, 10);
+        fps.SetColor(sf::Color::White);
+        std::cout << fps.GetFont().GetCharacterSize() << std::endl;
+        std::stringstream fpsStr;
 
         while(IsOpened())
-        {p->SetPosition(500.f, 50.f);
+        {
 
             // Process events, to be replaced by evtHandler
             sf::Event event;
@@ -195,12 +202,8 @@ namespace sbe
                 shot.Move(0, (-2000 * ElapsedTime));
             }
 
-            //Update test particle
-            p->update(ElapsedTime);
-            if(p_alpha > 1)
-                p->SetColor(sf::Color(255, 255, 255, p_alpha-= 0.3));
-            p->setAngle(p->getAngle()+2);
-            p->Rotate(0.2);
+            fpsStr << (int) ((1.f / ElapsedTime) + 0.5);
+            fps.SetText(fpsStr.str());
 
             // Clear screen
             if(cCount++ % 20 == 0)
@@ -220,10 +223,10 @@ namespace sbe
             //Clear(c);
             Clear();
 
-            // Draw the ship
-            Draw(*p);
+            // Draw stuff
             Draw(*testShip);
             Draw(*pSystem1);
+            Draw(fps);
 
             if(counter > 0)
             {
