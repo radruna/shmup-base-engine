@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-21
+/ File updated: 2011-01-26
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -81,6 +81,7 @@ namespace sbe
         testShip->SetScale(0.5, 0.5);
 
         testPanel = new sbe::Panel(sf::Vector2f(200, 200), sf::Vector2f(600, 500), sf::Color::Cyan);
+
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
@@ -95,14 +96,19 @@ namespace sbe
         loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.Play();
 
+        //Test particle system
+        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/particle_test.ast", imgHandler);
+        pSystem1->SetPosition(500.f, 50.f);
+
         //Test particle
-        sbe::Particle *p = new Particle(img3, 45, 5);
+        sbe::Particle *p = new Particle(img3, 45, 5, 1);
         p->SetPosition(500.f, 50.f);
-        //p->SetCenter(p->GetSize().x / 2, p->GetSize().y / 2);
+
         float p_alpha = 255;
 
         while(IsOpened())
-        {
+        {p->SetPosition(500.f, 50.f);
+
             // Process events, to be replaced by evtHandler
             sf::Event event;
             while (GetEvent(event))
@@ -160,6 +166,9 @@ namespace sbe
             //Update the ship with the input data
             testShip->update(ElapsedTime);
 
+            //Particle system update test
+            pSystem1->update(ElapsedTime);
+
             //TODO (Liag#5#) Add lasers and stuff to the Ship class.
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
             {
@@ -212,10 +221,10 @@ namespace sbe
             //Clear(c);
             Clear();
 
-            // Draw the ship AND THE PARTICLE
+            // Draw the ship
             Draw(*p);
             Draw(*testShip);
-            testPanel->Draw();
+            Draw(*pSystem1);
 
             if(counter > 0)
             {
