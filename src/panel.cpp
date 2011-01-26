@@ -21,4 +21,9 @@ namespace sbe
     {
 
     }
+
+    Panel::Draw()
+    {
+        Draw(*panelRect);
+    }
 }

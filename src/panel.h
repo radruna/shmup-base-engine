@@ -18,6 +18,7 @@ namespace sbe
             Panel(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline = 0, const sf::Color& outlineColor = sf::Color::Black);
             ~Panel();
 
+            Draw();
         protected:
             sf::Shape *panelRect;
     };
