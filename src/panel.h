@@ -12,13 +12,13 @@
 
 namespace sbe
 {
-    class Panel
+    class Panel : sf::Drawable
     {
         public:
             Panel(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline = 0, const sf::Color& outlineColor = sf::Color::Black);
             ~Panel();
 
-            Draw();
+            void Render(sf::RenderTarget& target) const;
         protected:
             sf::Shape *panelRect;
     };

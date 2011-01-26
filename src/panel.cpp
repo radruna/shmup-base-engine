@@ -22,8 +22,8 @@ namespace sbe
 
     }
 
-    Panel::Draw()
+    void Panel::Render(sf::RenderTarget& target) const
     {
-        Draw(*panelRect);
+        target.Draw(*panelRect);
     }
 }
