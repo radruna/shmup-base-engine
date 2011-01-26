@@ -4,7 +4,7 @@
 
 //Generic parameters
 "name"								"smoke_01_p"
-"sprite_name"						"smoke_01_img"
+"sprite_name"						"smoke_01"
 
 //Emission stuff
 "emission_type"						"1"						//1 = continuous, 2 = instant

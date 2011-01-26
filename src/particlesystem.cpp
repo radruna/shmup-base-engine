@@ -2,16 +2,18 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2011-01-04
+/ File updated: 2011-01-26
 / License: GPLv3
 //TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
 #include <iostream> //Debug output
 #include <fstream>   //Read script files
-#include <map> //Map for objects
 #include <string> //For strings
 #include <cstring> //For strcpy
 #include <list>     //For lists
+#include <cstdlib>
+#include <ctime>
+#include <cmath>
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
@@ -22,14 +24,12 @@
 
 namespace sbe
 {
-    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler& imgHandler)
+    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler)
     {
         std::cout << std::endl << "Loading particle system \"" << particleSystemFile << "\"..." << std::endl;
-        char str[255];
-        //Convert string to char array
-        strcpy(str, particleSystemFile.c_str());
+
         //Open specified file
-        fileReader.open(str);
+        fileReader.open(particleSystemFile.c_str());
         if(!fileReader)
         {
             //Debug output
@@ -139,18 +139,23 @@ namespace sbe
         std::cout << "Finished loading particle \"" << particleSystemFile << "\"" << std::endl;
         //Close file
         fileReader.close();
-        sprite = imgHandler.getImage(spriteName);
+        sprite = imgHandler->getImage(spriteName);
+
+        srand(time(NULL));
     }
 
-    void Render(sf::RenderTarget& Target)
+    void ParticleSystem::Render(sf::RenderTarget& Target) const
     {
-
+        for(std::list<Particle>::const_iterator it = particleList.begin(); it != particleList.end(); it++)
+        {
+            Target.Draw(*it);
+        }
     }
 
-    //Remove all particles from world
+    //Remove all particles from system
     void ParticleSystem::remove()
     {
-        /* Particle remove code */
+        particleList.clear();
     }
 
     void ParticleSystem::SetPosition(int x, int y)
@@ -170,25 +175,24 @@ namespace sbe
         //Emit new particle
         if(counter > 1/emissionRate)
         {
-            particleList.push_back(Particle(sprite, 45, 5, 1));
+            int angle = rand() % 360;
+            std::cout << "angle = " << angle << std::endl;
+            particleList.push_back(Particle(sprite, angle, 5, 1));
+            particleList.back().SetPosition(xPos, yPos);
             std::cout<<"New particle emitted"<<std::endl;
+
             counter = 0;
+            //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
         }
         else
         {
             counter += elapsed;
         }
 
-        std::list<Particle>::iterator pIt = particleList.begin();
-
-        while(pIt != particleList.end())
+        for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++)
         {
-            std::cout<<"Poo"<<std::endl;
-            //Draw(pIt);
-            pIt->SetPosition(500.f, 50.f);
-            pIt++;
+            pIt->update(elapsed);
         }
-
     }
 
 }

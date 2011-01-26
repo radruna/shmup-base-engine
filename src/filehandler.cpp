@@ -2,7 +2,7 @@
 / Abstract file handler class
 / Author: Victor Rådmark, Felix Westin
 / File created: 2010-11-17
-/ File updated: 2010-12-14
+/ File updated: 2010-01-26
 / License: GPLv3
 */
 
@@ -46,7 +46,7 @@ namespace sbe
 
         //Find first quotation mark
         qPos[0] = strSource.find("\"");
-        if(qPos[0] == std::string::npos)
+        if(qPos[0] == -1)
             return false;
         else
             qPos[0] = strSource.find("\"");
@@ -54,7 +54,7 @@ namespace sbe
         //Find second, third and fourth quotation mark
         for(int i=1;i<=3;i++){
             qPos[i] = strSource.find("\"", qPos[i-1] + 1);
-            if(qPos[i] == std::string::npos)
+            if(qPos[i] == -1)
             {
                 return false;
             }

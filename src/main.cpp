@@ -2,7 +2,7 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2010-12-14
+/ File updated: 2010-01-25
 / License: GPLv3
 */
 #include <SFML/Graphics.hpp>

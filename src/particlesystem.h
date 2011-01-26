@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2011-01-04
+/ File updated: 2011-01-26
 / License: GPLv3
 */
 #ifndef PARTICLESYSTEM_H_INCLUDED
@@ -18,6 +18,7 @@
 #include "imagehandler.h" //For loading images
 #include "filehandler.h" //Abstract base class
 #include "particle.h" //Particle header
+
 namespace sbe
 {
     struct ValueMod
@@ -43,7 +44,7 @@ namespace sbe
             Particle system class
         */
         public:
-            ParticleSystem(const std::string& particleSystemFile, ImageHandler& imgHandler);
+            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler);
             ~ParticleSystem()
             {
                 remove();
@@ -56,7 +57,7 @@ namespace sbe
             void update(const float& elapsed);
 
         protected:
-            virtual void Render(sf::RenderTarget& Target) const;
+            void Render(sf::RenderTarget& Target) const;
 
         private:
             std::list<Particle> particleList;       //Particle list
