@@ -47,9 +47,12 @@
 		<Unit filename="assets\image\cb.bmp" />
 		<Unit filename="assets\image\jet.png" />
 		<Unit filename="assets\image\kawaii.png" />
+		<Unit filename="assets\image\smoke01.png" />
 		<Unit filename="assets\music\8bitloli.ogg" />
 		<Unit filename="assets\music\loli.ogg" />
+		<Unit filename="assets\music\loli2.ogg" />
 		<Unit filename="assets\sound\durr.wav" />
+		<Unit filename="assets\sound\error.wav" />
 		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
