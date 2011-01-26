@@ -67,20 +67,18 @@ namespace sbe
                     emissionAngleMin = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "emission_angle_max")
                     emissionAngleMax = atoi(parameterValue.c_str());//Convert string to int
-                else if(parameterKey == "emission_force")
-                    emissionForce = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_force_min")
+                    emissionForceMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_force_max")
+                    emissionForceMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_friction")
                     emissionFriction = atof(parameterValue.c_str());//Convert string to float
 
                 //Lifespan parameters
-                else if(parameterKey == "lifespan")
-                    lifeSpan = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "lifespan_random")
-                    lifeSpanRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                else if(parameterKey == "lifespan_random_min")
-                    lifeSpanRandomMin = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "lifespan_random_max")
-                    lifeSpanRandomMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "lifespan_min")
+                    lifeSpanMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "lifespan_max")
+                    lifeSpanMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Size parameters
                 else if(parameterKey == "size")
@@ -99,14 +97,10 @@ namespace sbe
                     rotRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
                 //Fade parameters
-                else if(parameterKey == "fade_in")
-                    fadeModifier.fadeIn = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                else if(parameterKey == "fade_out")
-                    fadeModifier.fadeOut = (bool) atoi(parameterValue.c_str());//Convert string to bool
-                else if(parameterKey == "fade_in_time")
-                    fadeModifier.fadeInTime = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "fade_out_time")
-                    fadeModifier.fadeOutTime = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_duration")
+                    fadeModifier.fadeInDuration = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_out_duration")
+                    fadeModifier.fadeOutDuration = atof(parameterValue.c_str());//Convert string to float
 
                 //Size modification parameters
                 else if(parameterKey == "size_mod_scalar_rate")
@@ -170,16 +164,41 @@ namespace sbe
         yPos += y;
     }
 
+    float ParticleSystem::boundsRand(float min, float max)
+    {
+        if(min == max)    //If same = one value
+            {
+                return min;
+            }else   //If different, value = random value between min and max
+            {
+                return min + fmod(rand(), (max - min));
+            }
+    }
+
+    int ParticleSystem::boundsRand(int min, int max)
+    {
+        if(min == max)    //If same = one value
+            {
+                return min;
+            }else   //If different, value = random value between min and max
+            {
+                return min + rand() % (max - min);
+            }
+    }
+
     void ParticleSystem::update(const float& elapsed)
     {
         //Emit new particle
         if(counter > 1/emissionRate)
         {
-            int angle = rand() % 360;
-            std::cout << "angle = " << angle << std::endl;
-            particleList.push_back(Particle(sprite, angle, 5, 1));
+
+            int emitAngle           = boundsRand(emissionAngleMin, emissionAngleMax); //Generate angle
+            float emissionForce     = boundsRand(emissionForceMin, emissionForceMax); //Generate force
+            float lifeSpan          = boundsRand(lifeSpanMin, lifeSpanMax); //Generate lifespan
+
+            particleList.push_back(Particle(sprite, emitAngle - 90, emissionForce, lifeSpan)); //Add new particle to list
             particleList.back().SetPosition(xPos, yPos);
-            std::cout<<"New particle emitted"<<std::endl;
+            std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;
 
             counter = 0;
             //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
@@ -191,7 +210,16 @@ namespace sbe
 
         for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++)
         {
-            pIt->update(elapsed);
+            if(pIt->getLife() < 0)
+            {
+                pIt = particleList.erase(pIt);
+                //particleList.erase(pIt);
+                std::cout<<"Particle died! =("<<std::endl;
+            }
+            else
+            {
+                pIt->update(elapsed);
+            }
         }
     }
 

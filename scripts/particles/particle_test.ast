@@ -8,18 +8,17 @@
 
 //Emission stuff
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"2"						//Particles per second
+"emission_rate"						"5"						//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
-"emission_force"					"1"
+"emission_force_min"				"0.5"
+"emission_force_max"				"2"
 "emission_friction"					"0.9"
-"emission_angle_min"				"-10"
-"emission_angle_max"				"10"
+"emission_angle_min"				"160"
+"emission_angle_max"				"200"
 
 //Lifespan stuff
-"lifespan"							"5"
-"lifespan_random"					"1"
-"lifespan_random_min"				"4"
-"lifespan_random_max"				"6"
+"lifespan_min"						"3"
+"lifespan_max"						"5"
 
 //Size and stuff
 "size"								"2"
@@ -32,10 +31,8 @@
 "rotation_random"					"1"
 
 //Fade thingies
-"fade_in"							"1"
-"fade_out"							"1"
-"fade_in_time"						"2"
-"fade_out_time"						"5"
+"fade_in_duration"					"2"
+"fade_out_duration"					"5"
 
 //Size modification
 "size_mod_scalar_rate"				"0"

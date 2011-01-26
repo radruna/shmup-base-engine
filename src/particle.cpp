@@ -23,6 +23,7 @@ namespace sbe
     void Particle::update(const float& elapsed)
     {
         Movable::update(elapsed);
+        life -= elapsed;
     }
 
     float Particle::getLife()

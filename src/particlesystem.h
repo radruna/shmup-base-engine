@@ -31,10 +31,8 @@ namespace sbe
 
     struct FadeMod
     {
-        bool fadeIn;            //Should particles fade in?
-        bool fadeOut;           //Should particles fade out?
-        float fadeInTime;       //Time, in seconds, for particles to fade in
-        float fadeOutTime;      //Time, in seconds, for particles to fade out
+        float fadeInDuration;       //Time, in seconds, for particles to fade in
+        float fadeOutDuration;      //Time, in seconds, for particles to fade out
     };
 
 
@@ -60,7 +58,8 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
 
         private:
-            std::list<Particle> particleList;       //Particle list
+            float boundsRand(float a, float b);
+            int boundsRand(int a, int b);
             //Don't move these please
             int             xPos, yPos;
             float           counter;
@@ -70,7 +69,6 @@ namespace sbe
             std::string     name,                   //The particle system name
                             spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
             bool            sizeRandom,             //Particle size randomization
-                            lifeSpanRandom,         //Particle lifetime randomization
                             rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
@@ -80,11 +78,11 @@ namespace sbe
             float           size,                   //Initial size of particles emitted by particle system. 1 = 1:1 sprite pixel to screen pixel ratio
                             sizeRandomMin,          //If sizeRandom = 1, then this is set as the minimum value
                             sizeRandomMax,          //If sizeRandom = 1, then this is set as the maximum value
-                            lifeSpan,               //Lifetime, in seconds
-                            lifeSpanRandomMin,      //If lifeSpanRandom = 1, then this is set as the minimum value
-                            lifeSpanRandomMax,      //If lifeSpanRandom = 1, then this is set as the maximum value
+                            lifeSpanMin,            //Lifespan min
+                            lifeSpanMax,            //Lifespan max
                             emissionRate,           //Emission rate
-                            emissionForce,          //Emission force
+                            emissionForceMin,       //Emission force min
+                            emissionForceMax,       //Emission force max
                             emissionFriction,       //Emission friction
                             rotRate;                //Rotation speed
             ValueMod        sizeModifier,           //Size modifiers
@@ -93,6 +91,8 @@ namespace sbe
 
             //Parameter list
             std::map<std::string, std::string> parameterList;   //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP
+            //Particle list
+            std::list<Particle> particleList;
     };
 }
 
