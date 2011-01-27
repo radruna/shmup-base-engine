@@ -8,31 +8,33 @@
 
 //Emission stuff
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"500"					//Particles per second
+"emission_rate"						"50"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"0.5"					//Emission force minimum
-"emission_force_max"				"2"						//Emission force maximum
+"emission_force_max"				"3"						//Emission force maximum
 "emission_friction"					"0.9"
 "emission_angle_min"				"0"						//Emission angle minimum
 "emission_angle_max"				"360"					//Emission angle maximum
 
 //Lifespan stuff
-"lifespan_min"						"10"					//Lifespan duration minimum
-"lifespan_max"						"15"					//Lifespan duration maximum
+"lifespan_min"						"4"						//Lifespan duration minimum
+"lifespan_max"						"4"						//Lifespan duration maximum
 
 //Size and stuff
-"size_min"							"1"
-"size_max"							"3"
+"size_min"							"0.5"					//Scale minimum
+"size_max"							"2"						//Scale maximum
 
 //Rotation parameters
-"rotation_rate_min"					"-1"					//Rotation rate minimum
-"rotation_rate_max"					"1"						//Rotation rate maximum
+"rotation_rate_min"					"-5"					//Rotation rate minimum
+"rotation_rate_max"					"5"						//Rotation rate maximum
 "rotation_random"					"1"						//Particles spawn with random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade thingies
-"fade_in_duration"					"2"
-"fade_out_duration"					"5"
+"fade_in_min"						"2"						//Fade in duration minimum
+"fade_in_max"						"2"						//Fade in duration maximum
+"fade_out_min"						"2"						//Fade out duration minimum
+"fade_out_max"						"2"						//Fade out duration maximum
 
 //Size modification
 "size_mod_scalar_rate"				"0"
@@ -41,7 +43,8 @@
 "size_mod_oscillate_offset"			"120"
 
 //Alpha modification
-"alpha"								"120"
+"alpha_min"							"255"
+"alpha_max"							"255"
 "alpha_mod_scalar_rate"				"-0.1"
 "alpha_mod_oscillate_freq"			"2"
 "alpha_mod_oscillate_amplitude"		"120"

@@ -36,6 +36,8 @@ namespace sbe
             }
 
             virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
+            void SetAlpha(int alpha);
+            int GetAlpha();
         protected:
             int z;
             ImageHandler* imgHandler;

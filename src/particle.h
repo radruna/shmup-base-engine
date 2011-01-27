@@ -2,7 +2,7 @@
 / Particle class
 / Author: Felix Westin
 / File created: 2010-12-07
-/ File updated: 2011-01-26
+/ File updated: 2011-01-27
 / License: GPLv3
 */
 #ifndef PARTICLE_H_INCLUDED
@@ -10,6 +10,7 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include <iostream> //Debug output
 #include "movable.h" //Base class def
 
 namespace sbe
@@ -20,18 +21,27 @@ namespace sbe
             Particle class
         */
         public:
-            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime);
+            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur);
             ~Particle()
             {
             }
             void update(const float& elapsed);
             float getLife();
-            float getRotation();
+            float getRot();
             void setRot(float r);
 
         private:
-            float life;
-            float rot;
+            int     fadeInToAlpha,
+                    fadeOutFromAlpha,;
+
+            float   life,
+                    age,
+                    rot,
+                    preAlpha,
+                    fadeInDuration, fadeOutDuration;
+
+            bool    fadeIn,
+                    fadeOut;
     };
 }
 

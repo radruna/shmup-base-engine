@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2011-01-26
+/ File updated: 2011-01-27
 / License: GPLv3
 //TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
@@ -97,10 +97,14 @@ namespace sbe
                     rotation = atof(parameterValue.c_str());//Convert string to float
 
                 //Fade parameters
-                else if(parameterKey == "fade_in_duration")
-                    fadeModifier.fadeInDuration = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "fade_out_duration")
-                    fadeModifier.fadeOutDuration = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_min")
+                    fadeModifier.fadeInMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_max")
+                    fadeModifier.fadeInMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_out_min")
+                    fadeModifier.fadeOutMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_out_max")
+                    fadeModifier.fadeOutMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Size modification parameters
                 else if(parameterKey == "size_mod_scalar_rate")
@@ -113,8 +117,10 @@ namespace sbe
                     sizeModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
                 //Alpha parameters
-                else if(parameterKey == "alpha")
-                    alpha = atoi(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_min")
+                    alphaMin = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "alpha_max")
+                    alphaMax = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "alpha_mod_scalar_rate")
                     alphaModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_freq")
@@ -130,7 +136,7 @@ namespace sbe
             }
         }
         //Debug output
-        std::cout << "Finished loading particle \"" << particleSystemFile << "\"" << std::endl;
+        std::cout << "Finished loading particle system \"" << particleSystemFile << "\"" << std::endl;
         //Close file
         fileReader.close();
         sprite = imgHandler->getImage(spriteName);
@@ -204,25 +210,58 @@ namespace sbe
         if(counter > 1/emissionRate)
         {
 
-            int emitAngle           = boundsRand(emissionAngleMin, emissionAngleMax);   //Generate angle
-            float emissionForce     = boundsRand(emissionForceMin, emissionForceMax);   //Generate force
-            float lifeSpan          = boundsRand(lifeSpanMin, lifeSpanMax);             //Generate lifespan
+            //Set angle
+            int emitAngle           = boundsRand( emissionAngleMin , emissionAngleMax );
+            //Set force
+            float emissionForce     = boundsRand( emissionForceMin , emissionForceMax );
+            //Set lifespan
+            float lifeSpan          = boundsRand( lifeSpanMin , lifeSpanMax );
 
-            particleList.push_back(Particle(sprite, emitAngle - 90, emissionForce, lifeSpan)); //Add new particle to list
-            particleList.back().SetPosition(xPos, yPos);
-            if(rotRandom)
+            //Set alpha
+            int alpha;
+            if(alphaMin != alphaMax)
             {
-                particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );
-                particleList.back().SetRotation( rand() % 360 );
-                particleList.back().setRot(boundsRand(rotRateMin, rotRateMax) / 10);
-
+                alpha = boundsRand( alphaMin , alphaMax );
+                particleList.back().SetAlpha( alpha );
             }
             else
-            {
-                particleList.back().SetRotation( rotation );
-            }
+                alpha = alphaMin;
 
-            std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;
+            //Set fade in duration
+            float fadeInDur;
+            if(fadeModifier.fadeInMin != fadeModifier.fadeInMax)
+                fadeInDur = boundsRand( fadeModifier.fadeInMin , fadeModifier.fadeInMax );
+            else
+                fadeInDur = fadeModifier.fadeInMin;
+
+            //Set fade out duration
+            float fadeOutDur;
+            if(fadeModifier.fadeOutMin != fadeModifier.fadeOutMax)
+                fadeOutDur = boundsRand( fadeModifier.fadeOutMin , fadeModifier.fadeOutMax );
+            else
+                fadeOutDur = fadeModifier.fadeOutMin;
+
+            particleList.push_back(Particle( sprite , emitAngle - 90 , emissionForce , lifeSpan , alpha, fadeInDur, fadeOutDur)); //Add new particle to list
+            particleList.back().SetPosition( xPos , yPos );
+            particleList.back().setRot( boundsRand(rotRateMin, rotRateMax) / 10 );
+            particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );
+
+            //Set scale
+            if(sizeMin != sizeMax)
+            {
+                float size = boundsRand( sizeMin , sizeMax );
+                particleList.back().SetScale( size , size );
+            }
+            else
+                particleList.back().SetScale( sizeMin , sizeMin );
+
+            //Handle random rotation
+            if(rotRandom)
+                particleList.back().SetRotation( rand() % 360 );
+            else
+                particleList.back().SetRotation( rotation );
+
+            //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;
 
             counter = 0;
             //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
@@ -237,7 +276,7 @@ namespace sbe
             if(pIt->getLife() < 0)
             {
                 pIt = particleList.erase(pIt);
-                std::cout<<"Particle died! =("<<std::endl;
+                //std::cout<<"Particle died! =("<<std::endl;
             }
             else
             {

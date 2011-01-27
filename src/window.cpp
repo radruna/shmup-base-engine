@@ -99,7 +99,7 @@ namespace sbe
         loli.Play();
         //Test particle system
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/particle_test.ast", imgHandler);
-        pSystem1->SetPosition(500.f, 50.f);
+        pSystem1->SetPosition(500.f, 300.f);
 
         sf::Font fpsFont;
 

@@ -37,4 +37,22 @@ namespace sbe
     {
         //delete imgHandler;
     }
+
+    void Entity::SetAlpha(int alpha)
+    {
+        if(alpha > 255)
+            alpha = 255;
+        else if(alpha < 0)
+            alpha = 0;
+
+        sf::Color col = GetColor();
+        col.a = alpha;
+        SetColor( col );
+    }
+
+    int Entity::GetAlpha()
+    {
+        sf::Color col = GetColor();
+        return col.a;
+    }
 }

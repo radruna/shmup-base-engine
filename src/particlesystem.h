@@ -31,8 +31,10 @@ namespace sbe
 
     struct FadeMod
     {
-        float fadeInDuration;       //Time, in seconds, for particles to fade in
-        float fadeOutDuration;      //Time, in seconds, for particles to fade out
+        float fadeInMin;       //Fade in duration min
+        float fadeInMax;       //Fade in duration max
+        float fadeOutMin;      //Fade out duration min
+        float fadeOutMax;      //Fade out duration max
     };
 
 
@@ -71,7 +73,8 @@ namespace sbe
             bool            rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
-                            alpha,                  //Initial alpha of particles emitted by particle system. 0 = invisible, 255 = opaque. Manipulated alpha value should never go over this.
+                            alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
+                            alphaMax,               //Initial alpha max. 0 = invisible, 255 = opaque.
                             emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
             float           sizeMin,                //Size min
