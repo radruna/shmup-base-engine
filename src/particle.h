@@ -21,7 +21,17 @@ namespace sbe
             Particle class
         */
         public:
-            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur, const float& fric);
+            Particle(
+                       const sf::Image&     img,
+                       const float&         a,
+                       const float&         v,
+                       const float&         lifeTime,
+                       const int&           alpha,
+                       const float&         fInDur,
+                       const float&         fOutDur,
+                       const float&         fric,
+                       const float&         sizeModScalar
+                       );
             ~Particle()
             {
             }
@@ -39,7 +49,8 @@ namespace sbe
                     rotRate,
                     preAlpha,
                     fadeInDuration, fadeOutDuration,
-                    friction;
+                    friction,
+                    sizeModScalarRate;
 
             bool    fadeIn,
                     fadeOut;

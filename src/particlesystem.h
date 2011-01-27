@@ -2,7 +2,7 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2011-01-26
+/ File updated: 2011-01-27
 / License: GPLv3
 */
 #ifndef PARTICLESYSTEM_H_INCLUDED
@@ -23,7 +23,8 @@ namespace sbe
 {
     struct ValueMod
     {
-        float scalarRate;       //Scalar modifier
+        float scalarRateMin;    //Scalar modifier min
+        float scalarRateMax;    //Scalar modifier max
         float oscFreq;          //Oscillation frequency
         float oscAmp;           //Oscillation amplitude
         float oscOffset;        //Oscillation offset
@@ -31,10 +32,10 @@ namespace sbe
 
     struct FadeMod
     {
-        float fadeInMin;       //Fade in duration min
-        float fadeInMax;       //Fade in duration max
-        float fadeOutMin;      //Fade out duration min
-        float fadeOutMax;      //Fade out duration max
+        float fadeInMin;        //Fade in duration min
+        float fadeInMax;        //Fade in duration max
+        float fadeOutMin;       //Fade out duration min
+        float fadeOutMax;       //Fade out duration max
     };
 
 

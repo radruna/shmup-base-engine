@@ -49,7 +49,7 @@ namespace sbe
             //Check if line is empty and perform string operation
             if(strReadLine(output,parameterKey,parameterValue))
             {
-                //Assign parameter value based on the type of parameter. There's no fancier way than just looping through all possible cases so DEAL WITH IT
+                //Assign parameter value based on the type of parameter.
                 //Generic parameters
                 if(parameterKey == "name")
                     name = parameterValue;
@@ -113,8 +113,10 @@ namespace sbe
                     fadeModifier.fadeOutMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Size modification parameters
-                else if(parameterKey == "size_mod_scalar_rate")
-                    sizeModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_scalar_rate_min")
+                    sizeModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_scalar_rate_max")
+                    sizeModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_oscillate_freq")
                     sizeModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_oscillate_amplitude")
@@ -127,8 +129,10 @@ namespace sbe
                     alphaMin = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "alpha_max")
                     alphaMax = atoi(parameterValue.c_str());//Convert string to int
-                else if(parameterKey == "alpha_mod_scalar_rate")
-                    alphaModifier.scalarRate = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_scalar_rate_min")
+                    alphaModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_scalar_rate_max")
+                    alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_freq")
                     alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_amplitude")
@@ -164,13 +168,13 @@ namespace sbe
         particleList.clear();
     }
 
-    void ParticleSystem::SetPosition(int x, int y)
+    void ParticleSystem::SetPosition(int x, int y)  //Set particle system position
     {
         xPos = x;
         yPos = y;
     }
 
-    void ParticleSystem::Move(int x, int y)
+    void ParticleSystem::Move(int x, int y)         //Move particle system
     {
         xPos += x;
         yPos += y;
@@ -178,36 +182,30 @@ namespace sbe
 
     float ParticleSystem::boundsRand(float min, float max)
     {
-        if(min > max)   //Swap values if user = idiot
+        if(min > max)           //Swap values if user = idiot
         {
             float temp = min;
             min = max;
             max = temp;
         }
-        else if(min == max)    //If same = one value
-            {
+        else if(min == max)     //If same = one value
                 return min;
-            }else   //If different, value = random value between min and max
-            {
+            else                //If different, value = random value between min and max
                 return min + fmod(rand(), (max - min));
-            }
     }
 
     int ParticleSystem::boundsRand(int min, int max)
     {
-        if(min > max)   //Swap values if user = idiot
+        if(min > max)           //Swap values if user = idiot
         {
             int temp = min;
             min = max;
             max = temp;
         }
-        else if(min == max)    //If same = one value
-            {
+        else if(min == max)     //If same = one value
                 return min;
-            }else   //If different, value = random value between min and max
-            {
+            else                //If different, value = random value between min and max
                 return min + rand() % (max - min);
-            }
     }
 
     void ParticleSystem::update(const float& elapsed)
@@ -215,65 +213,75 @@ namespace sbe
         //Emit new particle
         if(counter > 1/emissionRate)
         {
+            int prcPerFrame = counter / (1/emissionRate);   //Check how many particles should be emitted this frame.
+            for(int i = 0;i< prcPerFrame;i++)   //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
+            {
+                //Spawn particle and assign appropriate values. A weird mix between constructor parameters and set functions
 
-            //Spawn particle and assign appropriate values. A weird mix between constructor parameters and set functions
+                //Get scale
+                float scale             = boundsRand( sizeMin , sizeMax );
+                //Get emission angle
+                int emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax );
+                //Get rotation rate (divide by 10 for a nicer value)
+                float rotRate           = boundsRand( rotRateMin, rotRateMax ) / 10;
+                //Get force
+                float emissionForce     = boundsRand( emissionForceMin , emissionForceMax );
+                //Get friction
+                float emissionFriction  = boundsRand( emissionFrictionMin , emissionFrictionMin );
+                //Get lifespan
+                float lifeSpan          = boundsRand( lifeSpanMin , lifeSpanMax );
+                //Get fade in duration
+                float fadeInDur         = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
+                //Get fade out duration
+                float fadeOutDur        = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
+                //Get alpha
+                int alpha               = boundsRand( alphaMin, alphaMax );
+                //Get scalar size mod rate
+                float sizeModScalar     = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax);
 
-            //Get scale
-            float scale             = boundsRand( sizeMin , sizeMax );
-            //Get emission angle
-            int emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax );
-            //Get rotation rate (divide by 10 for nice value)
-            float rotRate           = boundsRand( rotRateMin, rotRateMax ) / 10;
-            //Get force
-            float emissionForce     = boundsRand( emissionForceMin , emissionForceMax );
-            //Get friction
-            float emissionFriction  = boundsRand( emissionFrictionMin , emissionFrictionMin );
-            //Get lifespan
-            float lifeSpan          = boundsRand( lifeSpanMin , lifeSpanMax );
-            //Get fade in duration
-            float fadeInDur         = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
-            //Get fade out duration
-            float fadeOutDur        = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
-            //Get alpha
-            int alpha               = boundsRand( alphaMin, alphaMax );
+                particleList.push_back(Particle(
+                                                sprite,
+                                                emissionAngle,
+                                                emissionForce,
+                                                lifeSpan,
+                                                alpha,
+                                                fadeInDur,
+                                                fadeOutDur,
+                                                emissionFriction,
+                                                sizeModScalar
+                                                )); //Add new particle to list
+                particleList.back().SetPosition( xPos , yPos );     //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
+                particleList.back().setRotRate( rotRate );      //Set rotation rate
+                particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );     //Set center of sprite to get correct rotation //TODO(Someone#3#) Move this to entity constructor and make center default?
+                particleList.back().SetScale( scale , scale * sizeRatio );      //Set scale
 
-            particleList.push_back(Particle( sprite , emissionAngle , emissionForce , lifeSpan , alpha, fadeInDur, fadeOutDur, emissionFriction)); //Add new particle to list
-            particleList.back().SetPosition( xPos , yPos );     //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
-            particleList.back().setRotRate( rotRate );
-            particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );
-            particleList.back().SetScale( scale , scale * sizeRatio );
-
-            //Handle rotation
-            if(rotAlign)    //Should I align to emission angle?
-                particleList.back().SetRotation( emissionAngle * -1 + rotation );   //If yes, then do so + rotation
-            else if(rotRandom)  //Should I start out with random rotation?
-                particleList.back().SetRotation( rand() % 360 );
-            else    //Just spawn with rotation
-                particleList.back().SetRotation( rotation );
+                //Handle rotation
+                if(rotAlign)    //Should I align to emission angle?
+                    particleList.back().SetRotation( emissionAngle * -1 + rotation );   //If yes, then do so + rotation
+                else if(rotRandom)  //Should I start out with random rotation?
+                    particleList.back().SetRotation( rand() % 360 );
+                else    //Just spawn with rotation
+                    particleList.back().SetRotation( rotation );
 
 
-            //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;  //Debug
+                //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;  //Debug
 
-            counter = 0;
-            //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
-            //IMO not necessary since particles 'die' anyway. /Felix
+                counter = 0;        //Reset counter
+
+                //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
+                //IMO not necessary since particles 'die' anyway. /Felix
+
+            }
         }
         else
-        {
-            counter += elapsed;
-        }
+            counter += elapsed;     //Count time
 
-        for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++)
+        for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++)     //Iterate through particle list
         {
-            if(pIt->getLife() < 0)
-            {
-                pIt = particleList.erase(pIt);
-                //std::cout<<"Particle died! =("<<std::endl;
-            }
+            if(pIt->getLife() < 0)      //Check if particle should die
+                pIt = particleList.erase(pIt);  //Erase particle
             else
-            {
-                pIt->update(elapsed);
-            }
+                pIt->update(elapsed);   //Update particle
         }
     }
 

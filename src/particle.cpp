@@ -15,7 +15,16 @@
 namespace sbe
 {
 
-    Particle::Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur, const float& fric)
+    Particle::Particle(
+                       const sf::Image&     img,
+                       const float&         a,
+                       const float&         v,
+                       const float&         lifeTime,
+                       const int&           alpha,
+                       const float&         fInDur,
+                       const float&         fOutDur,
+                       const float&         fric,
+                       const float&         sizeModScalar)
         : Movable(img, a, v)
     {
         age = 0;
@@ -25,6 +34,7 @@ namespace sbe
         fadeInDuration = fInDur;
         fadeOutDuration = fOutDur;
         friction = fric;
+        sizeModScalarRate = sizeModScalar;
 
         if(fadeInDuration != 0)
         {
@@ -64,7 +74,7 @@ namespace sbe
             //Fade in
             if(GetAlpha() < fadeInToAlpha)
             {
-                preAlpha += ( (255 - preAlpha) / (fadeInDuration - age) / (1 / elapsed) );
+                preAlpha += ( (255-preAlpha) / (fadeInDuration-age) / (1/elapsed) );
                 SetAlpha(preAlpha);
 
                 //Fix overdoing it
@@ -84,7 +94,7 @@ namespace sbe
         else if(fadeOut)
         {
             //Fade out
-            preAlpha -= ( preAlpha / life / (1 / elapsed) );
+            preAlpha -= ( preAlpha/life/ (1/elapsed) );
             if(preAlpha < 1)    //1 instead of 0 to fix some sprites spazzing out when fading
                 {
                     preAlpha = 0;
@@ -96,6 +106,14 @@ namespace sbe
         //Apply friction
         if(friction != 1)
             speed *= friction;
+
+        //Apply size mod
+        if(sizeModScalarRate != 1)
+        {
+            float a = GetScale().x + ( (sizeModScalarRate-1) / (1/elapsed) );
+            float b = GetScale().y + ( (sizeModScalarRate-1) / (1/elapsed) );
+            SetScale(a,b);
+        }
 
         Movable::update(elapsed);
 
