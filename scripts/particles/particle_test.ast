@@ -8,33 +8,36 @@
 
 //Emission stuff
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"50"					//Particles per second
+"emission_rate"						"15"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
-"emission_force_min"				"0.5"					//Emission force minimum
-"emission_force_max"				"3"						//Emission force maximum
-"emission_friction"					"0.9"
-"emission_angle_min"				"0"						//Emission angle minimum
-"emission_angle_max"				"360"					//Emission angle maximum
+"emission_force_min"				"3"						//Emission force minimum
+"emission_force_max"				"5"						//Emission force maximum
+"emission_friction_min"				"0.99"					//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"0.99"					//Emission friction maximum. Closer to 1 = less friction
+"emission_angle_min"				"-180"					//Emission angle minimum
+"emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan stuff
 "lifespan_min"						"4"						//Lifespan duration minimum
 "lifespan_max"						"4"						//Lifespan duration maximum
 
 //Size and stuff
-"size_min"							"0.5"					//Scale minimum
-"size_max"							"2"						//Scale maximum
+"size_min"							"1"						//Scale minimum
+"size_max"							"3"						//Scale maximum
+"size_ratio"						"1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
-"rotation_rate_min"					"-5"					//Rotation rate minimum
-"rotation_rate_max"					"5"						//Rotation rate maximum
-"rotation_random"					"1"						//Particles spawn with random rotation
+"rotation_rate_min"					"-2"					//Rotation rate minimum
+"rotation_rate_max"					"2"						//Rotation rate maximum
+"rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade thingies
 "fade_in_min"						"2"						//Fade in duration minimum
 "fade_in_max"						"2"						//Fade in duration maximum
 "fade_out_min"						"2"						//Fade out duration minimum
-"fade_out_max"						"2"						//Fade out duration maximum
+"fade_out_max"						"3"						//Fade out duration maximum
 
 //Size modification
 "size_mod_scalar_rate"				"0"
@@ -43,8 +46,8 @@
 "size_mod_oscillate_offset"			"120"
 
 //Alpha modification
-"alpha_min"							"255"
-"alpha_max"							"255"
+"alpha_min"							"100"
+"alpha_max"							"150"
 "alpha_mod_scalar_rate"				"-0.1"
 "alpha_mod_oscillate_freq"			"2"
 "alpha_mod_oscillate_amplitude"		"120"

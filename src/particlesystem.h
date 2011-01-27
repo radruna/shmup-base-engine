@@ -61,7 +61,9 @@ namespace sbe
 
         private:
             float boundsRand(float a, float b);
+            float getRand(float a, float b);
             int boundsRand(int a, int b);
+            int getRand(int a, int b);
             //Don't move these please
             int             xPos, yPos;
             float           counter;
@@ -70,7 +72,8 @@ namespace sbe
             //Parameters
             std::string     name,                   //The particle system name
                             spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
-            bool            rotRandom;              //Particle rotation randomization. Spawns the particles with random rotation
+            bool            rotRandom,              //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
+                            rotAlign;               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
                             alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
@@ -79,12 +82,14 @@ namespace sbe
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
             float           sizeMin,                //Size min
                             sizeMax,                //Size max
+                            sizeRatio,              //Size ratio
                             lifeSpanMin,            //Lifespan min
                             lifeSpanMax,            //Lifespan max
                             emissionRate,           //Emission rate
                             emissionForceMin,       //Emission force min
                             emissionForceMax,       //Emission force max
-                            emissionFriction,       //Emission friction
+                            emissionFrictionMin,    //Emission friction min
+                            emissionFrictionMax,    //Emission friction max
                             rotRateMin,             //Rotation speed min
                             rotRateMax,             //Rotation speed max
                             rotation;               //Particle rotation if not random

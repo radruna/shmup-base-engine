@@ -71,8 +71,10 @@ namespace sbe
                     emissionForceMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_force_max")
                     emissionForceMax = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "emission_friction")
-                    emissionFriction = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_friction_min")
+                    emissionFrictionMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_friction_max")
+                    emissionFrictionMax = atof(parameterValue.c_str());//Convert string to float
 
                 //Lifespan parameters
                 else if(parameterKey == "lifespan_min")
@@ -85,6 +87,8 @@ namespace sbe
                     sizeMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_max")
                     sizeMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_ratio")
+                    sizeRatio = atof(parameterValue.c_str());//Convert string to float
 
                 //Rotation parameters
                 else if(parameterKey == "rotation_rate_min")
@@ -93,6 +97,8 @@ namespace sbe
                     rotRateMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "rotation_random")
                     rotRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
+                else if(parameterKey == "rotation_align")
+                    rotAlign = (bool) atoi(parameterValue.c_str());//Convert string to bool
                 else if(parameterKey == "rotation")
                     rotation = atof(parameterValue.c_str());//Convert string to float
 
@@ -210,61 +216,47 @@ namespace sbe
         if(counter > 1/emissionRate)
         {
 
-            //Set angle
-            int emitAngle           = boundsRand( emissionAngleMin , emissionAngleMax );
-            //Set force
+            //Spawn particle and assign appropriate values. A weird mix between constructor parameters and set functions
+
+            //Get scale
+            float scale             = boundsRand( sizeMin , sizeMax );
+            //Get emission angle
+            int emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax );
+            //Get rotation rate (divide by 10 for nice value)
+            float rotRate           = boundsRand( rotRateMin, rotRateMax ) / 10;
+            //Get force
             float emissionForce     = boundsRand( emissionForceMin , emissionForceMax );
-            //Set lifespan
+            //Get friction
+            float emissionFriction  = boundsRand( emissionFrictionMin , emissionFrictionMin );
+            //Get lifespan
             float lifeSpan          = boundsRand( lifeSpanMin , lifeSpanMax );
+            //Get fade in duration
+            float fadeInDur         = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
+            //Get fade out duration
+            float fadeOutDur        = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
+            //Get alpha
+            int alpha               = boundsRand( alphaMin, alphaMax );
 
-            //Set alpha
-            int alpha;
-            if(alphaMin != alphaMax)
-            {
-                alpha = boundsRand( alphaMin , alphaMax );
-                particleList.back().SetAlpha( alpha );
-            }
-            else
-                alpha = alphaMin;
-
-            //Set fade in duration
-            float fadeInDur;
-            if(fadeModifier.fadeInMin != fadeModifier.fadeInMax)
-                fadeInDur = boundsRand( fadeModifier.fadeInMin , fadeModifier.fadeInMax );
-            else
-                fadeInDur = fadeModifier.fadeInMin;
-
-            //Set fade out duration
-            float fadeOutDur;
-            if(fadeModifier.fadeOutMin != fadeModifier.fadeOutMax)
-                fadeOutDur = boundsRand( fadeModifier.fadeOutMin , fadeModifier.fadeOutMax );
-            else
-                fadeOutDur = fadeModifier.fadeOutMin;
-
-            particleList.push_back(Particle( sprite , emitAngle - 90 , emissionForce , lifeSpan , alpha, fadeInDur, fadeOutDur)); //Add new particle to list
-            particleList.back().SetPosition( xPos , yPos );
-            particleList.back().setRot( boundsRand(rotRateMin, rotRateMax) / 10 );
+            particleList.push_back(Particle( sprite , emissionAngle , emissionForce , lifeSpan , alpha, fadeInDur, fadeOutDur, emissionFriction)); //Add new particle to list
+            particleList.back().SetPosition( xPos , yPos );     //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
+            particleList.back().setRotRate( rotRate );
             particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );
+            particleList.back().SetScale( scale , scale * sizeRatio );
 
-            //Set scale
-            if(sizeMin != sizeMax)
-            {
-                float size = boundsRand( sizeMin , sizeMax );
-                particleList.back().SetScale( size , size );
-            }
-            else
-                particleList.back().SetScale( sizeMin , sizeMin );
-
-            //Handle random rotation
-            if(rotRandom)
+            //Handle rotation
+            if(rotAlign)    //Should I align to emission angle?
+                particleList.back().SetRotation( emissionAngle * -1 + rotation );   //If yes, then do so + rotation
+            else if(rotRandom)  //Should I start out with random rotation?
                 particleList.back().SetRotation( rand() % 360 );
-            else
+            else    //Just spawn with rotation
                 particleList.back().SetRotation( rotation );
 
-            //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;
+
+            //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;  //Debug
 
             counter = 0;
             //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
+            //IMO not necessary since particles 'die' anyway. /Felix
         }
         else
         {

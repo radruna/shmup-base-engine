@@ -21,14 +21,14 @@ namespace sbe
             Particle class
         */
         public:
-            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur);
+            Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur, const float& fric);
             ~Particle()
             {
             }
             void update(const float& elapsed);
             float getLife();
-            float getRot();
-            void setRot(float r);
+            float getRotRate();
+            void setRotRate(float r);
 
         private:
             int     fadeInToAlpha,
@@ -36,9 +36,10 @@ namespace sbe
 
             float   life,
                     age,
-                    rot,
+                    rotRate,
                     preAlpha,
-                    fadeInDuration, fadeOutDuration;
+                    fadeInDuration, fadeOutDuration,
+                    friction;
 
             bool    fadeIn,
                     fadeOut;

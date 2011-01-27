@@ -15,7 +15,7 @@
 namespace sbe
 {
 
-    Particle::Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur)
+    Particle::Particle(const sf::Image& img, const float& a, const float& v, const float& lifeTime, const int& alpha, const float& fInDur, const float& fOutDur, const float& fric)
         : Movable(img, a, v)
     {
         age = 0;
@@ -24,6 +24,7 @@ namespace sbe
         fadeOutFromAlpha = alpha;
         fadeInDuration = fInDur;
         fadeOutDuration = fOutDur;
+        friction = fric;
 
         if(fadeInDuration != 0)
         {
@@ -42,12 +43,20 @@ namespace sbe
 
         //Decrease life
         life -= elapsed;
+        //Increase age
         age += elapsed;
 
         //Rotate
-        if(rot != 0)
+        if(rotRate != 0)
         {
-            Rotate(rot);
+            Rotate(rotRate);
+        }
+
+        //Check if I should stop fading in and start fading out
+        if(life < fadeOutDuration)
+        {
+            fadeIn = false;
+            fadeOut = true;
         }
 
         if(fadeIn)
@@ -60,16 +69,33 @@ namespace sbe
 
                 //Fix overdoing it
                 if(GetAlpha() > fadeInToAlpha)
+                {
                     SetAlpha(fadeInToAlpha);
+                    fadeIn = false;
+                    preAlpha = GetAlpha();
+                }
+                else if(age > fadeInDuration)
+                {
+                    fadeIn = false;
+                    preAlpha = GetAlpha();
+                }
             }
         }
         else if(fadeOut)
         {
-
             //Fade out
-            //TODO(Fewes#2#) Add fading out functionality
-
+            preAlpha -= ( preAlpha / life / (1 / elapsed) );
+            if(preAlpha < 1)    //1 instead of 0 to fix some sprites spazzing out when fading
+                {
+                    preAlpha = 0;
+                    fadeOut = false;
+                }
+            SetAlpha(preAlpha);
         }
+
+        //Apply friction
+        if(friction != 1)
+            speed *= friction;
 
         Movable::update(elapsed);
 
@@ -80,14 +106,14 @@ namespace sbe
         return life;
     }
 
-    float Particle::getRot()
+    float Particle::getRotRate()
     {
-        return rot;
+        return rotRate;
     }
 
-    void Particle::setRot(float r)
+    void Particle::setRotRate(float r)
     {
-        rot = r;
+        rotRate = r;
     }
 
 }

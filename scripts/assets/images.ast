@@ -4,5 +4,6 @@
 
 "testShip"		"assets/image/kawaii.png"		//Very kawaii head
 "logo01"		"assets/image/cb.bmp"			//Code Blocks logo
-"kawaiiShip"		"assets/image/8bjet.png"		//8bit jet
+"kawaiiShip"	"assets/image/8bjet.png"		//8bit jet
 "smoke_01"		"assets/image/smoke01.png"		//Test smoke sprite to be used with particle system
+"bubble_01"		"assets/image/bubble.png"		//Bubble
