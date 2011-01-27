@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-01-26
+/ File updated: 2010-01-28
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -22,10 +22,11 @@
 #include "panel.h"
 
 typedef std::map<std::string, bool> boolMap;
+typedef std::map<std::string, sf::Font> fontMap;
 
 namespace sbe
 {
-    class Window : public sf::RenderWindow
+    class Window : public sf::RenderWindow, public sbe::FileHandler
     {
         /*
             The Window class is simply an extension of the default RenderWindow class that acts as the container for the rest of the game.
@@ -40,6 +41,12 @@ namespace sbe
 
             int exec(); //Main game loop
         private:
+            void loadFonts(const std::string& fontFile);
+            void unloadFonts()
+            {
+                fonts.clear();
+            }
+
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several
@@ -50,12 +57,13 @@ namespace sbe
             sbe::Panel *testPanel;
 
             sf::Vector2i res;
-            bool debug;
+            bool pause;
 
             sf::Color c;
             short cCount;
 
             boolMap events;
+            fontMap fonts;
     };
 }
 

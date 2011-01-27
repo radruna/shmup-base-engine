@@ -17,7 +17,6 @@ int main()
 
     //Create the config reader
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
-
     sbe::Window *mainWindow;
 
     //Create the main window
@@ -25,7 +24,6 @@ int main()
         mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true, sf::Style::Fullscreen);
     else
         mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true);
-
 
     mainWindow->exec();
 

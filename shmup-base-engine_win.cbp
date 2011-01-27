@@ -54,6 +54,7 @@
 		<Unit filename="assets\music\loli2.ogg" />
 		<Unit filename="assets\sound\durr.wav" />
 		<Unit filename="assets\sound\error.wav" />
+		<Unit filename="scripts\assets\fonts.ast" />
 		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />

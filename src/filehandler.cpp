@@ -17,7 +17,7 @@ namespace sbe
 {
     template <class genMedia>
     //Unload all assets
-    void FileHandler::unloadAssets(std::map<std::string, genMedia> genMap)
+    void FileHandler::unloadAssets(std::map<std::string, genMedia>& genMap)
     {
         genMap.clear();
     }

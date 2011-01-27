@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-26
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -26,7 +26,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), debug(false), cCount(0)
+        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), cCount(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -60,6 +60,7 @@ namespace sbe
         delete ships;
         delete testShip;
         delete testPanel;
+        unloadFonts();
     }
 
     int Window::exec()
@@ -70,6 +71,7 @@ namespace sbe
         imgHandler->loadAssets("scripts/assets/images.ast");
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");
+        loadFonts("scripts/assets/fonts.ast");
 
         //Test stuff with a really kawaii ship AND A PARTICLE
         sf::Image img = imgHandler->getImage("testShip");
@@ -82,7 +84,9 @@ namespace sbe
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
 
-        testPanel = new sbe::Panel(sf::Vector2f(200, 200), sf::Vector2f(600, 500), sf::Color::Cyan);
+        testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
+        testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
+        testPanel->createButton("testButton", sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
 
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
@@ -101,34 +105,25 @@ namespace sbe
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/particle_test.ast", imgHandler);
         pSystem1->SetPosition(500.f, 300.f);
 
-        sf::Font fpsFont;
-
-        if(!fpsFont.LoadFromFile("assets/font/inconsolata.otf"))
-            std::cout << "Could not load font file!" << std::endl;
-
-        sf::String fps("0", fpsFont, 20);
+        sf::String fps("0", fonts["inconsolata"], 20);
         fps.SetPosition(10, 10);
         fps.SetColor(sf::Color::White);
-        std::cout << fps.GetFont().GetCharacterSize() << std::endl;
         std::stringstream fpsStr;
 
         while(IsOpened())
         {
-
-            // Process events, to be replaced by evtHandler
             sf::Event event;
-            while (GetEvent(event))
+            while(GetEvent(event))
             {
-                // Close mainWindow : exit
                 EventHandler::returnEvents(event, events);
-                // Close mainWindow : exit
+
                 if (event.Type == sf::Event::Closed)
                     Close();
                 if (events["Escape"])
                     Close();
                 if (events["P"])
                 {
-                    if(loli.GetStatus() != sf::Sound::Playing)
+                    if(loli.GetStatus() != sf::Music::Playing)
                         loli.Play();
                     else
                         loli.Pause();
@@ -144,8 +139,15 @@ namespace sbe
                 }
                 if (events["L"])
                     testShip->SetPosition(res.x / 2, res.y / 2);
-                if (events["F1"])
-                    debug = true;
+
+                if(event.Type == sf::Event::MouseButtonReleased)
+                {
+                    if(testPanel->withinPanel(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY())))
+                    {
+                        if(testPanel->withinButton(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY())) != "")
+                            std::cout << "Button clicked." << std::endl;
+                    }
+                }
 
                 events.clear();
 
@@ -202,9 +204,6 @@ namespace sbe
                 shot.Move(0, (-2000 * ElapsedTime));
             }
 
-            fpsStr << (int) ((1.f / ElapsedTime) + 0.5);
-            fps.SetText(fpsStr.str());
-
             // Clear screen
             if(cCount++ % 20 == 0)
             {
@@ -218,6 +217,10 @@ namespace sbe
                     c = sf::Color::Magenta;
                 else
                     c = sf::Color(255, 105, 180);
+
+                fpsStr << "fps: " << (int) ((1.f / ElapsedTime));
+                fps.SetText(fpsStr.str());
+                fpsStr.str("");
             }
 
             //Clear(c);
@@ -227,6 +230,7 @@ namespace sbe
             Draw(*testShip);
             Draw(*pSystem1);
             Draw(fps);
+            Draw(*testPanel);
 
             if(counter > 0)
             {
@@ -241,5 +245,53 @@ namespace sbe
         }
 
         return 0;
+    }
+
+    void Window::loadFonts(const std::string& fontFile)
+    {
+        std::cout << std::endl << "Loading assets from: \"" << fontFile << "\"..." << std::endl;
+        //Open specified file
+        fileReader.open(fontFile.c_str());
+        if(!fileReader)
+        {
+            //Debug output
+            std::cout << "The font handler was unable to open the specified asset file" << std::endl;
+            return;
+        }
+        //Saving vars
+        std::string output;
+        std::string fontKey;
+        std::string fontPath;
+
+        while(getline(fileReader,output))
+        {
+            //Check if line is empty and perform string operation
+
+            if(strReadLine(output, fontKey, fontPath))
+            {
+                //Search fonts
+                if(fonts.find(fontKey) != fonts.end())
+                    std::cout << "Failed to load font \"" << fontPath << "\". Reason: Font key already in system" << std::endl;
+                else
+                {
+                    sf::Font fnt;
+                    //Load font file
+                    if(!fnt.LoadFromFile(fontPath))
+                        std::cout << "Failed to load font \"" << fontPath << "\". Reason: Unable to open image file" << std::endl;
+                    else
+                    {
+                        //Add to fonts
+                        fonts[fontKey] = fnt;
+                        //Debug output
+                        std::cout << "Loaded font \"" << fontKey << "\" with filepath \"" << fontPath << "\"" << std::endl;
+                    }
+                }
+            }
+        }
+
+        //Debug output
+        std::cout << "Finished loading fonts from \"" << fontFile << "\"" << std::endl;
+        //Close file
+        fileReader.close();
     }
 }

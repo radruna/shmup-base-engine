@@ -24,11 +24,11 @@ namespace sbe
 
             template <class genMedia>
             //Unload all media
-            void unloadAssets(std::map<std::string, genMedia> genMap);
+            void unloadAssets(std::map<std::string, genMedia>& genMap);
             //Search and remove any spaces
-            void strStripSpace(std::string& stripper);
+            static void strStripSpace(std::string& stripper);
             //Read line and output two strings
-            bool strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
+            static bool strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
 
         protected:
             std::ifstream fileReader;
