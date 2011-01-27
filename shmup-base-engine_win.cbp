@@ -43,6 +43,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="assets\debug\error.png" />
+		<Unit filename="assets\font\Inconsolata.otf" />
 		<Unit filename="assets\image\8bjet.png" />
 		<Unit filename="assets\image\cb.bmp" />
 		<Unit filename="assets\image\jet.png" />

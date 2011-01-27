@@ -180,11 +180,12 @@ namespace sbe
         yPos += y;
     }
 
-    float ParticleSystem::boundsRand(float min, float max)
+    template<class T>
+    T ParticleSystem::boundsRand(T min, T max)
     {
         if(min > max)           //Swap values if user = idiot
         {
-            float temp = min;
+            T temp = min;
             min = max;
             max = temp;
         }
@@ -192,20 +193,8 @@ namespace sbe
                 return min;
             else                //If different, value = random value between min and max
                 return min + fmod(rand(), (max - min));
-    }
 
-    int ParticleSystem::boundsRand(int min, int max)
-    {
-        if(min > max)           //Swap values if user = idiot
-        {
-            int temp = min;
-            min = max;
-            max = temp;
-        }
-        else if(min == max)     //If same = one value
-                return min;
-            else                //If different, value = random value between min and max
-                return min + rand() % (max - min);
+        return 0;
     }
 
     void ParticleSystem::update(const float& elapsed)
@@ -267,10 +256,6 @@ namespace sbe
                 //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;  //Debug
 
                 counter = 0;        //Reset counter
-
-                //TODO(Liag#2#) Add removal calculation (when out of bounds, etc)
-                //IMO not necessary since particles 'die' anyway. /Felix
-
             }
         }
         else

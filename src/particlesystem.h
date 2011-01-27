@@ -61,10 +61,8 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
 
         private:
-            float boundsRand(float a, float b);
-            float getRand(float a, float b);
-            int boundsRand(int a, int b);
-            int getRand(int a, int b);
+            template<class T>
+            T boundsRand(T a, T b);
             //Don't move these please
             int             xPos, yPos;
             float           counter;
