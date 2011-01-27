@@ -7,9 +7,9 @@
 "sprite_name"						"smoke_01"				//Sprite to use. Needs to be loaded by asset file
 
 //Emission parameters
-"emission_type"						"1"						//1 = continuous, 2 = instant
+"emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"100"					//Particles per second
-"emission_max"						"10"					//Particles to emit if type = 2
+"emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"3"						//Emission force minimum
 "emission_force_max"				"5"						//Emission force maximum
 "emission_friction_min"				"0.99"					//Emission friction minimum. Closer to 1 = less friction
@@ -47,6 +47,8 @@
 "size_mod_oscillate_offset"			"120"					//Not implemented yet
 
 //Movement modification parameters
+//"move_mod_scalar_rate_min"		"0.9"					//Not implemented yet
+//"move_mod_scalar_rate_max"		"1"						//Not implemented yet
 //"move_mod_oscillate_freq"			"2"						//Not implemented yet
 //"move_mod_oscillate_amplitude"	"50"					//Not implemented yet
 //"move_mod_oscillate_offset"		"120"					//Not implemented yet
