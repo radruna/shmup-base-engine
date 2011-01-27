@@ -124,6 +124,12 @@ namespace sbe
                 else if(parameterKey == "size_mod_oscillate_offset")
                     sizeModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
+                //Movement parameters   move_mod_angle_min
+                else if(parameterKey == "move_mod_angle_min")
+                    movementAngleMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "move_mod_angle_max")
+                    movementAngleMax = atof(parameterValue.c_str());//Convert string to float
+
                 //Alpha parameters
                 else if(parameterKey == "alpha_min")
                     alphaMin = atoi(parameterValue.c_str());//Convert string to int
@@ -226,7 +232,9 @@ namespace sbe
                 //Get alpha
                 int alpha               = boundsRand( alphaMin, alphaMax );
                 //Get scalar size mod rate
-                float sizeModScalar     = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax);
+                float sizeModScalar     = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                //Get movement mod
+                float movementModAngle  = boundsRand( movementAngleMin, movementAngleMax );
 
                 particleList.push_back(Particle(
                                                 sprite,
@@ -237,7 +245,9 @@ namespace sbe
                                                 fadeInDur,
                                                 fadeOutDur,
                                                 emissionFriction,
-                                                sizeModScalar
+                                                sizeModScalar,
+                                                movementModAngle,
+                                                rotAlign
                                                 )); //Add new particle to list
                 particleList.back().SetPosition( xPos , yPos );     //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
                 particleList.back().setRotRate( rotRate );      //Set rotation rate

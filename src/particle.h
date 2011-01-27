@@ -30,7 +30,9 @@ namespace sbe
                        const float&         fInDur,
                        const float&         fOutDur,
                        const float&         fric,
-                       const float&         sizeModScalar
+                       const float&         sizeModScalar,
+                       const float&         movementModAngle,
+                       const bool&          moveAlign
                        );
             ~Particle()
             {
@@ -41,6 +43,7 @@ namespace sbe
             void setRotRate(float r);
 
         private:
+            bool    moveAngleAlign;
             int     fadeInToAlpha,
                     fadeOutFromAlpha,;
 
@@ -50,7 +53,8 @@ namespace sbe
                     preAlpha,
                     fadeInDuration, fadeOutDuration,
                     friction,
-                    sizeModScalarRate;
+                    sizeModScalarRate,
+                    movementModAngleRate;
 
             bool    fadeIn,
                     fadeOut;

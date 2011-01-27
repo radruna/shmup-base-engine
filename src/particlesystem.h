@@ -91,7 +91,9 @@ namespace sbe
                             emissionFrictionMax,    //Emission friction max
                             rotRateMin,             //Rotation speed min
                             rotRateMax,             //Rotation speed max
-                            rotation;               //Particle rotation if not random
+                            rotation,               //Particle rotation if not random
+                            movementAngleMin,
+                            movementAngleMax;
             ValueMod        sizeModifier,           //Size modifiers
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters

@@ -24,7 +24,10 @@ namespace sbe
                        const float&         fInDur,
                        const float&         fOutDur,
                        const float&         fric,
-                       const float&         sizeModScalar)
+                       const float&         sizeModScalar,
+                       const float&         movementModAngle,
+                       const bool&          moveAlign
+                       )
         : Movable(img, a, v)
     {
         age = 0;
@@ -35,6 +38,8 @@ namespace sbe
         fadeOutDuration = fOutDur;
         friction = fric;
         sizeModScalarRate = sizeModScalar;
+        movementModAngleRate = movementModAngle;
+        moveAngleAlign = moveAlign;
 
         if(fadeInDuration != 0)
         {
@@ -57,7 +62,7 @@ namespace sbe
         age += elapsed;
 
         //Rotate
-        if(rotRate != 0)
+        if(rotRate != 0 && !moveAngleAlign)
         {
             Rotate(rotRate);
         }
@@ -115,6 +120,15 @@ namespace sbe
             SetScale(a,b);
         }
 
+        //Apply movement angle mod
+        if(movementModAngleRate != 0)
+        {
+            if(moveAngleAlign)
+                SetRotation(getAngle() * -1);       //Reversed angle. Why? :<
+            setAngle(getAngle() + movementModAngleRate / (1/elapsed));
+        }
+
+        //Update particle
         Movable::update(elapsed);
 
     }
