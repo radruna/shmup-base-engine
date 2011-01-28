@@ -22,6 +22,6 @@ namespace sbe
 
     void Movable::update(const float& elapsed)
     {   //Use elapsed to ensure likewise speed on platforms etc
-        Move(cos(angle / (180/PI)) * speed, sin(angle / (180/PI)) * speed);
+        Move( (cos(angle / (180/PI)) * speed) / (1/elapsed), (sin(angle / (180/PI)) * speed) / (1/elapsed));
     }
 }
