@@ -69,6 +69,7 @@ namespace sbe
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
+        imgHandler->loadAssets("scripts/assets/system_images.ast");
         imgHandler->loadAssets("scripts/assets/images.ast");
         audHandler->loadSound("scripts/assets/sound.ast");
         audHandler->loadMusic("scripts/assets/music.ast");

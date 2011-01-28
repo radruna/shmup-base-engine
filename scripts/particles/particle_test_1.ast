@@ -13,8 +13,8 @@
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"500"					//Particles per second
 "emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"3"						//Emission force minimum
-"emission_force_max"				"5"						//Emission force maximum
+"emission_force_min"				"180"						//Emission force minimum
+"emission_force_max"				"300"						//Emission force maximum
 "emission_friction_min"				"0.99"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.99"					//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"-180"					//Emission angle minimum

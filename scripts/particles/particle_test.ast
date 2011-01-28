@@ -11,23 +11,23 @@
 
 //Emission parameters
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
-"emission_rate"						"30"						//Particles per second
+"emission_rate"						"30"					//Particles per second
 "emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"5"						//Emission force minimum
-"emission_force_max"				"5"						//Emission force maximum
-"emission_friction_min"				"1"					//Emission friction minimum. Closer to 1 = less friction
-"emission_friction_max"				"1"					//Emission friction maximum. Closer to 1 = less friction
+"emission_force_min"				"300"					//Emission force minimum
+"emission_force_max"				"300"					//Emission force maximum
+"emission_friction_min"				"1"						//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"1"						//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"90"					//Emission angle minimum
 "emission_angle_max"				"90"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"1.5"						//Lifespan duration minimum
-"lifespan_max"						"1.5"						//Lifespan duration maximum
+"lifespan_min"						"1.5"					//Lifespan duration minimum
+"lifespan_max"						"1.5"					//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"1"					//Scale minimum
-"size_max"							"1"					//Scale maximum
-"size_ratio"						"1"					//x/y ratio. 1 = normal
+"size_min"							"1"						//Scale minimum
+"size_max"							"1"						//Scale maximum
+"size_ratio"						"1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_rate_min"					"0"						//Rotation rate minimum
@@ -37,34 +37,34 @@
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters
-"fade_in_min"						"0.1"						//Fade in duration minimum
-"fade_in_max"						"0.1"						//Fade in duration maximum
-"fade_out_min"						"0.5"						//Fade out duration minimum
-"fade_out_max"						"0.5"						//Fade out duration maximum
+"fade_in_min"						"0.1"					//Fade in duration minimum
+"fade_in_max"						"0.1"					//Fade in duration maximum
+"fade_out_min"						"0.5"					//Fade out duration minimum
+"fade_out_max"						"0.5"					//Fade out duration maximum
 
 //Mod parameters
 
 "internal_oscillation"				"1"						//Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
 
 //Size modification parameters
-"size_mod_scalar_rate_min"				"1"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
-"size_mod_scalar_rate_max"				"1"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_min"			"1"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"1"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
-"size_mod_oscillate_freq_min"			"3"						//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_freq_max"			"3"						//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_amplitude_min"		"0.5"					//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
-"size_mod_oscillate_amplitude_max"		"0.5"					//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
-"size_mod_oscillate_amplitude_offset"	"1"						//Offset oscillation amplitude.
+"size_mod_oscillate_freq_min"			"3"					//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_freq_max"			"3"					//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_amplitude_min"		"0.5"				//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
+"size_mod_oscillate_amplitude_max"		"0.5"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
+"size_mod_oscillate_amplitude_offset"	"1"					//Offset oscillation amplitude.
 
 //Size modification parameters
-"emission_angle_mod_scalar_rate_min"				"1"						//Angle modification minimum (scalar). Emission angle += this every second
-"emission_angle_mod_scalar_rate_max"				"1"						//Angle modification maximum (scalar). Emission angle += this every second
+"emission_angle_mod_scalar_rate_min"	"90"				//Angle modification minimum (scalar). Emission angle += this every second
+"emission_angle_mod_scalar_rate_max"	"90"				//Angle modification maximum (scalar). Emission angle += this every second
 
-"emission_angle_mod_oscillate_freq_min"			"0"						//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"emission_angle_mod_oscillate_freq_max"			"0"						//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
-"emission_angle_mod_oscillate_amplitude_min"	"100"					//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
-"emission_angle_mod_oscillate_amplitude_max"	"100"					//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
-"emission_angle_mod_oscillate_amplitude_offset"			"0"						//Offset oscillation timer. Has little effect except in special cases
+"emission_angle_mod_oscillate_freq_min"			"2"			//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_freq_max"			"2"			//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_amplitude_min"	"100"		//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
+"emission_angle_mod_oscillate_amplitude_max"	"100"		//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
+"emission_angle_mod_oscillate_amplitude_offset"	"0"			//Offset oscillation timer. Has little effect except in special cases
 
 //Movement modification parameters
 "move_mod_angle_min"				"0"						//Movement mod angle minimum. Particle turns this many degrees in one second
