@@ -43,6 +43,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="assets/debug/error.png" />
+                <Unit filename="assets/font/Inconsolata.otf" />
 		<Unit filename="assets/image/8bjet.png" />
 		<Unit filename="assets/image/cb.bmp" />
 		<Unit filename="assets/image/jet.png" />
@@ -53,6 +54,7 @@
 		<Unit filename="assets/music/loli2.ogg" />
 		<Unit filename="assets/sound/durr.wav" />
 		<Unit filename="assets/sound/error.wav" />
+		<Unit filename="scripts/assets/fonts.ast" />
 		<Unit filename="scripts/assets/images.ast" />
 		<Unit filename="scripts/assets/music.ast" />
 		<Unit filename="scripts/assets/sound.ast" />
@@ -70,6 +72,8 @@
 		<Unit filename="src/filehandler.h" />
 		<Unit filename="src/imagehandler.cpp" />
 		<Unit filename="src/imagehandler.h" />
+		<Unit filename="src/logger.cpp" />
+		<Unit filename="src/logger.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/movable.cpp" />
 		<Unit filename="src/movable.h" />
