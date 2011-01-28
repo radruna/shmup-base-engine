@@ -104,7 +104,7 @@ namespace sbe
         loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.Play();
         //Test particle system
-        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/particle_test.ast", imgHandler);
+        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion1.ast", imgHandler);
         pSystem1->SetPosition(500.f, 300.f);
 
         sf::String fps("0", fonts["inconsolata"], 20);
