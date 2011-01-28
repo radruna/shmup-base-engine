@@ -1,0 +1,43 @@
+//Map info
+info
+{
+"name"					"Chocolate Kingdom"
+"mod"					"Fudge Man's Adventures II"
+"chapter"				"3"
+}
+
+//Assets to load
+assets
+{
+"images"		"scripts/assets/fudge_man_2_sprites.ast"
+"sounds"		"scripts/assets/fudge_man_2_sounds.ast"
+"music"			"scripts/assets/fudge_man_2_music.ast"
+"particles"		"scripts/particles/fudge_man_2_particles.ast"
+"player"		"?"
+"powerups"		"?"
+"enemies"		"?"
+"bosses"		"?"
+}
+
+//The map itself
+map
+{
+"music"		"rocknroll"
+"break"		"5"
+"enemy"		"douchebag1"	"10"	"0.5"	"0"
+"break"		"5"
+"enemy"		"douchebag2"	"5"		"0.5"	"-25"
+"break"		"1"
+"enemy"		"douchebag1"	"10"	"0.5"	"-20"
+"enemy"		"douchebag1"	"10"	"0.5"	"20"
+"break"		"1"
+"enemy"		"douchebag2"	"5"		"0.5"	"25"
+"break"		"until_empty"
+
+"break"		"5"
+"music"		"ohshit"
+"boss"		"badmotherfucker"
+"break"		"until_empty"
+
+"awinnerisyou"
+}
