@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2010-01-28
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -20,6 +20,7 @@
 #include "ship.h" //Ship class
 //#include "player.h" //Player class
 #include "panel.h"
+#include "logger.h"
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
@@ -55,7 +56,6 @@ namespace sbe
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several
             //sbe::Panel *mainMenu;
-            //DebugHandler?
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
             sbe::Panel *testPanel;

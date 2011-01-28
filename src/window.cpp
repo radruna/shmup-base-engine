@@ -22,6 +22,7 @@
 #include "ship.h"
 //#include "player.h"
 #include "panel.h"
+#include "logger.h"
 
 namespace sbe
 {
@@ -31,20 +32,20 @@ namespace sbe
         /*
             Purpose: Constructor for sbe::Window.
         */
-        std::cout << "Window loaded!" << std::endl;
+        Logger::writeMsg("Window loaded!", 1);
         RenderWindow::Window::SetFramerateLimit(60);
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
         evtHandler = new EventHandler();
-        std::cout << "Handlers loaded!" << std::endl;
+        Logger::writeMsg("Handlers loaded!", 1);
 
         //mainMenu = new sbe::Panel();
         //std::cout << "Main menu loaded." << std::endl;
 
         //ships = new std::map<std::string, Ship>;
         //ship
-        std::cout << "Objects loaded!" << std::endl;
+        Logger::writeMsg("Objects loaded!", 1);
 
         c = sf::Color(255, 105, 108);
 
@@ -251,7 +252,7 @@ namespace sbe
         if(!fileReader)
         {
             //Debug output
-            std::cout << "The font handler was unable to open the specified asset file" << std::endl;
+            Logger::writeMsg("The font handler was unable to open the specified asset file", 1);
             return;
         }
         //Saving vars

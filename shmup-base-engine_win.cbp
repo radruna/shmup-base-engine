@@ -72,6 +72,8 @@
 		<Unit filename="src\filehandler.h" />
 		<Unit filename="src\imagehandler.cpp" />
 		<Unit filename="src\imagehandler.h" />
+		<Unit filename="src\logger.cpp" />
+		<Unit filename="src\logger.h" />
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\movable.cpp" />
 		<Unit filename="src\movable.h" />

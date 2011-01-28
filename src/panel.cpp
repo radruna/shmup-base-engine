@@ -1,7 +1,7 @@
 /*
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
-/ File created: 2010-01-18
+/ File created: 2011-01-18
 / File updated: 2011-01-28
 / License: GPLv3
 */
