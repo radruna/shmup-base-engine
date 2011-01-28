@@ -8,18 +8,24 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <fstream>
+#include <ctime>
 
 #include "logger.h"
+#include "time.h"
 
 namespace sbe
 {
     std::ofstream Logger::fileWriter;
     unsigned char Logger::curLevel;
+    unsigned char Logger::workLevel;
+    std::ostringstream Logger::oss;
 
     void Logger::init()
     {
         system("mkdir logs");
-        fileWriter.open("logs/log.txt");
+        std::string file = "logs/log_" + sbe::getCurTime() + ".txt";
+        fileWriter.open(file.c_str());
         if(!fileWriter)
         {
             //Debug output
@@ -28,16 +34,28 @@ namespace sbe
         }
     }
 
-    void Logger::writeMsg(const std::string& message, const unsigned char& level)
+    std::ostringstream& Logger::writeMsg(const unsigned char level)
     {
-        //TODO(Liag#5#): Fix stringstream support.
-        if(curLevel >= level)
-        {
-            //Add date and stuff
-            std::cout << message << std::endl;
+        if(oss.str() != "") write();
 
-            if(fileWriter.is_open())
-                fileWriter << message << std::endl;
+        workLevel = level;
+        return oss;
+    }
+
+    void Logger::write()
+    {
+        if(oss.str() != "")
+        {
+            if(curLevel >= workLevel)
+            {
+                //Add date and stuff
+                std::cout << oss.str() << std::endl;
+
+                if(fileWriter.is_open())
+                    fileWriter << oss.str() << std::endl;
+
+                oss.str("");
+            }
         }
     }
 }

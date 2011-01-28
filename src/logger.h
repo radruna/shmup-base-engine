@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 namespace sbe
 {
@@ -21,19 +22,26 @@ namespace sbe
             ~Logger() {}
 
             static void init();
-            static void writeMsg(const std::string& message, const unsigned char& level);
             static void setLevel(const unsigned char& level)
             {
                 curLevel = level;
             }
 
+            static std::ostringstream& writeMsg(const unsigned char level);
+
+            static void write();
             static void close()
             {
                 fileWriter.close();
             }
+
+            //std::ostream& operator<< (std::ostream& out, )
         private:
             static unsigned char curLevel;
+            static unsigned char workLevel;
             static std::ofstream fileWriter;
+            static std::ostringstream oss;
+            static bool log;
     };
 }
 #endif

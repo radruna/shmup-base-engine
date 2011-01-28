@@ -16,7 +16,8 @@ int main()
     //Boot message
     sbe::Logger::init();
     sbe::Logger::setLevel(1);
-    sbe::Logger::writeMsg(" --- Shmup Base Engine version 0.x --- ", 1);
+    sbe::Logger::writeMsg(1) << " --- Shmup Base Engine version 0.x --- ";
+    sbe::Logger::write();
 
     //Create the config reader
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
@@ -31,6 +32,8 @@ int main()
     mainWindow->exec();
 
     delete mainWindow;
+
+    sbe::Logger::close();
 
     return 0;
 }

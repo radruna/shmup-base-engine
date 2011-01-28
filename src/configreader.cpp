@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-12-14
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 
@@ -11,6 +11,7 @@
 #include <cstdlib> //For converting strings
 
 #include "configreader.h" //Class def
+#include "logger.h" //Outputs debug in console and log
 
 namespace sbe
 {
@@ -28,13 +29,13 @@ namespace sbe
         /*
             Purpose: Read a config file.
         */
-        std::cout << std::endl << "Loading settings from: \"" << cfgFile << "\"..." << std::endl;
+        Logger::writeMsg(1) << "\nLoading settings from: \"" << cfgFile << "\"...";
         //Open specified file
         fileReader.open(cfgFile.c_str());
         if(!fileReader)
         {
             //Debug output
-            std::cout << "The config reader was unable to open the specified configuration file" << std::endl;
+            Logger::writeMsg(1) << "The config reader was unable to open the specified configuration file";
             return;
         }
         //Saving vars
@@ -53,19 +54,21 @@ namespace sbe
                 else if(setting == "height")
                     res.y = atoi(value.c_str());
                 else if(setting == "fullscreen")
-                    fs = atoi(value.c_str());
+                    fs = (bool) atoi(value.c_str());
                 else if(setting == "title")
                     title = value;
+                else if(setting == "log")
+                    log = (bool) atoi(value.c_str());
                 else
                 {
-                    std::cout << "Failed to open configuration file " << cfgFile.c_str() << "." << std::endl;
+                    Logger::writeMsg(1) << "Failed to open configuration file " << cfgFile.c_str() << ".";
                     fileReader.close();
                     break;
                 }
             }
         }
         //Debug output
-        std::cout << "Finished loading settings from \"" << cfgFile << "\"" << std::endl;
+        Logger::writeMsg(1) << "Finished loading settings from \"" << cfgFile << "\"";
         //Close file
         fileReader.close();
     }

@@ -13,6 +13,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "button.h"
+
 typedef std::map<std::string, sf::String> stringMap;
 typedef std::map<std::string, sf::Shape> shapeMap;
 

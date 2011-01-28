@@ -45,9 +45,11 @@
 		<Unit filename="assets\debug\error.png" />
 		<Unit filename="assets\font\Inconsolata.otf" />
 		<Unit filename="assets\image\8bjet.png" />
+		<Unit filename="assets\image\bubble.png" />
 		<Unit filename="assets\image\cb.bmp" />
 		<Unit filename="assets\image\jet.png" />
 		<Unit filename="assets\image\kawaii.png" />
+		<Unit filename="assets\image\shield.png" />
 		<Unit filename="assets\image\smoke01.png" />
 		<Unit filename="assets\music\8bitloli.ogg" />
 		<Unit filename="assets\music\loli.ogg" />
@@ -61,6 +63,8 @@
 		<Unit filename="scripts\particles\particle_test.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
+		<Unit filename="src\button.cpp" />
+		<Unit filename="src\button.h" />
 		<Unit filename="src\configreader.cpp" />
 		<Unit filename="src\configreader.h" />
 		<Unit filename="src\const.h" />
@@ -87,6 +91,7 @@
 		<Unit filename="src\particlesystem.h" />
 		<Unit filename="src\ship.cpp" />
 		<Unit filename="src\ship.h" />
+		<Unit filename="src\time.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>

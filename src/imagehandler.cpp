@@ -2,7 +2,7 @@
 / Image handler class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2010-01-26
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -14,6 +14,7 @@
 
 #include "imagehandler.h"   //Class def
 #include "filehandler.h" //Base class
+#include "logger.h" //Outputs debug in console and log
 
 namespace sbe
 {
@@ -25,13 +26,13 @@ namespace sbe
     //Load images listed in the asset file
     void ImageHandler::loadAssets(const std::string& assetFile)
     {
-        std::cout << std::endl << "Loading assets from: \"" << assetFile << "\"..." << std::endl;
+        Logger::writeMsg(1) << "\nLoading assets from: \"" << assetFile << "\"...";
         //Open specified file
         fileReader.open(assetFile.c_str());
         if(!fileReader)
         {
             //Debug output
-            std::cout << "The image handler was unable to open the specified asset file" << std::endl;
+            Logger::writeMsg(1) << "The image handler was unable to open the specified asset file";
             return;
         }
         //Saving vars
@@ -50,30 +51,27 @@ namespace sbe
             {
                 //Search imageList
                 if(imageList.find(imageKey) != imageList.end())
-                    std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+                    Logger::writeMsg(1) << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system";
                 else
                 {
                     sf::Image img;
                     //Load image file
                     if(!img.LoadFromFile(imagePath))
                     {
-                        /*
-                        //This is already handled by SFML
-                        std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
-                        */
+                        Logger::writeMsg(1) << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file";
                     }
                     else
                     {
                         //Add to imageList
                         imageList[imageKey] = img;
                         //Debug output
-                        std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
+                        Logger::writeMsg(1) << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"";
                     }
                 }
             }
         }
         //Debug output
-        std::cout << "Finished loading images from \"" << assetFile << "\"" << std::endl;
+        Logger::writeMsg(1) << "Finished loading images from \"" << assetFile << "\"";
         //Close file
         fileReader.close();
     }
@@ -83,17 +81,14 @@ namespace sbe
     {
         //Search imageList
         if(imageList.find(imageKey) != imageList.end())
-            std::cout << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system" << std::endl;
+            Logger::writeMsg(1) << "Failed to load image \"" << imagePath << "\". Reason: Image key already in system";
         else
         {
             sf::Image img;
             //Load image file
             if(!img.LoadFromFile(imagePath))
             {
-                /*
-                //This is already handled by SFML
-                std::cout << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file" << std::endl;
-                */
+                Logger::writeMsg(1) << "Failed to load image \"" << imagePath << "\". Reason: Unable to open image file";
                 return;
             }
             else
@@ -101,7 +96,7 @@ namespace sbe
                 //Add to imageList
                 imageList[imageKey] = img;
                 //Debug output
-                std::cout << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"" << std::endl;
+                Logger::writeMsg(1) << "Loaded image \"" << imageKey << "\" with filepath \"" << imagePath << "\"";
             }
         }
     }

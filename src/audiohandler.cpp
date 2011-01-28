@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-12-22
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -15,6 +15,7 @@
 #include "filehandler.h" //Abstract base class
 #include "audiohandler.h" //Def
 #include "music.h" //Copyable music, hurr
+#include "logger.h" //Outputs debug in console and log
 
 namespace sbe
 {
@@ -47,13 +48,13 @@ namespace sbe
             Purpose: Load audio assets into memory, and then save them as either sound or music
             based on if it was called by loadSound() or loadMusic().
         */
-        std::cout << std::endl << "Loading assets from: \"" << audioFile << "\"..." << std::endl;
+        Logger::writeMsg(1) << "\nLoading assets from: \"" << audioFile << "\"...";
         //Open specified file
         fileReader.open(audioFile.c_str());
         if(!fileReader)
         {
             //Debug output
-            std::cout << "The audio handler was unable to open the specified asset file" << std::endl;
+            Logger::writeMsg(1) << "The audio handler was unable to open the specified asset file";
             return;
         }
         //Saving vars
@@ -78,7 +79,7 @@ namespace sbe
         }
 
         //Debug output
-        std::cout << "Finished loading audio from \"" << audioFile << "\"" << std::endl;
+        Logger::writeMsg(1) << "Finished loading audio from \"" << audioFile << "\"";
         //Close file
         fileReader.close();
     }
@@ -90,20 +91,20 @@ namespace sbe
         */
         //Search soundList
         if(soundList.find(soundKey) != soundList.end())
-            std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Sound key already in system" << std::endl;
+            Logger::writeMsg(1) << "Failed to load sound \"" << soundPath << "\". Reason: Sound key already in system";
         else
         {
             //Create soundbuffer to assign sound from file
             sf::SoundBuffer *sndbfr = new sf::SoundBuffer();
             //Load sound file
             if(!(sndbfr->LoadFromFile(soundPath)))
-                std::cout << "Failed to load sound \"" << soundPath << "\". Reason: Unable to open sound file" << std::endl;
+                Logger::writeMsg(1) << "Failed to load sound \"" << soundPath << "\". Reason: Unable to open sound file";
             else
             {
                 //Add to soundList
                 soundList[soundKey] = *sndbfr;
                 //Debug output
-                std::cout << "Loaded sound \"" << soundKey << "\" with filepath \"" << soundPath << "\"" << std::endl;
+                Logger::writeMsg(1) << "Loaded sound \"" << soundKey << "\" with filepath \"" << soundPath << "\"";
             }
 
             delete sndbfr;
@@ -117,20 +118,20 @@ namespace sbe
         */
         //Search musicList
         if(musicList.find(musicKey) != musicList.end())
-            std::cout << "Failed to load music \"" << musicPath << "\". Reason: Music key already in system" << std::endl;
+            Logger::writeMsg(1) << "Failed to load music \"" << musicPath << "\". Reason: Music key already in system";
         else
         {
             //Create music to test from filepath
             sbe::Music *msc = new sbe::Music();
             //Load music file
             if(!(msc->OpenFromFile(musicPath)))
-                std::cout << "Failed to load music \"" << musicPath << "\". Reason: Unable to open music file" << std::endl;
+                Logger::writeMsg(1) << "Failed to load music \"" << musicPath << "\". Reason: Unable to open music file";
             else
             {
                 //Add to musicList
                 musicList[musicKey] = musicPath;
                 //Debug output
-                std::cout << "Loaded music \"" << musicKey << "\" with filepath \"" << musicPath << "\"" << std::endl;
+                Logger::writeMsg(1) << "Loaded music \"" << musicKey << "\" with filepath \"" << musicPath << "\"";
             }
 
             delete msc;
@@ -146,7 +147,7 @@ namespace sbe
 
         if(soundList.find(soundKey) == soundList.end())
         {
-            std::cout << "Failed to get sound \"" << soundKey << "\"." << std::endl;
+            Logger::writeMsg(1) << "Failed to get sound \"" << soundKey << "\".";
             sndbfr->LoadFromFile("assets/sound/error.wav");
             return *sndbfr;
         }

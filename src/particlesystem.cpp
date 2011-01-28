@@ -20,19 +20,20 @@
 #include "imagehandler.h" //For loading images
 #include "filehandler.h" //Base class
 #include "particle.h" //Particle header
+#include "logger.h" //Outputs debug in console and log
 
 namespace sbe
 {
     ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler)
     {
-        std::cout << std::endl << "Loading particle system \"" << particleSystemFile << "\"..." << std::endl;
+        Logger::writeMsg(1) << "\nLoading particle system \"" << particleSystemFile << "\"...";
 
         //Open specified file
         fileReader.open(particleSystemFile.c_str());
         if(!fileReader)
         {
             //Debug output
-            std::cout << "The particle handler was unable to open the specified particle system file" << std::endl;
+            Logger::writeMsg(1) << "The particle handler was unable to open the specified particle system file";
             return;
         }
 
@@ -174,11 +175,11 @@ namespace sbe
 
                 //Parameter not found
                 else
-                    std::cout << "Invalid particle system parameter: " << parameterKey << std::endl;
+                    Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
             }
         }
         //Debug output
-        std::cout << "Finished loading particle system \"" << particleSystemFile << "\"" << std::endl;
+        Logger::writeMsg(1) << "Finished loading particle system \"" << particleSystemFile << "\"";
         //Close file
         fileReader.close();
         sprite = imgHandler->getImage(spriteName);
@@ -323,7 +324,7 @@ namespace sbe
                     particleList.back().SetRotation( rotation );
 
 
-                //std::cout<<"New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce<<std::endl;  //Debug
+                //Logger::writeMsg(1) << "New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce;  //Debug
 
                 counter = 0;        //Reset counter
             }

@@ -13,6 +13,7 @@
 
 #include "panel.h"
 #include "window.h"
+#include "button.h"
 
 namespace sbe
 {

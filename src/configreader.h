@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-12-14
+/ File updated: 2011-01-28
 / License: GPLv3
 */
 #ifndef CONFIGREADER_H_INCLUDED
@@ -35,6 +35,10 @@ namespace sbe
             {
                 return fs;
             }
+            bool getLog()
+            {
+                return log;
+            }
             std::string getTitle()
             {
                 return title;
@@ -42,7 +46,8 @@ namespace sbe
 
         private:
             sf::Vector2i res;
-            bool fs;
+            bool fs,
+                 log;
             std::string title;
     };
 }

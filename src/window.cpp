@@ -32,20 +32,20 @@ namespace sbe
         /*
             Purpose: Constructor for sbe::Window.
         */
-        Logger::writeMsg("Window loaded!", 1);
+        Logger::writeMsg(1) << "\nWindow loaded!";
         RenderWindow::Window::SetFramerateLimit(60);
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
         evtHandler = new EventHandler();
-        Logger::writeMsg("Handlers loaded!", 1);
+        Logger::writeMsg(1) << "Handlers loaded!";
 
         //mainMenu = new sbe::Panel();
-        //std::cout << "Main menu loaded." << std::endl;
+        //Logger::writeMsg(1) << "Main menu loaded.";
 
         //ships = new std::map<std::string, Ship>;
         //ship
-        Logger::writeMsg("Objects loaded!", 1);
+        Logger::writeMsg(1) << "Objects loaded!";
 
         c = sf::Color(255, 105, 108);
 
@@ -113,6 +113,8 @@ namespace sbe
 
         while(IsOpened())
         {
+            Logger::write();
+
             sf::Event event;
             while(GetEvent(event))
             {
@@ -246,13 +248,13 @@ namespace sbe
 
     void Window::loadFonts(const std::string& fontFile)
     {
-        std::cout << std::endl << "Loading assets from: \"" << fontFile << "\"..." << std::endl;
+        Logger::writeMsg(1) << "\nLoading assets from: \"" << fontFile << "\"...";
         //Open specified file
         fileReader.open(fontFile.c_str());
         if(!fileReader)
         {
             //Debug output
-            Logger::writeMsg("The font handler was unable to open the specified asset file", 1);
+            Logger::writeMsg(1) << "The font handler was unable to open the specified asset file";
             return;
         }
         //Saving vars
@@ -268,26 +270,26 @@ namespace sbe
             {
                 //Search fonts
                 if(fonts.find(fontKey) != fonts.end())
-                    std::cout << "Failed to load font \"" << fontPath << "\". Reason: Font key already in system" << std::endl;
+                    Logger::writeMsg(1) << "Failed to load font \"" << fontPath << "\". Reason: Font key already in system";
                 else
                 {
                     sf::Font fnt;
                     //Load font file
                     if(!fnt.LoadFromFile(fontPath))
-                        std::cout << "Failed to load font \"" << fontPath << "\". Reason: Unable to open image file" << std::endl;
+                        Logger::writeMsg(1) << "Failed to load font \"" << fontPath << "\". Reason: Unable to open image file";
                     else
                     {
                         //Add to fonts
                         fonts[fontKey] = fnt;
                         //Debug output
-                        std::cout << "Loaded font \"" << fontKey << "\" with filepath \"" << fontPath << "\"" << std::endl;
+                        Logger::writeMsg(1) << "Loaded font \"" << fontKey << "\" with filepath \"" << fontPath << "\"";;
                     }
                 }
             }
         }
 
         //Debug output
-        std::cout << "Finished loading fonts from \"" << fontFile << "\"" << std::endl;
+        Logger::writeMsg(1) << "Finished loading fonts from \"" << fontFile << "\"";
         //Close file
         fileReader.close();
     }
