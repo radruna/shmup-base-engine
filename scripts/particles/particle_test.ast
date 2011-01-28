@@ -60,8 +60,8 @@
 "emission_angle_mod_scalar_rate_min"				"1"						//Angle modification minimum (scalar). Emission angle += this every second
 "emission_angle_mod_scalar_rate_max"				"1"						//Angle modification maximum (scalar). Emission angle += this every second
 
-"emission_angle_mod_oscillate_freq_min"			"2"						//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"emission_angle_mod_oscillate_freq_max"			"2"						//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_freq_min"			"0"						//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_freq_max"			"0"						//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
 "emission_angle_mod_oscillate_amplitude_min"	"100"					//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
 "emission_angle_mod_oscillate_amplitude_max"	"100"					//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
 "emission_angle_mod_oscillate_amplitude_offset"			"0"						//Offset oscillation timer. Has little effect except in special cases
