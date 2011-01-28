@@ -47,6 +47,11 @@ namespace sbe
                 fonts.clear();
             }
 
+            static void buttonClicked()
+            {
+                std::cout << "Button clicked." << std::endl;
+            }
+
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several

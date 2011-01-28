@@ -18,6 +18,8 @@ typedef std::map<std::string, sf::Shape> shapeMap;
 
 namespace sbe
 {
+    class Window;
+
     class Panel : public sf::Drawable
     {
         public:
@@ -40,6 +42,7 @@ namespace sbe
             }
 
             void createButton(const std::string& name,
+                              void (*function) (),
                               const sf::String& text,
                               const sf::Color& txtCol,
                               const sf::Vector2f& p1,
@@ -49,11 +52,13 @@ namespace sbe
                               const sf::Color& outlineColor = sf::Color::Black);
 
             bool withinPanel(const sf::Vector2i& mousePos);
-            std::string withinButton(const sf::Vector2i& mousePos);
+            void click(const sf::Vector2i& mousePos);
+
         protected:
             sf::Shape *panelRect;
             stringMap strings;
             shapeMap buttons;
+            void (*buttonFunc) ();
     };
 }
 

@@ -86,7 +86,7 @@ namespace sbe
 
         testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
-        testPanel->createButton("testButton", sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
+        testPanel->createButton("testButton", buttonClicked, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
 
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
@@ -142,11 +142,7 @@ namespace sbe
 
                 if(event.Type == sf::Event::MouseButtonReleased)
                 {
-                    if(testPanel->withinPanel(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY())))
-                    {
-                        if(testPanel->withinButton(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY())) != "")
-                            std::cout << "Button clicked." << std::endl;
-                    }
+                    testPanel->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
                 }
 
                 events.clear();

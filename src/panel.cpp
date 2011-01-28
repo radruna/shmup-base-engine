@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "panel.h"
+#include "window.h"
 
 namespace sbe
 {
@@ -54,7 +55,7 @@ namespace sbe
         strings[name].SetColor(color);
     }
 
-    void Panel::createButton(const std::string& name, const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
+    void Panel::createButton(const std::string& name, void (*function)(), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
     {
         /*
             Purpose: Create a new button based on parameters.
@@ -64,6 +65,7 @@ namespace sbe
         strings[name] = text;
         strings[name].SetPosition(p1.x + 5, p1.y + 2);
         strings[name].SetColor(txtCol);
+        buttonFunc = function;
     }
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos)
@@ -77,17 +79,18 @@ namespace sbe
         return false;
     }
 
-    std::string Panel::withinButton(const sf::Vector2i& mousePos)
+    void Panel::click(const sf::Vector2i& mousePos)
     {
-        for(shapeMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
+        if(withinPanel(mousePos))
         {
-            if(mousePos.x > it->second.GetPointPosition(0).x && mousePos.x < it->second.GetPointPosition(2).x)
+            for(shapeMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
             {
-                if(mousePos.y > it->second.GetPointPosition(0).y && mousePos.y < it->second.GetPointPosition(2).y)
-                    return it->first;
+                if(mousePos.x > it->second.GetPointPosition(0).x && mousePos.x < it->second.GetPointPosition(2).x)
+                {
+                    if(mousePos.y > it->second.GetPointPosition(0).y && mousePos.y < it->second.GetPointPosition(2).y)
+                        buttonFunc();
+                }
             }
         }
-
-        return "";
     }
 }
