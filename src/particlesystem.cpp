@@ -2,9 +2,8 @@
 / Particle system class
 / Author: Felix Westin
 / File created: 2010-11-16
-/ File updated: 2011-01-27
+/ File updated: 2011-01-28
 / License: GPLv3
-//TODO (Fewes#1#): Cut down on the debug output. Add more parameters. Add basic move/manipulation functions
 */
 #include <iostream> //Debug output
 #include <fstream>   //Read script files
@@ -37,6 +36,8 @@ namespace sbe
             return;
         }
 
+        //TODO (Fewes#1#): Set default values so not all parameters need to be included in the script file
+
         std::string output;
         std::string parameterKey;
         std::string parameterValue;
@@ -55,6 +56,8 @@ namespace sbe
                     name = parameterValue;
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
+                else if(parameterKey == "internal_oscillation")
+                    internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
                 //Emission parameters
                 else if(parameterKey == "emission_type")
@@ -117,12 +120,32 @@ namespace sbe
                     sizeModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_scalar_rate_max")
                     sizeModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "size_mod_oscillate_freq")
-                    sizeModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "size_mod_oscillate_amplitude")
-                    sizeModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "size_mod_oscillate_offset")
-                    sizeModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_freq_min")
+                    sizeModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_freq_max")
+                    sizeModifier.oscFreqMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_min")
+                    sizeModifier.oscAmpMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_max")
+                    sizeModifier.oscAmpMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_offset")
+                    sizeModifier.oscAmpOffset = atof(parameterValue.c_str());//Convert string to float
+
+                //Emission angle modification parameters
+                else if(parameterKey == "emission_angle_mod_scalar_rate_min")
+                    emissionAngleModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_scalar_rate_max")
+                    emissionAngleModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_freq_min")
+                    emissionAngleModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_freq_max")
+                    emissionAngleModifier.oscFreqMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_min")
+                    emissionAngleModifier.oscAmpMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_max")
+                    emissionAngleModifier.oscAmpMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_offset")
+                    emissionAngleModifier.oscAmpOffset = atof(parameterValue.c_str());//Convert string to float
 
                 //Movement parameters   move_mod_angle_min
                 else if(parameterKey == "move_mod_angle_min")
@@ -139,12 +162,15 @@ namespace sbe
                     alphaModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_scalar_rate_max")
                     alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+
+                /*
                 else if(parameterKey == "alpha_mod_oscillate_freq")
                     alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_amplitude")
                     alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_offset")
                     alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
+                */
 
                 //Parameter not found
                 else
@@ -156,6 +182,9 @@ namespace sbe
         //Close file
         fileReader.close();
         sprite = imgHandler->getImage(spriteName);
+
+        age = 0;
+        counter = 0;
 
         srand(time(NULL));
     }
@@ -205,18 +234,23 @@ namespace sbe
 
     void ParticleSystem::update(const float& elapsed)
     {
+
+        //Increase age
+        age += elapsed;
         //Emit new particle
         if(counter > 1/emissionRate)
         {
+
             int prcPerFrame = counter / (1/emissionRate);   //Check how many particles should be emitted this frame.
             for(int i = 0;i< prcPerFrame;i++)   //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
             {
                 //Spawn particle and assign appropriate values. A weird mix between constructor parameters and set functions
 
+                ParaMod sizeMod;
+                ParaMod emissionAngleMod;
+
                 //Get scale
                 float scale             = boundsRand( sizeMin , sizeMax );
-                //Get emission angle
-                int emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax );
                 //Get rotation rate (divide by 10 for a nicer value)
                 float rotRate           = boundsRand( rotRateMin, rotRateMax ) / 10;
                 //Get force
@@ -231,13 +265,39 @@ namespace sbe
                 float fadeOutDur        = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
                 //Get alpha
                 int alpha               = boundsRand( alphaMin, alphaMax );
+
                 //Get scalar size mod rate
-                float sizeModScalar     = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                sizeMod.scalarRate      = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                //Get oscillating size mod frequency
+                sizeMod.frequency       = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
+                //Get oscillating size mod amplitude
+                sizeMod.amplitude       = boundsRand( sizeModifier.oscAmpMin, sizeModifier.oscAmpMin );
+                //Get oscillating size mod offset
+                sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
+
+                //Get scalar emission angle mod rate
+                emissionAngleMod.scalarRate      = boundsRand( emissionAngleModifier.scalarRateMin, emissionAngleModifier.scalarRateMax );
+                //Get oscillating emission angle mod frequency
+                emissionAngleMod.frequency       = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
+                //Get oscillating emission angle mod amplitude
+                emissionAngleMod.amplitude       = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
+                //Get oscillating emission angle mod offset
+                emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
+
+                //Get emission angle
+                float emissionAngle;
+                if(emissionAngleMod.frequency != 0)
+                    emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax ) + emissionAngleMod.amplitude * sin(age * emissionAngleMod.frequency) + emissionAngleMod.amplitudeOffset;
+                else
+                    emissionAngle       = boundsRand( emissionAngleMin , emissionAngleMax );
+
                 //Get movement mod
                 float movementModAngle  = boundsRand( movementAngleMin, movementAngleMax );
 
                 particleList.push_back(Particle(
-                                                sprite,
+                                                sprite,             //Sprite to use
+                                                scale,              //Width
+                                                scale * sizeRatio,  //Height
                                                 emissionAngle,
                                                 emissionForce,
                                                 lifeSpan,
@@ -245,14 +305,14 @@ namespace sbe
                                                 fadeInDur,
                                                 fadeOutDur,
                                                 emissionFriction,
-                                                sizeModScalar,
+                                                sizeMod,            //Size modification data
                                                 movementModAngle,
-                                                rotAlign
+                                                age,
+                                                rotAlign,
+                                                internalOsc
                                                 )); //Add new particle to list
                 particleList.back().SetPosition( xPos , yPos );     //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
                 particleList.back().setRotRate( rotRate );      //Set rotation rate
-                particleList.back().SetCenter( particleList.back().GetSize().x / 2 , particleList.back().GetSize().y / 2 );     //Set center of sprite to get correct rotation //TODO(Someone#3#) Move this to entity constructor and make center default?
-                particleList.back().SetScale( scale , scale * sizeRatio );      //Set scale
 
                 //Handle rotation
                 if(rotAlign)    //Should I align to emission angle?

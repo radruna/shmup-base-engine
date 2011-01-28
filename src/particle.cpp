@@ -17,6 +17,8 @@ namespace sbe
 
     Particle::Particle(
                        const sf::Image&     img,
+                       const float&         width,
+                       const float&         height,
                        const float&         a,
                        const float&         v,
                        const float&         lifeTime,
@@ -24,22 +26,37 @@ namespace sbe
                        const float&         fInDur,
                        const float&         fOutDur,
                        const float&         fric,
-                       const float&         sizeModScalar,
+                       const ParaMod&       sizeModifier,
                        const float&         movementModAngle,
-                       const bool&          moveAlign
+                       const float&         spawnT,
+                       const bool&          moveAlign,
+                       const bool&          internalOsc
                        )
         : Movable(img, a, v)
     {
+        SetCenter(GetSize().x / 2,GetSize().y / 2);
+        SetScale( width , height );
         age = 0;
         life = lifeTime;
+        spawnTime = spawnT;
         fadeInToAlpha = alpha;
         fadeOutFromAlpha = alpha;
         fadeInDuration = fInDur;
         fadeOutDuration = fOutDur;
         friction = fric;
-        sizeModScalarRate = sizeModScalar;
+
+        sizeMod = sizeModifier;
+
         movementModAngleRate = movementModAngle;
         moveAngleAlign = moveAlign;
+        internalOscillation = internalOsc;
+
+        //Set values if scalar size mod = off and oscillating size mod = on
+        if(sizeMod.frequency != 0 && sizeMod.scalarRate == 1)
+        {
+            widthFixed = width;
+            heightFixed = height;
+        }
 
         if(fadeInDuration != 0)
         {
@@ -49,7 +66,10 @@ namespace sbe
             preAlpha = 0;
         }
         else
+        {
             SetAlpha(alpha);
+            preAlpha = alpha;
+        }
 
     }
 
@@ -112,12 +132,26 @@ namespace sbe
         if(friction != 1)
             speed *= friction;
 
-        //Apply size mod
-        if(sizeModScalarRate != 1)
+        //Apply size mods
+        if(sizeMod.scalarRate != 1 || sizeMod.frequency != 0)
         {
-            float a = GetScale().x + ( (sizeModScalarRate-1) / (1/elapsed) );
-            float b = GetScale().y + ( (sizeModScalarRate-1) / (1/elapsed) );
-            SetScale(a,b);
+            //Apply scalar size mod
+            if(sizeMod.scalarRate != 1)
+            {
+                float a = GetScale().x + ( (sizeMod.scalarRate-1) / (1/elapsed) );
+                float b = GetScale().y + ( (sizeMod.scalarRate-1) / (1/elapsed) );
+                SetScale(a,b);
+            }
+            //Apply oscillating size mod
+            else if(sizeMod.frequency != 0)
+            {
+                if(!internalOscillation)    //Global clock
+                    sizeModOsc = sizeMod.amplitude * sin( (age + spawnTime) * sizeMod.frequency ) + sizeMod.amplitudeOffset;
+                else                        //Internal clock
+                    sizeModOsc = sizeMod.amplitude * sin( age * sizeMod.frequency ) + sizeMod.amplitudeOffset;
+
+                SetScale(widthFixed * sizeModOsc, heightFixed * sizeModOsc);
+            }
         }
 
         //Apply movement angle mod

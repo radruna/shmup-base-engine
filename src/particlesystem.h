@@ -23,19 +23,21 @@ namespace sbe
 {
     struct ValueMod
     {
-        float scalarRateMin;    //Scalar modifier min
-        float scalarRateMax;    //Scalar modifier max
-        float oscFreq;          //Oscillation frequency
-        float oscAmp;           //Oscillation amplitude
-        float oscOffset;        //Oscillation offset
+        float   scalarRateMin,    //Scalar modifier min
+                scalarRateMax,    //Scalar modifier max
+                oscFreqMin,       //Oscillation frequency min
+                oscFreqMax,       //Oscillation frequency max
+                oscAmpMin,        //Oscillation amplitude
+                oscAmpMax,        //Oscillation amplitude
+                oscAmpOffset;        //Oscillation amplitude offset
     };
 
     struct FadeMod
     {
-        float fadeInMin;        //Fade in duration min
-        float fadeInMax;        //Fade in duration max
-        float fadeOutMin;       //Fade out duration min
-        float fadeOutMax;       //Fade out duration max
+        float   fadeInMin,        //Fade in duration min
+                fadeInMax,        //Fade in duration max
+                fadeOutMin,       //Fade out duration min
+                fadeOutMax;       //Fade out duration max
     };
 
 
@@ -65,14 +67,16 @@ namespace sbe
             T boundsRand(T a, T b);
             //Don't move these please
             int             xPos, yPos;
-            float           counter;
+            float           counter,
+                            age;
             sf::Image       sprite;
 
             //Parameters
             std::string     name,                   //The particle system name
                             spriteName;             //ImageKey name of the sprite to be loaded. See imagehandler for further info on how this works
             bool            rotRandom,              //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
-                            rotAlign;               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+                            rotAlign,               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+                            internalOsc;            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
                             alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
@@ -95,6 +99,7 @@ namespace sbe
                             movementAngleMin,
                             movementAngleMax;
             ValueMod        sizeModifier,           //Size modifiers
+                            emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters
 

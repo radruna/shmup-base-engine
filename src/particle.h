@@ -15,6 +15,15 @@
 
 namespace sbe
 {
+
+    struct ParaMod
+    {
+        float   scalarRate,
+                frequency,
+                amplitude,
+                amplitudeOffset;
+    };
+
     class Particle : public sbe::Movable
     {
         /*
@@ -23,6 +32,8 @@ namespace sbe
         public:
             Particle(
                        const sf::Image&     img,
+                       const float&         width,
+                       const float&         height,
                        const float&         a,
                        const float&         v,
                        const float&         lifeTime,
@@ -30,9 +41,11 @@ namespace sbe
                        const float&         fInDur,
                        const float&         fOutDur,
                        const float&         fric,
-                       const float&         sizeModScalar,
+                       const ParaMod&       sizeModifier,
                        const float&         movementModAngle,
-                       const bool&          moveAlign
+                       const float&         spawnT,
+                       const bool&          moveAlign,
+                       const bool&          internalOsc
                        );
             ~Particle()
             {
@@ -43,7 +56,8 @@ namespace sbe
             void setRotRate(float r);
 
         private:
-            bool    moveAngleAlign;
+            bool    moveAngleAlign,
+                    internalOscillation;
             int     fadeInToAlpha,
                     fadeOutFromAlpha,;
 
@@ -53,8 +67,13 @@ namespace sbe
                     preAlpha,
                     fadeInDuration, fadeOutDuration,
                     friction,
-                    sizeModScalarRate,
-                    movementModAngleRate;
+                    sizeModOsc,
+                    widthFixed,
+                    heightFixed,
+                    movementModAngleRate,
+                    spawnTime;
+
+            ParaMod     sizeMod;
 
             bool    fadeIn,
                     fadeOut;
