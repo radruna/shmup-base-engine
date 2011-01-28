@@ -45,54 +45,25 @@ namespace sbe
         emissionType        = 1;
         emissionMax         = 100;
         emissionRate        = 1;
-        emissionAngleMin    = 0;
-        emissionAngleMax    = 0;
-        emissionForceMin    = 0;
-        emissionForceMax    = 0;
-        emissionFrictionMin = 1;
-        emissionFrictionMax = 1;
+        emissionAngleMin = -180;
+        emissionAngleMax = 180;
+        emissionForceMin = emissionForceMax = 0.f;
+        emissionFrictionMin = emissionFrictionMax = 1;
 
-        lifeSpanMin = 1;
-        lifeSpanMax = 1;
+        lifeSpanMin = lifeSpanMax = 1;
 
-        sizeMin     = 1;
-        sizeMax     = 1;
-        sizeRatio   = 1;
+        sizeMin = sizeMax = sizeRatio = 1;
 
-        rotRateMin  = 0;
-        rotRateMax  = 0;
-        rotRandom   = 0;
-        rotAlign    = 0;
-        rotation    = 0;
+        rotRateMin = rotRateMax = rotation = 0.f;
+        rotRandom = rotAlign = 0;
 
-        fadeModifier.fadeInMin  = 0;
-        fadeModifier.fadeInMax  = 0;
-        fadeModifier.fadeOutMin = 0;
-        fadeModifier.fadeOutMax = 0;
+        fadeModifier.fadeInMin = fadeModifier.fadeInMax = fadeModifier.fadeOutMin = fadeModifier.fadeOutMax = 0.f;
 
-        sizeModifier.scalarRateMin = 1;
-        sizeModifier.scalarRateMax = 1;
-        sizeModifier.oscFreqMin    = 0;
-        sizeModifier.oscFreqMax    = 0;
-        sizeModifier.oscAmpMin     = 0;
-        sizeModifier.oscAmpMax     = 0;
-        sizeModifier.oscAmpOffset  = 0;
+        sizeModifier.scalarRateMin = sizeModifier.scalarRateMax = 1;
 
-        emissionAngleModifier.scalarRateMin = 0;
-        emissionAngleModifier.scalarRateMax = 0;
-        emissionAngleModifier.oscFreqMin    = 0;
-        emissionAngleModifier.oscFreqMax    = 0;
-        emissionAngleModifier.oscAmpMin     = 0;
-        emissionAngleModifier.oscAmpMax     = 0;
-        emissionAngleModifier.oscAmpOffset  = 0;
+        movementAngleMin = movementAngleMax = 0.f;
 
-        movementAngleMin = 0;
-        movementAngleMax = 0;
-
-        alphaMin                    = 255;
-        alphaMax                    = 255;
-        alphaModifier.scalarRateMin = 0;
-        alphaModifier.scalarRateMax = 0;
+        alphaMin = alphaMax = 255;
 
         std::string output;
         std::string parameterKey;

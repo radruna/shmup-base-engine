@@ -43,6 +43,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="assets\debug\error.png" />
+		<Unit filename="assets\debug\particle.png" />
 		<Unit filename="assets\font\Inconsolata.otf" />
 		<Unit filename="assets\image\8bjet.png" />
 		<Unit filename="assets\image\bubble.png" />
@@ -56,11 +57,14 @@
 		<Unit filename="assets\music\loli2.ogg" />
 		<Unit filename="assets\sound\durr.wav" />
 		<Unit filename="assets\sound\error.wav" />
+		<Unit filename="maps\default\1.map" />
 		<Unit filename="scripts\assets\fonts.ast" />
 		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
+		<Unit filename="scripts\assets\system_images.ast" />
 		<Unit filename="scripts\particles\particle_test.ast" />
+		<Unit filename="scripts\particles\particle_test_1.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\button.cpp" />

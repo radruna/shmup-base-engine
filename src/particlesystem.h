@@ -21,26 +21,6 @@
 
 namespace sbe
 {
-    struct ValueMod
-    {
-        float   scalarRateMin,    //Scalar modifier min
-                scalarRateMax,    //Scalar modifier max
-                oscFreqMin,       //Oscillation frequency min
-                oscFreqMax,       //Oscillation frequency max
-                oscAmpMin,        //Oscillation amplitude
-                oscAmpMax,        //Oscillation amplitude
-                oscAmpOffset;        //Oscillation amplitude offset
-    };
-
-    struct FadeMod
-    {
-        float   fadeInMin,        //Fade in duration min
-                fadeInMax,        //Fade in duration max
-                fadeOutMin,       //Fade out duration min
-                fadeOutMax;       //Fade out duration max
-    };
-
-
     class ParticleSystem : public FileHandler , public sf::Drawable
     {
         /*
@@ -63,6 +43,34 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
 
         private:
+
+            struct ValueMod
+            {
+                ValueMod()
+                {
+                    scalarRateMin = scalarRateMax = oscFreqMin = oscFreqMax = oscAmpMin = oscAmpMax = oscAmpOffset = 0;
+                }
+                float   scalarRateMin,    //Scalar modifier min
+                        scalarRateMax,    //Scalar modifier max
+                        oscFreqMin,       //Oscillation frequency min
+                        oscFreqMax,       //Oscillation frequency max
+                        oscAmpMin,        //Oscillation amplitude
+                        oscAmpMax,        //Oscillation amplitude
+                        oscAmpOffset;        //Oscillation amplitude offset
+            };
+
+            struct FadeMod
+            {
+                FadeMod()
+                {
+                    fadeInMin = fadeInMax = fadeOutMin = fadeOutMax = 0;
+                }
+                float   fadeInMin,        //Fade in duration min
+                        fadeInMax,        //Fade in duration max
+                        fadeOutMin,       //Fade out duration min
+                        fadeOutMax;       //Fade out duration max
+            };
+
             template<class T>
             T boundsRand(T a, T b);
             //Don't move these please
