@@ -55,7 +55,7 @@ namespace sbe
         strings[name].SetColor(color);
     }
 
-    void Panel::createButton(const std::string& name, void (*function)(), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
+    void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object, const sf::Unicode::Text& text), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
     {
         /*
             Purpose: Create a new button based on parameters.
@@ -65,7 +65,8 @@ namespace sbe
         strings[name] = text;
         strings[name].SetPosition(p1.x + 5, p1.y + 2);
         strings[name].SetColor(txtCol);
-        buttonFunc = function;
+        funcObject = callObject;
+        buttonFunc = callFunction;
     }
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos)
@@ -88,7 +89,7 @@ namespace sbe
                 if(mousePos.x > it->second.GetPointPosition(0).x && mousePos.x < it->second.GetPointPosition(2).x)
                 {
                     if(mousePos.y > it->second.GetPointPosition(0).y && mousePos.y < it->second.GetPointPosition(2).y)
-                        buttonFunc();
+                        buttonFunc(funcObject, "HE WHO WAITS BEHIND THE WALL...\n\nHE COMES");
                 }
             }
         }

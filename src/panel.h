@@ -42,7 +42,8 @@ namespace sbe
             }
 
             void createButton(const std::string& name,
-                              void (*function) (),
+                              void* callObject,
+                              void (*callFunction) (void* object, const sf::Unicode::Text& text),
                               const sf::String& text,
                               const sf::Color& txtCol,
                               const sf::Vector2f& p1,
@@ -51,14 +52,14 @@ namespace sbe
                               const float& outline = 1,
                               const sf::Color& outlineColor = sf::Color::Black);
 
-            bool withinPanel(const sf::Vector2i& mousePos);
             void click(const sf::Vector2i& mousePos);
-
         protected:
+            bool withinPanel(const sf::Vector2i& mousePos);
             sf::Shape *panelRect;
             stringMap strings;
             shapeMap buttons;
-            void (*buttonFunc) ();
+            void* funcObject;
+            void (*buttonFunc) (void* object, const sf::Unicode::Text& text);
     };
 }
 

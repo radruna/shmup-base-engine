@@ -47,10 +47,9 @@ namespace sbe
                 fonts.clear();
             }
 
-            static void buttonClicked()
-            {
-                std::cout << "Button clicked." << std::endl;
-            }
+            static void buttonClickedWrapper(void* object, const sf::Unicode::Text& text);
+
+            void buttonClicked(const sf::Unicode::Text& text);
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;

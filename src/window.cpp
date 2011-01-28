@@ -86,7 +86,7 @@ namespace sbe
 
         testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
-        testPanel->createButton("testButton", buttonClicked, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
+        testPanel->createButton("testButton", this, buttonClickedWrapper, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
 
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
@@ -289,5 +289,22 @@ namespace sbe
         std::cout << "Finished loading fonts from \"" << fontFile << "\"" << std::endl;
         //Close file
         fileReader.close();
+    }
+
+    void Window::buttonClickedWrapper(void* object, const sf::Unicode::Text& text)
+    {
+        /*
+            Purpose: Wrapper to callback function.
+        */
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->buttonClicked(text);
+    }
+
+    void Window::buttonClicked(const sf::Unicode::Text& text)
+    {
+        testPanel->getString("testString").SetText(text);
     }
 }
