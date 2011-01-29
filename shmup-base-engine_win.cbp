@@ -47,10 +47,12 @@
 		<Unit filename="assets\font\Inconsolata.otf" />
 		<Unit filename="assets\image\8bjet.png" />
 		<Unit filename="assets\image\bubble.png" />
+		<Unit filename="assets\image\bubble.png" />
 		<Unit filename="assets\image\cb.bmp" />
 		<Unit filename="assets\image\jet.png" />
 		<Unit filename="assets\image\kawaii.png" />
 		<Unit filename="assets\image\shield.png" />
+		<Unit filename="assets\image\shockwave.png" />
 		<Unit filename="assets\image\smoke01.png" />
 		<Unit filename="assets\music\8bitloli.ogg" />
 		<Unit filename="assets\music\loli.ogg" />
@@ -63,6 +65,8 @@
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
 		<Unit filename="scripts\assets\system_images.ast" />
+		<Unit filename="scripts\particles\explosion1.ast" />
+		<Unit filename="scripts\particles\explosion1_sub.ast" />
 		<Unit filename="scripts\particles\particle_test.ast" />
 		<Unit filename="scripts\particles\particle_test_1.ast" />
 		<Unit filename="src\audiohandler.cpp" />
