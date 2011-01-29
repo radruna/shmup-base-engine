@@ -105,6 +105,7 @@ namespace sbe
         loli.Play();
         //Test particle system
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion1.ast", imgHandler);
+        sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/shield.ast", imgHandler);
         pSystem1->SetPosition(500.f, 300.f);
 
         sf::String fps("0", fonts["inconsolata"], 20);
@@ -173,9 +174,11 @@ namespace sbe
             float ElapsedTime = GetFrameTime();
             //Update the ship with the input data
             testShip->update(ElapsedTime);
+            pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
 
             //Particle system update test
             pSystem1->update(ElapsedTime);
+            pSystem2->update(ElapsedTime);
 
             //TODO (Liag#5#) Add lasers and stuff to the Ship class.
             if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
@@ -229,6 +232,7 @@ namespace sbe
             // Draw stuff
             Draw(*testShip);
             Draw(*pSystem1);
+            Draw(*pSystem2);
             Draw(fps);
             Draw(*testPanel);
 
