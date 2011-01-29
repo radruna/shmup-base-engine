@@ -6,16 +6,15 @@
 //Min = max means no randomization.
 
 //Generic parameters
-"name"								"explosion_01"								//Particle system name
+"name"								"explosion_01_sub"								//Particle system name
 "sprite_name"						"smoke_01"									//Sprite to use. Needs to be loaded by asset file
-"child1"							"scripts/particles/explosion1_sub.ast"		//First child (another particle system)
 
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second
 "emission_max"						"50"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"100"					//Emission force minimum
-"emission_force_max"				"1200"					//Emission force maximum
+"emission_force_min"				"1000"					//Emission force minimum
+"emission_force_max"				"12000"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"-180"					//Emission angle minimum

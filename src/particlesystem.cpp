@@ -42,6 +42,11 @@ namespace sbe
         name = "none";
         spriteName = "default_particle";
 
+        child1 = "none";
+        child2 = "none";
+        child3 = "none";
+        child4 = "none";
+
         emissionType = 1;
         emissionMax = 100;
         emissionRate = 1;
@@ -114,6 +119,16 @@ namespace sbe
                     spriteName = parameterValue;
                 else if(parameterKey == "internal_oscillation")
                     internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
+
+                //Child parameters
+                else if(parameterKey == "child1")
+                    child1 = parameterValue;
+                else if(parameterKey == "child2")
+                    child2 = parameterValue;
+                else if(parameterKey == "child3")
+                    child3 = parameterValue;
+                else if(parameterKey == "child4")
+                    child4 = parameterValue;
 
                 //Emission parameters
                 else if(parameterKey == "emission_type")
@@ -220,13 +235,13 @@ namespace sbe
                     alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
 
                 /*
-else if(parameterKey == "alpha_mod_oscillate_freq")
-alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
-else if(parameterKey == "alpha_mod_oscillate_amplitude")
-alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
-else if(parameterKey == "alpha_mod_oscillate_offset")
-alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
-*/
+                else if(parameterKey == "alpha_mod_oscillate_freq")
+                alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_oscillate_amplitude")
+                alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_oscillate_offset")
+                alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
+                */
 
                 //Parameter not found
                 else
@@ -236,9 +251,7 @@ alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
 
         //No name parameter found in script file
         if(name == "none" || name == "")
-        {
             Logger::writeMsg(1) << "Particle system needs a name!";
-        }
 
         //Set sprite to default particle if spriteName = empty
         if(spriteName == "")
@@ -253,6 +266,13 @@ alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
         age = 0;
         counter = 0;
 
+        //Add childs
+        if(child1 != "none")
+        {
+            pSystemChild1 = new ParticleSystem(child1, imgHandler);
+            pSystemChild1->SetPosition(xPos, yPos);
+        }
+
         srand(time(NULL));
     }
 
@@ -261,6 +281,11 @@ alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
         for(std::list<Particle>::const_iterator it = particleList.begin(); it != particleList.end(); it++)
         {
             Target.Draw(*it);
+        }
+        //Draw childs
+        if(child1 != "none")
+        {
+            Target.Draw(*pSystemChild1);
         }
     }
 
@@ -413,6 +438,7 @@ alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
             else
                 pIt->update(elapsed); //Update particle
         }
+
     }
 
 }
