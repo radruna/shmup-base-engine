@@ -439,6 +439,8 @@ namespace sbe
                 pIt->update(elapsed); //Update particle
         }
 
+        if(child1 != "none")
+            pSystemChild1->update(elapsed);
     }
 
 }
