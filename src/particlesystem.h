@@ -51,7 +51,7 @@ namespace sbe
 
             struct ValueMod
             {
-                float scalarRateMin, //Scalar modifier min
+                float   scalarRateMin, //Scalar modifier min
                         scalarRateMax, //Scalar modifier max
                         oscFreqMin, //Oscillation frequency min
                         oscFreqMax, //Oscillation frequency max
@@ -62,7 +62,7 @@ namespace sbe
 
             struct FadeMod
             {
-                float fadeInMin, //Fade in duration min
+                float   fadeInMin, //Fade in duration min
                         fadeInMax, //Fade in duration max
                         fadeOutMin, //Fade out duration min
                         fadeOutMax; //Fade out duration max
@@ -83,16 +83,16 @@ namespace sbe
                             child2,
                             child3,
                             child4;
-            bool rotRandom,                         //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
+            bool            rotRandom,              //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
                             rotAlign,               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
                             internalOsc;            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
-            int emissionType,                       //Particle system type. 1 = continuous, 2 = instant
+            int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
                             alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
                             alphaMax,               //Initial alpha max. 0 = invisible, 255 = opaque.
                             emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
-            float sizeMin,                          //Size min
+            float           sizeMin,                //Size min
                             sizeMax,                //Size max
                             sizeRatio,              //Size ratio
                             lifeSpanMin,            //Lifespan min
@@ -107,10 +107,13 @@ namespace sbe
                             rotation,               //Particle rotation if not random
                             movementAngleMin,
                             movementAngleMax;
-            ValueMod sizeModifier,                  //Size modifiers
+            ValueMod        sizeModifier,           //Size modifiers
                             emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier
-            FadeMod fadeModifier;                   //Fade parameters
+            FadeMod         fadeModifier;           //Fade parameters
+            DiffColor       colorInitial,
+                            colorModified;
+            ColModData      colorModData;
 
             //Parameter list
             std::map<std::string, std::string> parameterList; //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP

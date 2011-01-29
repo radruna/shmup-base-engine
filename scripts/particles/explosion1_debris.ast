@@ -9,6 +9,18 @@
 "name"								"explosion_01_debris"								//Particle system name
 "sprite_name"						"default_particle"									//Sprite to use. Needs to be loaded by asset file
 
+//Color parameters
+"initial_color_r"					"240"					
+"initial_color_g"					"130"					
+"initial_color_b"					"7"
+
+"modified_color_r"					"255"					
+"modified_color_g"					"255"					
+"modified_color_b"					"255"
+
+"color_mod_duration"				"0.2"
+"color_mod_offset"					"0"	
+
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"2000"					//Particles per second

@@ -24,6 +24,19 @@ namespace sbe
                 amplitudeOffset;
     };
 
+    struct DiffColor
+    {
+        float   r,
+                g,
+                b;
+    };
+
+    struct ColModData
+    {
+        float   duration,
+                offset;
+    };
+
     class Particle : public sbe::Movable
     {
         /*
@@ -45,7 +58,10 @@ namespace sbe
                        const float&         movementModAngle,
                        const float&         spawnT,
                        const bool&          moveAlign,
-                       const bool&          internalOsc
+                       const bool&          internalOsc,
+                       const DiffColor&     colorInitial,
+                       const DiffColor&     colorModified,
+                       const ColModData&    colorModData
                        );
             ~Particle()
             {
@@ -74,6 +90,11 @@ namespace sbe
                     spawnTime;
 
             ParaMod     sizeMod;
+
+            DiffColor   colIni,
+                        colMod;
+
+            ColModData  colModData;
 
             bool    fadeIn,
                     fadeOut;

@@ -37,6 +37,13 @@ namespace sbe
 
             virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
             void SetAlpha(int alpha);
+            void SetDiffuseColor(int r, int g, int b);
+            void SetColorR(int r);
+            void SetColorG(int g);
+            void SetColorB(int b);
+            int GetColorR();
+            int GetColorG();
+            int GetColorB();
             int GetAlpha();
         protected:
             int z;

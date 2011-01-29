@@ -55,4 +55,52 @@ namespace sbe
         sf::Color col = GetColor();
         return col.a;
     }
+
+    void Entity::SetDiffuseColor(int r, int g, int b)
+    {
+        sf::Color col = GetColor();
+        col.r = r;
+        col.g = g;
+        col.b = b;
+        SetColor( col );
+    }
+
+    void Entity::SetColorR(int r)
+    {
+        sf::Color col = GetColor();
+        col.r = r;
+        SetColor( col );
+    }
+
+    void Entity::SetColorG(int g)
+    {
+        sf::Color col = GetColor();
+        col.g = g;
+        SetColor( col );
+    }
+
+    void Entity::SetColorB(int b)
+    {
+        sf::Color col = GetColor();
+        col.b = b;
+        SetColor( col );
+    }
+
+    int Entity::GetColorR()
+    {
+        sf::Color col = GetColor();
+        return col.r;
+    }
+
+    int Entity::GetColorG()
+    {
+        sf::Color col = GetColor();
+        return col.g;
+    }
+
+    int Entity::GetColorB()
+    {
+        sf::Color col = GetColor();
+        return col.b;
+    }
 }

@@ -47,6 +47,17 @@ namespace sbe
         child3 = "none";
         child4 = "none";
 
+        colorInitial.r = 255;
+        colorInitial.g = 255;
+        colorInitial.b = 255;
+
+        colorModified.r = 256;  //256 for system checking. See below
+        colorModified.g = 256;
+        colorModified.b = 256;
+
+        colorModData.duration = 0;
+        colorModData.offset = 0;
+
         emissionType = 1;
         emissionMax = 100;
         emissionRate = 1;
@@ -129,6 +140,26 @@ namespace sbe
                     child3 = parameterValue;
                 else if(parameterKey == "child4")
                     child4 = parameterValue;
+
+                //Color parameters
+                else if(parameterKey == "initial_color_r")
+                    colorInitial.r = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "initial_color_g")
+                    colorInitial.g = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "initial_color_b")
+                    colorInitial.b = atof(parameterValue.c_str());//Convert string to float
+
+                else if(parameterKey == "modified_color_r")
+                    colorModified.r = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "modified_color_g")
+                    colorModified.g = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "modified_color_b")
+                    colorModified.b = atof(parameterValue.c_str());//Convert string to float
+
+                else if(parameterKey == "color_mod_duration")
+                    colorModData.duration = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "color_mod_offset")
+                    colorModData.offset = atof(parameterValue.c_str());//Convert string to float
 
                 //Emission parameters
                 else if(parameterKey == "emission_type")
@@ -248,6 +279,14 @@ namespace sbe
                     Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
             }
         }
+
+        //Fix color mod values if non present in the script file
+        if(colorModified.r > 255)
+            colorModified.r = colorInitial.r;
+        if(colorModified.g > 255)
+            colorModified.g = colorInitial.r;
+        if(colorModified.b > 255)
+            colorModified.b = colorInitial.r;
 
         //No name parameter found in script file
         if(name == "none" || name == "")
@@ -423,7 +462,10 @@ namespace sbe
                                                     movementModAngle,
                                                     age,
                                                     rotAlign,
-                                                    internalOsc
+                                                    internalOsc,
+                                                    colorInitial,
+                                                    colorModified,
+                                                    colorModData
                                                     )); //Add new particle to list
                     particleList.back().SetPosition( xPos , yPos ); //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
                     particleList.back().setRotRate( rotRate ); //Set rotation rate

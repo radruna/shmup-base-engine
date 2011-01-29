@@ -11,6 +11,18 @@
 "child1"							"scripts/particles/explosion1_shockwave.ast"	//First child (another particle system)
 "child2"							"scripts/particles/explosion1_debris.ast"		//Second child (another particle system)
 
+//Color parameters
+"initial_color_r"					"220"					//Initial color. Red channel
+"initial_color_g"					"136"					//Initial color. Green channel
+"initial_color_b"					"113"					//Initial color. Blue channel
+
+"modified_color_r"					"255"					//Color after mod. Red channel
+"modified_color_g"					"255"					//Color after mod. Green channel
+"modified_color_b"					"255"					//Color after mod. Blue channel
+
+"color_mod_duration"				"0.2"					//Color mod duration. If 0 then duration = particle lifetime
+"color_mod_offset"					"0"						//Particle mod starts after this many seconds
+
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second

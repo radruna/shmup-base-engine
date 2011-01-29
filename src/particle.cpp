@@ -30,7 +30,10 @@ namespace sbe
                        const float&         movementModAngle,
                        const float&         spawnT,
                        const bool&          moveAlign,
-                       const bool&          internalOsc
+                       const bool&          internalOsc,
+                       const DiffColor&     colorInitial,
+                       const DiffColor&     colorModified,
+                       const ColModData&    colorModData
                        )
         : Movable(img, a, v)
     {
@@ -50,6 +53,13 @@ namespace sbe
         movementModAngleRate = movementModAngle;
         moveAngleAlign = moveAlign;
         internalOscillation = internalOsc;
+
+        colIni = colorInitial;
+        colMod = colorModified;
+        colModData = colorModData;
+
+        if(colIni.r != 255 || colIni.g != 255 || colIni.b != 255)
+            SetDiffuseColor(colIni.r, colIni.g, colIni.b);
 
         //Set values if scalar size mod = off and oscillating size mod = on
         if(sizeMod.frequency != 0 && sizeMod.scalarRate == 1)
@@ -75,11 +85,6 @@ namespace sbe
 
     void Particle::update(const float& elapsed)
     {
-
-        //Decrease life
-        life -= elapsed;
-        //Increase age
-        age += elapsed;
 
         //Rotate
         if(rotRate != 0 && !moveAngleAlign)
@@ -161,6 +166,39 @@ namespace sbe
                 SetRotation(getAngle() * -1);       //Reversed angle. Why? :<
             setAngle(getAngle() + movementModAngleRate / (1/elapsed));
         }
+
+        //Apply color mod
+        if(colModData.offset < age)
+        {
+            if(colMod.r != colIni.r)
+            {
+                if(colModData.duration != 0)
+                    SetColorR( GetColorR() - (GetColorR()-colMod.r) / colModData.duration / (1/elapsed) );
+                else
+                    SetColorR( GetColorR() - (GetColorR()-colMod.r) / life / (1/elapsed) );
+            }
+
+            if(colMod.g != colIni.g )
+            {
+                if(colModData.duration != 0)
+                    SetColorG( GetColorG() - (GetColorG()-colMod.g) / colModData.duration / (1/elapsed) );
+                else
+                    SetColorG( GetColorG() - (GetColorG()-colMod.g) / life / (1/elapsed) );
+            }
+
+            if(colMod.b != colIni.b )
+            {
+                if(colModData.duration != 0)
+                    SetColorB( GetColorB() - (GetColorB()-colMod.b) / colModData.duration / (1/elapsed) );
+                else
+                    SetColorB( GetColorB() - (GetColorB()-colMod.b) / life / (1/elapsed) );
+            }
+        }
+
+        //Decrease life
+        life -= elapsed;
+        //Increase age
+        age += elapsed;
 
         //Update particle
         Movable::update(elapsed);
