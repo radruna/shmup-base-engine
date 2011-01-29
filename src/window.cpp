@@ -10,6 +10,7 @@
 #include <map> //For mapping objects
 #include <cstdlib>
 #include <sstream>
+#include <list> //For lists
 
 #include <SFML/Graphics.hpp> //Graphics and everything above
 #include <SFML/Audio.hpp> //hurr durr
@@ -20,6 +21,7 @@
 #include "eventhandler.h" //Event handling
 #include "particlesystem.h" //Particle system
 #include "ship.h"
+#include "projectile.h"
 //#include "player.h"
 #include "panel.h"
 #include "logger.h"
@@ -76,6 +78,7 @@ namespace sbe
         loadFonts("scripts/assets/fonts.ast");
 
         //Test stuff with a really kawaii ship AND A PARTICLE
+        sf::Image imgDefault = imgHandler->getImage("default_particle");
         sf::Image img = imgHandler->getImage("testShip");
         sf::Image img2 = imgHandler->getImage("kawaiiShip");
         sf::Image img3 = imgHandler->getImage("smoke_01");
@@ -85,6 +88,7 @@ namespace sbe
         //*ships["testShip"] = *testShip;
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
+        testShip->SetAlpha(0);
 
         testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
@@ -104,7 +108,7 @@ namespace sbe
         loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.Play();
         //Test particle system
-        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion1.ast", imgHandler);
+        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler);
         sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/shield.ast", imgHandler);
         pSystem1->SetPosition(500.f, 300.f);
 
@@ -181,9 +185,12 @@ namespace sbe
             pSystem2->update(ElapsedTime);
 
             //TODO (Liag#5#) Add lasers and stuff to the Ship class.
-            if(GetInput().IsKeyDown(sf::Key::Z) && counter < 10)
+            if(GetInput().IsKeyDown(sf::Key::Space) && counter < 2)
             {
-                counter = 100;
+                counter = 10;
+
+                //projectileList.push_back(Projectile("/scripts/shots/shot_01.ast", imgHandler));
+
                 shot.SetCenter(0, 1000.f);
                 if(gun)
                 {
@@ -199,7 +206,7 @@ namespace sbe
                 }
 
                 shot.SetPosition(testShip->GetPosition().x + gunPosX, testShip->GetPosition().y + 58);
-                laser.Play();
+                //laser.Play();
 
             }
             else if(counter < 40)

@@ -21,7 +21,6 @@
 
 namespace sbe
 {
-
     class ParticleSystem : public FileHandler , public sf::Drawable
     {
         /*
@@ -116,7 +115,7 @@ namespace sbe
             ColModData      colorModData;
 
             //Parameter list
-            std::map<std::string, std::string> parameterList; //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP
+            //std::map<std::string, std::string> parameterList; //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP
             //Particle list
             std::list<Particle> particleList;
     };

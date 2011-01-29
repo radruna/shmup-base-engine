@@ -1,0 +1,14 @@
+//----------------------------------------------------------
+//						Generic shot
+//----------------------------------------------------------
+
+"name"						"shot_01"
+"sprite_name"				"default_particle"
+"particle_system"			"shot_01_p"
+"firing_particle_system"	""
+"hit_particle_system"		""
+"speed"						"10"
+"hitbox radius"				"5"
+"damage"					"10"
+"firing_sound"				""
+"hit_sound"					""

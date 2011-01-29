@@ -8,5 +8,4 @@
 "smoke_01"		"assets/image/smoke01.png"		//Test smoke sprite to be used with particle system
 "bubble_01"		"assets/image/bubble.png"		//Bubble
 "shield_01"		"assets/image/shield.png"		//Test shield
-"fire_01"		"assets/image/fire.png"			//Fire
 "shockwave"		"assets/image/shockwave.png"	//Shockwave

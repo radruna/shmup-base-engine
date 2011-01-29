@@ -11,6 +11,7 @@
 #include <iostream> //Debug output
 #include <string> //For strings
 #include <map> //Map for objects
+#include <list> //For lists
 
 #include <SFML/Graphics.hpp> //Pretty much everything else
 
@@ -18,6 +19,7 @@
 #include "audiohandler.h" //Playing sound/music
 #include "eventhandler.h" //Handles events
 #include "ship.h" //Ship class
+#include "projectile.h"
 //#include "player.h" //Player class
 #include "panel.h"
 #include "logger.h"
@@ -68,6 +70,8 @@ namespace sbe
 
             boolMap events;
             fontMap fonts;
+
+            std::list<Projectile> projectileList;
     };
 }
 

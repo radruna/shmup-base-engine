@@ -47,7 +47,6 @@
 		<Unit filename="assets\font\Inconsolata.otf" />
 		<Unit filename="assets\image\8bjet.png" />
 		<Unit filename="assets\image\bubble.png" />
-		<Unit filename="assets\image\bubble.png" />
 		<Unit filename="assets\image\cb.bmp" />
 		<Unit filename="assets\image\jet.png" />
 		<Unit filename="assets\image\kawaii.png" />
@@ -97,6 +96,8 @@
 		<Unit filename="src\particle.h" />
 		<Unit filename="src\particlesystem.cpp" />
 		<Unit filename="src\particlesystem.h" />
+		<Unit filename="src\projectile.cpp" />
+		<Unit filename="src\projectile.h" />
 		<Unit filename="src\ship.cpp" />
 		<Unit filename="src\ship.h" />
 		<Unit filename="src\time.h" />
