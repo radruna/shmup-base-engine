@@ -45,6 +45,9 @@ namespace sbe
 
         private:
             ParticleSystem *pSystemChild1;
+            ParticleSystem *pSystemChild2;
+            ParticleSystem *pSystemChild3;
+            ParticleSystem *pSystemChild4;
 
             struct ValueMod
             {

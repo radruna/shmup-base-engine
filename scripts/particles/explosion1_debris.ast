@@ -1,0 +1,59 @@
+//----------------------------------------------------------
+//						Generic explosion
+//----------------------------------------------------------
+
+//Most values are randomized between the minimum and maximum parameters.
+//Min = max means no randomization.
+
+//Generic parameters
+"name"								"explosion_01_debris"								//Particle system name
+"sprite_name"						"default_particle"									//Sprite to use. Needs to be loaded by asset file
+
+//Emission parameters
+"emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
+"emission_rate"						"2000"					//Particles per second
+"emission_max"						"300"					//Not implemented yet.	Particles to emit if type = 2
+"emission_force_min"				"1000"					//Emission force minimum
+"emission_force_max"				"3000"					//Emission force maximum
+"emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
+"emission_angle_min"				"-180"					//Emission angle minimum
+"emission_angle_max"				"180"					//Emission angle maximum
+
+//Lifespan parameters
+"lifespan_min"						"0.1"						//Lifespan duration minimum
+"lifespan_max"						"0.4"						//Lifespan duration maximum
+
+//Size parameters
+"size_min"							"0.5"					//Scale minimum
+"size_max"							"2.0"					//Scale maximum
+"size_ratio"						"0.1"						//x/y ratio. 1 = normal
+
+//Rotation parameters
+"rotation_rate_min"					"-50"					//Rotation rate minimum
+"rotation_rate_max"					"50"						//Rotation rate maximum
+"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation"							"0"						//If not random, then this
+
+//Fade parameters
+"fade_in_min"						"0"					//Fade in duration minimum
+"fade_in_max"						"0"					//Fade in duration maximum
+"fade_out_min"						"0.1"						//Fade out duration minimum
+"fade_out_max"						"0.2"						//Fade out duration maximum
+
+//Mod parameters
+
+"internal_oscillation"				"0"						//Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
+
+//Size modification parameters
+"size_mod_scalar_rate_min"			"1"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"1"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+
+//Movement modification parameters
+"move_mod_angle_min"				"0"						//Movement mod angle minimum. Particle turns this many degrees in one second
+"move_mod_angle_max"				"0"						//Movement mod angle maximum. Particle turns this many degrees in one second
+
+//Alpha modification parameters
+"alpha_min"							"75"					//Minimum alpha value
+"alpha_max"							"110"					//Maximum alpha value

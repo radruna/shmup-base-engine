@@ -6,9 +6,10 @@
 //Min = max means no randomization.
 
 //Generic parameters
-"name"								"explosion_01"								//Particle system name
-"sprite_name"						"smoke_01"									//Sprite to use. Needs to be loaded by asset file
-"child1"							"scripts/particles/explosion1_sub.ast"		//First child (another particle system)
+"name"								"explosion_01"									//Particle system name
+"sprite_name"						"smoke_01"										//Sprite to use. Needs to be loaded by asset file
+"child1"							"scripts/particles/explosion1_shockwave.ast"	//First child (another particle system)
+"child2"							"scripts/particles/explosion1_debris.ast"		//Second child (another particle system)
 
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
@@ -23,7 +24,7 @@
 
 //Lifespan parameters
 "lifespan_min"						"2"						//Lifespan duration minimum
-"lifespan_max"						"3"						//Lifespan duration maximum
+"lifespan_max"						"4"						//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"0.2"					//Scale minimum
@@ -41,7 +42,7 @@
 "fade_in_min"						"0.1"					//Fade in duration minimum
 "fade_in_max"						"0.2"					//Fade in duration maximum
 "fade_out_min"						"1"						//Fade out duration minimum
-"fade_out_max"						"1"						//Fade out duration maximum
+"fade_out_max"						"2"						//Fade out duration maximum
 
 //Mod parameters
 

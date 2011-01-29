@@ -268,10 +268,13 @@ namespace sbe
 
         //Add childs
         if(child1 != "none")
-        {
             pSystemChild1 = new ParticleSystem(child1, imgHandler);
-            pSystemChild1->SetPosition(xPos, yPos);
-        }
+        if(child2 != "none")
+            pSystemChild2 = new ParticleSystem(child2, imgHandler);
+        if(child3 != "none")
+            pSystemChild3 = new ParticleSystem(child3, imgHandler);
+        if(child4 != "none")
+            pSystemChild4 = new ParticleSystem(child4, imgHandler);
 
         srand(time(NULL));
     }
@@ -286,6 +289,21 @@ namespace sbe
         if(child1 != "none")
         {
             Target.Draw(*pSystemChild1);
+        }
+        //Draw childs
+        if(child2 != "none")
+        {
+            Target.Draw(*pSystemChild2);
+        }
+        //Draw childs
+        if(child3 != "none")
+        {
+            Target.Draw(*pSystemChild3);
+        }
+        //Draw childs
+        if(child4 != "none")
+        {
+            Target.Draw(*pSystemChild4);
         }
     }
 
@@ -437,6 +455,28 @@ namespace sbe
                 pIt = particleList.erase(pIt); //Erase particle
             else
                 pIt->update(elapsed); //Update particle
+        }
+
+        //Update child
+        if(child1 != "none")
+        {
+            pSystemChild1->update(elapsed);
+            pSystemChild1->SetPosition(xPos, yPos);
+        }
+        if(child2 != "none")
+        {
+            pSystemChild2->update(elapsed);
+            pSystemChild2->SetPosition(xPos, yPos);
+        }
+        if(child3 != "none")
+        {
+            pSystemChild3->update(elapsed);
+            pSystemChild3->SetPosition(xPos, yPos);
+        }
+        if(child4 != "none")
+        {
+            pSystemChild4->update(elapsed);
+            pSystemChild4->SetPosition(xPos, yPos);
         }
 
     }
