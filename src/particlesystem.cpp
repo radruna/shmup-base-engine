@@ -50,8 +50,8 @@ namespace sbe
         emissionType = 1;
         emissionMax = 100;
         emissionRate = 1;
-        emissionAngleMin = 0;
-        emissionAngleMax = 0;
+        emissionAngleMin = -180;
+        emissionAngleMax = 180;
         emissionForceMin = 0;
         emissionForceMax = 0;
         emissionFrictionMin = 1;

@@ -57,8 +57,8 @@
 "size_mod_oscillate_amplitude_offset"	"1"					//Offset oscillation amplitude.
 
 //Size modification parameters
-"emission_angle_mod_scalar_rate_min"	"90"				//Angle modification minimum (scalar). Emission angle += this every second
-"emission_angle_mod_scalar_rate_max"	"90"				//Angle modification maximum (scalar). Emission angle += this every second
+"emission_angle_mod_scalar_rate_min"	"90"				//Angle modification minimum (scalar). Emission angle += this every second	Not implemented?
+"emission_angle_mod_scalar_rate_max"	"90"				//Angle modification maximum (scalar). Emission angle += this every second	Not implemented?
 
 "emission_angle_mod_oscillate_freq_min"			"2"			//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
 "emission_angle_mod_oscillate_freq_max"			"2"			//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
