@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-28
+/ File updated: 2011-01-29
 / License: GPLv3
 */
 #ifndef PANEL_H_INCLUDED
@@ -16,12 +16,10 @@
 #include "button.h"
 
 typedef std::map<std::string, sf::String> stringMap;
-typedef std::map<std::string, sf::Shape> shapeMap;
+typedef std::map<std::string, sbe::Button> buttonMap;
 
 namespace sbe
 {
-    class Window;
-
     class Panel : public sf::Drawable
     {
         public:
@@ -59,9 +57,7 @@ namespace sbe
             bool withinPanel(const sf::Vector2i& mousePos);
             sf::Shape *panelRect;
             stringMap strings;
-            shapeMap buttons;
-            void* funcObject;
-            void (*buttonFunc) (void* object, const sf::Unicode::Text& text);
+            buttonMap buttons;
     };
 }
 

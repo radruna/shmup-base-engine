@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-28
+/ File updated: 2011-01-29
 / License: GPLv3
 */
 #include <iostream>
@@ -12,7 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "panel.h"
-#include "window.h"
+#include "logger.h"
 #include "button.h"
 
 namespace sbe
@@ -24,13 +24,13 @@ namespace sbe
 
     Panel::~Panel()
     {
-
+        delete panelRect;
     }
 
     void Panel::Render(sf::RenderTarget& target) const
     {
         target.Draw(*panelRect);
-        for(shapeMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
+        for(buttonMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
         {
             target.Draw(it->second);
         }
@@ -61,13 +61,10 @@ namespace sbe
         /*
             Purpose: Create a new button based on parameters.
         */
-        sf::Shape tmpBtn = sf::Shape::Rectangle(p1, p2, color, outline, outlineColor);
+        sbe::Button tmpBtn(callObject, callFunction, text, txtCol, p1, p2, color, outline, outlineColor);
         buttons[name] = tmpBtn;
-        strings[name] = text;
-        strings[name].SetPosition(p1.x + 5, p1.y + 2);
-        strings[name].SetColor(txtCol);
-        funcObject = callObject;
-        buttonFunc = callFunction;
+        Logger::writeMsg(1) << "Working!";
+        Logger::write();
     }
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos)
@@ -85,13 +82,9 @@ namespace sbe
     {
         if(withinPanel(mousePos))
         {
-            for(shapeMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
+            for(buttonMap::iterator it = buttons.begin(); it != buttons.end(); it++)
             {
-                if(mousePos.x > it->second.GetPointPosition(0).x && mousePos.x < it->second.GetPointPosition(2).x)
-                {
-                    if(mousePos.y > it->second.GetPointPosition(0).y && mousePos.y < it->second.GetPointPosition(2).y)
-                        buttonFunc(funcObject, "HE WHO WAITS BEHIND THE WALL...\n\nHE COMES");
-                }
+                it->second.click(mousePos);
             }
         }
     }
