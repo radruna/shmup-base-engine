@@ -37,7 +37,7 @@ namespace sbe
             //Unload all images
             void unloadAssets();
             //Handle image requests
-            sf::Image getImage(const std::string& imageKey);
+            sf::Image& getImage(const std::string& imageKey);
         private:
             //Image list
             std::map<std::string, sf::Image> imageList;

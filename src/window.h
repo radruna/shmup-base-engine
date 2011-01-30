@@ -66,7 +66,7 @@ namespace sbe
             bool pause;
 
             sf::Color c;
-            short cCount;
+            short count;
 
             boolMap events;
             fontMap fonts;

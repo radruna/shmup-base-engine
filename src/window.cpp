@@ -29,13 +29,14 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), cCount(0)
+        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), count(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
         */
         Logger::writeMsg(1) << "\nWindow loaded!";
-        RenderWindow::Window::SetFramerateLimit(60);
+        SetFramerateLimit(60);
+        //UseVerticalSync(true);
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
@@ -79,16 +80,14 @@ namespace sbe
 
         //Test stuff with a really kawaii ship AND A PARTICLE
         sf::Image imgDefault = imgHandler->getImage("default_particle");
-        sf::Image img = imgHandler->getImage("testShip");
-        sf::Image img2 = imgHandler->getImage("kawaiiShip");
-        sf::Image img3 = imgHandler->getImage("smoke_01");
+        //sf::Image img = imgHandler->getImage("testShip");
 
-        testShip = new sbe::Ship(img);
+        testShip = new sbe::Ship("testShip", imgHandler);
 
         //*ships["testShip"] = *testShip;
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
-        testShip->SetAlpha(0);
+        //testShip->SetAlpha(0);
 
         testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
@@ -139,7 +138,7 @@ namespace sbe
                 }
                 if(events["B"])
                 {
-                    testShip->SetImage(img2);
+                    testShip->setImage("kawaiiShip");
 
                     //audHandler->setMusic("8bitloli");
                     loli.Stop();
@@ -215,22 +214,12 @@ namespace sbe
             }
 
             // Clear screen
-            if(cCount++ % 20 == 0)
+            if(count++ % 4 == 0)
             {
-                if(c == sf::Color(255, 105, 180))
-                    c = sf::Color::Red;
-                else if(c == sf::Color::Red)
-                    c = sf::Color::Green;
-                else if(c == sf::Color::Green)
-                    c = sf::Color::Blue;
-                else if(c == sf::Color::Blue)
-                    c = sf::Color::Magenta;
-                else
-                    c = sf::Color(255, 105, 180);
-
                 fpsStr << "fps: " << (int) ((1.f / ElapsedTime));
                 fps.SetText(fpsStr.str());
                 fpsStr.str("");
+
             }
 
             //Clear(c);

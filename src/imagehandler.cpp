@@ -108,17 +108,15 @@ namespace sbe
     }
 
     //Handle image requests
-    sf::Image ImageHandler::getImage(const std::string& imageKey){
-        sf::Image img;
+    sf::Image& ImageHandler::getImage(const std::string& imageKey){
         //Search imageList
         if( imageList.find(imageKey) != imageList.end() )
         {
             //Assign image
-            img = imageList[imageKey];
+            return imageList[imageKey];
         }else{
             //Assign error image
-            img.LoadFromFile("assets/debug/error.png");
+            return imageList["error"];
         }
-        return img;
     }
 }
