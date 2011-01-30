@@ -11,6 +11,7 @@
 #include "const.h" //Constants
 #include "movable.h" //Base entity class
 #include "particle.h"   //Header
+#include "logger.h" //Outputs debug in console and log
 
 namespace sbe
 {
@@ -37,6 +38,7 @@ namespace sbe
                        )
         : Movable(img, a, v)
     {
+
         SetCenter(GetSize().x / 2,GetSize().y / 2);
         SetScale( width , height );
         age = 0;
@@ -138,24 +140,27 @@ namespace sbe
             speed *= friction;
 
         //Apply size mods
-        if(sizeMod.scalarRate != 1 || sizeMod.frequency != 0)
+        if(sizeMod.scalarOffset < age)
         {
-            //Apply scalar size mod
-            if(sizeMod.scalarRate != 1)
+            if( sizeMod.scalarRate != 1 || sizeMod.frequency != 0)
             {
-                float a = GetScale().x + ( (sizeMod.scalarRate-1) / (1/elapsed) );
-                float b = GetScale().y + ( (sizeMod.scalarRate-1) / (1/elapsed) );
-                SetScale(a,b);
-            }
-            //Apply oscillating size mod
-            else if(sizeMod.frequency != 0)
-            {
-                if(!internalOscillation)    //Global clock
-                    sizeModOsc = sizeMod.amplitude * sin( (age + spawnTime) * sizeMod.frequency ) + sizeMod.amplitudeOffset;
-                else                        //Internal clock
-                    sizeModOsc = sizeMod.amplitude * sin( age * sizeMod.frequency ) + sizeMod.amplitudeOffset;
+                //Apply scalar size mod
+                if(sizeMod.scalarRate != 1)
+                {
+                    float a = GetScale().x + ( (sizeMod.scalarRate-1) / (1/elapsed) );
+                    float b = GetScale().y + ( (sizeMod.scalarRate-1) / (1/elapsed) );
+                    SetScale(a,b);
+                }
+                //Apply oscillating size mod
+                else if(sizeMod.frequency != 0)
+                {
+                    if(!internalOscillation)    //Global clock
+                        sizeModOsc = sizeMod.amplitude * sin( (age + spawnTime) * sizeMod.frequency ) + sizeMod.amplitudeOffset;
+                    else                        //Internal clock
+                        sizeModOsc = sizeMod.amplitude * sin( age * sizeMod.frequency ) + sizeMod.amplitudeOffset;
 
-                SetScale(widthFixed * sizeModOsc, heightFixed * sizeModOsc);
+                    SetScale(widthFixed * sizeModOsc, heightFixed * sizeModOsc);
+                }
             }
         }
 
@@ -168,9 +173,9 @@ namespace sbe
         }
 
         //Apply color mod
-        if(colModData.offset < age)
+        if(colModData.offset < age && life > 0.1)   //(&& life > 0.1) is a bug fix. Without it the colors spaz out just as the particle die.
         {
-            if(colMod.r != colIni.r)
+            if(colMod.r != colIni.r || GetColor().r != colMod.r)
             {
                 if(colModData.duration != 0)
                     SetColorR( GetColor().r - (GetColor().r-colMod.r) / colModData.duration / (1/elapsed) );
@@ -178,7 +183,7 @@ namespace sbe
                     SetColorR( GetColor().r - (GetColor().r-colMod.r) / life / (1/elapsed) );
             }
 
-            if(colMod.g != colIni.g )
+            if(colMod.g != colIni.g || GetColor().g != colMod.g)
             {
                 if(colModData.duration != 0)
                     SetColorG( GetColor().g - (GetColor().g-colMod.g) / colModData.duration / (1/elapsed) );
@@ -186,7 +191,7 @@ namespace sbe
                     SetColorG( GetColor().g - (GetColor().g-colMod.g) / life / (1/elapsed) );
             }
 
-            if(colMod.b != colIni.b )
+            if(colMod.b != colIni.b || GetColor().g != colMod.g)
             {
                 if(colModData.duration != 0)
                     SetColorB( GetColor().b - (GetColor().b-colMod.b) / colModData.duration / (1/elapsed) );

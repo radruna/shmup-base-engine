@@ -336,8 +336,10 @@ namespace sbe
 
     void ParticleSystem::reload()
     {
-
-        Logger::writeMsg(1) << "\nLoading particle system \"" << scriptFile << "\"...";
+        if(firstRun)
+            Logger::writeMsg(1) << "\nLoading particle system \"" << scriptFile << "\"...";
+        else
+            Logger::writeMsg(1) << "\nUpdating particle system...";
 
         //Open specified file
         fileReader.open(scriptFile.c_str());
@@ -400,6 +402,7 @@ namespace sbe
 
         sizeModifier.scalarRateMin = 1;
         sizeModifier.scalarRateMax = 1;
+        sizeModifier.scalarRateOffset = 0;
         sizeModifier.oscFreqMin = 0;
         sizeModifier.oscFreqMax = 0;
         sizeModifier.oscAmpMin = 0;
@@ -538,6 +541,10 @@ namespace sbe
                     sizeModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_scalar_rate_max")
                     sizeModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+
+                else if(parameterKey == "size_mod_scalar_offset")
+                    sizeModifier.scalarRateOffset = atof(parameterValue.c_str());//Convert string to float
+
                 else if(parameterKey == "size_mod_oscillate_freq_min")
                     sizeModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "size_mod_oscillate_freq_max")
@@ -550,10 +557,8 @@ namespace sbe
                     sizeModifier.oscAmpOffset = atof(parameterValue.c_str());//Convert string to float
 
                 //Emission angle modification parameters
-                else if(parameterKey == "emission_angle_mod_scalar_rate_min")
+                else if(parameterKey == "emission_angle_mod_scalar_rate")                                           //Different!
                     emissionAngleModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "emission_angle_mod_scalar_rate_max")
-                    emissionAngleModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_angle_mod_oscillate_freq_min")
                     emissionAngleModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_angle_mod_oscillate_freq_max")
@@ -613,7 +618,8 @@ namespace sbe
             spriteName = "default_particle";
 
         //Debug output
-        Logger::writeMsg(1) << "Finished loading particle system \"" << scriptFile << "\"";
+        if(firstRun)
+            Logger::writeMsg(1) << "Finished loading particle system \"" << scriptFile << "\"";
         //Close file
         fileReader.close();
 
@@ -762,6 +768,8 @@ namespace sbe
 
                     //Get scalar size mod rate
                     sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                    //Get scalar size mod offset
+                    sizeMod.scalarOffset = sizeModifier.scalarRateOffset;
                     //Get oscillating size mod frequency
                     sizeMod.frequency = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
                     //Get oscillating size mod amplitude
@@ -770,7 +778,7 @@ namespace sbe
                     sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
 
                     //Get scalar emission angle mod rate
-                    emissionAngleMod.scalarRate = boundsRand( emissionAngleModifier.scalarRateMin, emissionAngleModifier.scalarRateMax );
+                    emissionAngleMod.scalarRate = emissionAngleModifier.scalarRateMin;
                     //Get oscillating emission angle mod frequency
                     emissionAngleMod.frequency = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
                     //Get oscillating emission angle mod amplitude
@@ -779,15 +787,23 @@ namespace sbe
                     emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
 
                     //Get emission angle
-                    float emissionAngle;
-                    if(emissionAngleMod.frequency != 0)
+
+                    if(emissionAngleMod.scalarRate != 0)
+                    {
+                        emissionAngle += emissionAngleMod.scalarRate / (1/elapsed);
+                        //std::cout<<emissionAngleMod.scalarRate<<std::endl;
+                        if(emissionAngle > 360)
+                            emissionAngle -= 360;
+                    }
+                    else if(emissionAngleMod.frequency != 0)
                         emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax ) + emissionAngleMod.amplitude * sin(age * emissionAngleMod.frequency) + emissionAngleMod.amplitudeOffset;
                     else
                         emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
 
                     //Get movement mod
                     float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
-
+                    //sizeMod.scalarOffset
+                    //Logger::writeMsg(1) << sizeMod.scalarOffset;
                     particleList.push_back(Particle(
                                                     sprite, //Sprite to use
                                                     scale, //Width
@@ -813,7 +829,7 @@ namespace sbe
 
                     //Handle rotation
                     if(rotAlign) //Should I align to emission angle?
-                        particleList.back().SetRotation( emissionAngle * -1 + rotation ); //If yes, then do so + rotation
+                        particleList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
                     else if(rotRandom) //Should I start out with random rotation?
                         particleList.back().SetRotation( rand() % 360 );
                     else //Just spawn with rotation

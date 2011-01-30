@@ -19,6 +19,7 @@
 #include "filehandler.h" //Abstract base class
 #include "particle.h" //Particle header
 
+
 namespace sbe
 {
     class ParticleSystem : public FileHandler , public sf::Drawable
@@ -62,6 +63,7 @@ namespace sbe
             {
                 float   scalarRateMin, //Scalar modifier min
                         scalarRateMax, //Scalar modifier max
+                        scalarRateOffset, //Scalar modifier offset
                         oscFreqMin, //Oscillation frequency min
                         oscFreqMax, //Oscillation frequency max
                         oscAmpMin, //Oscillation amplitude
@@ -81,8 +83,9 @@ namespace sbe
             T boundsRand(T a, T b);
             //Don't move these please
             int xPos, yPos;
-            float counter,
-                            age;
+            float           counter,
+                            age,
+                            emissionAngle;
             sf::Image sprite;
 
             //Parameters
@@ -120,9 +123,9 @@ namespace sbe
                             emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters
-            Particle::DiffColor       colorInitial,
-                            colorModified;
-            Particle::ColModData      colorModData;
+            Particle::DiffColor         colorInitial,
+                                        colorModified;
+            Particle::ColModData        colorModData;
 
             //Parameter list
             //std::map<std::string, std::string> parameterList; //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP

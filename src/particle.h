@@ -24,6 +24,7 @@ namespace sbe
             struct ParaMod
             {
                 float   scalarRate,
+                        scalarOffset,
                         frequency,
                         amplitude,
                         amplitudeOffset;
