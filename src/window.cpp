@@ -87,7 +87,7 @@ namespace sbe
         //*ships["testShip"] = *testShip;
         testShip->SetPosition(0.f, 0.f);
         testShip->SetScale(0.5, 0.5);
-        //testShip->SetAlpha(0);
+        testShip->SetAlpha(0);
 
         testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));

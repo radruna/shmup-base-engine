@@ -10,12 +10,12 @@
 "sprite_name"						"default_particle"				//Sprite to use. Needs to be loaded by asset file
 
 //Color parameters
-"initial_color_r"					"0"					
-"initial_color_g"					"255"				
-"initial_color_b"					"255"
+"initial_color_r"					"0"
+"initial_color_g"					"255"
+"initial_color_b"					"100"
 
 "modified_color_r"					"255"					
-"modified_color_g"					"0"					
+"modified_color_g"					"100"					
 "modified_color_b"					"0"
 
 //Emission parameters
@@ -41,8 +41,8 @@
 //Rotation parameters
 "rotation_rate_min"					"0"						//Rotation rate minimum
 "rotation_rate_max"					"0"						//Rotation rate maximum
-"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters
@@ -60,7 +60,7 @@
 "size_mod_scalar_rate_max"			"1"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
 "size_mod_oscillate_freq_min"			"3"					//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_freq_max"			"3"					//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_freq_max"			"30"					//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
 "size_mod_oscillate_amplitude_min"		"0.5"				//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
 "size_mod_oscillate_amplitude_max"		"0.5"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
 "size_mod_oscillate_amplitude_offset"	"1"					//Offset oscillation amplitude.

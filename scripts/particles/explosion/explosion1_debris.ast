@@ -23,7 +23,7 @@
 
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
-"emission_rate"						"2000"					//Particles per second
+"emission_rate"						"4000"					//Particles per second
 "emission_max"						"300"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"1000"					//Emission force minimum
 "emission_force_max"				"3000"					//Emission force maximum

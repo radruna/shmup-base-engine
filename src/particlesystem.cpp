@@ -16,6 +16,8 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "md5/md5.h" //Md5 hash thingy
+
 #include "particlesystem.h" //Class def
 #include "imagehandler.h" //For loading images
 #include "filehandler.h" //Base class
@@ -26,6 +28,13 @@ namespace sbe
 {
     ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler)
     {
+
+        scriptFile = particleSystemFile;
+        imageHandler = imgHandler;
+        reload();
+
+        /*
+
         Logger::writeMsg(1) << "\nLoading particle system \"" << particleSystemFile << "\"...";
 
         //Open specified file
@@ -265,20 +274,23 @@ namespace sbe
                 else if(parameterKey == "alpha_mod_scalar_rate_max")
                     alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
 
-                /*
+
                 else if(parameterKey == "alpha_mod_oscillate_freq")
                 alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_amplitude")
                 alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "alpha_mod_oscillate_offset")
                 alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
-                */
+
 
                 //Parameter not found
                 else
                     Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
+
             }
         }
+
+
 
         //Fix color mod values if non present in the script file
         if(colorModified.r > 255)
@@ -314,8 +326,313 @@ namespace sbe
             pSystemChild3 = new ParticleSystem(child3, imgHandler);
         if(child4 != "none")
             pSystemChild4 = new ParticleSystem(child4, imgHandler);
+            */
 
+        md5Counter = 0;
+        firstRun = true;
+        fileContents = "";
         srand(time(NULL));
+    }
+
+    void ParticleSystem::reload()
+    {
+
+        Logger::writeMsg(1) << "\nLoading particle system \"" << scriptFile << "\"...";
+
+        //Open specified file
+        fileReader.open(scriptFile.c_str());
+        if(!fileReader.is_open())
+        {
+            //Debug output
+            Logger::writeMsg(1) << "The particle handler was unable to open the specified particle system file";
+            fileReader.close();
+            return;
+        }
+
+        //Set default values
+
+        name = "none";
+        spriteName = "default_particle";
+
+        child1 = "none";
+        child2 = "none";
+        child3 = "none";
+        child4 = "none";
+
+        colorInitial.r = 255;
+        colorInitial.g = 255;
+        colorInitial.b = 255;
+
+        colorModified.r = 256;  //256 for system checking. See below
+        colorModified.g = 256;
+        colorModified.b = 256;
+
+        colorModData.duration = 0;
+        colorModData.offset = 0;
+
+        emissionType = 1;
+        emissionMax = 100;
+        emissionRate = 1;
+        emissionAngleMin = -180;
+        emissionAngleMax = 180;
+        emissionForceMin = 0;
+        emissionForceMax = 0;
+        emissionFrictionMin = 1;
+        emissionFrictionMax = 1;
+
+        lifeSpanMin = 1;
+        lifeSpanMax = 1;
+
+        sizeMin = 1;
+        sizeMax = 1;
+        sizeRatio = 1;
+
+        rotRateMin = 0;
+        rotRateMax = 0;
+        rotRandom = 0;
+        rotAlign = 0;
+        rotation = 0;
+
+        fadeModifier.fadeInMin = 0;
+        fadeModifier.fadeInMax = 0;
+        fadeModifier.fadeOutMin = 0;
+        fadeModifier.fadeOutMax = 0;
+
+        sizeModifier.scalarRateMin = 1;
+        sizeModifier.scalarRateMax = 1;
+        sizeModifier.oscFreqMin = 0;
+        sizeModifier.oscFreqMax = 0;
+        sizeModifier.oscAmpMin = 0;
+        sizeModifier.oscAmpMax = 0;
+        sizeModifier.oscAmpOffset = 0;
+
+        emissionAngleModifier.scalarRateMin = 0;
+        emissionAngleModifier.scalarRateMax = 0;
+        emissionAngleModifier.oscFreqMin = 0;
+        emissionAngleModifier.oscFreqMax = 0;
+        emissionAngleModifier.oscAmpMin = 0;
+        emissionAngleModifier.oscAmpMax = 0;
+        emissionAngleModifier.oscAmpOffset = 0;
+
+        movementAngleMin = 0;
+        movementAngleMax = 0;
+
+        alphaMin = 255;
+        alphaMax = 255;
+        alphaModifier.scalarRateMin = 0;
+        alphaModifier.scalarRateMax = 0;
+
+        std::string output;
+        std::string parameterKey;
+        std::string parameterValue;
+
+        //Loop until end of file
+        while(!fileReader.eof())
+        {
+            //Read line
+            getline(fileReader,output);
+            //Check if line is empty and perform string operation
+            if(strReadLine(output,parameterKey,parameterValue))
+            {
+                //Assign parameter value based on the type of parameter.
+                //Generic parameters
+                if(parameterKey == "name")
+                    name = parameterValue;
+
+
+                else if(parameterKey == "sprite_name")
+                    spriteName = parameterValue;
+
+
+                else if(parameterKey == "internal_oscillation")
+                    internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
+
+                //Child parameters
+                else if(parameterKey == "child1")
+                    child1 = parameterValue;
+                else if(parameterKey == "child2")
+                    child2 = parameterValue;
+                else if(parameterKey == "child3")
+                    child3 = parameterValue;
+                else if(parameterKey == "child4")
+                    child4 = parameterValue;
+
+                //Color parameters
+                else if(parameterKey == "initial_color_r")
+                    colorInitial.r = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "initial_color_g")
+                    colorInitial.g = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "initial_color_b")
+                    colorInitial.b = atof(parameterValue.c_str());//Convert string to float
+
+                else if(parameterKey == "modified_color_r")
+                    colorModified.r = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "modified_color_g")
+                    colorModified.g = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "modified_color_b")
+                    colorModified.b = atof(parameterValue.c_str());//Convert string to float
+
+                else if(parameterKey == "color_mod_duration")
+                    colorModData.duration = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "color_mod_offset")
+                    colorModData.offset = atof(parameterValue.c_str());//Convert string to float
+
+                //Emission parameters
+                else if(parameterKey == "emission_type")
+                    emissionType = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_max")
+                    emissionMax = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_rate")
+                    emissionRate = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_min")
+                    emissionAngleMin = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_angle_max")
+                    emissionAngleMax = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "emission_force_min")
+                    emissionForceMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_force_max")
+                    emissionForceMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_friction_min")
+                    emissionFrictionMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_friction_max")
+                    emissionFrictionMax = atof(parameterValue.c_str());//Convert string to float
+
+                //Lifespan parameters
+                else if(parameterKey == "lifespan_min")
+                    lifeSpanMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "lifespan_max")
+                    lifeSpanMax = atof(parameterValue.c_str());//Convert string to float
+
+                //Size parameters
+                else if(parameterKey == "size_min")
+                    sizeMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_max")
+                    sizeMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_ratio")
+                    sizeRatio = atof(parameterValue.c_str());//Convert string to float
+
+                //Rotation parameters
+                else if(parameterKey == "rotation_rate_min")
+                    rotRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "rotation_rate_max")
+                    rotRateMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "rotation_random")
+                    rotRandom = (bool) atoi(parameterValue.c_str());//Convert string to bool
+                else if(parameterKey == "rotation_align")
+                    rotAlign = (bool) atoi(parameterValue.c_str());//Convert string to bool
+                else if(parameterKey == "rotation")
+                    rotation = atof(parameterValue.c_str());//Convert string to float
+
+                //Fade parameters
+                else if(parameterKey == "fade_in_min")
+                    fadeModifier.fadeInMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_max")
+                    fadeModifier.fadeInMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_out_min")
+                    fadeModifier.fadeOutMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_out_max")
+                    fadeModifier.fadeOutMax = atof(parameterValue.c_str());//Convert string to float
+
+                //Size modification parameters
+                else if(parameterKey == "size_mod_scalar_rate_min")
+                    sizeModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_scalar_rate_max")
+                    sizeModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_freq_min")
+                    sizeModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_freq_max")
+                    sizeModifier.oscFreqMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_min")
+                    sizeModifier.oscAmpMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_max")
+                    sizeModifier.oscAmpMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "size_mod_oscillate_amplitude_offset")
+                    sizeModifier.oscAmpOffset = atof(parameterValue.c_str());//Convert string to float
+
+                //Emission angle modification parameters
+                else if(parameterKey == "emission_angle_mod_scalar_rate_min")
+                    emissionAngleModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_scalar_rate_max")
+                    emissionAngleModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_freq_min")
+                    emissionAngleModifier.oscFreqMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_freq_max")
+                    emissionAngleModifier.oscFreqMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_min")
+                    emissionAngleModifier.oscAmpMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_max")
+                    emissionAngleModifier.oscAmpMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "emission_angle_mod_oscillate_amplitude_offset")
+                    emissionAngleModifier.oscAmpOffset = atof(parameterValue.c_str());//Convert string to float
+
+                //Movement parameters move_mod_angle_min
+                else if(parameterKey == "move_mod_angle_min")
+                    movementAngleMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "move_mod_angle_max")
+                    movementAngleMax = atof(parameterValue.c_str());//Convert string to float
+
+                //Alpha parameters
+                else if(parameterKey == "alpha_min")
+                    alphaMin = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "alpha_max")
+                    alphaMax = atoi(parameterValue.c_str());//Convert string to int
+                else if(parameterKey == "alpha_mod_scalar_rate_min")
+                    alphaModifier.scalarRateMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_scalar_rate_max")
+                    alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
+
+                /*
+                else if(parameterKey == "alpha_mod_oscillate_freq")
+                alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_oscillate_amplitude")
+                alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "alpha_mod_oscillate_offset")
+                alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
+                */
+
+                //Parameter not found
+                else
+                    Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
+            }
+        }
+
+        //Fix color mod values if non present in the script file
+        if(colorModified.r > 255)
+            colorModified.r = colorInitial.r;
+        if(colorModified.g > 255)
+            colorModified.g = colorInitial.r;
+        if(colorModified.b > 255)
+            colorModified.b = colorInitial.r;
+
+        //No name parameter found in script file
+        if(name == "none" || name == "")
+            Logger::writeMsg(1) << "Particle system needs a name!";
+
+        //Set sprite to default particle if spriteName = empty
+        if(spriteName == "")
+            spriteName = "default_particle";
+
+        //Debug output
+        Logger::writeMsg(1) << "Finished loading particle system \"" << scriptFile << "\"";
+        //Close file
+        fileReader.close();
+
+        sprite = imageHandler->getImage(spriteName);
+
+        age = 0;
+
+        counter = 0;
+
+        //Add childs
+        if(child1 != "none")
+            pSystemChild1 = new ParticleSystem(child1, imageHandler);
+        if(child2 != "none")
+            pSystemChild2 = new ParticleSystem(child2, imageHandler);
+        if(child3 != "none")
+            pSystemChild3 = new ParticleSystem(child3, imageHandler);
+        if(child4 != "none")
+            pSystemChild4 = new ParticleSystem(child4, imageHandler);
+
     }
 
     void ParticleSystem::Render(sf::RenderTarget& Target) const
@@ -384,6 +701,31 @@ namespace sbe
     void ParticleSystem::update(const float& elapsed)
     {
 
+        if(md5Counter > 10)
+        {
+            //Md5 checksum. Used for realtime update of particle systems
+            fileReader2.open(scriptFile.c_str());
+            std::string output;
+            while(!fileReader2.eof())
+            {
+                getline(fileReader2,output);
+                fileContents += output;
+            }
+            fileMd5 = md5(fileContents);
+            if(fileMd5 != fileMd5Old && !firstRun)   //If file differs from last check, reload
+                reload();
+            fileMd5Old = fileMd5;
+            fileContents = "";
+            fileReader2.close();
+
+            md5Counter = 0;
+
+            if(firstRun)
+                firstRun = false;
+        }
+        else
+        md5Counter++;
+
         //Increase age
         age += elapsed;
         //Emit new particle
@@ -396,8 +738,7 @@ namespace sbe
 
                 if(emissionMax > 0 || emissionType != 2) //Check emission type and how many particles remain if type = 2
                 {
-
-                    //Spawn particle and assign appropriate values.
+                    //Get values and spawn particle
 
                     Particle::ParaMod sizeMod;
                     Particle::ParaMod emissionAngleMod;

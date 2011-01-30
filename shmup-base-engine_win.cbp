@@ -89,6 +89,8 @@
 		<Unit filename="src\logger.cpp" />
 		<Unit filename="src\logger.h" />
 		<Unit filename="src\main.cpp" />
+		<Unit filename="src\md5\md5.cpp" />
+		<Unit filename="src\md5\md5.h" />
 		<Unit filename="src\movable.cpp" />
 		<Unit filename="src\movable.h" />
 		<Unit filename="src\music.cpp" />

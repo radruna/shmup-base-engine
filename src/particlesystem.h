@@ -43,6 +43,16 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
 
         private:
+
+            std::ifstream fileReader2;
+            ImageHandler *imageHandler;
+            std::string scriptFile;
+            std::string fileContents;
+            std::string fileMd5;
+            std::string fileMd5Old;
+            int md5Counter;
+            bool firstRun;
+            void reload();
             ParticleSystem *pSystemChild1;
             ParticleSystem *pSystemChild2;
             ParticleSystem *pSystemChild3;
