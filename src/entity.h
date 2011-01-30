@@ -27,7 +27,7 @@ namespace sbe
 
             }
             Entity(const sf::Image& img);
-            Entity(const std::string& imgStr, ImageHandler& iHandler);
+            Entity(const std::string& imgStr, ImageHandler* iHandler);
             ~Entity();
 
             void setImage(const std::string& imgStr)
@@ -37,14 +37,10 @@ namespace sbe
 
             virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
             void SetAlpha(int alpha);
-            void SetDiffuseColor(int r, int g, int b);
-            void SetColorR(int r);
-            void SetColorG(int g);
-            void SetColorB(int b);
-            int GetColorR();
-            int GetColorG();
-            int GetColorB();
-            int GetAlpha();
+            void SetDiffuseColor(const int& r, const int& g, const int& b);
+            void SetColorR(const int& r);
+            void SetColorG(const int& g);
+            void SetColorB(const int& b);
         protected:
             int z;
             ImageHandler* imgHandler;

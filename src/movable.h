@@ -19,6 +19,7 @@ namespace sbe
     {
         public:
             Movable(const sf::Image& img, const float& a = 0, const float& s = 0);
+            Movable(const std::string& imgStr, ImageHandler* iHandler, const float& a = 0, const float& s = 0);
             ~Movable()
             {
 

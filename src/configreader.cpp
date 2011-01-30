@@ -61,9 +61,7 @@ namespace sbe
                     log = (bool) atoi(value.c_str());
                 else
                 {
-                    Logger::writeMsg(1) << "Failed to open configuration file " << cfgFile.c_str() << ".";
-                    fileReader.close();
-                    break;
+                    Logger::writeMsg(1) << "Setting " << setting << " couldn't be found.";
                 }
             }
         }

@@ -20,6 +20,12 @@ namespace sbe
 
     }
 
+    Movable::Movable(const std::string& imgStr, ImageHandler* iHandler, const float& a, const float& s)
+        : Entity(imgStr, iHandler), angle(a), speed(s)
+    {
+
+    }
+
     void Movable::update(const float& elapsed)
     {   //Use elapsed to ensure likewise speed on platforms etc
         Move( (cos(angle / (180/PI)) * speed) / (1/elapsed), (sin(angle / (180/PI)) * speed) / (1/elapsed));

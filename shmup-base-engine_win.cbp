@@ -64,10 +64,7 @@
 		<Unit filename="scripts\assets\music.ast" />
 		<Unit filename="scripts\assets\sound.ast" />
 		<Unit filename="scripts\assets\system_images.ast" />
-		<Unit filename="scripts\particles\explosion1.ast" />
-		<Unit filename="scripts\particles\explosion1_sub.ast" />
 		<Unit filename="scripts\particles\particle_test.ast" />
-		<Unit filename="scripts\particles\particle_test_1.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\button.cpp" />

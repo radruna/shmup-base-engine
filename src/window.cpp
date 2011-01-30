@@ -103,7 +103,7 @@ namespace sbe
         int gunPosX = 0;
 
         sf::Sound laser(audHandler->getSound("laser"));
-
+        //TODO(Liag#9#): Add volume in cfg and stuff
         sbe::Music loli;
         loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.Play();

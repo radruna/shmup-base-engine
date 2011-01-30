@@ -21,10 +21,10 @@ namespace sbe
 
     }
 
-    /*Ship::Ship(const std::string& imgStr, ImageHandler& iHandler, const int& max, const unsigned int& mod)
-        : Entity(imgStr, iHandler), speed(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
+    Ship::Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max, const unsigned int& mod)
+        : Movable(imgStr, iHandler, 0, 0), speedV(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
     {
-    }*/
+    }
 
     Ship::~Ship()
     {

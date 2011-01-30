@@ -11,6 +11,7 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "imagehandler.h"
 #include "filehandler.h" //Base class
 #include "entity.h" //Header
 
@@ -24,13 +25,13 @@ namespace sbe
         SetImage(img);
     }
 
-    Entity::Entity(const std::string& imgStr, ImageHandler& iHandler)
+    Entity::Entity(const std::string& imgStr, ImageHandler* iHandler)
     {
         /*
             Constructs the entity by setting its image handler and its default image.
         */
-        imgHandler = &iHandler;
-        setImage(imgStr);
+        imgHandler = iHandler;
+        SetImage(iHandler->getImage(imgStr));
     }
 
     Entity::~Entity()
@@ -50,13 +51,7 @@ namespace sbe
         SetColor( col );
     }
 
-    int Entity::GetAlpha()
-    {
-        sf::Color col = GetColor();
-        return col.a;
-    }
-
-    void Entity::SetDiffuseColor(int r, int g, int b)
+    void Entity::SetDiffuseColor(const int& r, const int& g, const int& b)
     {
         sf::Color col = GetColor();
         col.r = r;
@@ -65,42 +60,24 @@ namespace sbe
         SetColor( col );
     }
 
-    void Entity::SetColorR(int r)
+    void Entity::SetColorR(const int& r)
     {
         sf::Color col = GetColor();
         col.r = r;
         SetColor( col );
     }
 
-    void Entity::SetColorG(int g)
+    void Entity::SetColorG(const int& g)
     {
         sf::Color col = GetColor();
         col.g = g;
         SetColor( col );
     }
 
-    void Entity::SetColorB(int b)
+    void Entity::SetColorB(const int& b)
     {
         sf::Color col = GetColor();
         col.b = b;
         SetColor( col );
-    }
-
-    int Entity::GetColorR()
-    {
-        sf::Color col = GetColor();
-        return col.r;
-    }
-
-    int Entity::GetColorG()
-    {
-        sf::Color col = GetColor();
-        return col.g;
-    }
-
-    int Entity::GetColorB()
-    {
-        sf::Color col = GetColor();
-        return col.b;
     }
 }

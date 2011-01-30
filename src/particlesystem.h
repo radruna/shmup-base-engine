@@ -110,9 +110,9 @@ namespace sbe
                             emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters
-            DiffColor       colorInitial,
+            Particle::DiffColor       colorInitial,
                             colorModified;
-            ColModData      colorModData;
+            Particle::ColModData      colorModData;
 
             //Parameter list
             //std::map<std::string, std::string> parameterList; //TODO (Fewes#1#): PARAMETERS SHOULD NOT BE STORED IN A MAP, BUT IN CLASS VARIABLES. I left this in here so the program would compile oorrectly. Should be fixed ASAP

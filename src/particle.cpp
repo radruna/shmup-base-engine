@@ -102,22 +102,22 @@ namespace sbe
         if(fadeIn)
         {
             //Fade in
-            if(GetAlpha() < fadeInToAlpha)
+            if(GetColor().a < fadeInToAlpha)
             {
                 preAlpha += ( (255-preAlpha) / (fadeInDuration-age) / (1/elapsed) );
                 SetAlpha(preAlpha);
 
                 //Fix overdoing it
-                if(GetAlpha() > fadeInToAlpha)
+                if(GetColor().a > fadeInToAlpha)
                 {
                     SetAlpha(fadeInToAlpha);
                     fadeIn = false;
-                    preAlpha = GetAlpha();
+                    preAlpha = GetColor().a;
                 }
                 else if(age > fadeInDuration)
                 {
                     fadeIn = false;
-                    preAlpha = GetAlpha();
+                    preAlpha = GetColor().a;
                 }
             }
         }
@@ -173,25 +173,25 @@ namespace sbe
             if(colMod.r != colIni.r)
             {
                 if(colModData.duration != 0)
-                    SetColorR( GetColorR() - (GetColorR()-colMod.r) / colModData.duration / (1/elapsed) );
+                    SetColorR( GetColor().r - (GetColor().r-colMod.r) / colModData.duration / (1/elapsed) );
                 else
-                    SetColorR( GetColorR() - (GetColorR()-colMod.r) / life / (1/elapsed) );
+                    SetColorR( GetColor().r - (GetColor().r-colMod.r) / life / (1/elapsed) );
             }
 
             if(colMod.g != colIni.g )
             {
                 if(colModData.duration != 0)
-                    SetColorG( GetColorG() - (GetColorG()-colMod.g) / colModData.duration / (1/elapsed) );
+                    SetColorG( GetColor().g - (GetColor().g-colMod.g) / colModData.duration / (1/elapsed) );
                 else
-                    SetColorG( GetColorG() - (GetColorG()-colMod.g) / life / (1/elapsed) );
+                    SetColorG( GetColor().g - (GetColor().g-colMod.g) / life / (1/elapsed) );
             }
 
             if(colMod.b != colIni.b )
             {
                 if(colModData.duration != 0)
-                    SetColorB( GetColorB() - (GetColorB()-colMod.b) / colModData.duration / (1/elapsed) );
+                    SetColorB( GetColor().b - (GetColor().b-colMod.b) / colModData.duration / (1/elapsed) );
                 else
-                    SetColorB( GetColorB() - (GetColorB()-colMod.b) / life / (1/elapsed) );
+                    SetColorB( GetColor().b - (GetColor().b-colMod.b) / life / (1/elapsed) );
             }
         }
 

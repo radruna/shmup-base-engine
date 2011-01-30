@@ -399,8 +399,8 @@ namespace sbe
 
                     //Spawn particle and assign appropriate values.
 
-                    ParaMod sizeMod;
-                    ParaMod emissionAngleMod;
+                    Particle::ParaMod sizeMod;
+                    Particle::ParaMod emissionAngleMod;
 
                     //Get scale
                     float scale = boundsRand( sizeMin , sizeMax );

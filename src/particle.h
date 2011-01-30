@@ -15,34 +15,33 @@
 
 namespace sbe
 {
-
-    struct ParaMod
-    {
-        float   scalarRate,
-                frequency,
-                amplitude,
-                amplitudeOffset;
-    };
-
-    struct DiffColor
-    {
-        float   r,
-                g,
-                b;
-    };
-
-    struct ColModData
-    {
-        float   duration,
-                offset;
-    };
-
     class Particle : public sbe::Movable
     {
         /*
             Particle class
         */
         public:
+            struct ParaMod
+            {
+                float   scalarRate,
+                        frequency,
+                        amplitude,
+                        amplitudeOffset;
+            };
+
+            struct DiffColor
+            {
+                float   r,
+                        g,
+                        b;
+            };
+
+            struct ColModData
+            {
+                float   duration,
+                        offset;
+            };
+
             Particle(
                        const sf::Image&     img,
                        const float&         width,
@@ -70,8 +69,8 @@ namespace sbe
             float getLife();
             float getRotRate();
             void setRotRate(float r);
-
         private:
+
             bool    moveAngleAlign,
                     internalOscillation;
             int     fadeInToAlpha,
