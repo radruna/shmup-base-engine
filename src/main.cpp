@@ -2,9 +2,11 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2011-01-28
+/ File updated: 2011-01-30
 / License: GPLv3
 */
+#include <string>
+
 #include <SFML/Graphics.hpp>
 
 #include "window.h"
@@ -24,10 +26,10 @@ int main()
     sbe::Window *mainWindow;
 
     //Create the main window
-    if(cfgReader->getFS())
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true, sf::Style::Fullscreen);
+    if(cfgReader->getSetting<bool>("fullscreen"))
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, sf::Style::Fullscreen);
     else
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader->getTitle(), true);
+        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader);
 
     mainWindow->exec();
 

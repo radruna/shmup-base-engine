@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-28
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -18,6 +18,7 @@
 #include "imagehandler.h" //Loading images
 #include "audiohandler.h" //Playing sound/music
 #include "eventhandler.h" //Handles events
+#include "configreader.h" //Loads settings
 #include "ship.h" //Ship class
 #include "projectile.h"
 //#include "player.h" //Player class
@@ -36,8 +37,10 @@ namespace sbe
         */
         public:
             Window(sf::VideoMode Mode, //The video mode of the window, used for res etc
-                   const std::string& Title = "SBE", //The window title
-                   const bool& showIntro = true,
+                   ConfigReader* reader, //Loads all the settings and stuff
+                   //const bool& showIntro = true,
+                   //const int& frames = 60, //Framerate
+                   //const bool& vsync = false, //If vertical synchronization should be enabled
                    unsigned long WindowStyle = sf::Style::Resize | sf::Style::Close, //Style of the window, used for fullscreen etc
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();
@@ -57,6 +60,7 @@ namespace sbe
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several
+            sbe::ConfigReader *cfgReader;
             //sbe::Panel *mainMenu;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;

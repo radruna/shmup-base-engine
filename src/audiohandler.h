@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-12-22
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 #ifndef AUDIOHANDLER_H_INCLUDED
@@ -84,6 +84,14 @@ namespace sbe
             //Set music to loop
             void setMusicLoop(bool loop);*/
             void getAudioList();
+            float getSFXVol()
+            {
+                return (float) sVol;
+            }
+            float getMusicVol()
+            {
+                return (float) mVol;
+            }
 
         private:
             //Sound list

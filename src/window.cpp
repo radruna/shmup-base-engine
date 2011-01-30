@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-28
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -19,6 +19,7 @@
 #include "imagehandler.h" //For loading images
 #include "audiohandler.h" //For loading and playing sound and music
 #include "eventhandler.h" //Event handling
+#include "configreader.h" //Loads settings
 #include "particlesystem.h" //Particle system
 #include "ship.h"
 #include "projectile.h"
@@ -28,18 +29,21 @@
 
 namespace sbe
 {
-    Window::Window(sf::VideoMode Mode, const std::string& Title, const bool& showIntro, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, Title, WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), count(0)
+    Window::Window(sf::VideoMode Mode, ConfigReader* reader, unsigned long WindowStyle, const sf::WindowSettings& Params)
+        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), count(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
         */
+        cfgReader = reader;
+        SetFramerateLimit(cfgReader->getSetting<int>("limit_fps"));
+        UseVerticalSync(cfgReader->getSetting<bool>("vsync"));
         Logger::writeMsg(1) << "\nWindow loaded!";
-        SetFramerateLimit(60);
-        //UseVerticalSync(true);
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
+        audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
+        audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
         Logger::writeMsg(1) << "Handlers loaded!";
 
@@ -105,6 +109,7 @@ namespace sbe
         //TODO(Liag#9#): Add volume in cfg and stuff
         sbe::Music loli;
         loli.OpenFromFile(audHandler->getMusic("loli2"));
+        loli.SetVolume(audHandler->getMusicVol());
         loli.Play();
         //Test particle system
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler);

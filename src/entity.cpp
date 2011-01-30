@@ -2,7 +2,7 @@
 / Base entity class
 / Authors: Felix Westin and Victor Rådmark
 / File created: 2010-12-07
-/ File updated: 2010-12-24
+/ File updated: 2011-01-29
 / License: GPLv3
 */
 #include <iostream> //Debug output

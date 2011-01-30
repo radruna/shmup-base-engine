@@ -2,7 +2,7 @@
 / Audio handler class
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2011-01-28
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 #include <iostream> //Debug
@@ -167,13 +167,13 @@ namespace sbe
     void AudioHandler::setSFXVol(const short& s)
     {
         //Set SFX volume
-        sVol = 100;
+        sVol = s;
     }
 
     void AudioHandler::setMusicVol(const short& m)
     {
         //Set music volume
-        mVol = 100;
+        mVol = m;
     }
 
     /*bool AudioHandler::setMusic(const std::string& musicKey)

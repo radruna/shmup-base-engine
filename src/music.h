@@ -2,7 +2,7 @@
 / Copyable music
 / Author: Victor Rådmark
 / File created: 2010-11-17
-/ File updated: 2010-11-29
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 #ifndef MUSIC_H_INCLUDED

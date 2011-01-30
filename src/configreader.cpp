@@ -2,13 +2,12 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2011-01-28
+/ File updated: 2011-01-30
 / License: GPLv3
 */
 
 #include <iostream> //Debug output
 #include <fstream> //File reading
-#include <cstdlib> //For converting strings
 
 #include "configreader.h" //Class def
 #include "logger.h" //Outputs debug in console and log
@@ -16,11 +15,15 @@
 namespace sbe
 {
     ConfigReader::ConfigReader()
-        : fs(false)
     {
-        res.x = 1280;
-        res.y = 1024;
-        title = "SBE Window";
+        settings["width"] = "1280";
+        settings["height"] = "720";
+        settings["title"] = "SBE Window";
+        settings["limit_fps"] = "60";
+        settings["vsync"] = "false";
+
+        settings["music_volume"] = "100";
+        settings["sfx_volume"] = "100";
         readConfig();
     }
 
@@ -49,7 +52,7 @@ namespace sbe
             //Check if line is empty and perform string operation
             if(strReadLine(output, setting, value))
             {
-                if(setting == "width")
+                /*if(setting == "width")
                     res.x = atoi(value.c_str());
                 else if(setting == "height")
                     res.y = atoi(value.c_str());
@@ -59,10 +62,9 @@ namespace sbe
                     title = value;
                 else if(setting == "log")
                     log = (bool) atoi(value.c_str());
-                else
-                {
-                    Logger::writeMsg(1) << "Setting " << setting << " couldn't be found.";
-                }
+                else if(setting == "fps_limit")*/
+
+                settings[setting] = value;
             }
         }
         //Debug output

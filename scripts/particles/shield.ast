@@ -14,8 +14,8 @@
 "initial_color_g"					"255"
 "initial_color_b"					"100"
 
-"modified_color_r"					"255"					
-"modified_color_g"					"100"					
+"modified_color_r"                                     "255"
+"modified_color_g"                                     "100"
 "modified_color_b"					"0"
 
 //Emission parameters
