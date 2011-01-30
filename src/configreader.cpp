@@ -16,14 +16,7 @@ namespace sbe
 {
     ConfigReader::ConfigReader()
     {
-        settings["width"] = "1280";
-        settings["height"] = "720";
-        settings["title"] = "SBE Window";
-        settings["limit_fps"] = "60";
-        settings["vsync"] = "false";
-
-        settings["music_volume"] = "100";
-        settings["sfx_volume"] = "100";
+        writeSettings(0);
         readConfig();
     }
 
@@ -39,7 +32,7 @@ namespace sbe
         {
             //Debug output
             Logger::writeMsg(1) << "The config reader was unable to open the specified configuration file";
-            return;
+            fileReader.open("default_settings.cfg");
         }
         //Saving vars
         std::string output;
@@ -63,13 +56,49 @@ namespace sbe
                 else if(setting == "log")
                     log = (bool) atoi(value.c_str());
                 else if(setting == "fps_limit")*/
-
-                settings[setting] = value;
+                if(setting != "")
+                    settings[setting] = value;
             }
         }
         //Debug output
         Logger::writeMsg(1) << "Finished loading settings from \"" << cfgFile << "\"";
         //Close file
         fileReader.close();
+    }
+
+    void ConfigReader::writeSettings(const bool& type)
+    {
+        std::string file = "default_settings.cfg";
+
+        if(type)
+            file = "settings.cfg";
+
+        try
+        {
+            std::ofstream fileWriter(file.c_str());
+
+            if(!fileWriter.is_open())
+                throw;
+
+            fileWriter << "//_______________________________________________________" << std::endl;
+            fileWriter << "// Rename this file to settings.cfg if you want to change any settings." << std::endl;
+            fileWriter << "//¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << std::endl;
+            fileWriter << "\"title\"			    	\"SBE\"" << std::endl;
+            fileWriter << "\"width\"			    	\"1280\"" << std::endl;
+            fileWriter << "\"height\"				    \"720\"" << std::endl;
+            fileWriter << "\"fullscreen\"		    \"false\"" << std::endl;
+            fileWriter << "\"limit_fps\"			    \"60\" //If 0, no limit is set" << std::endl;
+            fileWriter << "\"vsync\"			    	\"false\" //Should only be used with fullscreen" << std::endl;
+            fileWriter << std::endl;
+            fileWriter << "\"music_volume\"		\"100\"" << std::endl;
+            fileWriter << "\"sfx_volume\"			\"100\"" << std::endl;
+
+            fileWriter.close();
+        }
+        catch(...)
+        {
+            Logger::writeMsg(1) << "Could not open \"" << file << "\".";
+        }
+
     }
 }

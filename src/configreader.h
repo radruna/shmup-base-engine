@@ -15,6 +15,7 @@
 
 #include <SFML/System.hpp>
 
+#include "logger.h"
 #include "filehandler.h"
 
 typedef std::map<std::string, std::string> stdStringMap;
