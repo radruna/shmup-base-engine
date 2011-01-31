@@ -30,6 +30,8 @@ namespace sbe
                     keyReleased["B"] = true;
             if (isKeyReleased(sf::Key::P, evt))
                     keyReleased["P"] = true;
+            if (isKeyReleased(sf::Key::R, evt))
+                    keyReleased["R"] = true;
             if (isKeyReleased(sf::Key::I, evt))
                     keyReleased["I"] = true;
             if (isKeyReleased(sf::Key::F1, evt))

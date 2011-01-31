@@ -10,13 +10,13 @@
 "sprite_name"						"particle_2"				//Sprite to use. Needs to be loaded by asset file
 
 //Color parameters
-"initial_color_r"					"255"
-"initial_color_g"					"150"
-"initial_color_b"					"0"
+"initial_color_r"					"20"
+"initial_color_g"					"200"
+"initial_color_b"					"200"
 
-"modified_color_r"					"255"					
-"modified_color_g"					"255"					
-"modified_color_b"					"255"
+"modified_color_r"					"200"					
+"modified_color_g"					"100"					
+"modified_color_b"					"150"
 
 "color_mod_duration"				"0"					//Color mod duration. If 0 then duration = particle lifetime
 "color_mod_offset"					"0"						//Particle mod starts after this many seconds
@@ -33,8 +33,8 @@
 "emission_angle_max"				"180"						//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"3"						//Lifespan duration minimum
-"lifespan_max"						"3"						//Lifespan duration maximum
+"lifespan_min"						"0.1"						//Lifespan duration minimum
+"lifespan_max"						"5"						//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"0.3"					//Scale minimum
@@ -83,5 +83,5 @@
 "move_mod_angle_max"							"2000"						//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"255"					//Minimum alpha value
+"alpha_min"							"10"					//Minimum alpha value
 "alpha_max"							"255"					//Maximum alpha value

@@ -80,6 +80,7 @@ namespace sbe
             if(!fileWriter.is_open())
                 throw;
 
+            //TODO(Liag#5#): Change to a better default system
             fileWriter << "//_______________________________________________________" << std::endl;
             fileWriter << "// Rename this file to settings.cfg if you want to change any settings." << std::endl;
             fileWriter << "//¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << std::endl;
@@ -92,6 +93,8 @@ namespace sbe
             fileWriter << std::endl;
             fileWriter << "\"music_volume\"		\"100\"" << std::endl;
             fileWriter << "\"sfx_volume\"			\"100\"" << std::endl;
+            fileWriter << std::endl;
+            fileWriter << "\"ps_reload\"            \"10\" //Interval between each frame that all particle systems should be reloaded, 0 to turn off" << std::endl;
 
             fileWriter.close();
         }

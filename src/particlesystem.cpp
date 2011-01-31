@@ -26,11 +26,12 @@
 
 namespace sbe
 {
-    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler)
+    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r)
     {
 
         scriptFile = particleSystemFile;
         imageHandler = imgHandler;
+        reloadInterval = r;
         reload();
 
         /*
@@ -641,28 +642,49 @@ namespace sbe
 
     }
 
+    void ParticleSystem::reloadCheck()
+    {
+        //Md5 checksum. Used for realtime update of particle systems
+        fileReader2.open(scriptFile.c_str());
+        std::string output;
+        while(!fileReader2.eof())
+        {
+            getline(fileReader2,output);
+            fileContents += output;
+        }
+        fileMd5 = md5(fileContents);
+        if(fileMd5 != fileMd5Old)   //If file differs from last check, reload
+            reload();
+        fileMd5Old = fileMd5;
+        fileContents = "";
+        fileReader2.close();
+
+        if(firstRun)
+            firstRun = false;
+    }
+
     void ParticleSystem::Render(sf::RenderTarget& Target) const
     {
         for(std::list<Particle>::const_iterator it = particleList.begin(); it != particleList.end(); it++)
         {
             Target.Draw(*it);
         }
-        //Draw childs
+        //Draw children FOUR TIMES
         if(child1 != "none")
         {
             Target.Draw(*pSystemChild1);
         }
-        //Draw childs
+        //Draw children
         if(child2 != "none")
         {
             Target.Draw(*pSystemChild2);
         }
-        //Draw childs
+        //Draw children
         if(child3 != "none")
         {
             Target.Draw(*pSystemChild3);
         }
-        //Draw childs
+        //Draw children
         if(child4 != "none")
         {
             Target.Draw(*pSystemChild4);
@@ -707,30 +729,12 @@ namespace sbe
     void ParticleSystem::update(const float& elapsed)
     {
 
-        if(md5Counter > 10)
+        if(reloadInterval != 0 && md5Counter++ > reloadInterval)
         {
-            //Md5 checksum. Used for realtime update of particle systems
-            fileReader2.open(scriptFile.c_str());
-            std::string output;
-            while(!fileReader2.eof())
-            {
-                getline(fileReader2,output);
-                fileContents += output;
-            }
-            fileMd5 = md5(fileContents);
-            if(fileMd5 != fileMd5Old && !firstRun)   //If file differs from last check, reload
-                reload();
-            fileMd5Old = fileMd5;
-            fileContents = "";
-            fileReader2.close();
+            reloadCheck();
 
             md5Counter = 0;
-
-            if(firstRun)
-                firstRun = false;
         }
-        else
-        md5Counter++;
 
         //Increase age
         age += elapsed;

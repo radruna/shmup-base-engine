@@ -38,9 +38,6 @@ namespace sbe
         public:
             Window(sf::VideoMode Mode, //The video mode of the window, used for res etc
                    ConfigReader* reader, //Loads all the settings and stuff
-                   //const bool& showIntro = true,
-                   //const int& frames = 60, //Framerate
-                   //const bool& vsync = false, //If vertical synchronization should be enabled
                    unsigned long WindowStyle = sf::Style::Resize | sf::Style::Close, //Style of the window, used for fullscreen etc
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();

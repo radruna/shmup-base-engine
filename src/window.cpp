@@ -20,11 +20,12 @@
 #include "audiohandler.h" //For loading and playing sound and music
 #include "eventhandler.h" //Event handling
 #include "configreader.h" //Loads settings
-#include "particlesystem.h" //Particle system
+#include "particlesystem.h" //Particle systemsf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y)
 #include "ship.h"
 #include "projectile.h"
 //#include "player.h"
 #include "panel.h"
+#include "dialogpanel.h"
 #include "logger.h"
 
 namespace sbe
@@ -93,7 +94,7 @@ namespace sbe
         testShip->SetScale(0.5, 0.5);
         testShip->SetAlpha(0);
 
-        testPanel = new sbe::Panel(sf::Vector2f(20, 600), sf::Vector2f(800, 750), sf::Color(50, 80, 80, 126), 1, sf::Color::White);
+        testPanel = new sbe::DialogPanel(res);
         testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
         testPanel->createButton("testButton", this, buttonClickedWrapper, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
 
@@ -106,14 +107,14 @@ namespace sbe
         int gunPosX = 0;
 
         sf::Sound laser(audHandler->getSound("laser"));
-        //TODO(Liag#9#): Add volume in cfg and stuff
+
         sbe::Music loli;
         loli.OpenFromFile(audHandler->getMusic("loli2"));
         loli.SetVolume(audHandler->getMusicVol());
         loli.Play();
         //Test particle system
-        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler);
-        sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/shield.ast", imgHandler);
+        sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
+        sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/shield.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
         pSystem1->SetPosition(500.f, 300.f);
 
         sf::String fps("0", fonts["inconsolata"], 20);
@@ -152,6 +153,12 @@ namespace sbe
                 }
                 if (events["L"])
                     testShip->SetPosition(res.x / 2, res.y / 2);
+
+                if(events["R"])
+                {   //Reload particle systems
+                    pSystem1->reloadCheck();
+                    pSystem2->reloadCheck();
+                }
 
                 if(event.Type == sf::Event::MouseButtonReleased)
                 {

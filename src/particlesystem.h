@@ -28,7 +28,7 @@ namespace sbe
         Particle system class
         */
         public:
-            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler);
+            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r = 10);
             ~ParticleSystem()
             {
                 remove();
@@ -39,12 +39,14 @@ namespace sbe
             void SetPosition(int x, int y);
             void Move(int x, int y);
             void update(const float& elapsed);
+            void reloadCheck();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
 
         private:
 
+            void reload();
             std::ifstream fileReader2;
             ImageHandler *imageHandler;
             std::string scriptFile;
@@ -53,7 +55,6 @@ namespace sbe
             std::string fileMd5Old;
             int md5Counter;
             bool firstRun;
-            void reload();
             ParticleSystem *pSystemChild1;
             ParticleSystem *pSystemChild2;
             ParticleSystem *pSystemChild3;
@@ -85,7 +86,8 @@ namespace sbe
             int xPos, yPos;
             float           counter,
                             age,
-                            emissionAngle;
+                            emissionAngle,
+                            reloadInterval;
             sf::Image sprite;
 
             //Parameters

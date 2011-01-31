@@ -23,10 +23,9 @@ namespace sbe
     class Panel : public sf::Drawable
     {
         public:
+            Panel() {}
             Panel(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline = 0, const sf::Color& outlineColor = sf::Color::Black);
             ~Panel();
-
-            void Render(sf::RenderTarget& target) const;
 
             void createString(const std::string& name, const sf::String string);
             void createString(const std::string& name,
@@ -54,6 +53,7 @@ namespace sbe
 
             void click(const sf::Vector2i& mousePos);
         protected:
+            void Render(sf::RenderTarget& target) const;
             bool withinPanel(const sf::Vector2i& mousePos);
             sf::Shape *panelRect;
             stringMap strings;
