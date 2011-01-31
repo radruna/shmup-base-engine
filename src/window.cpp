@@ -114,7 +114,7 @@ namespace sbe
         loli.Play();
         //Test particle system
         sbe::ParticleSystem *pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-        sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/shield.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
+        sbe::ParticleSystem *pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
         pSystem1->SetPosition(500.f, 300.f);
 
         sf::String fps("0", fonts["inconsolata"], 20);
