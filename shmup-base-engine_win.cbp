@@ -78,6 +78,8 @@
 		<Unit filename="src\configreader.cpp" />
 		<Unit filename="src\configreader.h" />
 		<Unit filename="src\const.h" />
+		<Unit filename="src\dialogpanel.cpp" />
+		<Unit filename="src\dialogpanel.h" />
 		<Unit filename="src\entity.cpp" />
 		<Unit filename="src\entity.h" />
 		<Unit filename="src\eventhandler.cpp" />

@@ -36,8 +36,10 @@ namespace sbe
 
             //Remove particle system
             void remove();
-            void SetPosition(int x, int y);
-            void Move(int x, int y);
+            void SetPosition(float x, float y);
+            float GetPositionX();
+            float GetPositionY();
+            void Move(float x, float y);
             void update(const float& elapsed);
             void reloadCheck();
 
@@ -83,7 +85,8 @@ namespace sbe
             template<class T>
             T boundsRand(T a, T b);
             //Don't move these please
-            int xPos, yPos;
+            float xPos, yPos;
+            float xPosOld, yPosOld;
             float           counter,
                             age,
                             emissionAngle,
@@ -99,7 +102,8 @@ namespace sbe
                             child4;
             bool            rotRandom,              //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
                             rotAlign,               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
-                            internalOsc;            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
+                            internalOsc,            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
+                            moveType;
             int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
                             emissionMax,            //Amount of particles to emit if type = 2
                             alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.

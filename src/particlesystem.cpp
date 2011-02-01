@@ -34,6 +34,7 @@ namespace sbe
         reloadInterval = r;
         reload();
 
+
         /*
 
         Logger::writeMsg(1) << "\nLoading particle system \"" << particleSystemFile << "\"...";
@@ -356,6 +357,7 @@ namespace sbe
 
         name = "none";
         spriteName = "default_particle";
+        moveType = false;
 
         child1 = "none";
         child2 = "none";
@@ -446,6 +448,9 @@ namespace sbe
 
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
+
+                else if(parameterKey == "move_type")
+                    moveType = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
 
                 else if(parameterKey == "internal_oscillation")
@@ -697,13 +702,24 @@ namespace sbe
         particleList.clear();
     }
 
-    void ParticleSystem::SetPosition(int x, int y) //Set particle system position
+    void ParticleSystem::SetPosition(float x, float y) //Set particle system position
     {
         xPos = x;
         yPos = y;
     }
 
-    void ParticleSystem::Move(int x, int y) //Move particle system
+    float ParticleSystem::GetPositionX()
+    {
+        return xPos;
+    }
+
+    float ParticleSystem::GetPositionY()
+    {
+        return yPos;
+    }
+
+
+    void ParticleSystem::Move(float x, float y) //Move particle system
     {
         xPos += x;
         yPos += y;
@@ -852,12 +868,36 @@ namespace sbe
         else
             counter += elapsed; //Count time
 
-        for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++) //Iterate through particle list
+        if(!moveType)
         {
-            if(pIt->getLife() < 0) //Check if particle should die
-                pIt = particleList.erase(pIt); //Erase particle
-            else
-                pIt->update(elapsed); //Update particle
+            for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++) //Iterate through particle list
+            {
+                if(pIt->getLife() < 0) //Check if particle should die
+                    pIt = particleList.erase(pIt); //Erase particle
+                else
+                {
+                    pIt->update(elapsed); //Update particle
+                }
+            }
+        }
+        else
+        {
+            for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++) //Iterate through particle list
+            {
+                if(pIt->getLife() < 0) //Check if particle should die
+                    pIt = particleList.erase(pIt); //Erase particle
+                else
+                {
+                    pIt->update(elapsed); //Update particle
+                    pIt->Move( -1 * (xPosOld - GetPositionX()) , -1 * (yPosOld - GetPositionY()) );
+                }
+            }
+        }
+
+        if(moveType)
+        {
+            xPosOld = GetPositionX();
+            yPosOld = GetPositionY();
         }
 
         //Update child
