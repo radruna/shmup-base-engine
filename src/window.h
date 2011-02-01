@@ -1,6 +1,6 @@
 /*
 / The rendering window class
-/ Author: Victor Rådmark
+/ Author: Victor RÃ¥dmark
 / File created: 2010-11-14
 / File updated: 2011-01-30
 / License: GPLv3
@@ -49,10 +49,6 @@ namespace sbe
             {
                 fonts.clear();
             }
-
-            static void buttonClickedWrapper(void* object, const sf::Unicode::Text& text);
-
-            void buttonClicked(const sf::Unicode::Text& text);
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;

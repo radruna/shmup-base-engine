@@ -19,7 +19,7 @@ namespace sbe
         public:
             Button() {}
             Button(void* callObject,
-                   void (*callFunction) (void* object, const sf::Unicode::Text& text),
+                   void (*callFunction) (void* object),
                    const sf::String& text,
                    const sf::Color& txtCol,
                    const sf::Vector2f& p1,
@@ -36,7 +36,7 @@ namespace sbe
             sf::String string;
             void* funcObject; //The object which the callback function is a member of
             //The callback function has to be implemented as a wrapper to the actual function
-            void (*buttonFunc) (void* object, const sf::Unicode::Text& text);
+            void (*buttonFunc) (void* object);
     };
 }
 

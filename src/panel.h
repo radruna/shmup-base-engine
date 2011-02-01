@@ -42,7 +42,7 @@ namespace sbe
 
             void createButton(const std::string& name,
                               void* callObject,
-                              void (*callFunction) (void* object, const sf::Unicode::Text& text),
+                              void (*callFunction) (void* object),
                               const sf::String& text,
                               const sf::Color& txtCol,
                               const sf::Vector2f& p1,

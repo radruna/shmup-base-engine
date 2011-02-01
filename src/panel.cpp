@@ -56,15 +56,13 @@ namespace sbe
         strings[name].SetColor(color);
     }
 
-    void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object, const sf::Unicode::Text& text), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
+    void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
     {
         /*
             Purpose: Create a new button based on parameters.
         */
         sbe::Button tmpBtn(callObject, callFunction, text, txtCol, p1, p2, color, outline, outlineColor);
         buttons[name] = tmpBtn;
-        Logger::writeMsg(1) << "Working!";
-        Logger::write();
     }
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos)

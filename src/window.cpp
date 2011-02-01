@@ -95,8 +95,8 @@ namespace sbe
         testShip->SetAlpha(0);
 
         testPanel = new sbe::DialogPanel(res);
-        testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 610));
-        testPanel->createButton("testButton", this, buttonClickedWrapper, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 710), sf::Vector2f(100, 740), sf::Color(80, 50, 80, 126));
+        testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 560));
+        testPanel->createButton("testButton", this, buttonClickedWrapper, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 660), sf::Vector2f(100, 690), sf::Color(80, 50, 80, 126));
 
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
@@ -317,10 +317,5 @@ namespace sbe
 
         //Call member
         self->buttonClicked(text);
-    }
-
-    void Window::buttonClicked(const sf::Unicode::Text& text)
-    {
-        testPanel->getString("testString").SetText(text);
     }
 }
