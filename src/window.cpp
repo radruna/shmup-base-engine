@@ -94,9 +94,11 @@ namespace sbe
         testShip->SetScale(0.5, 0.5);
         testShip->SetAlpha(0);
 
-        testPanel = new sbe::DialogPanel(res);
-        testPanel->createString("testString", "hello i am a panel", fonts["inconsolata"], 24, sf::Vector2f(30, 560));
-        testPanel->createButton("testButton", this, buttonClickedWrapper, sf::String("click", fonts["inconsolata"], 20), sf::Color(200, 200, 200, 255), sf::Vector2f(40, 660), sf::Vector2f(100, 690), sf::Color(80, 50, 80, 126));
+        std::vector<std::string> diag;
+        diag.push_back("OHAYO");
+        diag.push_back("Sugoi sugoi!");
+        diag.push_back("VN of the year all years");
+        testPanel = new sbe::DialogPanel(res, diag, fonts["inconsolata"]);
 
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
@@ -305,17 +307,5 @@ namespace sbe
         Logger::writeMsg(1) << "Finished loading fonts from \"" << fontFile << "\"";
         //Close file
         fileReader.close();
-    }
-
-    void Window::buttonClickedWrapper(void* object, const sf::Unicode::Text& text)
-    {
-        /*
-            Purpose: Wrapper to callback function.
-        */
-        //Explicitly cast to a pointer to Window
-        Window* self = (Window*) object;
-
-        //Call member
-        self->buttonClicked(text);
     }
 }

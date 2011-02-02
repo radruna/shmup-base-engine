@@ -31,6 +31,11 @@ namespace sbe
             void Render(sf::RenderTarget& target) const;
             //Check if mouse click is within bounds and if so execute callback
             void click(const sf::Vector2i& mousePos);
+
+            void setTextColor(const sf::Color& txtCol)
+            {
+                string.SetColor(txtCol);
+            }
         private:
             sf::Shape *buttonRect;
             sf::String string;
