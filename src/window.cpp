@@ -83,10 +83,6 @@ namespace sbe
         audHandler->loadMusic("scripts/assets/music.ast");
         loadFonts("scripts/assets/fonts.ast");
 
-        //Test stuff with a really kawaii ship AND A PARTICLE
-        sf::Image imgDefault = imgHandler->getImage("default_particle");
-        //sf::Image img = imgHandler->getImage("testShip");
-
         testShip = new sbe::Ship("testShip", imgHandler);
 
         //*ships["testShip"] = *testShip;

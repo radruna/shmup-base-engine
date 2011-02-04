@@ -81,7 +81,6 @@ namespace sbe
             //Is comment at the start of the line? If so: skip this line
             if(commentPos == 0)
                 return -1;
-                //TODO (Fewes#3#): Fix so that it's possible to have tabs/spaces before a line starting with '//'
             //Cut comment
             strSource = strSource.substr(0,commentPos);
         }

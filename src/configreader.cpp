@@ -18,7 +18,9 @@ namespace sbe
     {
         settings["title"] = "SBE";
         settings["width"] = "1280";
-        settings["height"] = "720";
+        settings["height"] = "720";ass abstract (as it is a pure virtual function). You must inherit from your class to use it.
+
+BTW, you don't have to specify "public" as an access specif
         settings["fullscreen"] = "false";
         settings["limit_fps"] = "60";
         settings["vsync"] = "false";
@@ -93,7 +95,6 @@ namespace sbe
             if(!fileWriter.is_open())
                 throw;
 
-            //TODO(Liag#5#): Change to a better default system
             fileWriter << "//_______________________________________________________" << std::endl;
             if(!type) fileWriter << "// Rename this file to settings.cfg if you want to change any settings." << std::endl;
             else fileWriter << "// File generated from user settings." << std::endl;
