@@ -22,7 +22,6 @@ namespace sbe
         public:
             DialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog, const sf::Font& font, const sf::Color& color = sf::Color(50, 80, 80, 126), const float& outline = 1, const sf::Color& outlineColor = sf::Color::White);
             ~DialogPanel() {}
-            //TODO(Liag#9#): Finish implementing dialogues.
             void createButton(const std::string& name,
                               void (*callFunction) (void* object),
                               const sf::Vector2f& p,

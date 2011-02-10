@@ -18,9 +18,7 @@ namespace sbe
     {
         settings["title"] = "SBE";
         settings["width"] = "1280";
-        settings["height"] = "720";ass abstract (as it is a pure virtual function). You must inherit from your class to use it.
-
-BTW, you don't have to specify "public" as an access specif
+        settings["height"] = "720";
         settings["fullscreen"] = "false";
         settings["limit_fps"] = "60";
         settings["vsync"] = "false";
