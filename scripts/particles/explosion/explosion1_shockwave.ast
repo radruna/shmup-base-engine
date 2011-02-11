@@ -24,7 +24,7 @@
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second
-"emission_max"						"5"					//Not implemented yet.	Particles to emit if type = 2
+"emission_max"						"2r"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"0"					//Emission force minimum
 "emission_force_max"				"0"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
@@ -51,7 +51,7 @@
 //Fade parameters
 "fade_in_min"						"0"					//Fade in duration minimum
 "fade_in_max"						"0"					//Fade in duration maximum
-"fade_out_min"						"0.1"						//Fade out duration minimum
+"fade_out_min"						"0.2"						//Fade out duration minimum
 "fade_out_max"						"0.2"						//Fade out duration maximum
 
 //Mod parameters
@@ -67,5 +67,5 @@
 "move_mod_angle_max"				"5"						//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"100"					//Minimum alpha value
-"alpha_max"							"255"					//Maximum alpha value
+"alpha_min"							"75"					//Minimum alpha value
+"alpha_max"							"175"					//Maximum alpha value

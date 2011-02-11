@@ -339,22 +339,26 @@ namespace sbe
         //Add childs
         if(child1 != "none")
         {
-            delete pSystemChild1;
+            if(!firstRun)
+                delete pSystemChild1;
             pSystemChild1 = new ParticleSystem(child1, imageHandler, reloadInterval, true);
         }
         if(child2 != "none")
         {
-            delete pSystemChild2;
+            if(!firstRun)
+                delete pSystemChild2;
             pSystemChild2 = new ParticleSystem(child2, imageHandler, reloadInterval, true);
         }
         if(child3 != "none")
         {
-            delete pSystemChild3;
+            if(!firstRun)
+                delete pSystemChild3;
             pSystemChild3 = new ParticleSystem(child3, imageHandler, reloadInterval, true);
         }
         if(child4 != "none")
         {
-            delete pSystemChild4;
+            if(!firstRun)
+                delete pSystemChild4;
             pSystemChild4 = new ParticleSystem(child4, imageHandler, reloadInterval, true);
         }
 

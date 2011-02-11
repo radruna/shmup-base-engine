@@ -25,10 +25,10 @@
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"4000"					//Particles per second
 "emission_max"						"50"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"1500"					//Emission force minimum
-"emission_force_max"				"3000"					//Emission force maximum
-"emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
-"emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
+"emission_force_min"				"1000"					//Emission force minimum
+"emission_force_max"				"1500"					//Emission force maximum
+"emission_friction_min"				"0.99"					//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"0.99"					//Emission friction maximum. Closer to 1 = less friction
 
 //Lifespan parameters
 "lifespan_min"						"0.1"						//Lifespan duration minimum
@@ -36,15 +36,17 @@
 
 //Size parameters
 "size_min"							"2.5"					//Scale minimum
-"size_max"							"4.0"					//Scale maximum
-"size_ratio"						"0.1"						//x/y ratio. 1 = normal
+"size_max"							"3.0"					//Scale maximum
+"size_ratio"						"0.06"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 
 //Fade parameters
+"fade_in_min"						"0."						//Fade out duration minimum
+"fade_in_max"						"0."						//Fade out duration maximum
 "fade_out_min"						"0.1"						//Fade out duration minimum
-"fade_out_max"						"0.2"						//Fade out duration maximum
+"fade_out_max"						"0.1"						//Fade out duration maximum
 
 //Size modification parameters
 "size_mod_scalar_rate_min"			"1"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.

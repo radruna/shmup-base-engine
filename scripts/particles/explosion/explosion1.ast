@@ -44,8 +44,8 @@
 "size_ratio"						"1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
-"rotation_rate_min"					"-2"					//Rotation rate minimum
-"rotation_rate_max"					"2"						//Rotation rate maximum
+"rotation_rate_min"					"-5"					//Rotation rate minimum
+"rotation_rate_max"					"5"						//Rotation rate maximum
 "rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
 "rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
@@ -65,8 +65,8 @@
 "size_mod_scalar_rate_max"			"1.5"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
 //Movement modification parameters
-"move_mod_angle_min"				"-5"						//Movement mod angle minimum. Particle turns this many degrees in one second
-"move_mod_angle_max"				"5"						//Movement mod angle maximum. Particle turns this many degrees in one second
+"move_mod_angle_min"				"-500"						//Movement mod angle minimum. Particle turns this many degrees in one second
+"move_mod_angle_max"				"500"						//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
 "alpha_min"							"75"					//Minimum alpha value
