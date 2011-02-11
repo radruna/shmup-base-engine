@@ -2,7 +2,7 @@
 / Dialog panels, for dialogue.
 / Author: Victor Rådmark
 / Created: 2011-01-31
-/ Updated: 2011-02-01
+/ Updated: 2011-02-11
 / License: GPL v3
 */
 #ifndef DIALOGPANEL_H_INCLUDED

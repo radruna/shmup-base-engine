@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-30
+/ File updated: 2011-02-11
 / License: GPLv3
 */
 #include <iostream> //Debug output
