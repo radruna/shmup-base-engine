@@ -154,8 +154,8 @@ namespace sbe
 
                 if(events["R"])
                 {   //Reload particle systems
-                    pSystem1->reloadCheck();
-                    pSystem2->reloadCheck();
+                    pSystem1->reload();
+                    pSystem2->reload();
                 }
 
                 if(event.Type == sf::Event::MouseButtonReleased)

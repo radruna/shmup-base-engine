@@ -28,27 +28,27 @@ namespace sbe
         Particle system class
         */
         public:
-            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r = 10);
+            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r = 10, const bool& isC = false);
             ~ParticleSystem()
             {
-                remove();
+                clear();
             }
 
             //Remove particle system
-            void remove();
+            void clear();
             void SetPosition(float x, float y);
             float GetPositionX();
             float GetPositionY();
             void Move(float x, float y);
             void update(const float& elapsed);
             void reloadCheck();
+            void reload();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
 
         private:
-
-            void reload();
+            bool isChild;
             std::ifstream fileReader2;
             ImageHandler *imageHandler;
             std::string scriptFile;

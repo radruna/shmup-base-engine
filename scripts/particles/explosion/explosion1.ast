@@ -26,17 +26,17 @@
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second
-"emission_max"						"50"					//Not implemented yet.	Particles to emit if type = 2
+"emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"100"					//Emission force minimum
-"emission_force_max"				"1800"					//Emission force maximum
+"emission_force_max"				"1000"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"-180"					//Emission angle minimum
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"2"						//Lifespan duration minimum
-"lifespan_max"						"4"						//Lifespan duration maximum
+"lifespan_min"						"3"						//Lifespan duration minimum
+"lifespan_max"						"5"						//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"0.2"					//Scale minimum
@@ -53,8 +53,8 @@
 //Fade parameters
 "fade_in_min"						"0.1"					//Fade in duration minimum
 "fade_in_max"						"0.2"					//Fade in duration maximum
-"fade_out_min"						"1"						//Fade out duration minimum
-"fade_out_max"						"2"						//Fade out duration maximum
+"fade_out_min"						"2.9"						//Fade out duration minimum
+"fade_out_max"						"2.9"						//Fade out duration maximum
 
 //Mod parameters
 
@@ -62,7 +62,7 @@
 
 //Size modification parameters
 "size_mod_scalar_rate_min"			"0.9"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
-"size_mod_scalar_rate_max"			"0.95"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"1.5"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
 //Movement modification parameters
 "move_mod_angle_min"				"-5"						//Movement mod angle minimum. Particle turns this many degrees in one second

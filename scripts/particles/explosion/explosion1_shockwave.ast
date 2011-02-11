@@ -24,20 +24,20 @@
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second
-"emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"900"					//Emission force minimum
-"emission_force_max"				"900"					//Emission force maximum
+"emission_max"						"5"					//Not implemented yet.	Particles to emit if type = 2
+"emission_force_min"				"0"					//Emission force minimum
+"emission_force_max"				"0"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"-180"					//Emission angle minimum
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"0.1"						//Lifespan duration minimum
-"lifespan_max"						"0.5"						//Lifespan duration maximum
+"lifespan_min"						"0.2"						//Lifespan duration minimum
+"lifespan_max"						"0.2"						//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"0.1"					//Scale minimum
+"size_min"							"0.3"					//Scale minimum
 "size_max"							"0.3"					//Scale maximum
 "size_ratio"						"1"						//x/y ratio. 1 = normal
 
@@ -59,13 +59,13 @@
 "internal_oscillation"				"0"						//Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
 
 //Size modification parameters
-"size_mod_scalar_rate_min"			"10"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
-"size_mod_scalar_rate_max"			"10"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_min"			"5"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"15"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
 //Movement modification parameters
 "move_mod_angle_min"				"-5"						//Movement mod angle minimum. Particle turns this many degrees in one second
 "move_mod_angle_max"				"5"						//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"75"					//Minimum alpha value
-"alpha_max"							"110"					//Maximum alpha value
+"alpha_min"							"100"					//Minimum alpha value
+"alpha_max"							"255"					//Maximum alpha value
