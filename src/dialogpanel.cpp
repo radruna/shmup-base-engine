@@ -21,6 +21,7 @@ namespace sbe
         panelRect = new sf::Shape(sf::Shape::Rectangle(sf::Vector2f(20, res.y - 170), sf::Vector2f(600 + res.x / 4, res.y - 20), color, outline, outlineColor));
         createString("dialogString", dialog.at(curDiag), font, 24, sf::Vector2f(30, res.y - 160));
         createButton("nextButton", next, sf::Vector2f(530 + res.x / 4, res.y - 60), 60, "Next", font);
+        createButton("previousButton", previous, sf::Vector2f(400 + res.x / 4, res.y - 60), 100, "Previous", font, sf::Color(100, 100, 120, 255));
     }
 
     void DialogPanel::createButton(const std::string& name, void (*callFunction) (void* object), const sf::Vector2f& p, const int& width, const std::string& text, const sf::Font& font, const sf::Color& txtCol,  const sf::Color& color, const float& outline, const sf::Color& outlineColor)
@@ -44,13 +45,33 @@ namespace sbe
         self->setDialog();
     }
 
-    void DialogPanel::setDialog()
+    void DialogPanel::previous(void* object)
     {
-        if(curDiag + 1 != dialogue.size())
+        /*
+            Go to the next line of dialogue in the called panel.
+        */
+        //Explicitly cast to a pointer to DialogPanel
+        DialogPanel* self = (DialogPanel*) object;
+
+        //Call member
+        self->setDialog(0);
+    }
+
+    void DialogPanel::setDialog(const bool next)
+    {
+        if(next && curDiag + 1 != dialogue.size())
         {
             strings["dialogString"].SetText(dialogue.at(++curDiag));
+            buttons["previousButton"].setTextColor(sf::Color(200, 200, 220, 255));
             if(curDiag + 1 == dialogue.size())
                 buttons["nextButton"].setTextColor(sf::Color(100, 100, 120, 255));
+        }
+        else if(!next && curDiag != 0)
+        {
+            strings["dialogString"].SetText(dialogue.at(--curDiag));
+            buttons["nextButton"].setTextColor(sf::Color(200, 200, 220, 255));
+            if(curDiag == 0)
+                buttons["previousButton"].setTextColor(sf::Color(100, 100, 120, 255));
         }
     }
 }

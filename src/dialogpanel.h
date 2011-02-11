@@ -34,7 +34,8 @@ namespace sbe
                               const sf::Color& outlineColor = sf::Color(200, 200, 220, 255));
         private:
             static void next(void* object);
-            void setDialog();
+            static void previous(void* object);
+            void setDialog(bool next = 1);
 
             unsigned int curDiag;
             std::vector<std::string> dialogue;
