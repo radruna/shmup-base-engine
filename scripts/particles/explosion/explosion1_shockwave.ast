@@ -10,9 +10,9 @@
 "sprite_name"						"shockwave"									//Sprite to use. Needs to be loaded by asset file
 
 //Color parameters
-"initial_color_r"					"163"					
-"initial_color_g"					"187"					
-"initial_color_b"					"194"
+"initial_color_r"					"255"					
+"initial_color_g"					"175"					
+"initial_color_b"					"100"
 
 "modified_color_r"					"255"					
 "modified_color_g"					"255"					
@@ -33,8 +33,8 @@
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"0.2"						//Lifespan duration minimum
-"lifespan_max"						"0.2"						//Lifespan duration maximum
+"lifespan_min"						"0.15"						//Lifespan duration minimum
+"lifespan_max"						"0.15"						//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"0.3"					//Scale minimum

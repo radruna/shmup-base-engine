@@ -10,13 +10,13 @@
 "sprite_name"						"default_particle"									//Sprite to use. Needs to be loaded by asset file
 
 //Color parameters
-"initial_color_r"					"255"					
-"initial_color_g"					"255"					
-"initial_color_b"					"200"
+"initial_color_r"					"240"					
+"initial_color_g"					"130"					
+"initial_color_b"					"7"
 
 "modified_color_r"					"255"					
-"modified_color_g"					"100"					
-"modified_color_b"					"100"
+"modified_color_g"					"255"					
+"modified_color_b"					"255"
 
 "color_mod_duration"				"0.2"
 "color_mod_offset"					"0"	
@@ -24,8 +24,8 @@
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"4000"					//Particles per second
-"emission_max"						"50"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"1500"					//Emission force minimum
+"emission_max"						"300"					//Not implemented yet.	Particles to emit if type = 2
+"emission_force_min"				"1000"					//Emission force minimum
 "emission_force_max"				"3000"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
@@ -35,8 +35,8 @@
 "lifespan_max"						"0.4"						//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"2.5"					//Scale minimum
-"size_max"							"4.0"					//Scale maximum
+"size_min"							"0.5"					//Scale minimum
+"size_max"							"3.0"					//Scale maximum
 "size_ratio"						"0.1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
