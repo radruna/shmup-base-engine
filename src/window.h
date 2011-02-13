@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-30
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -23,6 +23,7 @@
 #include "projectile.h"
 //#include "player.h" //Player class
 #include "panel.h"
+#include "mainmenu.h"
 #include "logger.h"
 
 typedef std::map<std::string, bool> boolMap;
@@ -43,6 +44,7 @@ namespace sbe
             ~Window();
 
             int exec(); //Main game loop
+
         private:
             void loadFonts(const std::string& fontFile);
             void unloadFonts()
@@ -50,17 +52,32 @@ namespace sbe
                 fonts.clear();
             }
 
+            static void select(void* object);
+            static void options(void* object);
+            static void hiscore(void* object);
+            static void credits(void* object);
+            static void exit(void* object);
+
+            void loadStuff(const int& map = 0);
+            void showOptions() {}
+            void showHiScore() {}
+            void showCredits() {}
+
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several
             sbe::ConfigReader *cfgReader;
-            //sbe::Panel *mainMenu;
+            sbe::MainMenu *mainMenu;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
             sbe::Panel *testPanel;
+            sbe::ParticleSystem *pSystem1;
+            sbe::ParticleSystem *pSystem2;
+            sbe::Music *loli;
 
             sf::Vector2i res;
-            bool pause;
+            bool pause,
+                 menu;
 
             sf::Color c;
             short count;

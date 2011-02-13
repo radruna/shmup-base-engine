@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-29
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 #ifndef PANEL_H_INCLUDED
@@ -54,7 +54,7 @@ namespace sbe
             void click(const sf::Vector2i& mousePos);
         protected:
             void Render(sf::RenderTarget& target) const;
-            bool withinPanel(const sf::Vector2i& mousePos);
+            bool withinPanel(const sf::Vector2i& mousePos) const;
             sf::Shape *panelRect;
             stringMap strings;
             buttonMap buttons;

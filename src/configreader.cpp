@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2011-01-30
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 
@@ -19,9 +19,10 @@ namespace sbe
         settings["title"] = "SBE";
         settings["width"] = "1280";
         settings["height"] = "720";
-        settings["fullscreen"] = "false";
+        settings["fullscreen"] = "0";
         settings["limit_fps"] = "60";
-        settings["vsync"] = "false";
+        settings["vsync"] = "0";
+        settings["show_menu"] = "1";
         settings["music_volume"] = "100";
         settings["sfx_volume"] = "100";
         settings["ps_reload"] = "10";
@@ -103,6 +104,7 @@ namespace sbe
             fileWriter << "\"fullscreen\"		    \"" << settings ["fullscreen"] << "\"" << std::endl;
             fileWriter << "\"limit_fps\"			    \"" << settings ["limit_fps"] << "\" //If 0, no limit is set" << std::endl;
             fileWriter << "\"vsync\"			    	\"" << settings ["vsync"] << "\" //Should only be used with fullscreen" << std::endl;
+            fileWriter << "\"show_menu\"                \"" << settings ["show_menu"] << "\" //Show the main menu first." << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"music_volume\"		    \"" << settings ["music_volume"] << "\"" << std::endl;
             fileWriter << "\"sfx_volume\"		    \"" << settings ["sfx_volume"] << "\"" << std::endl;

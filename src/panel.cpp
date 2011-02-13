@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-29
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 #include <iostream>
@@ -65,7 +65,7 @@ namespace sbe
         buttons[name] = tmpBtn;
     }
 
-    bool Panel::withinPanel(const sf::Vector2i& mousePos)
+    bool Panel::withinPanel(const sf::Vector2i& mousePos) const
     {
         if(mousePos.x > panelRect->GetPointPosition(0).x && mousePos.x < panelRect->GetPointPosition(2).x)
         {

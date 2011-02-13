@@ -68,6 +68,7 @@
 		<Unit filename="scripts/particles/explosion/explosion1.ast" />
 		<Unit filename="scripts/particles/explosion/explosion1_debris.ast" />
 		<Unit filename="scripts/particles/explosion/explosion1_shockwave.ast" />
+		<Unit filename="scripts/particles/menu/mainmenu.ast" />
 		<Unit filename="scripts/particles/particle_test.ast" />
 		<Unit filename="scripts/particles/plasma_blast.ast" />
 		<Unit filename="scripts/particles/shield.ast" />
@@ -94,6 +95,7 @@
 		<Unit filename="src/logger.cpp" />
 		<Unit filename="src/logger.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/mainmenu.cpp" />
 		<Unit filename="src/mainmenu.h" />
 		<Unit filename="src/md5/md5.cpp" />
 		<Unit filename="src/md5/md5.h" />
