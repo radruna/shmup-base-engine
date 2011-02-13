@@ -26,6 +26,7 @@ namespace sbe
         settings["music_volume"] = "100";
         settings["sfx_volume"] = "100";
         settings["ps_reload"] = "10";
+        settings["log"] = "1";
         writeSettings(0);
         readConfig();
     }
@@ -110,7 +111,8 @@ namespace sbe
             fileWriter << "\"sfx_volume\"		    \"" << settings ["sfx_volume"] << "\"" << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"ps_reload\"            \"" << settings ["ps_reload"] << "\" //Interval between each frame that all particle systems should be reloaded, 0 to turn off" << std::endl;
-
+            fileWriter << std::endl;
+            fileWriter << "\"log\"                \"" << settings ["log"] << "\" //If logs should be written to the logs directory" << std::endl;
             fileWriter.close();
         }
         catch(...)

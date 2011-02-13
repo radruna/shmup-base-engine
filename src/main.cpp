@@ -16,13 +16,13 @@
 int main()
 {
     //Boot message
-    sbe::Logger::init();
     sbe::Logger::setLevel(1);
     sbe::Logger::writeMsg(1) << " --- Shmup Base Engine version 0.x --- ";
     sbe::Logger::write();
 
     //Create the config reader
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
+    sbe::Logger::init(cfgReader->getSetting<int>("log"));
     sbe::Window *mainWindow;
 
     //Create the main window

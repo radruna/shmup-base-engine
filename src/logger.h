@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-28
-/ File updated: 2011-01-28
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 #ifndef LOGGER_H_INCLUDED
@@ -21,7 +21,7 @@ namespace sbe
             Logger(){}
             ~Logger() {}
 
-            static void init();
+            static void init(const bool l);
             static void setLevel(const unsigned char& level)
             {
                 curLevel = level;
