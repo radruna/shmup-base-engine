@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-13
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -24,6 +24,7 @@
 //#include "player.h" //Player class
 #include "panel.h"
 #include "mainmenu.h"
+#include "optionsmenu.h"
 #include "logger.h"
 
 typedef std::map<std::string, bool> boolMap;
@@ -57,17 +58,20 @@ namespace sbe
             static void hiscore(void* object);
             static void credits(void* object);
             static void exit(void* object);
+            static void back(void* object);
 
             void loadStuff(const int& map = 0);
-            void showOptions() {}
+            void showOptions();
             void showHiScore() {}
             void showCredits() {}
+            void goBack();
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler; //One of several
             sbe::ConfigReader *cfgReader;
             sbe::MainMenu *mainMenu;
+            sbe::OptionsMenu *optionsMenu;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
             sbe::Panel *testPanel;
@@ -77,7 +81,8 @@ namespace sbe
 
             sf::Vector2i res;
             bool pause,
-                 menu;
+                 menu,
+                 opt;
 
             sf::Color c;
             short count;

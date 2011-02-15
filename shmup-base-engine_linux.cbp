@@ -99,10 +99,14 @@
 		<Unit filename="src/mainmenu.h" />
 		<Unit filename="src/md5/md5.cpp" />
 		<Unit filename="src/md5/md5.h" />
+		<Unit filename="src/menu.cpp" />
+		<Unit filename="src/menu.h" />
 		<Unit filename="src/movable.cpp" />
 		<Unit filename="src/movable.h" />
 		<Unit filename="src/music.cpp" />
 		<Unit filename="src/music.h" />
+		<Unit filename="src/optionsmenu.cpp" />
+		<Unit filename="src/optionsmenu.h" />
 		<Unit filename="src/panel.cpp" />
 		<Unit filename="src/panel.h" />
 		<Unit filename="src/particle.cpp" />

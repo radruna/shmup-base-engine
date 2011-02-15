@@ -2,7 +2,7 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2011-02-13
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 #include <string>
@@ -36,6 +36,8 @@ int main()
     delete mainWindow;
 
     sbe::Logger::close();
+
+    delete cfgReader;
 
     return 0;
 }

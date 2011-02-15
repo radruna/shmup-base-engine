@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2011-02-13
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 
@@ -16,6 +16,14 @@ namespace sbe
 {
     ConfigReader::ConfigReader()
     {
+        resList.push_back(sf::Vector2i(800, 600));
+        resList.push_back(sf::Vector2i(1024, 768));
+        resList.push_back(sf::Vector2i(1280, 720));
+        resList.push_back(sf::Vector2i(1440, 900));
+        resList.push_back(sf::Vector2i(1400, 1050));
+        resList.push_back(sf::Vector2i(1680, 1050));
+        resList.push_back(sf::Vector2i(1600, 1200));
+        resList.push_back(sf::Vector2i(1920, 1200));
         settings["title"] = "SBE";
         settings["width"] = "1280";
         settings["height"] = "720";
@@ -79,6 +87,19 @@ namespace sbe
 
         //Close file
         fileReader.close();
+    }
+
+    void ConfigReader::setRes(const sf::Vector2i& res)
+    {
+        std::ostringstream oss;
+
+        oss << res.x;
+        settings["width"] = oss.str();
+
+        oss.str("");
+
+        oss << res.y;
+        settings["height"] = oss.str();
     }
 
     void ConfigReader::writeSettings(const bool& type)

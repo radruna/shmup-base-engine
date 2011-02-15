@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-13
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -27,12 +27,13 @@
 #include "panel.h"
 #include "dialogpanel.h"
 #include "mainmenu.h"
+#include "optionsmenu.h"
 #include "logger.h"
 
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, ConfigReader* reader, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), count(0)
+        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), opt(false), count(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -69,8 +70,8 @@ namespace sbe
         delete imgHandler;
         delete audHandler;
         delete evtHandler; //One of several
-        delete cfgReader;
         delete mainMenu;
+        delete optionsMenu;
         delete testShip;
         delete testPanel;
         delete pSystem1;
@@ -115,7 +116,7 @@ namespace sbe
         {
             Logger::write();
 
-            if(menu)
+            if(menu || opt)
             {
                 sf::Event event;
                 while(GetEvent(event))
@@ -132,7 +133,10 @@ namespace sbe
 
                     if(event.Type == sf::Event::MouseButtonReleased)
                     {
-                        mainMenu->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
+                        if(menu)
+                            mainMenu->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
+                        else if(opt)
+                            optionsMenu->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
                     }
 
                     events.clear();
@@ -141,7 +145,10 @@ namespace sbe
                 //Get elapsed time since last frame to ensure constant speed
                 float ElapsedTime = GetFrameTime();
 
-                mainMenu->update(ElapsedTime);
+                if(menu)
+                    mainMenu->update(ElapsedTime);
+                else if(opt)
+                    optionsMenu->update(ElapsedTime);
 
                 // Clear screen
                 if(count++ % 4 == 0)
@@ -156,7 +163,10 @@ namespace sbe
                 Clear();
 
                 // Draw stuff
-                Draw(*mainMenu);
+                if(menu)
+                    Draw(*mainMenu);
+                else if(opt)
+                    Draw(*optionsMenu);
                 Draw(fps);
 
                 // Update the window
@@ -298,7 +308,7 @@ namespace sbe
 
     void Window::select(void* object)
     {
-        //Explicitly cast to a pointer to DialogPanel
+        //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
@@ -307,7 +317,7 @@ namespace sbe
 
     void Window::options(void* object)
     {
-        //Explicitly cast to a pointer to DialogPanel
+        //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
@@ -316,7 +326,7 @@ namespace sbe
 
     void Window::hiscore(void* object)
     {
-        //Explicitly cast to a pointer to DialogPanel
+        //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
@@ -325,7 +335,7 @@ namespace sbe
 
     void Window::credits(void* object)
     {
-        //Explicitly cast to a pointer to DialogPanel
+        //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
@@ -334,11 +344,37 @@ namespace sbe
 
     void Window::exit(void* object)
     {
-        //Explicitly cast to a pointer to DialogPanel
+        //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
         self->Close();
+    }
+
+    void Window::back(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->goBack();
+    }
+
+    void Window::showOptions()
+    {
+        menu = false;
+        delete optionsMenu;
+        optionsMenu = new sbe::OptionsMenu(this, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res, fonts["inconsolata"], mainMenu->getPSPos(), mainMenu->getNextPSPos());
+        //delete mainMenu;
+        opt = true;
+    }
+
+    void Window::goBack()
+    {
+        opt = false;
+        //delete optionsMenu;
+        menu = true;
+        mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"], optionsMenu->getPSPos(), optionsMenu->getNextPSPos());
     }
 
     void Window::loadFonts(const std::string& fontFile)
@@ -394,6 +430,7 @@ namespace sbe
         if(map == 0)
         {
             menu = false;
+            delete mainMenu;
 
             testShip = new sbe::Ship("testShip", imgHandler);
 

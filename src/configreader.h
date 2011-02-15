@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2011-01-30
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 #ifndef CONFIGREADER_H_INCLUDED
@@ -10,6 +10,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 #include <sstream>
 #include <cassert>
 
@@ -19,6 +20,7 @@
 #include "filehandler.h"
 
 typedef std::map<std::string, std::string> stdStringMap;
+typedef std::vector<sf::Vector2i> resVector;
 
 namespace sbe
 {
@@ -28,10 +30,11 @@ namespace sbe
             ConfigReader();
             ~ConfigReader()
             {
-
+                writeSettings(1);
             }
 
             void readConfig(const std::string& cfgFile = "settings.cfg");
+            void writeSettings(const bool& type); //0 for default_settings.cfg, 1 for settings.cfg
             //Hurr, have to do this in the header because templates
             template<class T>
             T getSetting(const std::string& setting)
@@ -59,9 +62,16 @@ namespace sbe
                 return log;
             }*/
 
+            resVector getResList()
+            {
+                return resList;
+            }
+
+            void setRes(const sf::Vector2i& res);
+
         private:
-            void writeSettings(const bool& type); //0 for default_settings.cfg, 1 for settings.cfg
             stdStringMap settings;
+            resVector resList;
     };
 }
 

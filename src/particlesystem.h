@@ -32,6 +32,7 @@ namespace sbe
             ~ParticleSystem()
             {
                 clear();
+                fileReader2.close();
             }
 
             //Remove particle system
