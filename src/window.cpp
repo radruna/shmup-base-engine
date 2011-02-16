@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-15
+/ File updated: 2011-02-16
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -33,7 +33,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, ConfigReader* reader, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), pause(false), opt(false), count(0)
+        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), respawn(false), pause(false), opt(false), count(0)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -72,15 +72,17 @@ namespace sbe
         delete evtHandler; //One of several
         delete mainMenu;
         delete optionsMenu;
-        delete testShip;
-        delete testPanel;
+        if(testShip != NULL)
+            delete testShip;
+        if(testPanel != NULL)
+            delete testPanel;
         delete pSystem1;
         delete pSystem2;
         delete loli;
         unloadFonts();
     }
 
-    int Window::exec()
+    bool Window::exec()
     {
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
@@ -93,7 +95,10 @@ namespace sbe
         loadFonts("scripts/assets/fonts.ast");
 
         if(menu)
+        {
             mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
+            optionsMenu = NULL;
+        }
         else
             loadStuff();
 
@@ -118,6 +123,9 @@ namespace sbe
 
             if(menu || opt)
             {
+                if(respawn)
+                    return true;
+
                 sf::Event event;
                 while(GetEvent(event))
                 {
@@ -303,7 +311,7 @@ namespace sbe
             }
         }
 
-        return 0;
+        return false;
     }
 
     void Window::select(void* object)
@@ -351,6 +359,15 @@ namespace sbe
         self->Close();
     }
 
+    void Window::apply(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->applyOptions();
+    }
+
     void Window::back(void* object)
     {
         //Explicitly cast to a pointer to Window
@@ -363,10 +380,16 @@ namespace sbe
     void Window::showOptions()
     {
         menu = false;
-        delete optionsMenu;
-        optionsMenu = new sbe::OptionsMenu(this, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res, fonts["inconsolata"], mainMenu->getPSPos(), mainMenu->getNextPSPos());
+        if(optionsMenu != NULL)
+            delete optionsMenu;
+        optionsMenu = new sbe::OptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res, fonts["inconsolata"], mainMenu->getPSPos(), mainMenu->getNextPSPos());
         //delete mainMenu;
         opt = true;
+    }
+
+    void Window::applyOptions()
+    {
+        respawn = true;
     }
 
     void Window::goBack()

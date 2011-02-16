@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-15
+/ File updated: 2011-02-16
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -44,7 +44,7 @@ namespace sbe
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();
 
-            int exec(); //Main game loop
+            bool exec(); //Main game loop, returns respawn
 
         private:
             void loadFonts(const std::string& fontFile);
@@ -58,12 +58,14 @@ namespace sbe
             static void hiscore(void* object);
             static void credits(void* object);
             static void exit(void* object);
+            static void apply(void* object);
             static void back(void* object);
 
             void loadStuff(const int& map = 0);
             void showOptions();
             void showHiScore() {}
             void showCredits() {}
+            void applyOptions();
             void goBack();
 
             sbe::ImageHandler *imgHandler;
@@ -80,7 +82,8 @@ namespace sbe
             sbe::Music *loli;
 
             sf::Vector2i res;
-            bool pause,
+            bool respawn,
+                 pause,
                  menu,
                  opt;
 

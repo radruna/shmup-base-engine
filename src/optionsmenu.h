@@ -2,7 +2,7 @@
 / Options menu
 / Author: Victor Rådmark
 / Created: 2011-02-14
-/ Updated: 2011-02-15
+/ Updated: 2011-02-16
 / License: GPL v3
 */
 #ifndef OPTIONSMENU_H_INCLUDED
@@ -23,6 +23,7 @@ namespace sbe
     {
         public:
             OptionsMenu(void* callObject,
+                        void (*applyFunction) (void* object),
                         void (*backFunction) (void* object),
                         const std::string& psFile,
                         ImageHandler* imgHandler,
