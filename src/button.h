@@ -27,6 +27,16 @@ namespace sbe
                    const sf::Color& color,
                    const float& outline = 1,
                    const sf::Color& outlineColor = sf::Color::Black);
+            Button(void* callObject,
+                   void (*callFunction) (void* object),
+                   const sf::String& text,
+                   const sf::Color& txtCol,
+                   const sf::Vector2f& p1,
+                   const sf::Vector2f& p2,
+                   const sf::Vector2f& p3,
+                   const sf::Color& color,
+                   const float& outline = 1,
+                   const sf::Color& outlineColor = sf::Color::Black);
 
             void Render(sf::RenderTarget& target) const;
             //Check if mouse click is within bounds and if so execute callback

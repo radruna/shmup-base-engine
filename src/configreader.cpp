@@ -22,8 +22,8 @@ namespace sbe
         resList.push_back(sf::Vector2i(1440, 900));
         resList.push_back(sf::Vector2i(1400, 1050));
         resList.push_back(sf::Vector2i(1680, 1050));
-        resList.push_back(sf::Vector2i(1600, 1200));
-        resList.push_back(sf::Vector2i(1920, 1200));
+        /*resList.push_back(sf::Vector2i(1600, 1200));
+        resList.push_back(sf::Vector2i(1920, 1200));*/
         settings["title"] = "SBE";
         settings["width"] = "1280";
         settings["height"] = "720";
