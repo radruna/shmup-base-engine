@@ -38,7 +38,9 @@ namespace sbe
             ConfigReader* cfgReader;
             static void incrRes(void* object);
             static void decrRes(void* object);
+            static void toggleFS(void* object);
             void setRes(const bool& incr);
+            void setFS();
     };
 }
 

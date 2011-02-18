@@ -126,14 +126,14 @@ namespace sbe
             fileWriter << "\"fullscreen\"		    \"" << settings ["fullscreen"] << "\"" << std::endl;
             fileWriter << "\"limit_fps\"			    \"" << settings ["limit_fps"] << "\" //If 0, no limit is set" << std::endl;
             fileWriter << "\"vsync\"			    	\"" << settings ["vsync"] << "\" //Should only be used with fullscreen" << std::endl;
-            fileWriter << "\"show_menu\"                \"" << settings ["show_menu"] << "\" //Show the main menu first." << std::endl;
+            fileWriter << "\"show_menu              \"" << settings ["show_menu"] << "\" //Show the main menu first." << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"music_volume\"		    \"" << settings ["music_volume"] << "\"" << std::endl;
             fileWriter << "\"sfx_volume\"		    \"" << settings ["sfx_volume"] << "\"" << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"ps_reload\"            \"" << settings ["ps_reload"] << "\" //Interval between each frame that all particle systems should be reloaded, 0 to turn off" << std::endl;
             fileWriter << std::endl;
-            fileWriter << "\"log\"                \"" << settings ["log"] << "\" //If logs should be written to the logs directory" << std::endl;
+            fileWriter << "\"log\"                  \"" << settings ["log"] << "\" //If logs should be written to the logs directory" << std::endl;
             fileWriter.close();
         }
         catch(...)

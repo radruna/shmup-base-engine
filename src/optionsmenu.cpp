@@ -31,8 +31,11 @@ namespace sbe
         std::string curRes = cfgReader->getSetting<std::string>("width") + "x" + cfgReader->getSetting<std::string>("height");
         createString("curRes", curRes, font, 30, sf::Vector2f(312, 168));
         strings["curRes"].SetCenter(strings["curRes"].GetRect().GetWidth() / 2, strings["curRes"].GetRect().GetHeight() / 2);
-        strings["curRes"].SetPosition(380, 184);
+        strings["curRes"].SetPosition(378, 184);
         createButton("incrRes", this, incrRes, sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(455, 178), sf::Vector2f(455, 202), sf::Vector2f(479, 190), sf::Color(30, 30, 50, 0), 1, sf::Color::White);
+
+        createButton("fs", this, toggleFS, sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(250, 212), sf::Vector2f(290, 252), sf::Color(30, 30, 50, 0), 1, sf::Color::White);
+
         createButton("apply", callObject, applyFunction, sf::String("Apply", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 220), sf::Vector2f(280, res.y - 180), sf::Color(30, 80, 30, 80), 1, sf::Color::White);
         createButton("back", callObject, backFunction, sf::String("Back", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 165), sf::Vector2f(280, res.y - 125), sf::Color(80, 30, 30, 80), 1, sf::Color::White);
     }
@@ -53,6 +56,15 @@ namespace sbe
 
         //Call member
         self->setRes(0);
+    }
+
+    void OptionsMenu::toggleFS(void* object)
+    {
+        //Explicitly cast to a pointer to OptionsMember
+        OptionsMenu* self = (OptionsMenu*) object;
+
+        //Call member
+        self->setFS();
     }
 
     void OptionsMenu::setRes(const bool& incr)
@@ -82,5 +94,15 @@ namespace sbe
         }
 
         strings["curRes"].SetText(cfgReader->getSetting<std::string>("width") + "x" + cfgReader->getSetting<std::string>("height"));
+        strings["curRes"].SetCenter(strings["curRes"].GetRect().GetWidth() / 2, strings["curRes"].GetRect().GetHeight() / 2);
+        strings["curRes"].SetPosition(378, 184);
+    }
+
+    void OptionsMenu::setFS()
+    {
+        if(cfgReader->getSetting<int>("fullscreen") == 1)
+            cfgReader->set<int>("fullscreen", 0);
+        else
+            cfgReader->set<int>("fullscreen", 1);
     }
 }

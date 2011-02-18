@@ -49,6 +49,18 @@ namespace sbe
                 return t;
             }
 
+            template<class T>
+            void set(const std::string& setting, const T& value)
+            {
+                assert(settings.find(setting) != settings.end());
+
+                std::ostringstream oss;
+
+                oss << value;
+
+                settings[setting] = oss.str();
+            }
+
             sf::Vector2i getRes()
             {
                 return sf::Vector2i(getSetting<int>("width"), getSetting<int>("height"));
