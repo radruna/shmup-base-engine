@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-16
+/ File updated: 2011-02-18
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -26,6 +26,7 @@
 #include "mainmenu.h"
 #include "optionsmenu.h"
 #include "logger.h"
+#include "util.h"
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
@@ -70,7 +71,7 @@ namespace sbe
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
-            sbe::EventHandler *evtHandler; //One of several
+            sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
@@ -86,8 +87,6 @@ namespace sbe
                  pause,
                  menu,
                  opt;
-
-            sf::Color c;
             short count;
 
             boolMap events;

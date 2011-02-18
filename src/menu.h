@@ -2,7 +2,7 @@
 / Menu panels base class
 / Author: Victor Rådmark
 / Created: 2011-02-14
-/ Updated: 2011-02-15
+/ Updated: 2011-02-18
 / License: GPL v3
 */
 #ifndef MENU_H_INCLUDED
@@ -47,7 +47,7 @@ namespace sbe
 
             ParticleSystem *pSystem;
             sf::Vector2i res,
-            nextPos;
+                         nextPos;
     };
 }
 

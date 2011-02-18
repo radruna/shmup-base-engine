@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-16
+/ File updated: 2011-02-18
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -29,6 +29,7 @@
 #include "mainmenu.h"
 #include "optionsmenu.h"
 #include "logger.h"
+#include "util.h"
 
 namespace sbe
 {
@@ -51,15 +52,25 @@ namespace sbe
         evtHandler = new EventHandler();
         Logger::writeMsg(1) << "Handlers loaded!";
 
-        //mainMenu = new sbe::Panel();
-        //Logger::writeMsg(1) << "Main menu loaded.";
+        imgHandler->loadAssets("scripts/assets/system_images.ast");
+        imgHandler->loadAssets("scripts/assets/images.ast");
+        audHandler->loadMusic("scripts/assets/music.ast");
+        audHandler->loadSound("scripts/assets/sound.ast");
+        loadFonts("scripts/assets/fonts.ast");
+        Logger::writeMsg(1) << "\nAssets loaded!";
 
-        //ships = new std::map<std::string, Ship>;
-        //ship
-        Logger::writeMsg(1) << "Objects loaded!";
+        mainMenu = NULL;
+        optionsMenu = NULL;
+        testShip = NULL;
+        testPanel = NULL;
+        pSystem1 = NULL;
+        pSystem2 = NULL;
+        loli = NULL;
 
-        c = sf::Color(255, 105, 108);
-
+        if(menu)
+            mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
+        else
+            loadStuff();
     }
 
     Window::~Window()
@@ -69,17 +80,15 @@ namespace sbe
         */
         delete imgHandler;
         delete audHandler;
-        delete evtHandler; //One of several
-        delete mainMenu;
-        delete optionsMenu;
-        if(testShip != NULL)
-            delete testShip;
-        if(testPanel != NULL)
-            delete testPanel;
-        delete pSystem1;
-        delete pSystem2;
-        delete loli;
+        delete evtHandler;
         unloadFonts();
+        safeDelete(mainMenu);
+        safeDelete(optionsMenu);
+        safeDelete(testShip);
+        safeDelete(testPanel);
+        safeDelete(pSystem1);
+        safeDelete(pSystem2);
+        safeDelete(loli);
     }
 
     bool Window::exec()
@@ -87,21 +96,6 @@ namespace sbe
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
-        //TODO (Liag#9#): Separate script files for menu assets and stuff
-        imgHandler->loadAssets("scripts/assets/system_images.ast");
-        imgHandler->loadAssets("scripts/assets/images.ast");
-        audHandler->loadMusic("scripts/assets/music.ast");
-        audHandler->loadSound("scripts/assets/sound.ast");
-        loadFonts("scripts/assets/fonts.ast");
-
-        if(menu)
-        {
-            mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
-            optionsMenu = NULL;
-        }
-        else
-            loadStuff();
-
         sf::Shape shot = sf::Shape::Line(0.f, 0.f, 0.f, 1000.f, 2.f, sf::Color::Yellow);
         sf::Shape shot2 = shot;
         shot2.SetColor(sf::Color::Yellow);
@@ -123,9 +117,6 @@ namespace sbe
 
             if(menu || opt)
             {
-                if(respawn)
-                    return true;
-
                 sf::Event event;
                 while(GetEvent(event))
                 {
@@ -167,7 +158,6 @@ namespace sbe
 
                 }
 
-                //Clear(c);
                 Clear();
 
                 // Draw stuff
@@ -290,7 +280,6 @@ namespace sbe
 
                 }
 
-                //Clear(c);
                 Clear();
 
                 // Draw stuff
@@ -311,7 +300,7 @@ namespace sbe
             }
         }
 
-        return false;
+        return respawn;
     }
 
     void Window::select(void* object)
@@ -390,6 +379,7 @@ namespace sbe
     void Window::applyOptions()
     {
         respawn = true;
+        Close();
     }
 
     void Window::goBack()

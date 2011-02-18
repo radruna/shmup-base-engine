@@ -34,19 +34,19 @@
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"0.85"					//Lifespan duration minimum
-"lifespan_max"						"0.85"					//Lifespan duration maximum
+"lifespan_min"						"1"					//Lifespan duration minimum
+"lifespan_max"						"2"					//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"0.2"					//Scale minimum
-"size_max"							"1.3"					//Scale maximum
+"size_max"							"1.5"					//Scale maximum
 "size_ratio"						"1.5"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_rate_min"					"-0"					//Rotation rate minimum
 "rotation_rate_max"					"0"						//Rotation rate maximum
-"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters

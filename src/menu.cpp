@@ -50,15 +50,25 @@ namespace sbe
         {
             int x = pSystem->GetPositionX(), y = pSystem->GetPositionY();
 
-            if(x > nextPos.x)
-                x -= 5;
-            else if(x < nextPos.x)
-                x += 5;
+            for(int i = 0; i < 5; i++)
+            {
+                if(x == nextPos.x)
+                    break;
+                else if(x > nextPos.x)
+                    x--;
+                else
+                    x++;
+            }
 
-            if(y > nextPos.y)
-                y -= 5;
-            else if(y < nextPos.y)
-                y += 5;
+            for(int i = 0; i < 5; i++)
+            {
+                if(y == nextPos.y)
+                    break;
+                else if(y > nextPos.y)
+                    y--;
+                else
+                    y++;
+            }
 
             pSystem->SetPosition(x, y);
         }

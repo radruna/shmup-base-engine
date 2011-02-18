@@ -2,7 +2,7 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2011-02-16
+/ File updated: 2011-02-18
 / License: GPLv3
 */
 #include <string>
@@ -12,6 +12,7 @@
 #include "window.h"
 #include "configreader.h"
 #include "logger.h"
+#include "util.h"
 
 int main()
 {
@@ -36,8 +37,8 @@ int main()
 
         respawn = mainWindow->exec();
 
-        delete mainWindow;
-    }while(respawn);
+        safeDelete(mainWindow);
+    }while(respawn); //While the mainWindow wants to respawn
 
     sbe::Logger::close();
 

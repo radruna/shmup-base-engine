@@ -118,6 +118,7 @@
 		<Unit filename="src/ship.cpp" />
 		<Unit filename="src/ship.h" />
 		<Unit filename="src/time.h" />
+		<Unit filename="src/util.h" />
 		<Unit filename="src/window.cpp" />
 		<Unit filename="src/window.h" />
 		<Extensions>
