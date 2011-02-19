@@ -16,12 +16,12 @@
 "initial_color_b"					"200"
 
 "modified_color_r"					"255"					
-"modified_color_g"					"0"					
-"modified_color_b"					"0"
+"modified_color_g"					"140"					
+"modified_color_b"					"150"
 
 //Emission parameters
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
-"emission_rate"						"50"					//Particles per second
+"emission_rate"						"15"					//Particles per second
 "emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"10"						//Emission force minimum
 "emission_force_max"				"8000"					//Emission force maximum
@@ -31,8 +31,8 @@
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"4"					//Lifespan duration minimum
-"lifespan_max"						"5"					//Lifespan duration maximum
+"lifespan_min"						"8"					//Lifespan duration minimum
+"lifespan_max"						"10"					//Lifespan duration maximum
 
 //Size parameters
 "size_min"							"3"					//Scale minimum
@@ -40,8 +40,8 @@
 "size_ratio"						"1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
-"rotation_rate_min"					"-5"					//Rotation rate minimum
-"rotation_rate_max"					"5"						//Rotation rate maximum
+"rotation_rate_min"					"-2"					//Rotation rate minimum
+"rotation_rate_max"					"2"						//Rotation rate maximum
 "rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
 "rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
@@ -63,10 +63,10 @@
 "size_mod_scalar_rate_max"			"1"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 "size_mod_scalar_offset"			"0"
 
-"size_mod_oscillate_freq_min"			"0"				//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_freq_max"			"0"				//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_freq_min"			"5"				//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_freq_max"			"1"				//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
 "size_mod_oscillate_amplitude_min"		"1.5"				//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
-"size_mod_oscillate_amplitude_max"		"1.5"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
+"size_mod_oscillate_amplitude_max"		"0.5"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
 "size_mod_oscillate_amplitude_offset"	"1.4"				//Offset oscillation amplitude.
 
 //Size modification parameters
