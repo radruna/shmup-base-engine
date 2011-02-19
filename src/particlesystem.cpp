@@ -102,6 +102,8 @@ namespace sbe
 
         fadeModifier.fadeInMin = 0;
         fadeModifier.fadeInMax = 0;
+        fadeModifier.fadeInOffsetMin = 0;
+        fadeModifier.fadeInOffsetMax = 0;
         fadeModifier.fadeOutMin = 0;
         fadeModifier.fadeOutMax = 0;
 
@@ -239,6 +241,10 @@ namespace sbe
                     fadeModifier.fadeInMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "fade_in_max")
                     fadeModifier.fadeInMax = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_offset_min")
+                    fadeModifier.fadeInOffsetMin = atof(parameterValue.c_str());//Convert string to float
+                else if(parameterKey == "fade_in_offset_max")
+                    fadeModifier.fadeInOffsetMax = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "fade_out_min")
                     fadeModifier.fadeOutMin = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "fade_out_max")
@@ -498,6 +504,8 @@ namespace sbe
                     float lifeSpan = boundsRand( lifeSpanMin , lifeSpanMax );
                     //Get fade in duration
                     float fadeInDur = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
+                    //Get fade in offset
+                    float fadeInOffset = boundsRand( fadeModifier.fadeInOffsetMin, fadeModifier.fadeInOffsetMax );
                     //Get fade out duration
                     float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
                     //Get alpha
@@ -550,6 +558,7 @@ namespace sbe
                                                     lifeSpan,
                                                     alpha,
                                                     fadeInDur,
+                                                    fadeInOffset,
                                                     fadeOutDur,
                                                     emissionFriction,
                                                     sizeMod, //Size modification data

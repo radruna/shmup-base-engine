@@ -25,6 +25,7 @@ namespace sbe
                        const float&         lifeTime,
                        const int&           alpha,
                        const float&         fInDur,
+                       const float&         fInOffset,
                        const float&         fOutDur,
                        const float&         fric,
                        const ParaMod&       sizeModifier,
@@ -47,6 +48,7 @@ namespace sbe
         fadeInToAlpha = alpha;
         fadeOutFromAlpha = alpha;
         fadeInDuration = fInDur;
+        fadeInOffset = fInOffset;
         fadeOutDuration = fOutDur;
         friction = fric;
 
@@ -101,12 +103,12 @@ namespace sbe
             fadeOut = true;
         }
 
-        if(fadeIn)
+        if(fadeIn && age > fadeInOffset)
         {
             //Fade in
             if(GetColor().a < fadeInToAlpha)
             {
-                preAlpha += ( (255-preAlpha) / (fadeInDuration-age) / (1/elapsed) );
+                preAlpha += ( (255-preAlpha) / (fadeInDuration - (age-fadeInOffset)) / (1/elapsed) );
                 SetAlpha(preAlpha);
 
                 //Fix overdoing it
@@ -116,7 +118,7 @@ namespace sbe
                     fadeIn = false;
                     preAlpha = GetColor().a;
                 }
-                else if(age > fadeInDuration)
+                else if(age > (fadeInDuration+fadeInOffset))
                 {
                     fadeIn = false;
                     preAlpha = GetColor().a;

@@ -6,52 +6,54 @@
 //Min = max means no randomization.
 
 //Generic parameters
-"name"								"options"			//Particle system name
-"sprite_name"						"particle_2"			//Sprite to use. Needs to be loaded by asset file
+"name"								"main_menu"			//Particle system name
+"sprite_name"						"default_particle"			//Sprite to use. Needs to be loaded by asset file
 "move_type"							"0"						//Should particles move with particle system?
 
 //Color parameters
-"initial_color_r"					"10"
-"initial_color_g"					"200"
-"initial_color_b"					"225"
+"initial_color_r"					"255"
+"initial_color_g"					"100"
+"initial_color_b"					"50"
 
 "modified_color_r"					"200"					
-"modified_color_g"					"50"					
-"modified_color_b"					"225"
+"modified_color_g"					"255"					
+"modified_color_b"					"200"
 
 "color_mod_duration"				"0"						//Color mod duration. If 0 then duration = particle lifetime
 "color_mod_offset"					"0"						//Particle mod starts after this many seconds
 
 //Emission parameters
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
-"emission_rate"						"500"					//Particles per second
+"emission_rate"						"1000"					//Particles per second
 "emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"200"						//Emission force minimum
-"emission_force_max"				"700"					//Emission force maximum
-"emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
-"emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
+"emission_force_min"				"0"						//Emission force minimum
+"emission_force_max"				"1500"					//Emission force maximum
+"emission_friction_min"				"0.99"					//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"0.99"					//Emission friction maximum. Closer to 1 = less friction
 "emission_angle_min"				"-180"					//Emission angle minimum
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
-"lifespan_min"						"1"					//Lifespan duration minimum
+"lifespan_min"						"2"					//Lifespan duration minimum
 "lifespan_max"						"2"					//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"0.2"					//Scale minimum
-"size_max"							"1.5"					//Scale maximum
-"size_ratio"						"1.5"						//x/y ratio. 1 = normal
+"size_min"							"0.5"					//Scale minimum
+"size_max"							"2"					//Scale maximum
+"size_ratio"						"5"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_rate_min"					"-0"					//Rotation rate minimum
 "rotation_rate_max"					"0"						//Rotation rate maximum
-"rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters
-"fade_in_min"						"0"						//Fade in duration minimum
-"fade_in_max"						"0"						//Fade in duration maximum
+"fade_in_min"						"0.5"						//Fade in duration minimum
+"fade_in_max"						"0.5"						//Fade in duration maximum
+"fade_in_offset_min"				"0.01"
+"fade_in_offset_max"				"0.5"
 "fade_out_min"						"1"						//Fade out duration minimum
 "fade_out_max"						"1"						//Fade out duration maximum
 
@@ -60,15 +62,15 @@
 "internal_oscillation"				"1"						//Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
 
 //Size modification parameters
-"size_mod_scalar_rate_min"			"0"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
-"size_mod_scalar_rate_max"			"0"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_min"			"1"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"1"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 "size_mod_scalar_offset"			"0"
 
-"size_mod_oscillate_freq_min"			"10"				//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_freq_max"			"10"				//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
-"size_mod_oscillate_amplitude_min"		"0.2"				//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
-"size_mod_oscillate_amplitude_max"		"0.2"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
-"size_mod_oscillate_amplitude_offset"	"0.4"				//Offset oscillation amplitude.
+"size_mod_oscillate_freq_min"			"5"				//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_freq_max"			"5"				//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"size_mod_oscillate_amplitude_min"		"0.5"				//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
+"size_mod_oscillate_amplitude_max"		"0.5"				//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
+"size_mod_oscillate_amplitude_offset"	"1.4"				//Offset oscillation amplitude.
 
 //Size modification parameters
 "emission_angle_mod_scalar_rate"				"0"			//Angle modification minimum (scalar)
@@ -80,9 +82,9 @@
 "emission_angle_mod_oscillate_amplitude_offset"	"0"			//Offset oscillation timer. Has little effect except in special cases
 
 //Movement modification parameters
-"move_mod_angle_min"					"-2000"				//Movement mod angle minimum. Particle turns this many degrees in one second
-"move_mod_angle_max"					"2000"				//Movement mod angle maximum. Particle turns this many degrees in one second
+"move_mod_angle_min"					"200"				//Movement mod angle minimum. Particle turns this many degrees in one second
+"move_mod_angle_max"					"200"				//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"10"					//Minimum alpha value
-"alpha_max"							"255"					//Maximum alpha value
+"alpha_min"							"5"					//Minimum alpha value
+"alpha_max"							"10"					//Maximum alpha value

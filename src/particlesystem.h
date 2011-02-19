@@ -79,6 +79,8 @@ namespace sbe
             {
                 float   fadeInMin, //Fade in duration min
                         fadeInMax, //Fade in duration max
+                        fadeInOffsetMin, //Fade in offset min
+                        fadeInOffsetMax, //Fade in offset max
                         fadeOutMin, //Fade out duration min
                         fadeOutMax; //Fade out duration max
             };
