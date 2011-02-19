@@ -369,10 +369,8 @@ namespace sbe
     void Window::showOptions()
     {
         menu = false;
-        if(optionsMenu != NULL)
-            delete optionsMenu;
+        safeDelete(optionsMenu);
         optionsMenu = new sbe::OptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res, fonts["inconsolata"], mainMenu->getPSPos(), mainMenu->getNextPSPos());
-        //delete mainMenu;
         opt = true;
     }
 
@@ -385,7 +383,6 @@ namespace sbe
     void Window::goBack()
     {
         opt = false;
-        //delete optionsMenu;
         menu = true;
         mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"], optionsMenu->getPSPos(), optionsMenu->getNextPSPos());
     }
@@ -443,7 +440,6 @@ namespace sbe
         if(map == 0)
         {
             menu = false;
-            delete mainMenu;
 
             testShip = new sbe::Ship("testShip", imgHandler);
 
