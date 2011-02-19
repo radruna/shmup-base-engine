@@ -9,6 +9,7 @@
 "name"								"shield_01_p"			//Particle system name
 "sprite_name"						"particle_2"			//Sprite to use. Needs to be loaded by asset file
 "move_type"							"0"						//Should particles move with particle system?
+"speed_multiplier"					"1"						//Not implemented yet. Multiply emission rate with speed, allowing for trails and stuff without clustered particle systems
 
 //Color parameters
 "initial_color_r"					"0"
@@ -23,9 +24,9 @@
 "color_mod_offset"					"0"						//Particle mod starts after this many seconds
 
 //Emission parameters
-"emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
+"emission_type"						"1"						//1 = continuous, 2 = instant
 "emission_rate"						"1000"					//Particles per second
-"emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
+"emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"0"						//Emission force minimum
 "emission_force_max"				"600"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
