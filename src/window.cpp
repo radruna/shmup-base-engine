@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-18
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -20,7 +20,8 @@
 #include "audiohandler.h" //For loading and playing sound and music
 #include "eventhandler.h" //Event handling
 #include "configreader.h" //Loads settings
-#include "particlesystem.h" //Particle systemsf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y)
+#include "particlesystem.h" //Particle system
+#include "entity.h"
 #include "ship.h"
 #include "projectile.h"
 //#include "player.h"
@@ -67,10 +68,7 @@ namespace sbe
         pSystem2 = NULL;
         loli = NULL;
 
-        if(menu)
-            mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
-        else
-            loadStuff();
+        mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
     }
 
     Window::~Window()
@@ -78,6 +76,7 @@ namespace sbe
         /*
             Purpose: Deconstructor for sbe::Window
         */
+        renderList.clear();
         delete imgHandler;
         delete audHandler;
         delete evtHandler;
@@ -283,9 +282,11 @@ namespace sbe
                 Clear();
 
                 // Draw stuff
-                Draw(*testShip);
-                Draw(*pSystem1);
-                Draw(*pSystem2);
+                for(RenderList::const_iterator it = renderList.begin(); it != renderList.end(); it++)
+                    Draw(**it);
+                //Draw(*testShip);
+                //Draw(*pSystem1);
+                //Draw(*pSystem2);
                 Draw(fps);
                 Draw(*testPanel);
 
@@ -442,6 +443,7 @@ namespace sbe
             menu = false;
 
             testShip = new sbe::Ship("testShip", imgHandler);
+            renderList.push_back(testShip);
 
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(0.f, 0.f);
@@ -457,6 +459,9 @@ namespace sbe
             pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem1->SetPosition(500.f, 300.f);
+
+            renderList.push_back(pSystem1);
+            renderList.push_back(pSystem2);
 
             loli = new sbe::Music();
             loli->OpenFromFile(audHandler->getMusic("loli2"));

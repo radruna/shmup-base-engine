@@ -1,8 +1,8 @@
 /*
-/ Panel class, used for GUI elements
+/ Button class
 / Author: Victor Rådmark
 / File created: 2011-01-28
-/ File updated: 2011-01-29
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #ifndef BUTTON_H_INCLUDED
@@ -37,8 +37,10 @@ namespace sbe
                    const sf::Color& color,
                    const float& outline = 1,
                    const sf::Color& outlineColor = sf::Color::Black);
-
-            void Render(sf::RenderTarget& target) const;
+            ~Button()
+            {
+                delete buttonRect;
+            }
             //Check if mouse click is within bounds and if so execute callback
             void click(const sf::Vector2i& mousePos);
 
@@ -46,7 +48,8 @@ namespace sbe
             {
                 string.SetColor(txtCol);
             }
-        private:
+        protected:
+            void Render(sf::RenderTarget& target) const;
             sf::Shape *buttonRect;
             sf::String string;
             void* funcObject; //The object which the callback function is a member of

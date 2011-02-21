@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-18
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -19,6 +19,7 @@
 #include "audiohandler.h" //Playing sound/music
 #include "eventhandler.h" //Handles events
 #include "configreader.h" //Loads settings
+#include "entity.h"
 #include "ship.h" //Ship class
 #include "projectile.h"
 //#include "player.h" //Player class
@@ -30,6 +31,7 @@
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
+typedef std::list<sf::Drawable*> RenderList;
 
 namespace sbe
 {
@@ -92,6 +94,7 @@ namespace sbe
             boolMap events;
             fontMap fonts;
 
+            RenderList renderList;
             std::list<Projectile> projectileList;
     };
 }

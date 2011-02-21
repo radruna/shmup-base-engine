@@ -1,8 +1,8 @@
 /*
-/ Panel class, used for GUI elements
+/ Button class
 / Author: Victor Rådmark
 / File created: 2011-01-28
-/ File updated: 2011-01-29
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #include <string>
@@ -48,7 +48,6 @@ namespace sbe
     {
         sf::Vector2f pos1 = buttonRect->GetPointPosition(0), pos2 = buttonRect->GetPointPosition(2);
 
-        //TODO(Liag#3#): Fix better triangle support
         if(buttonRect->GetNbPoints() == 3)
         {
             pos1.x = buttonRect->GetPointPosition(0).x;
