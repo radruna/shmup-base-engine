@@ -79,6 +79,8 @@
 		<Unit filename="src/audiohandler.h" />
 		<Unit filename="src/button.cpp" />
 		<Unit filename="src/button.h" />
+		<Unit filename="src/checkbutton.cpp" />
+		<Unit filename="src/checkbutton.h" />
 		<Unit filename="src/configreader.cpp" />
 		<Unit filename="src/configreader.h" />
 		<Unit filename="src/const.h" />
