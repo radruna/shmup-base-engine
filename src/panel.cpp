@@ -36,6 +36,7 @@ namespace sbe
         for(buttonMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
         {
             target.Draw(it->second);
+            Logger::writeMsg(1) << "button: " << it->first;
         }
         for(stringMap::const_iterator it = strings.begin(); it != strings.end(); it++)
         {

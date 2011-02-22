@@ -26,7 +26,7 @@ namespace sbe
                    const sf::Vector2f& p2,
                    const sf::Color& color,
                    const float& outline = 1,
-                   const sf::Color& outlineColor = sf::Color::Black);
+                   const sf::Color& outlineColor = sf::Color::White);
             Button(void* callObject,
                    void (*callFunction) (void* object),
                    const sf::String& text,
@@ -36,10 +36,10 @@ namespace sbe
                    const sf::Vector2f& p3,
                    const sf::Color& color,
                    const float& outline = 1,
-                   const sf::Color& outlineColor = sf::Color::Black);
+                   const sf::Color& outlineColor = sf::Color::White);
             ~Button()
             {
-                delete buttonRect;
+                //delete buttonRect;
             }
             //Check if mouse click is within bounds and if so execute callback
             void click(const sf::Vector2i& mousePos);

@@ -39,7 +39,7 @@ namespace sbe
         createButton("incrRes", this, incrRes, sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(455, 178), sf::Vector2f(455, 202), sf::Vector2f(479, 190), sf::Color(30, 30, 50, 0), 1, sf::Color::White);
 
         createString("fs", "Fullscreen ", font, 30, sf::Vector2f(110, 212));
-        createButton("fs", this, toggleFS, sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(280, 220), sf::Vector2f(310, 250), sf::Color(30, 30, 50, 0), 1, sf::Color::White);
+        createCheckButton("fs", this, toggleFS, cfgReader->getSetting<int>("fullscreen"), sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(280, 220), sf::Vector2f(310, 250), sf::Color(30, 30, 50, 0), sf::Color::White);
 
         createButton("apply", callObject, applyFunction, sf::String("Apply", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 220), sf::Vector2f(280, res.y - 180), sf::Color(30, 80, 30, 80), 1, sf::Color::White);
         createButton("back", callObject, backFunction, sf::String("Back", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 165), sf::Vector2f(280, res.y - 125), sf::Color(80, 30, 30, 80), 1, sf::Color::White);

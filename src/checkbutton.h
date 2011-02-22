@@ -25,7 +25,7 @@ namespace sbe
                         const sf::Vector2f& p1,
                         const sf::Vector2f& p2,
                         const sf::Color& color,
-                        const sf::Color& outlineColor = sf::Color::Black);
+                        const sf::Color& outlineColor = sf::Color::White);
 
             void click(const sf::Vector2i& mousePos);
 
