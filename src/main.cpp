@@ -2,7 +2,7 @@
 / The main function
 / Authors: Victor Rådmark, Felix Westin, Jonathan Orrö
 / File created: 2010-11-14
-/ File updated: 2011-01-30
+/ File updated: 2011-02-18
 / License: GPLv3
 */
 #include <string>
@@ -12,30 +12,37 @@
 #include "window.h"
 #include "configreader.h"
 #include "logger.h"
+#include "util.h"
 
 int main()
 {
     //Boot message
-    sbe::Logger::init();
     sbe::Logger::setLevel(1);
     sbe::Logger::writeMsg(1) << " --- Shmup Base Engine version 0.x --- ";
     sbe::Logger::write();
 
     //Create the config reader
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
+    sbe::Logger::init(cfgReader->getSetting<int>("log"));
     sbe::Window *mainWindow;
+    bool respawn = false;
 
-    //Create the main window
-    if(cfgReader->getSetting<bool>("fullscreen"))
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, sf::Style::Fullscreen);
-    else
-        mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader);
+    do
+    {
+        //Create the main window
+        if(cfgReader->getSetting<int>("fullscreen"))
+            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, sf::Style::Fullscreen);
+        else
+            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader);
 
-    mainWindow->exec();
+        respawn = mainWindow->exec();
 
-    delete mainWindow;
+        safeDelete(mainWindow);
+    }while(respawn); //While the mainWindow wants to respawn
 
     sbe::Logger::close();
+
+    delete cfgReader;
 
     return 0;
 }

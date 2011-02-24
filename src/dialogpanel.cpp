@@ -2,7 +2,7 @@
 / Dialog panels, for dialogue.
 / Author: Victor Rådmark
 / Created: 2011-01-31
-/ Updated: 2011-02-01
+/ Updated: 2011-02-13
 / License: GPL v3
 */
 #include <string>
@@ -18,10 +18,10 @@ namespace sbe
     DialogPanel::DialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog, const sf::Font& font, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
         : curDiag(0), dialogue(dialog)
     {
-        panelRect = new sf::Shape(sf::Shape::Rectangle(sf::Vector2f(20, res.y - 170), sf::Vector2f(600 + res.x / 4, res.y - 20), color, outline, outlineColor));
+        panelRect = new sf::Shape(sf::Shape::Rectangle(sf::Vector2f(20, res.y - 170), sf::Vector2f(res.x - 100, res.y - 20), color, outline, outlineColor));
         createString("dialogString", dialog.at(curDiag), font, 24, sf::Vector2f(30, res.y - 160));
-        createButton("nextButton", next, sf::Vector2f(530 + res.x / 4, res.y - 60), 60, "Next", font);
-        createButton("previousButton", previous, sf::Vector2f(400 + res.x / 4, res.y - 60), 100, "Previous", font, sf::Color(100, 100, 120, 255));
+        createButton("nextButton", next, sf::Vector2f(res.x - 170, res.y - 60), 60, "Next", font);
+        createButton("previousButton", previous, sf::Vector2f(res.x - 300, res.y - 60), 100, "Previous", font, sf::Color(100, 100, 120, 255));
     }
 
     void DialogPanel::createButton(const std::string& name, void (*callFunction) (void* object), const sf::Vector2f& p, const int& width, const std::string& text, const sf::Font& font, const sf::Color& txtCol,  const sf::Color& color, const float& outline, const sf::Color& outlineColor)

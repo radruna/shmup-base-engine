@@ -68,14 +68,19 @@
 		<Unit filename="scripts\particles\explosion\explosion1.ast" />
 		<Unit filename="scripts\particles\explosion\explosion1_debris.ast" />
 		<Unit filename="scripts\particles\explosion\explosion1_shockwave.ast" />
+		<Unit filename="scripts\particles\menu\mainmenu.ast" />
 		<Unit filename="scripts\particles\particle_test.ast" />
+		<Unit filename="scripts\particles\plasma_blast.ast" />
 		<Unit filename="scripts\particles\shield.ast" />
+		<Unit filename="scripts\particles\shield_old.ast" />
 		<Unit filename="scripts\particles\shot_01_p.ast" />
 		<Unit filename="scripts\shots\shot_01.ast" />
 		<Unit filename="src\audiohandler.cpp" />
 		<Unit filename="src\audiohandler.h" />
 		<Unit filename="src\button.cpp" />
 		<Unit filename="src\button.h" />
+		<Unit filename="src\checkbutton.cpp" />
+		<Unit filename="src\checkbutton.h" />
 		<Unit filename="src\configreader.cpp" />
 		<Unit filename="src\configreader.h" />
 		<Unit filename="src\const.h" />
@@ -92,12 +97,18 @@
 		<Unit filename="src\logger.cpp" />
 		<Unit filename="src\logger.h" />
 		<Unit filename="src\main.cpp" />
+		<Unit filename="src\mainmenu.cpp" />
+		<Unit filename="src\mainmenu.h" />
 		<Unit filename="src\md5\md5.cpp" />
 		<Unit filename="src\md5\md5.h" />
+		<Unit filename="src\menu.cpp" />
+		<Unit filename="src\menu.h" />
 		<Unit filename="src\movable.cpp" />
 		<Unit filename="src\movable.h" />
 		<Unit filename="src\music.cpp" />
 		<Unit filename="src\music.h" />
+		<Unit filename="src\optionsmenu.cpp" />
+		<Unit filename="src\optionsmenu.h" />
 		<Unit filename="src\panel.cpp" />
 		<Unit filename="src\panel.h" />
 		<Unit filename="src\particle.cpp" />
@@ -109,6 +120,7 @@
 		<Unit filename="src\ship.cpp" />
 		<Unit filename="src\ship.h" />
 		<Unit filename="src\time.h" />
+		<Unit filename="src\util.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>

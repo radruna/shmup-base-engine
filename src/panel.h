@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-29
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #ifndef PANEL_H_INCLUDED
@@ -51,10 +51,33 @@ namespace sbe
                               const float& outline = 1,
                               const sf::Color& outlineColor = sf::Color::Black);
 
+            void createButton(const std::string& name,
+                              void* callObject,
+                              void (*callFunction) (void* object),
+                              const sf::String& text,
+                              const sf::Color& txtCol,
+                              const sf::Vector2f& p1,
+                              const sf::Vector2f& p2,
+                              const sf::Vector2f& p3,
+                              const sf::Color& color,
+                              const float& outline = 1,
+                              const sf::Color& outlineColor = sf::Color::Black);
+
+            void createCheckButton(const std::string& name,
+                                   void* callObject,
+                                   void (*callFunction) (void* object),
+                                   const bool& c,
+                                   const sf::String& text,
+                                   const sf::Color& txtCol,
+                                   const sf::Vector2f& p1,
+                                   const sf::Vector2f& p2,
+                                   const sf::Color& color,
+                                   const sf::Color& outlineColor = sf::Color::Black);
+
             void click(const sf::Vector2i& mousePos);
         protected:
             void Render(sf::RenderTarget& target) const;
-            bool withinPanel(const sf::Vector2i& mousePos);
+            bool withinPanel(const sf::Vector2i& mousePos) const;
             sf::Shape *panelRect;
             stringMap strings;
             buttonMap buttons;

@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-28
-/ File updated: 2011-01-28
+/ File updated: 2011-02-13
 / License: GPLv3
 */
 #include <iostream>
@@ -20,17 +20,22 @@ namespace sbe
     unsigned char Logger::curLevel;
     unsigned char Logger::workLevel;
     std::ostringstream Logger::oss;
+    bool Logger::log;
 
-    void Logger::init()
+    void Logger::init(const bool l)
     {
-        system("mkdir logs");
-        std::string file = "logs/log_" + sbe::getCurTime() + ".txt";
-        fileWriter.open(file.c_str());
-        if(!fileWriter)
+        log = l;
+        if(log)
         {
-            //Debug output
-            std::cout << "Log file could not be opened for writing!" << std::endl;
-            return;
+            system("mkdir logs");
+            std::string file = "logs/log_" + sbe::getCurTime() + ".txt";
+            fileWriter.open(file.c_str());
+            if(!fileWriter)
+            {
+                //Debug output
+                std::cout << "Log file could not be opened for writing!" << std::endl;
+                return;
+            }
         }
     }
 
@@ -51,7 +56,7 @@ namespace sbe
                 //Add date and stuff
                 std::cout << oss.str() << std::endl;
 
-                if(fileWriter.is_open())
+                if(log && fileWriter.is_open())
                     fileWriter << oss.str() << std::endl;
 
                 oss.str("");

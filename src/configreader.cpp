@@ -2,7 +2,7 @@
 / Config reader class
 / Author: Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2011-01-30
+/ File updated: 2011-02-15
 / License: GPLv3
 */
 
@@ -16,15 +16,25 @@ namespace sbe
 {
     ConfigReader::ConfigReader()
     {
+        resList.push_back(sf::Vector2i(800, 600));
+        resList.push_back(sf::Vector2i(1024, 768));
+        resList.push_back(sf::Vector2i(1280, 720));
+        resList.push_back(sf::Vector2i(1440, 900));
+        resList.push_back(sf::Vector2i(1400, 1050));
+        resList.push_back(sf::Vector2i(1680, 1050));
+        /*resList.push_back(sf::Vector2i(1600, 1200));
+        resList.push_back(sf::Vector2i(1920, 1200));*/
         settings["title"] = "SBE";
         settings["width"] = "1280";
         settings["height"] = "720";
-        settings["fullscreen"] = "false";
+        settings["fullscreen"] = "0";
         settings["limit_fps"] = "60";
-        settings["vsync"] = "false";
+        settings["vsync"] = "0";
+        settings["show_menu"] = "1";
         settings["music_volume"] = "100";
         settings["sfx_volume"] = "100";
         settings["ps_reload"] = "10";
+        settings["log"] = "1";
         writeSettings(0);
         readConfig();
     }
@@ -79,6 +89,19 @@ namespace sbe
         fileReader.close();
     }
 
+    void ConfigReader::setRes(const sf::Vector2i& res)
+    {
+        std::ostringstream oss;
+
+        oss << res.x;
+        settings["width"] = oss.str();
+
+        oss.str("");
+
+        oss << res.y;
+        settings["height"] = oss.str();
+    }
+
     void ConfigReader::writeSettings(const bool& type)
     {
         std::string file = "default_settings.cfg";
@@ -103,12 +126,14 @@ namespace sbe
             fileWriter << "\"fullscreen\"		    \"" << settings ["fullscreen"] << "\"" << std::endl;
             fileWriter << "\"limit_fps\"			    \"" << settings ["limit_fps"] << "\" //If 0, no limit is set" << std::endl;
             fileWriter << "\"vsync\"			    	\"" << settings ["vsync"] << "\" //Should only be used with fullscreen" << std::endl;
+            fileWriter << "\"show_menu              \"" << settings ["show_menu"] << "\" //Show the main menu first." << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"music_volume\"		    \"" << settings ["music_volume"] << "\"" << std::endl;
             fileWriter << "\"sfx_volume\"		    \"" << settings ["sfx_volume"] << "\"" << std::endl;
             fileWriter << std::endl;
             fileWriter << "\"ps_reload\"            \"" << settings ["ps_reload"] << "\" //Interval between each frame that all particle systems should be reloaded, 0 to turn off" << std::endl;
-
+            fileWriter << std::endl;
+            fileWriter << "\"log\"                  \"" << settings ["log"] << "\" //If logs should be written to the logs directory" << std::endl;
             fileWriter.close();
         }
         catch(...)

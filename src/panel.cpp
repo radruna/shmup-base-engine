@@ -2,7 +2,7 @@
 / Panel class, used for GUI elements
 / Author: Victor Rådmark
 / File created: 2011-01-18
-/ File updated: 2011-01-29
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #include <iostream>
@@ -14,6 +14,7 @@
 #include "panel.h"
 #include "logger.h"
 #include "button.h"
+#include "checkbutton.h"
 
 namespace sbe
 {
@@ -25,6 +26,8 @@ namespace sbe
     Panel::~Panel()
     {
         delete panelRect;
+        strings.clear();
+        buttons.clear();
     }
 
     void Panel::Render(sf::RenderTarget& target) const
@@ -33,6 +36,7 @@ namespace sbe
         for(buttonMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
         {
             target.Draw(it->second);
+            Logger::writeMsg(1) << "button: " << it->first;
         }
         for(stringMap::const_iterator it = strings.begin(); it != strings.end(); it++)
         {
@@ -65,7 +69,25 @@ namespace sbe
         buttons[name] = tmpBtn;
     }
 
-    bool Panel::withinPanel(const sf::Vector2i& mousePos)
+    void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
+    {
+        /*
+            Purpose: Create a new triangle button based on parameters.
+        */
+        sbe::Button tmpBtn(callObject, callFunction, text, txtCol, p1, p2, p3, color, outline, outlineColor);
+        buttons[name] = tmpBtn;
+    }
+
+    void Panel::createCheckButton(const std::string& name, void* callObject, void (*callFunction) (void* object), const bool& c, const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const sf::Color& outlineColor)
+    {
+        /*
+            Purpose: Create a new check button based on parameters.
+        */
+        sbe::CheckButton tmpBtn(callObject, callFunction, c, text, txtCol, p1, p2, color, outlineColor);
+        buttons[name] = tmpBtn;
+    }
+
+    bool Panel::withinPanel(const sf::Vector2i& mousePos) const
     {
         if(mousePos.x > panelRect->GetPointPosition(0).x && mousePos.x < panelRect->GetPointPosition(2).x)
         {

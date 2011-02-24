@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-01-30
+/ File updated: 2011-02-21
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -19,14 +19,19 @@
 #include "audiohandler.h" //Playing sound/music
 #include "eventhandler.h" //Handles events
 #include "configreader.h" //Loads settings
+#include "entity.h"
 #include "ship.h" //Ship class
 #include "projectile.h"
 //#include "player.h" //Player class
 #include "panel.h"
+#include "mainmenu.h"
+#include "optionsmenu.h"
 #include "logger.h"
+#include "util.h"
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
+typedef std::list<sf::Drawable*> RenderList;
 
 namespace sbe
 {
@@ -42,7 +47,8 @@ namespace sbe
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();
 
-            int exec(); //Main game loop
+            bool exec(); //Main game loop, returns respawn
+
         private:
             void loadFonts(const std::string& fontFile);
             void unloadFonts()
@@ -50,24 +56,45 @@ namespace sbe
                 fonts.clear();
             }
 
+            static void select(void* object);
+            static void options(void* object);
+            static void hiscore(void* object);
+            static void credits(void* object);
+            static void exit(void* object);
+            static void apply(void* object);
+            static void back(void* object);
+
+            void loadStuff(const int& map = 0);
+            void showOptions();
+            void showHiScore() {}
+            void showCredits() {}
+            void applyOptions();
+            void goBack();
+
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
-            sbe::EventHandler *evtHandler; //One of several
+            sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
-            //sbe::Panel *mainMenu;
+            sbe::MainMenu *mainMenu;
+            sbe::OptionsMenu *optionsMenu;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
             sbe::Panel *testPanel;
+            sbe::ParticleSystem *pSystem1;
+            sbe::ParticleSystem *pSystem2;
+            sbe::Music *loli;
 
             sf::Vector2i res;
-            bool pause;
-
-            sf::Color c;
+            bool respawn,
+                 pause,
+                 menu,
+                 opt;
             short count;
 
             boolMap events;
             fontMap fonts;
 
+            RenderList renderList;
             std::list<Projectile> projectileList;
     };
 }
