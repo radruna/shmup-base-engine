@@ -27,14 +27,13 @@
 
 namespace sbe
 {
-    class Projectile : public FileHandler , public Movable
+    class Projectile : public Movable
     {
         /*
         Projectile class
         */
         public:
             Projectile(
-                        const std::string&  projectileFile,
                         ImageHandler*       imgHandler,
                         const sf::Image&    img,
                         const float&        a,

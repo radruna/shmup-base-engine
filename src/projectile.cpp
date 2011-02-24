@@ -26,7 +26,6 @@
 namespace sbe
 {
     Projectile::Projectile(
-                        const std::string&  projectileFile,
                         ImageHandler*       imgHandler,
                         const sf::Image&    img,
                         const float&        a,
@@ -34,17 +33,6 @@ namespace sbe
                        )
     : Movable(img, a, v)
     {
-
-        Logger::writeMsg(2) << "\nLoading projectile \"" << projectileFile << "\"...";
-
-        //Open specified file
-        fileReader.open(projectileFile.c_str());
-        if(!fileReader)
-        {
-            //Debug output
-            Logger::writeMsg(1) << "Projectile file not found";
-            return;
-        }
 
         //Set default values
         name            =   "none";
