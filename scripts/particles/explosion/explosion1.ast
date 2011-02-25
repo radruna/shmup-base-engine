@@ -9,7 +9,7 @@
 "name"								"explosion_01"									//Particle system name
 "sprite_name"						"smoke_01"										//Sprite to use. Needs to be loaded by asset file
 "child1"							"scripts/particles/explosion/explosion1_shockwave.ast"	//First child (another particle system)
-"child2"							"scripts/particles/explosion/explosion1_debris.ast"		//Second child (another particle system)
+"child2"							"scripts/particles/explosion/explosion1_shockwave.ast"		//Second child (another particle system)
 
 //Color parameters
 "initial_color_r"					"220"					//Initial color. Red channel

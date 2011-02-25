@@ -39,6 +39,7 @@ namespace sbe
             void update(const float& elapsed);
             void clear();
             void load();
+            void fire();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
@@ -46,6 +47,10 @@ namespace sbe
         private:
             ImageHandler *imageHandler;
             std::string scriptFile;
+            std::string pSystem1,
+                        pSystem2,
+                        pSystem3,
+                        pSystem4;
 
             struct ValueMod
             {
@@ -85,11 +90,8 @@ namespace sbe
                             spriteName;
             bool            rotRandom,              //Particle rotation randomization. Spawns the particles with random rotation. Is overridden by rotation alignment
                             rotAlign,               //Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
-                            internalOsc,            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
-                            moveType;
-            int             emissionType,           //Particle system type. 1 = continuous, 2 = instant
-                            emissionMax,            //Amount of particles to emit if type = 2
-                            alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
+                            internalOsc;            //Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
+            int             alphaMin,               //Initial alpha min. 0 = invisible, 255 = opaque.
                             alphaMax,               //Initial alpha max. 0 = invisible, 255 = opaque.
                             emissionAngleMin,       //Minimum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
                             emissionAngleMax;       //Maximum angle at which particles are emitted. 0 = straight upwards, 180 = straight downwards
@@ -112,9 +114,6 @@ namespace sbe
                             emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier
             FadeMod         fadeModifier;           //Fade parameters
-            Particle::DiffColor         colorInitial,
-                                        colorModified;
-            Particle::ColModData        colorModData;
 
             //Projectile list
             std::list<Projectile> projectileList;

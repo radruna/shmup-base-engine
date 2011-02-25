@@ -117,10 +117,14 @@
 		<Unit filename="src\particlesystem.h" />
 		<Unit filename="src\projectile.cpp" />
 		<Unit filename="src\projectile.h" />
+		<Unit filename="src\scrollayer.cpp" />
+		<Unit filename="src\scrollayer.h" />
 		<Unit filename="src\ship.cpp" />
 		<Unit filename="src\ship.h" />
 		<Unit filename="src\time.h" />
 		<Unit filename="src\util.h" />
+		<Unit filename="src\weapon.cpp" />
+		<Unit filename="src\weapon.h" />
 		<Unit filename="src\window.cpp" />
 		<Unit filename="src\window.h" />
 		<Extensions>

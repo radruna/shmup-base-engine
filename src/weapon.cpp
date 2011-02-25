@@ -53,21 +53,12 @@ namespace sbe
 
         name = "none";
         spriteName = "default_particle";
-        moveType = false;
 
-        colorInitial.r = 255;
-        colorInitial.g = 255;
-        colorInitial.b = 255;
+        pSystem1 = "";
+        pSystem2 = "";
+        pSystem3 = "";
+        pSystem4 = "";
 
-        colorModified.r = 256;  //256 for system checking. See below
-        colorModified.g = 256;
-        colorModified.b = 256;
-
-        colorModData.duration = 0;
-        colorModData.offset = 0;
-
-        emissionType = 1;
-        emissionMax = 100;
         emissionRate = 1;
         emissionAngleMin = -180;
         emissionAngleMax = 180;
@@ -138,42 +129,22 @@ namespace sbe
                 if(parameterKey == "name")
                     name = parameterValue;
 
-
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
 
-                else if(parameterKey == "move_type")
-                    moveType = (bool) atoi(parameterValue.c_str());//Convert string to bool
-
+                else if(parameterKey == "particle_system1")
+                    pSystem1 = parameterValue;
+                else if(parameterKey == "particle_system2")
+                    pSystem2 = parameterValue;
+                else if(parameterKey == "particle_system3")
+                    pSystem3 = parameterValue;
+                else if(parameterKey == "particle_system4")
+                    pSystem4 = parameterValue;
 
                 else if(parameterKey == "internal_oscillation")
                     internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
-                //Color parameters
-                else if(parameterKey == "initial_color_r")
-                    colorInitial.r = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "initial_color_g")
-                    colorInitial.g = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "initial_color_b")
-                    colorInitial.b = atof(parameterValue.c_str());//Convert string to float
-
-                else if(parameterKey == "modified_color_r")
-                    colorModified.r = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "modified_color_g")
-                    colorModified.g = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "modified_color_b")
-                    colorModified.b = atof(parameterValue.c_str());//Convert string to float
-
-                else if(parameterKey == "color_mod_duration")
-                    colorModData.duration = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "color_mod_offset")
-                    colorModData.offset = atof(parameterValue.c_str());//Convert string to float
-
                 //Emission parameters
-                else if(parameterKey == "emission_type")
-                    emissionType = atoi(parameterValue.c_str());//Convert string to int
-                else if(parameterKey == "emission_max")
-                    emissionMax = atoi(parameterValue.c_str());//Convert string to int
                 else if(parameterKey == "emission_rate")
                     emissionRate = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "emission_angle_min")
@@ -279,28 +250,11 @@ namespace sbe
                 else if(parameterKey == "alpha_mod_scalar_rate_max")
                     alphaModifier.scalarRateMax = atof(parameterValue.c_str());//Convert string to float
 
-                /*
-                else if(parameterKey == "alpha_mod_oscillate_freq")
-                alphaModifier.oscFreq = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "alpha_mod_oscillate_amplitude")
-                alphaModifier.oscAmp = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "alpha_mod_oscillate_offset")
-                alphaModifier.oscOffset = atof(parameterValue.c_str());//Convert string to float
-                */
-
                 //Parameter not found
                 else
                     Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
             }
         }
-
-        //Fix color mod values if non present in the script file
-        if(colorModified.r > 255)
-            colorModified.r = colorInitial.r;
-        if(colorModified.g > 255)
-            colorModified.g = colorInitial.r;
-        if(colorModified.b > 255)
-            colorModified.b = colorInitial.r;
 
         //No name parameter found in script file
         if(name == "none" || name == "")
@@ -329,6 +283,11 @@ namespace sbe
         {
             Target.Draw(*it);
         }
+    }
+
+    void Weapon::fire()
+    {
+
     }
 
     //Remove all particles from system
@@ -390,7 +349,7 @@ namespace sbe
             for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
             {
 
-                if(emissionMax > 0 || emissionType != 2) //Check emission type and how many particles remain if type = 2
+                if(1) //Check emission type and how many particles remain if type = 2
                 {
                     //Get values and spawn particle
 
@@ -497,8 +456,6 @@ namespace sbe
 
                     counter = 0; //Reset counter
 
-                    if(emissionType == 2) //Projectiles remaining -1 if type = 2
-                        emissionMax--;
                 }
             }
         }
@@ -535,11 +492,8 @@ namespace sbe
 
         */
 
-        if(moveType)
-        {
-            xPosOld = GetPositionX();
-            yPosOld = GetPositionY();
-        }
+        xPosOld = GetPositionX();
+        yPosOld = GetPositionY();
 
     }
 
