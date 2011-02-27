@@ -15,7 +15,7 @@
 namespace sbe
 {
     CheckButton::CheckButton()
-        : Button()
+        : Button(), checked(false)
     {
         line1 = NULL;
         line2 = NULL;
@@ -25,7 +25,7 @@ namespace sbe
                              const sf::Color& color, const sf::Color& outlineColor)
         : Button(callObject, callFunction, text, txtCol, p1, p2, color, 1, outlineColor), checked(c)
     {
-        line1 = new sf::Shape(sf::Shape::Line(p1, p2, 1, outlineColor));
+        line1 = new sf::Shape(sf::Shape::Line(100, 100, 200, 200, 5, outlineColor, 5, outlineColor));
         line2 = new sf::Shape(sf::Shape::Line(p2.x, p1.y, p1.x, p2.y, 1, outlineColor));
     }
 

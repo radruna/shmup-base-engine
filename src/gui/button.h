@@ -49,7 +49,7 @@ namespace sbe
             }
 
         protected:
-            virtual void Render(sf::RenderTarget& target) const;
+            void Render(sf::RenderTarget& target) const;
             sf::Shape *buttonRect;
             sf::String string;
             void* funcObject; //The object which the callback function is a member of

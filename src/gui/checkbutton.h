@@ -30,6 +30,7 @@ namespace sbe
             ~CheckButton();
 
             void click(const sf::Vector2i& mousePos);
+
         protected:
             void Render(sf::RenderTarget& target) const;
         private:

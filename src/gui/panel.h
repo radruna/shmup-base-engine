@@ -14,9 +14,11 @@
 #include <SFML/Graphics.hpp>
 
 #include "button.h"
+#include "checkbutton.h"
 
 typedef std::map<std::string, sf::String> stringMap;
 typedef std::map<std::string, sbe::Button> buttonMap;
+typedef std::map<std::string, sbe::CheckButton> checkButtonMap;
 
 namespace sbe
 {
@@ -85,6 +87,7 @@ namespace sbe
             sf::Shape *panelRect;
             stringMap strings;
             buttonMap buttons;
+            checkButtonMap checkButtons;
     };
 }
 
