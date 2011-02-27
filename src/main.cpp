@@ -9,10 +9,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "window.h"
-#include "configreader.h"
-#include "logger.h"
-#include "util.h"
+#include "graphics/window.h"
+#include "sys/configreader.h"
+#include "sys/logger.h"
+#include "sys/util.h"
 
 int main()
 {
