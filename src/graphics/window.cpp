@@ -67,6 +67,8 @@ namespace sbe
         pSystem1 = NULL;
         pSystem2 = NULL;
         loli = NULL;
+        scroll = NULL;
+
 
         mainMenu = new MainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, fonts["inconsolata"]);
     }
@@ -239,6 +241,7 @@ namespace sbe
                 //Particle system update test
                 pSystem1->update(ElapsedTime);
                 pSystem2->update(ElapsedTime);
+                scroll->update(ElapsedTime); //test
 
                 //TODO (Liag#5#) Add lasers and stuff to the Ship class.
                 if(GetInput().IsKeyDown(sf::Key::Space) && counter < 2)
@@ -282,6 +285,7 @@ namespace sbe
                 Clear();
 
                 // Draw stuff
+                Draw(*scroll);
                 for(RenderList::const_iterator it = renderList.begin(); it != renderList.end(); it++)
                     Draw(**it);
                 //Draw(*testShip);
@@ -289,6 +293,7 @@ namespace sbe
                 //Draw(*pSystem2);
                 Draw(fps);
                 Draw(*testPanel);
+
 
                 if(counter > 0)
                 {
@@ -460,6 +465,7 @@ namespace sbe
             pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem1->SetPosition(500.f, 300.f);
+            scroll = new Scrollayer("scripts/maps/background.ast", imgHandler);
 
             renderList.push_back(pSystem1);
             renderList.push_back(pSystem2);

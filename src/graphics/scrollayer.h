@@ -1,5 +1,5 @@
 /*
-/ Particle class
+/ Scroll layer class
 / Author: Niklas Andréasson
 / File created: 2010-12-07
 / File updated: 2011-01-27
@@ -9,6 +9,8 @@
 #define SCROLLAYER_H_INCLUDED
 
 #include <iostream> //Debug output
+#include <sstream> //Test
+#include <list> //For lists
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
@@ -32,8 +34,19 @@ namespace sbe
             void load();
             void update(const float& elapsed);
         private:
-            sf::Image bgImg;
+            //sf::Image bgImg;
+            //std::list <sf::Sprite> layers;
+            //sf::Sprite bgSprite;
             std::string scriptFile;
+
+            struct Layer
+            {
+                sf::Sprite bgSprite;
+                float speed, xPos, yPos;
+            };
+
+            std::list <Layer> layers;
+            Layer tmp;
             void Render(sf::RenderTarget& Target) const;
             ImageHandler *imageHandler;
 

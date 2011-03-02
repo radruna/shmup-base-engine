@@ -1,5 +1,5 @@
 /*
-/ Particle class
+/ Scroll layer class
 / Author: Niklas Andréasson
 / File created: 2010-12-07
 / File updated: 2011-01-27
@@ -13,6 +13,7 @@
 #include "../sys/logger.h" //Outputs debug in console and log
 #include "../game/movable.h" //Base entity class
 #include "scrollayer.h"   //Header
+#include <list> //For lists
 
 namespace sbe
 {
@@ -58,23 +59,45 @@ namespace sbe
             {
                 //Assign parameter value based on the type of parameter.
                 //Generic parameters
-                if(parameterKey == "image")
-                    bgImg = imageHandler->getImage(parameterValue);
+                if(parameterKey == "image"){
+                   tmp.bgSprite.SetImage(imageHandler->getImage(parameterValue));
 
+                }
+                else if(parameterKey == "xPos") {
+                   // Layer.bgSprite.SetX(atof(parameterValue.c_str()));
+                    //x = atof(parameterValue.c_str());
+                }
+                else if(parameterKey == "yPos") {
+                   // Layer.bgSprite.SetY(atof(parameterValue.c_str()));
+                   tmp.bgSprite.SetY(atof(parameterValue.c_str()));
+                    //layers.push_back(bgSprite);
+                    layers.push_back(tmp);
+
+                }
+                else if(parameterKey == "speed") {
+
+                }
                 else
                     Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;
             }
+
+
         }
 
     }
 
     void Scrollayer::Render(sf::RenderTarget& Target) const
     {
-        //Target.Draw(bgImg);
+       for(std::list<Layer>::const_iterator it = layers.begin(); it != layers.end(); it++) //Iterate through particle list
+        {
+            Target.Draw(it->bgSprite);
+        }
     }
 
     void Scrollayer::update(const float& elapsed)
     {
+        //x = x + 10;
 
+        //layers.front().SetX(x);
     }
 }

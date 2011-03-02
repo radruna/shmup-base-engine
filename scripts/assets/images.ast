@@ -10,3 +10,5 @@
 "shield_01"		"assets/image/shield.png"		//Test shield
 "shockwave"		"assets/image/shockwave.png"	//Shockwave
 "particle_2"	"assets/image/particle_2.png"
+"bg"			"assets/image/background0.bmp"
+"bg2"			"assets/image/background2.bmp"

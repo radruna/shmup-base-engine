@@ -28,6 +28,7 @@
 //#include "../game/player.h"
 #include "../game/projectile.h"
 #include "imagehandler.h" //For loading images
+#include "../graphics/scrollayer.h"; // Background layers
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
@@ -83,6 +84,7 @@ namespace sbe
             sbe::ParticleSystem *pSystem1;
             sbe::ParticleSystem *pSystem2;
             sbe::Music *loli;
+            sbe::Scrollayer *scroll; // test
 
             sf::Vector2i res;
             bool respawn,
