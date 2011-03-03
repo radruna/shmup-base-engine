@@ -28,11 +28,7 @@
 //#include "../game/player.h"
 #include "../game/projectile.h"
 #include "imagehandler.h" //For loading images
-<<<<<<< HEAD
-#include "scrollayer.h" // Background layers
-=======
-#include "../graphics/background.h"; // Background layers
->>>>>>> 94682ca88b1495ce929cfee6a3e8eed6e1dcf87a
+#include "background.h"; // Background layers
 
 typedef std::map<std::string, bool> boolMap;
 typedef std::map<std::string, sf::Font> fontMap;
