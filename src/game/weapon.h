@@ -82,7 +82,18 @@ namespace sbe
             float           counter,
                             age,
                             emissionAngle,
-                            reloadInterval;
+                            reloadInterval,
+                            firingInterval;
+
+            bool            firing,
+                            randEmissionAngle;
+
+            int             shotsPerWave,
+                            wavesPerAttack,
+                            wavesLeft;
+
+            float           waveInterval;
+
             sf::Image sprite;
 
             //Parameters
