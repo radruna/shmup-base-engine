@@ -465,7 +465,7 @@ namespace sbe
             pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem1->SetPosition(500.f, 300.f);
-            scroll = new Scrollayer("scripts/maps/background.ast", imgHandler);
+            scroll = new Background("scripts/maps/background.ast", imgHandler);
 
             renderList.push_back(pSystem1);
             renderList.push_back(pSystem2);
