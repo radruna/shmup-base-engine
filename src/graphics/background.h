@@ -1,12 +1,12 @@
 /*
-/ Scroll layer class
+/ Background class
 / Author: Niklas Andréasson
-/ File created: 2010-12-07
-/ File updated: 2011-01-27
+/ File created: 2011-02-25
+/ File updated: 2011-03-03
 / License: GPLv3
 */
-#ifndef SCROLLAYER_H_INCLUDED
-#define SCROLLAYER_H_INCLUDED
+#ifndef BACKGROUND_H_INCLUDED
+#define BACKGROUND_H_INCLUDED
 
 #include <iostream> //Debug output
 #include <sstream> //Test
@@ -14,21 +14,22 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "../graphics/layer.h"   //Layer class
 #include "../game/movable.h" //Base class def
 
 namespace sbe
 {
-    class Scrollayer : public sf::Drawable , FileHandler
+    class Background : public FileHandler , public sf::Drawable
     {
         /*
-            Particle class
+            Background class
         */
         public:
-            Scrollayer(
+            Background(
                        const std::string& scrollayerFile,
                        ImageHandler* imgHandler
                        );
-            ~Scrollayer()
+            ~Background()
             {
             }
             void load();
@@ -38,15 +39,13 @@ namespace sbe
             //std::list <sf::Sprite> layers;
             //sf::Sprite bgSprite;
             std::string scriptFile;
-
-            struct Layer
-            {
-                sf::Sprite bgSprite;
-                float speed, xPos, yPos;
-            };
+            std::string spriteName;
+            float       xOffset,
+                        yOffset;
+            float moveAngle;
+            float moveSpeed;
 
             std::list <Layer> layers;
-            Layer tmp;
             void Render(sf::RenderTarget& Target) const;
             ImageHandler *imageHandler;
 
