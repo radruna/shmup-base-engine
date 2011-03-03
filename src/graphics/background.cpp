@@ -71,9 +71,9 @@ namespace sbe
                     Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;
             }
 
-
         }
-        sf::Image tmpImg = imageHandler->getImage(spriteName);
+
+        tmpImg = imageHandler->getImage(spriteName);
 
         layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset));
 

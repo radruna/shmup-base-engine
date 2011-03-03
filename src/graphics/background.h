@@ -44,6 +44,7 @@ namespace sbe
                         yOffset;
             float moveAngle;
             float moveSpeed;
+            sf::Image tmpImg;
 
             std::list <Layer> layers;
             void Render(sf::RenderTarget& Target) const;
