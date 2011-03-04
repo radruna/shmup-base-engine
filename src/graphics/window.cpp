@@ -27,7 +27,7 @@
 #include "../game/entity.h"
 #include "../game/ship.h"
 //#include "../game/player.h"
-#include "../game/projectile.h"
+#include "../game/weapon.h"
 #include "imagehandler.h" //For loading images
 #include "particlesystem.h" //Particle system
 #include "window.h" //Class def
@@ -66,6 +66,7 @@ namespace sbe
         testPanel = NULL;
         pSystem1 = NULL;
         pSystem2 = NULL;
+        wpn1 = NULL;
         loli = NULL;
         scroll = NULL;
 
@@ -89,6 +90,7 @@ namespace sbe
         safeDelete(testPanel);
         safeDelete(pSystem1);
         safeDelete(pSystem2);
+        safeDelete(wpn1);
         safeDelete(loli);
     }
 
@@ -237,10 +239,14 @@ namespace sbe
                 //Update the ship with the input data
                 testShip->update(ElapsedTime);
                 pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
+                wpn1->SetPosition(pSystem2->GetPositionX() , pSystem2->GetPositionY());
+                //Logger::writeMsg(1) << pSystem2->GetPosition().x << " " << pSystem2->GetPosition().y;
+                //wpn1->SetPosition(100 , 200);
 
                 //Particle system update test
                 pSystem1->update(ElapsedTime);
                 pSystem2->update(ElapsedTime);
+                wpn1->update(ElapsedTime);
                 scroll->update(ElapsedTime); //test
 
                 //TODO (Liag#5#) Add lasers and stuff to the Ship class.
@@ -248,8 +254,11 @@ namespace sbe
                 {
                     counter = 10;
 
+                    wpn1->fire();
+
                     //projectileList.push_back(Projectile("/scripts/shots/shot_01.ast", imgHandler));
 
+                    /*
                     shot.SetCenter(0, 1000.f);
                     if(gun)
                     {
@@ -265,6 +274,7 @@ namespace sbe
                     }
 
                     shot.SetPosition(testShip->GetPosition().x + gunPosX, testShip->GetPosition().y + 58);
+                    */
                     //laser.Play();
 
                 }
@@ -466,9 +476,11 @@ namespace sbe
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem1->SetPosition(500.f, 300.f);
             scroll = new Background("scripts/maps/background.ast", imgHandler);
+            wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler);
 
             renderList.push_back(pSystem1);
             renderList.push_back(pSystem2);
+            renderList.push_back(wpn1);
 
             loli = new sbe::Music();
             loli->OpenFromFile(audHandler->getMusic("loli2"));

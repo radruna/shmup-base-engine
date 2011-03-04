@@ -44,6 +44,8 @@ namespace sbe
                         yOffset;
             float moveAngle;
             float moveSpeed;
+            float yScale, xScale;
+            int repeat;
             sf::Image tmpImg;
 
             std::list <Layer> layers;

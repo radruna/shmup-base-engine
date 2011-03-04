@@ -9,6 +9,7 @@
 #define LAYER_H_INCLUDED
 
 #include <iostream> //Debug output
+#include <list> //For lists
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
@@ -24,16 +25,20 @@ namespace sbe
         public:
             Layer(
                        const sf::Image&     img,
-                       const float&          a,
-                       const float&          v,
-                       const float&          xOffset,
-                       const float&          yOffset
+                       const float&         a,
+                       const float&         v,
+                       const float&         xOffset,
+                       const float&         yOffset,
+                       const float&         yScale,
+                       const float&         xScale,
+                       const int&           repeat
                        );
             ~Layer()
             {
             }
             void update(const float& elapsed);
         private:
+            std::list <Layer> layers;
     };
 }
 

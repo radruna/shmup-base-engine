@@ -22,11 +22,13 @@
 #include "../graphics/imagehandler.h" //For loading images
 #include "projectile.h" //Projectile header
 #include "weapon.h" //Class def
+#include "../sys/configreader.h" //Class def
 
 namespace sbe
 {
     Weapon::Weapon(const std::string& weaponFile, ImageHandler* imgHandler)
     {
+        firing = false;
         scriptFile = weaponFile;
         imageHandler = imgHandler;
         load();
@@ -52,6 +54,11 @@ namespace sbe
 
         name = "none";
         spriteName = "default_particle";
+
+        shotsPerWave = 1;
+        wavesPerAttack = 1;
+
+        randEmissionAngle = false;
 
         pSystem1 = "";
         pSystem2 = "";
@@ -130,6 +137,16 @@ namespace sbe
 
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
+
+                else if(parameterKey == "shots_per_wave")
+                    shotsPerWave = atoi(parameterValue.c_str());
+                else if(parameterKey == "waves_per_attack")
+                    wavesPerAttack = atoi(parameterValue.c_str());
+                else if(parameterKey == "waves_interval")
+                    waveInterval = atof(parameterValue.c_str());
+
+                else if(parameterKey == "emission_angle_random")
+                    randEmissionAngle = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
                 else if(parameterKey == "particle_system1")
                     pSystem1 = parameterValue;
@@ -251,9 +268,11 @@ namespace sbe
 
                 //Parameter not found
                 else
-                    Logger::writeMsg(1) << "Invalid particle system parameter: " << parameterKey;
+                    Logger::writeMsg(1) << "Invalid weapon parameter: " << parameterKey;
             }
         }
+
+        wavesLeft = wavesPerAttack;
 
         //No name parameter found in script file
         if(name == "none" || name == "")
@@ -286,7 +305,8 @@ namespace sbe
 
     void Weapon::fire()
     {
-
+        if(!firing)
+            firing = true;
     }
 
     //Remove all particles from system
@@ -338,158 +358,131 @@ namespace sbe
     void Weapon::update(const float& elapsed)
     {
 
+        /*
+        //Fire if firing == true
+        if(firing)
+        {
+            if(wavesLeft > 0)
+            {
+                for(int i = 0;i < projAmount; i++){
+                    projectileList.push_back(Projectile(xPos, yPos, sprite, emissionAngle, emissionForce));
+                }
+                wavesLeft--;
+            }else
+            {
+                firing = false;
+                wavesLeft = wavesPerAttack;
+            }
+        }
+        */
+
         //Increase age
         age += elapsed;
         //Emit new particle
         if(counter > 1/emissionRate)
         {
 
-            int prcPerFrame = counter / (1/emissionRate); //Check how many particles should be emitted this frame.
-            for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
+            if(1) //Check emission type and how many particles remain if type = 2
             {
+                //Get values and spawn particle
 
-                if(1) //Check emission type and how many particles remain if type = 2
+                Particle::ParaMod sizeMod;
+                Particle::ParaMod emissionAngleMod;
+
+                //Get rotation rate (divide by 10 for a nicer value)
+                float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
+                //Get force
+                float emissionForce = boundsRand( emissionForceMin , emissionForceMax );
+                //Get friction
+                float emissionFriction = boundsRand( emissionFrictionMin , emissionFrictionMin );
+                //Get lifespan
+                float lifeSpan = boundsRand( lifeSpanMin , lifeSpanMax );
+                //Get fade in duration
+                float fadeInDur = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
+                //Get fade in offset
+                float fadeInOffset = boundsRand( fadeModifier.fadeInOffsetMin, fadeModifier.fadeInOffsetMax );
+                //Get fade out duration
+                float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
+                //Get alpha
+                int alpha = boundsRand( alphaMin, alphaMax );
+
+                //Get scalar size mod rate
+                sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                //Get scalar size mod offset
+                sizeMod.scalarOffset = sizeModifier.scalarRateOffset;
+                //Get oscillating size mod frequency
+                sizeMod.frequency = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
+                //Get oscillating size mod amplitude
+                sizeMod.amplitude = boundsRand( sizeModifier.oscAmpMin, sizeModifier.oscAmpMin );
+                //Get oscillating size mod offset
+                sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
+
+                //Get scalar emission angle mod rate
+                emissionAngleMod.scalarRate = emissionAngleModifier.scalarRateMin;
+                //Get oscillating emission angle mod frequency
+                emissionAngleMod.frequency = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
+                //Get oscillating emission angle mod amplitude
+                emissionAngleMod.amplitude = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
+                //Get oscillating emission angle mod offset
+                emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
+
+                //Get movement mod
+                float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
+
+                //Fire if firing == true
+                if(firing)
                 {
-                    //Get values and spawn particle
-
-                    Particle::ParaMod sizeMod;
-                    Particle::ParaMod emissionAngleMod;
-
-                    //Get scale
-                    float scale = boundsRand( sizeMin , sizeMax );
-                    //Get rotation rate (divide by 10 for a nicer value)
-                    float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
-                    //Get force
-                    float emissionForce = boundsRand( emissionForceMin , emissionForceMax );
-                    //Get friction
-                    float emissionFriction = boundsRand( emissionFrictionMin , emissionFrictionMin );
-                    //Get lifespan
-                    float lifeSpan = boundsRand( lifeSpanMin , lifeSpanMax );
-                    //Get fade in duration
-                    float fadeInDur = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
-                    //Get fade in offset
-                    float fadeInOffset = boundsRand( fadeModifier.fadeInOffsetMin, fadeModifier.fadeInOffsetMax );
-                    //Get fade out duration
-                    float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
-                    //Get alpha
-                    int alpha = boundsRand( alphaMin, alphaMax );
-
-                    //Get scalar size mod rate
-                    sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
-                    //Get scalar size mod offset
-                    sizeMod.scalarOffset = sizeModifier.scalarRateOffset;
-                    //Get oscillating size mod frequency
-                    sizeMod.frequency = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
-                    //Get oscillating size mod amplitude
-                    sizeMod.amplitude = boundsRand( sizeModifier.oscAmpMin, sizeModifier.oscAmpMin );
-                    //Get oscillating size mod offset
-                    sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
-
-                    //Get scalar emission angle mod rate
-                    emissionAngleMod.scalarRate = emissionAngleModifier.scalarRateMin;
-                    //Get oscillating emission angle mod frequency
-                    emissionAngleMod.frequency = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
-                    //Get oscillating emission angle mod amplitude
-                    emissionAngleMod.amplitude = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
-                    //Get oscillating emission angle mod offset
-                    emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
-
-                    //Get emission angle
-
-                    if(emissionAngleMod.scalarRate != 0)
+                    if(wavesLeft > 0)
                     {
-                        emissionAngle += emissionAngleMod.scalarRate / (1/elapsed);
-                        //std::cout<<emissionAngleMod.scalarRate<<std::endl;
-                        if(emissionAngle > 360)
-                            emissionAngle -= 360;
+                        for(int i = 0;i < shotsPerWave; i++){
+                            //emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
+                            float scale = boundsRand( sizeMin , sizeMax );
+                            if(!randEmissionAngle && shotsPerWave != 1)
+                                emissionAngle = emissionAngleMin + (emissionAngleMax - emissionAngleMin) / (shotsPerWave - 1) * i;
+                            else if(!randEmissionAngle)
+                                emissionAngle = emissionAngleMin + (emissionAngleMax - emissionAngleMin) / 2;
+                            else
+                                emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
+
+                            projectileList.push_back(Projectile(xPos, yPos, sprite, emissionAngle, emissionForce));
+                            //Handle size/ratio
+                            projectileList.back().SetScale(scale, scale * sizeRatio);
+                            //Handle rotation
+                            if(rotAlign) //Should I align to emission angle?
+                                projectileList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
+                            else if(rotRandom) //Should I start out with random rotation?
+                                projectileList.back().SetRotation( rand() % 360 );
+                            else //Just spawn with rotation
+                                projectileList.back().SetRotation( rotation );
+                        }
+                        wavesLeft--;
                     }
-                    else if(emissionAngleMod.frequency != 0)
-                        emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax ) + emissionAngleMod.amplitude * sin(age * emissionAngleMod.frequency) + emissionAngleMod.amplitudeOffset;
                     else
-                        emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
-
-                    //Get movement mod
-                    float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
-                    //sizeMod.scalarOffset
-                    //Logger::writeMsg(1) << sizeMod.scalarOffset;
-
-                    /*
-                    projectileList.push_back(Projectile(
-                                                    sprite, //Sprite to use
-                                                    scale, //Width
-                                                    scale * sizeRatio, //Height
-                                                    emissionAngle,
-                                                    emissionForce,
-                                                    lifeSpan,
-                                                    alpha,
-                                                    fadeInDur,
-                                                    fadeInOffset,
-                                                    fadeOutDur,
-                                                    emissionFriction,
-                                                    sizeMod, //Size modification data
-                                                    movementModAngle,
-                                                    age,
-                                                    rotAlign,
-                                                    internalOsc,
-                                                    colorInitial,
-                                                    colorModified,
-                                                    colorModData
-                                                    )); //Add new projectile to list
-                    */
-
-                    projectileList.push_back(Projectile(imageHandler, sprite, emissionAngle, emissionForce));
-
-                    projectileList.back().SetPosition( xPos , yPos ); //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
-                    //projectileList.back().setRotRate( rotRate ); //Set rotation rate
-
-                    //Handle rotation
-                    if(rotAlign) //Should I align to emission angle?
-                        projectileList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
-                    else if(rotRandom) //Should I start out with random rotation?
-                        projectileList.back().SetRotation( rand() % 360 );
-                    else //Just spawn with rotation
-                        projectileList.back().SetRotation( rotation );
-
-
-                    //Logger::writeMsg(1) << "New projectile emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce; //Debug
-
-                    counter = 0; //Reset counter
-
+                    {
+                        firing = false;
+                        wavesLeft = wavesPerAttack;
+                    }
                 }
+
+                //Logger::writeMsg(1) << "New projectile emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce; //Debug
+
+                counter = 0; //Reset counter
+
             }
+
         }
         else
             counter += elapsed; //Count time
 
-        /*
-
-        if(!moveType)
+        for(std::list<Projectile>::iterator pIt = projectileList.begin(); pIt != projectileList.end(); pIt++) //Iterate through projectile list
         {
-            for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++) //Iterate through particle list
-            {
-                if(pIt->getLife() < 0) //Check if particle should die
-                    pIt = particleList.erase(pIt); //Erase particle
-                else
-                {
-                    pIt->update(elapsed); //Update particle
-                }
-            }
+                pIt->update(elapsed); //Update projectile
+                if(
+                   pIt->GetPosition().x < 0 ||
+                   pIt->GetPosition().y < 0
+                   )
+                 pIt = projectileList.erase(pIt); //Erase projectile
         }
-        else
-        {
-            for(std::list<Particle>::iterator pIt = particleList.begin(); pIt != particleList.end(); pIt++) //Iterate through particle list
-            {
-                if(pIt->getLife() < 0) //Check if particle should die
-                    pIt = particleList.erase(pIt); //Erase particle
-                else
-                {
-                    pIt->update(elapsed); //Update particle
-                    pIt->Move( -1 * (xPosOld - GetPositionX()) , -1 * (yPosOld - GetPositionY()) );
-                }
-            }
-        }
-
-        */
 
         xPosOld = GetPositionX();
         yPosOld = GetPositionY();

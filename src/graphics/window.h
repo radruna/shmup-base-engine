@@ -26,7 +26,7 @@
 #include "../game/entity.h"
 #include "../game/ship.h"
 //#include "../game/player.h"
-#include "../game/projectile.h"
+#include "../game/weapon.h"
 #include "imagehandler.h" //For loading images
 #include "background.h" // Background layers
 
@@ -83,6 +83,7 @@ namespace sbe
             sbe::Panel *testPanel;
             sbe::ParticleSystem *pSystem1;
             sbe::ParticleSystem *pSystem2;
+            sbe::Weapon *wpn1;
             sbe::Music *loli;
             sbe::Background *scroll; // test
 

@@ -19,15 +19,21 @@ namespace sbe
 
     Layer::Layer(
                        const sf::Image&     img,
-                       const float&          a,
-                       const float&          v,
-                       const float&          xOffset,
-                       const float&          yOffset
+                       const float&         a,
+                       const float&         v,
+                       const float&         xOffset,
+                       const float&         yOffset,
+                       const float&         yScale,
+                       const float&         xScale,
+                       const int&           repeat
                        )
         : Movable(img, a, v)
     {
         SetPosition(xOffset, yOffset);
+        SetScale(xScale, yScale);
     }
+
+
 
     void Layer::update(const float& elapsed)
     {

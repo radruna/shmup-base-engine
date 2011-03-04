@@ -35,7 +35,8 @@ namespace sbe
         */
         public:
             Projectile(
-                        ImageHandler*       imgHandler,
+                        const int&          xPos,
+                        const int&          yPos,
                         const sf::Image&    img,
                         const float&        a,
                         const float&        v
@@ -50,11 +51,9 @@ namespace sbe
 
         private:
             std::string         name,
-                                spriteName,
                                 particleSystem;
 
-            float               speed,
-                                hitBoxRadius,
+            float               hitBoxRadius,
                                 damage;
     };
 }

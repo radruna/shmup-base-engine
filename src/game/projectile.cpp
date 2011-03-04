@@ -26,19 +26,17 @@
 namespace sbe
 {
     Projectile::Projectile(
-                        ImageHandler*       imgHandler,
+                        const int&          xPos,
+                        const int&          yPos,
                         const sf::Image&    img,
                         const float&        a,
                         const float&        v
                        )
     : Movable(img, a, v)
     {
-
+        SetPosition(xPos, yPos);
         //Set default values
-        name            =   "none";
-        spriteName      =   "default_particle";
         particleSystem  =   "none";
-        speed           =   10;
         hitBoxRadius    =   5;
         damage          =   10;
     }
