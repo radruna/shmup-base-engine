@@ -31,6 +31,7 @@ namespace sbe
 
             void click(const sf::Vector2i& mousePos);
 
+            bool isCheck;
         protected:
             void Render(sf::RenderTarget& target) const;
         private:

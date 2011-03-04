@@ -30,7 +30,7 @@ namespace sbe
         safeDelete(panelRect);
         strings.clear();
         buttons.clear();
-        checkButtons.clear();
+        //checkButtons.clear();
     }
 
     void Panel::Render(sf::RenderTarget& target) const
@@ -39,8 +39,8 @@ namespace sbe
         for(buttonMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
             target.Draw(it->second);
 
-        for(checkButtonMap::const_iterator it = checkButtons.begin(); it != checkButtons.end(); it++)
-            target.Draw(it->second);
+        /*for(checkButtonMap::const_iterator it = checkButtons.begin(); it != checkButtons.end(); it++)
+            target.Draw(it->second);*/
 
         for(stringMap::const_iterator it = strings.begin(); it != strings.end(); it++)
             target.Draw(it->second);
@@ -86,7 +86,7 @@ namespace sbe
             Purpose: Create a new check button based on parameters.
         */
         sbe::CheckButton tmpBtn(callObject, callFunction, c, text, txtCol, p1, p2, color, outlineColor);
-        checkButtons[name] = tmpBtn;
+        buttons[name] = tmpBtn;
     }
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos) const
@@ -107,8 +107,8 @@ namespace sbe
             for(buttonMap::iterator it = buttons.begin(); it != buttons.end(); it++)
                 it->second.click(mousePos);
 
-            for(checkButtonMap::iterator it = checkButtons.begin(); it != checkButtons.end(); it++)
-                it->second.click(mousePos);
+            /*for(checkButtonMap::iterator it = checkButtons.begin(); it != checkButtons.end(); it++)
+                it->second.click(mousePos);*/
         }
     }
 }

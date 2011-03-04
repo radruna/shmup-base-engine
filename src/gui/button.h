@@ -48,8 +48,9 @@ namespace sbe
                 string.SetColor(txtCol);
             }
 
+            bool isCheck;
         protected:
-            void Render(sf::RenderTarget& target) const;
+            virtual void Render(sf::RenderTarget& target) const;
             sf::Shape *buttonRect;
             sf::String string;
             void* funcObject; //The object which the callback function is a member of
