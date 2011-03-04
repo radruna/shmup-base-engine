@@ -60,10 +60,10 @@ namespace sbe
 
         randEmissionAngle = false;
 
-        pSystem1 = "";
-        pSystem2 = "";
-        pSystem3 = "";
-        pSystem4 = "";
+        pSystem1File = "none";
+        pSystem2File = "none";
+        pSystem3File = "none";
+        pSystem4File = "none";
 
         emissionRate = 1;
         emissionAngleMin = -180;
@@ -148,14 +148,14 @@ namespace sbe
                 else if(parameterKey == "emission_angle_random")
                     randEmissionAngle = (bool) atoi(parameterValue.c_str());//Convert string to bool
 
-                else if(parameterKey == "particle_system1")
-                    pSystem1 = parameterValue;
-                else if(parameterKey == "particle_system2")
-                    pSystem2 = parameterValue;
-                else if(parameterKey == "particle_system3")
-                    pSystem3 = parameterValue;
-                else if(parameterKey == "particle_system4")
-                    pSystem4 = parameterValue;
+                else if(parameterKey == "particle_system_1")
+                    pSystem1File = parameterValue;
+                else if(parameterKey == "particle_system_2")
+                    pSystem2File = parameterValue;
+                else if(parameterKey == "particle_system_3")
+                    pSystem3File = parameterValue;
+                else if(parameterKey == "particle_system_4")
+                    pSystem4File = parameterValue;
 
                 else if(parameterKey == "internal_oscillation")
                     internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
@@ -276,7 +276,7 @@ namespace sbe
 
         //No name parameter found in script file
         if(name == "none" || name == "")
-            Logger::writeMsg(1) << "Particle system needs a name!";
+            Logger::writeMsg(1) << "Weapon system needs a name!";
 
         //Set sprite to default particle if spriteName = empty
         if(spriteName == "")
@@ -301,6 +301,7 @@ namespace sbe
         {
             Target.Draw(*it);
         }
+
     }
 
     void Weapon::fire()
@@ -309,7 +310,7 @@ namespace sbe
             firing = true;
     }
 
-    //Remove all particles from system
+    //Remove all projectiles from system
     void Weapon::clear()
     {
         projectileList.clear();
@@ -357,29 +358,10 @@ namespace sbe
 
     void Weapon::update(const float& elapsed)
     {
-
-        /*
-        //Fire if firing == true
-        if(firing)
-        {
-            if(wavesLeft > 0)
-            {
-                for(int i = 0;i < projAmount; i++){
-                    projectileList.push_back(Projectile(xPos, yPos, sprite, emissionAngle, emissionForce));
-                }
-                wavesLeft--;
-            }else
-            {
-                firing = false;
-                wavesLeft = wavesPerAttack;
-            }
-        }
-        */
-
         //Increase age
         age += elapsed;
         //Emit new particle
-        if(counter > 1/emissionRate)
+        if(1)
         {
 
             if(1) //Check emission type and how many particles remain if type = 2
@@ -444,7 +426,7 @@ namespace sbe
                             else
                                 emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
 
-                            projectileList.push_back(Projectile(xPos, yPos, sprite, emissionAngle, emissionForce));
+                            projectileList.push_back(Projectile(imageHandler , xPos, yPos, sprite, emissionAngle, emissionForce, pSystem1File, pSystem2File));
                             //Handle size/ratio
                             projectileList.back().SetScale(scale, scale * sizeRatio);
                             //Handle rotation

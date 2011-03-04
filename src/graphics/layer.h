@@ -17,28 +17,34 @@
 
 namespace sbe
 {
-    class Layer : public sbe::Movable
+    class Layer : public sf::Drawable
     {
         /*
             Layer class
         */
         public:
             Layer(
-                       const sf::Image&     img,
-                       const float&         a,
-                       const float&         v,
-                       const float&         xOffset,
-                       const float&         yOffset,
-                       const float&         yScale,
-                       const float&         xScale,
-                       const int&           repeat
+                        const sf::Image&     img,
+                        const float&         a,
+                        const float&         v,
+                        const float&         xOffset,
+                        const float&         yOffset,
+                        const float&         yScale,
+                        const float&         xScale,
+                        const int&           repeat,
+                        const float&         repeat_offsetx,
+                        const float&         repeat_offsety,
+                        const int&          nr_repeat
                        );
             ~Layer()
             {
             }
             void update(const float& elapsed);
         private:
-            std::list <Layer> layers;
+            std::list <sbe::Movable> sprites;
+            void Render(sf::RenderTarget& Target) const;
+            float offset, repeat_y, repeat_x;
+
     };
 }
 

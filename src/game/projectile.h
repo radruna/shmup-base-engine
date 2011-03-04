@@ -35,11 +35,14 @@ namespace sbe
         */
         public:
             Projectile(
+                       ImageHandler* imgHandler,
                         const int&          xPos,
                         const int&          yPos,
                         const sf::Image&    img,
                         const float&        a,
-                        const float&        v
+                        const float&        v,
+                        const std::string&  pSys1,
+                        const std::string&  pSys2
                        );
             ~Projectile()
             {
@@ -47,11 +50,16 @@ namespace sbe
             void update(const float& elapsed);
 
         protected:
-            //void Render(sf::RenderTarget& Target) const;
+            void Render(sf::RenderTarget& Target) const;
 
         private:
-            std::string         name,
-                                particleSystem;
+            std::string         name;
+
+            std::string         pSystem1File,
+                                pSystem2File;
+
+            ParticleSystem      *pSystem1,
+                                *pSystem2;
 
             float               hitBoxRadius,
                                 damage;
