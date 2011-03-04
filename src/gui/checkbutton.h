@@ -2,7 +2,7 @@
 / Check button class
 / Author: Victor Rådmark
 / File created: 2011-02-21
-/ File updated: 2011-02-27
+/ File updated: 2011-03-04
 / License: GPLv3
 */
 #ifndef CHECKBUTTON_H_INCLUDED
@@ -35,8 +35,8 @@ namespace sbe
             void Render(sf::RenderTarget& target) const;
         private:
             bool checked;
-            sf::Shape *line1;
-            sf::Shape *line2;
+            sf::Shape line1;
+            sf::Shape line2;
     };
 }
 

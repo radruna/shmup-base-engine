@@ -2,7 +2,7 @@
 / Check button class
 / Author: Victor Rådmark
 / File created: 2011-02-21
-/ File updated: 2011-02-27
+/ File updated: 2011-03-04
 / License: GPLv3
 */
 #include <SFML/Graphics.hpp>
@@ -17,22 +17,22 @@ namespace sbe
     CheckButton::CheckButton()
         : Button(), checked(false)
     {
-        line1 = NULL;
-        line2 = NULL;
+        //line1 = NULL;
+        //line2 = NULL;
     }
 
     CheckButton::CheckButton(void* callObject, void (*callFunction) (void* object), const bool& c, const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2,
                              const sf::Color& color, const sf::Color& outlineColor)
         : Button(callObject, callFunction, text, txtCol, p1, p2, color, 1, outlineColor), checked(c)
     {
-        line1 = new sf::Shape(sf::Shape::Line(100, 100, 200, 200, 5, outlineColor, 5, outlineColor));
-        line2 = new sf::Shape(sf::Shape::Line(p2.x, p1.y, p1.x, p2.y, 1, outlineColor));
+        line1 = sf::Shape::Line(p1, p2, 1, outlineColor);
+        line2 = sf::Shape::Line(p1.x, p2.y, p2.x, p1.y, 1, outlineColor);
     }
 
     CheckButton::~CheckButton()
     {
-        safeDelete(line1);
-        safeDelete(line2);
+        //safeDelete(line1);
+        //safeDelete(line2);
     }
 
     void CheckButton::click(const sf::Vector2i& mousePos)
@@ -55,8 +55,8 @@ namespace sbe
 
         if(checked)
         {
-            target.Draw(*line1);
-            target.Draw(*line2);
+            target.Draw(line1);
+            target.Draw(line2);
         }
     }
 }
