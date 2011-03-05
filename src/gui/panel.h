@@ -87,7 +87,7 @@ namespace sbe
             sf::Shape *panelRect;
             stringMap strings;
             buttonMap buttons;
-            //checkButtonMap checkButtons;
+            checkButtonMap checkButtons;
     };
 }
 

@@ -39,7 +39,7 @@ namespace sbe
                    const sf::Color& color,
                    const float& outline = 1,
                    const sf::Color& outlineColor = sf::Color::White);
-            ~Button();
+            ~Button() {}
             //Check if mouse click is within bounds and if so execute callback
             void click(const sf::Vector2i& mousePos);
 
@@ -48,10 +48,9 @@ namespace sbe
                 string.SetColor(txtCol);
             }
 
-            bool isCheck;
         protected:
             virtual void Render(sf::RenderTarget& target) const;
-            sf::Shape *buttonRect;
+            sf::Shape buttonRect;
             sf::String string;
             void* funcObject; //The object which the callback function is a member of
             //The callback function has to be implemented as a wrapper to the actual function

@@ -371,10 +371,11 @@ namespace sbe
                 Particle::ParaMod sizeMod;
                 Particle::ParaMod emissionAngleMod;
 
-                //Get rotation rate (divide by 10 for a nicer value)
-                float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
                 //Get force
                 float emissionForce = boundsRand( emissionForceMin , emissionForceMax );
+
+                /*//Get rotation rate (divide by 10 for a nicer value)
+                float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
                 //Get friction
                 float emissionFriction = boundsRand( emissionFrictionMin , emissionFrictionMin );
                 //Get lifespan
@@ -387,6 +388,8 @@ namespace sbe
                 float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
                 //Get alpha
                 int alpha = boundsRand( alphaMin, alphaMax );
+                //Get movement mod
+                float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );*/
 
                 //Get scalar size mod rate
                 sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
@@ -407,9 +410,6 @@ namespace sbe
                 emissionAngleMod.amplitude = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
                 //Get oscillating emission angle mod offset
                 emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
-
-                //Get movement mod
-                float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
 
                 //Fire if firing == true
                 if(firing)

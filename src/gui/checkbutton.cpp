@@ -16,10 +16,7 @@ namespace sbe
 {
     CheckButton::CheckButton()
         : Button(), checked(false)
-    {
-        //line1 = NULL;
-        //line2 = NULL;
-    }
+    {}
 
     CheckButton::CheckButton(void* callObject, void (*callFunction) (void* object), const bool& c, const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2,
                              const sf::Color& color, const sf::Color& outlineColor)
@@ -29,15 +26,9 @@ namespace sbe
         line2 = sf::Shape::Line(p1.x, p2.y, p2.x, p1.y, 1, outlineColor);
     }
 
-    CheckButton::~CheckButton()
-    {
-        //safeDelete(line1);
-        //safeDelete(line2);
-    }
-
     void CheckButton::click(const sf::Vector2i& mousePos)
     {
-        sf::Vector2f pos1 = buttonRect->GetPointPosition(0), pos2 = buttonRect->GetPointPosition(2);
+        sf::Vector2f pos1 = buttonRect.GetPointPosition(0), pos2 = buttonRect.GetPointPosition(2);
 
         if(mousePos.x > pos1.x && mousePos.x < pos2.x)
         {

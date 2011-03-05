@@ -27,11 +27,9 @@ namespace sbe
                         const sf::Vector2f& p2,
                         const sf::Color& color,
                         const sf::Color& outlineColor = sf::Color::White);
-            ~CheckButton();
+            ~CheckButton() {}
 
             void click(const sf::Vector2i& mousePos);
-
-            bool isCheck;
         protected:
             void Render(sf::RenderTarget& target) const;
         private:

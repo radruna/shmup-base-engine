@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-27
+/ File updated: 2011-03-05
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -104,8 +104,6 @@ namespace sbe
         shot2.SetColor(sf::Color::Yellow);
 
         int counter = 0;
-        bool gun = true;
-        int gunPosX = 0;
 
         sf::Sound laser(audHandler->getSound("laser"));
 
