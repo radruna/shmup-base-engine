@@ -23,6 +23,7 @@
 #include "../sys/logger.h" //Outputs debug in console and log
 #include "../graphics/imagehandler.h" //For loading images
 #include "../graphics/particlesystem.h" //Particle system
+#include "../sys/util.h"
 #include "movable.h"
 
 
@@ -40,9 +41,7 @@ namespace sbe
                         const int&          yPos,
                         const sf::Image&    img,
                         const float&        a,
-                        const float&        v,
-                        const std::string&  pSys1,
-                        const std::string&  pSys2
+                        const float&        v
                        );
             ~Projectile()
             {
@@ -54,12 +53,6 @@ namespace sbe
 
         private:
             std::string         name;
-
-            std::string         pSystem1File,
-                                pSystem2File;
-
-            ParticleSystem      *pSystem1,
-                                *pSystem2;
 
             float               hitBoxRadius,
                                 damage;

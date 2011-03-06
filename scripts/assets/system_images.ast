@@ -4,3 +4,4 @@
 
 "error"					"assets/debug/error.png"		//Error sprite
 "default_particle"		"assets/debug/particle.png"		//Default particle sprite
+"cross"					"assets/debug/cross.png"

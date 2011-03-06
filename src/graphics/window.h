@@ -72,7 +72,6 @@ namespace sbe
             sbe::Gui *gui;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
-            sbe::ParticleSystem *pSystem1;
             sbe::ParticleSystem *pSystem2;
             sbe::Weapon *wpn1;
             sbe::Music *loli;

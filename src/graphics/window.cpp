@@ -58,7 +58,6 @@ namespace sbe
         Logger::writeMsg(1) << "\nAssets loaded!";
 
         testShip = NULL;
-        pSystem1 = NULL;
         pSystem2 = NULL;
         wpn1 = NULL;
         loli = NULL;
@@ -79,7 +78,6 @@ namespace sbe
         delete evtHandler;
         safeDelete(gui);
         safeDelete(testShip);
-        safeDelete(pSystem1);
         safeDelete(pSystem2);
         safeDelete(wpn1);
         safeDelete(loli);
@@ -155,7 +153,7 @@ namespace sbe
                 }
 
                 pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-                wpn1->SetPosition(pSystem2->GetPositionX() , pSystem2->GetPositionY());
+                wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
             }
 
             //Get elapsed time since last frame to ensure constant speed
@@ -267,15 +265,13 @@ namespace sbe
             renderList.pop_back();
             gui->deleteMainMenu();
 
-            testShip = new sbe::Ship("testShip", imgHandler);
+            testShip = new sbe::Ship("cross", imgHandler);
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(0.f, 0.f);
-            testShip->SetScale(0.5, 0.5);
-            testShip->SetAlpha(0);
+            //testShip->SetScale(0.5, 0.5);
+            //testShip->SetAlpha(0);
 
-            pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            pSystem1->SetPosition(500.f, 300.f);
             scroll = new Background("scripts/maps/background.ast", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler);
 
@@ -287,7 +283,6 @@ namespace sbe
 
             renderList.push_back(scroll);
             renderList.push_back(testShip);
-            renderList.push_back(pSystem1);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
             renderList.push_back(gui);
