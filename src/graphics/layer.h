@@ -32,21 +32,27 @@ namespace sbe
                         const float&         yOffset,
                         const float&         yScale,
                         const float&         xScale,
-                        const int&           repeat,
-                        const float&         repeat_offsetx,
-                        const float&         repeat_offsety,
-                        const int&          nr_repeat
+                        const float&         repeat_space_x,
+                        const float&         repeat_space_y,
+                        const unsigned int& w,
+                        const unsigned int& h
                        );
             ~Layer()
             {
             }
             void update(const float& elapsed);
         private:
-            std::list <sbe::Movable> sprites;
+            std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
-            float offset, repeat_y, repeat_x;
+
+            float offset, repeat_y, repeat_x, angle;
+            int repeat_nr;
+            unsigned int width, height;
+            float sprite_width;
+            float space_x;
 
     };
 }
 
 #endif
+

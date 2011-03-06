@@ -21,16 +21,22 @@ namespace sbe
 
     Background::Background(
                        const std::string& scrollayerFile,
-                       ImageHandler* imgHandler
+                       ImageHandler* imgHandler,
+                        const unsigned int& w,
+                        const unsigned int& h
                        )
     {
         scriptFile = scrollayerFile;
         imageHandler = imgHandler;
+        width = w;
+        height = h;
         load();
     }
 
     void Background::load()
     {
+        std::ifstream fileReader;
+
         Logger::writeMsg(1) << "\nLoading background" << scriptFile;
 
         //Open specified file
@@ -71,13 +77,9 @@ namespace sbe
                     yScale = atof(parameterValue.c_str());
                 else if(parameterKey == "scale_x")
                     xScale = atof(parameterValue.c_str());
-                else if(parameterKey == "repeat")
-                    repeat = atoi(parameterValue.c_str());
-                else if(parameterKey == "number_repeat")
-                    nr_repeat = atoi(parameterValue.c_str());
-                else if(parameterKey == "repeat_offset_x")
+                else if(parameterKey == "repeat_space_x")
                     repeat_offsetx = atof(parameterValue.c_str());
-                else if(parameterKey == "repeat_offset_y")
+                else if(parameterKey == "repeat_space_y")
                     repeat_offsety = atof(parameterValue.c_str());
                 else
                     Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;
@@ -87,7 +89,7 @@ namespace sbe
 
         tmpImg = imageHandler->getImage(spriteName);
 
-        //layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat, repeat_offsetx, repeat_offsety, nr_repeat));
+        layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, width, height));
 
     }
 
