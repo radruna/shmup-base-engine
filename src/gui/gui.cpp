@@ -118,7 +118,7 @@ namespace sbe
     void Gui::update(const float& elapsed)
     {
         //Show fps
-        if(fpsCount++ % 4 == 0)
+        if(fpsCount++ == 4)
         {
             fpsStr << "fps: " << (int) ((1.f / elapsed));
             fps->SetText(fpsStr.str());

@@ -42,6 +42,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="assets\debug\cross.png" />
 		<Unit filename="assets\debug\error.png" />
 		<Unit filename="assets\debug\particle.png" />
 		<Unit filename="assets\font\Inconsolata.otf" />
@@ -68,7 +69,6 @@
 		<Unit filename="scripts\assets\system_images.ast" />
 		<Unit filename="scripts\maps\background.ast" />
 		<Unit filename="scripts\particles\explosion\explosion1.ast" />
-		<Unit filename="scripts\particles\explosion\explosion1_debris.ast" />
 		<Unit filename="scripts\particles\explosion\explosion1_shockwave.ast" />
 		<Unit filename="scripts\particles\menu\mainmenu.ast" />
 		<Unit filename="scripts\particles\menu\options.ast" />
