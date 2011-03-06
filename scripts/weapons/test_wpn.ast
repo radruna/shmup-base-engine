@@ -3,15 +3,15 @@
 //----------------------------------------------------------
 "name"								"wpn1"			//Weapon name
 "sprite_name"						"default_particle"				//Sprite to use. Needs to be loaded by asset file
-"particle_system"					"scripts/particles/trails/smoke_1.ast"
+"particle_system"					"scripts/particles/plasma_blast.ast"
 
 "shots_per_wave"					"1"
-"waves_per_attack"					"3"				
+"waves_per_attack"					"1"				
 
 "emission_rate"						"1000"					//Projectiles per second
 
-"emission_angle_min"				"-92"					//Emission angle minimum
-"emission_angle_max"				"-88"					//Emission angle maximum
+"emission_angle_min"				"-5"					//Emission angle minimum
+"emission_angle_max"				"5"					//Emission angle maximum
 "emission_angle_random"				"1"
 
 "rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation

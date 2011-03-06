@@ -283,6 +283,8 @@ namespace sbe
 
         counter = 0;
 
+        pSys = new ParticleSystem( pSystemFile, imageHandler, 1 );
+
     }
 
     void Weapon::Render(sf::RenderTarget& Target) const
@@ -296,6 +298,8 @@ namespace sbe
         {
             Target.Draw(*pIt);
         }
+
+        Target.Draw(*pSys);
 
     }
 
@@ -353,6 +357,13 @@ namespace sbe
 
     void Weapon::update(const float& elapsed)
     {
+
+        if(!projectileList.empty())
+            pSys->SetPosition( projectileList.back().GetPosition().x, projectileList.back().GetPosition().y  );
+        else
+            pSys->SetPosition( -1000, -1000  );
+
+        pSys->update(elapsed);
 
         for(std::list<ParticleSystem>::iterator pIt = pSysList.begin(); pIt != pSysList.end(); pIt++) //Iterate through particle system list
         {

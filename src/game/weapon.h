@@ -49,6 +49,8 @@ namespace sbe
             std::string scriptFile;
             std::string pSystemFile;
 
+            ParticleSystem *pSys;
+
             std::list<ParticleSystem> pSysList;
 
             struct ValueMod
