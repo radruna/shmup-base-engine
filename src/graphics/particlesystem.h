@@ -22,7 +22,7 @@
 
 namespace sbe
 {
-    class ParticleSystem : public FileHandler , public sf::Drawable
+    class ParticleSystem : public FileHandler , public sbe::Drawable
     {
         /*
         Particle system class

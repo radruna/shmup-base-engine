@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-02-21
+/ File updated: 2011-03-06
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -20,19 +20,18 @@
 #include "../sys/eventhandler.h" //Event handling
 #include "../sys/configreader.h" //Loads settings
 #include "../audio/audiohandler.h" //For loading and playing sound and music
-#include "../gui/panel.h"
-#include "../gui/mainmenu.h"
-#include "../gui/optionsmenu.h"
+#include "../gui/gui.h"
 #include "../game/entity.h"
 #include "../game/ship.h"
 //#include "../game/player.h"
 #include "../game/weapon.h"
+#include "drawable.h"
 #include "imagehandler.h" //For loading images
 #include "background.h" // Background layers
 
 typedef std::map<std::string, bool> boolMap;
-typedef std::map<std::string, sf::Font> fontMap;
-typedef std::list<sf::Drawable*> RenderList;
+typedef std::list<sbe::Drawable*> RenderList;
+typedef std::list<sbe::Panel*> PanelList;
 
 namespace sbe
 {
@@ -51,12 +50,6 @@ namespace sbe
             bool exec(); //Main game loop, returns respawn
 
         private:
-            void loadFonts(const std::string& fontFile);
-            void unloadFonts()
-            {
-                fonts.clear();
-            }
-
             static void select(void* object);
             static void options(void* object);
             static void hiscore(void* object);
@@ -76,11 +69,9 @@ namespace sbe
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
-            sbe::MainMenu *mainMenu;
-            sbe::OptionsMenu *optionsMenu;
+            sbe::Gui *gui;
             std::map<std::string, Ship> *ships;
             sbe::Ship *testShip;
-            sbe::Panel *testPanel;
             sbe::ParticleSystem *pSystem1;
             sbe::ParticleSystem *pSystem2;
             sbe::Weapon *wpn1;
@@ -90,12 +81,9 @@ namespace sbe
             sf::Vector2i res;
             bool respawn,
                  pause,
-                 menu,
-                 opt;
-            short count;
+                 menu;
 
             boolMap events;
-            fontMap fonts;
 
             RenderList renderList;
             std::list<Projectile> projectileList;

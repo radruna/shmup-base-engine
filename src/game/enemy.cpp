@@ -9,7 +9,7 @@
 
 namespace sbe
 {
-    enemy::enemy()
+    Enemy::Enemy()
     {
 
     }

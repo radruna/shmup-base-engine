@@ -13,6 +13,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../graphics/drawable.h"
 #include "button.h"
 #include "checkbutton.h"
 
@@ -22,13 +23,11 @@ typedef std::map<std::string, sbe::CheckButton> checkButtonMap;
 
 namespace sbe
 {
-    class Panel : public sf::Drawable
+    class Panel : public sbe::Drawable
     {
         public:
             Panel()
-            {
-                panelRect = NULL;
-            }
+            {}
 
             Panel(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline = 0, const sf::Color& outlineColor = sf::Color::Black);
             ~Panel();
@@ -81,10 +80,13 @@ namespace sbe
                                    const sf::Color& outlineColor = sf::Color::Black);
 
             void click(const sf::Vector2i& mousePos);
+
+            virtual sf::Vector2i getNextPSPos() { return sf::Vector2i(0, 0); }
+            virtual sf::Vector2f getPSPos() { return sf::Vector2f(0.f, 0.f); }
         protected:
             void Render(sf::RenderTarget& target) const;
             bool withinPanel(const sf::Vector2i& mousePos) const;
-            sf::Shape *panelRect;
+            sf::Shape panelRect;
             stringMap strings;
             buttonMap buttons;
             checkButtonMap checkButtons;

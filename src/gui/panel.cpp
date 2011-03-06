@@ -22,12 +22,11 @@ namespace sbe
 {
     Panel::Panel(const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
     {
-        panelRect = new sf::Shape(sf::Shape::Rectangle(p1, p2, color, outline, outlineColor));
+        panelRect = sf::Shape(sf::Shape::Rectangle(p1, p2, color, outline, outlineColor));
     }
 
     Panel::~Panel()
     {
-        safeDelete(panelRect);
         strings.clear();
         buttons.clear();
         checkButtons.clear();
@@ -35,7 +34,7 @@ namespace sbe
 
     void Panel::Render(sf::RenderTarget& target) const
     {
-        target.Draw(*panelRect);
+        target.Draw(panelRect);
         for(buttonMap::const_iterator it = buttons.begin(); it != buttons.end(); it++)
             target.Draw(it->second);
 
@@ -91,9 +90,9 @@ namespace sbe
 
     bool Panel::withinPanel(const sf::Vector2i& mousePos) const
     {
-        if(mousePos.x > panelRect->GetPointPosition(0).x && mousePos.x < panelRect->GetPointPosition(2).x)
+        if(mousePos.x > panelRect.GetPointPosition(0).x && mousePos.x < panelRect.GetPointPosition(2).x)
         {
-            if(mousePos.y > panelRect->GetPointPosition(0).y && mousePos.y < panelRect->GetPointPosition(2).y)
+            if(mousePos.y > panelRect.GetPointPosition(0).y && mousePos.y < panelRect.GetPointPosition(2).y)
                 return true;
         }
 

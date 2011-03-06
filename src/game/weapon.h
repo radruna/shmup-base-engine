@@ -16,12 +16,13 @@
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "../sys/filehandler.h" //Abstract base class
+#include "../graphics/drawable.h"
 #include "../graphics/imagehandler.h" //For loading images
 #include "projectile.h" //Projectile header
 
 namespace sbe
 {
-    class Weapon : public FileHandler , public sf::Drawable
+    class Weapon : public FileHandler , public sbe::Drawable
     {
         /*
         Particle system class

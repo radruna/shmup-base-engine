@@ -13,11 +13,12 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "../graphics/drawable.h"
 #include "../game/movable.h" //Base class def
 
 namespace sbe
 {
-    class Layer : public sf::Drawable
+    class Layer : public sbe::Drawable
     {
         /*
             Layer class

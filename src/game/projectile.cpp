@@ -37,7 +37,7 @@ namespace sbe
                        )
     : Movable(img, a, v)
     {
-        SetPosition(xPos, yPos);
+        sbe::Drawable::SetPosition(xPos, yPos);
         //Set default values
         pSystem1File = pSys1;
         pSystem2File = pSys2;

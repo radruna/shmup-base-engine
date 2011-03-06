@@ -12,11 +12,12 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "../graphics/sprite.h"
 #include "../graphics/imagehandler.h"
 
 namespace sbe
 {
-    class Entity : public sf::Sprite
+    class Entity : public sbe::Sprite
     {
         /*
             Base entity class
@@ -35,14 +36,13 @@ namespace sbe
                 SetImage(imgHandler->getImage(imgStr));
             }
 
-            virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
+            //virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
             void SetAlpha(int alpha);
             void SetDiffuseColor(const int& r, const int& g, const int& b);
             void SetColorR(const int& r);
             void SetColorG(const int& g);
             void SetColorB(const int& b);
         protected:
-            int z;
             ImageHandler* imgHandler;
     };
 }

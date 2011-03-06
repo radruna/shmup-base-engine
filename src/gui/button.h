@@ -12,11 +12,12 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../graphics/drawable.h"
 #include "../sys/util.h"
 
 namespace sbe
 {
-    class Button : public sf::Drawable
+    class Button : public sbe::Drawable
     {
         public:
             Button();

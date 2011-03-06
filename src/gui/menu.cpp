@@ -79,7 +79,8 @@ namespace sbe
 
     void Menu::Render(sf::RenderTarget& target) const
     {
-        target.Draw(*pSystem);
+        if(pSystem != NULL)
+            target.Draw(*pSystem);
         Panel::Render(target);
     }
 }

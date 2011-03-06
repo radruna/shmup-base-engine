@@ -14,12 +14,13 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+#include "../graphics/drawable.h"
 #include "../graphics/layer.h"   //Layer class
 #include "../game/movable.h" //Base class def
 
 namespace sbe
 {
-    class Background : public FileHandler , public sf::Drawable
+    class Background : public FileHandler , public sbe::Drawable
     {
         /*
             Background class

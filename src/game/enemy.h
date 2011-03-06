@@ -9,9 +9,10 @@
 
 namespace sbe
 {
-    class enemy : public ship
+    class Enemy : public Ship
     {
-
-    }
+        public:
+            Enemy();
+    };
 }
 

@@ -20,6 +20,7 @@ namespace sbe
     class Ship : public sbe::Movable
     {
         public:
+            Ship() {}
             Ship(const sf::Image& img, const int& max = 15, const unsigned int& mod = 30);
             Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max = 15, const unsigned int& mod = 30);
             ~Ship();

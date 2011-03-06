@@ -76,8 +76,8 @@ namespace sbe
 
     void Entity::SetColorB(const int& b)
     {
-        sf::Color col = GetColor();
+        sf::Color col = sbe::Drawable::GetColor();
         col.b = b;
-        SetColor( col );
+        sbe::Drawable::SetColor( col );
     }
 }
