@@ -479,12 +479,16 @@ namespace sbe
 
         //Increase age
         age += elapsed;
+
+        counter += elapsed; //Count time
+
         //Emit new particle
-        if(counter > 1/emissionRate)
+        while(counter > 1 / emissionRate)
         {
 
-            int prcPerFrame = counter / (1/emissionRate); //Check how many particles should be emitted this frame.
-            for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
+            //int prcPerFrame = counter / (1/emissionRate); //Check how many particles should be emitted this frame.
+            //for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
+            if(1)
             {
 
                 if(emissionMax > 0 || emissionType != 2) //Check emission type and how many particles remain if type = 2
@@ -575,6 +579,9 @@ namespace sbe
                     particleList.back().SetPosition( xPos , yPos ); //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
                     particleList.back().setRotRate( rotRate ); //Set rotation rate
 
+                    if(elapsed > 1 / emissionRate)  //If time == shit
+                        particleList.back().push( emissionForce * counter);
+
                     //Handle rotation
                     if(rotAlign) //Should I align to emission angle?
                         particleList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
@@ -586,15 +593,12 @@ namespace sbe
 
                     //Logger::writeMsg(1) << "New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce; //Debug
 
-                    counter = 0; //Reset counter
-
                     if(emissionType == 2) //Particles remaining -1 if type = 2
                         emissionMax--;
                 }
             }
+            counter -=  1 / emissionRate;
         }
-        else
-            counter += elapsed; //Count time
 
         if(!moveType)
         {

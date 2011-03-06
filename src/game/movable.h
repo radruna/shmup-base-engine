@@ -27,6 +27,7 @@ namespace sbe
             }
 
             void update(const float& elapsed);
+            void push(const float& distance);
             float getAngle()
             {
                 return angle;
