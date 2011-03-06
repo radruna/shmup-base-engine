@@ -32,7 +32,6 @@ namespace sbe
             ~ParticleSystem()
             {
                 clear();
-                fileReader2.close();
             }
 
             //Remove particle system
@@ -50,7 +49,6 @@ namespace sbe
 
         private:
             bool isChild;
-            std::ifstream fileReader2;
             ImageHandler *imageHandler;
             std::string scriptFile;
             std::string fileContents;

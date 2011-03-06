@@ -149,6 +149,8 @@ namespace sbe
 
     void Gui::loadFonts(const std::string& fontFile)
     {
+        std::ifstream fileReader;
+
         Logger::writeMsg(1) << "\nLoading assets from: \"" << fontFile << "\"...";
         //Open specified file
         fileReader.open(fontFile.c_str());

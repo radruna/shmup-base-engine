@@ -41,6 +41,8 @@ namespace sbe
 
     void ConfigReader::readConfig(const std::string& cfgFile)
     {
+        std::ifstream fileReader;
+
         /*
             Purpose: Read a config file.
         */

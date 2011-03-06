@@ -6,9 +6,9 @@
 "particle_system"					"scripts/particles/plasma_blast.ast"
 
 "shots_per_wave"					"1"
-"waves_per_attack"					"1"				
+"waves_per_attack"					"50"				
 
-"emission_rate"						"1000"					//Projectiles per second
+"emission_rate"						"10"					//Projectiles per second
 
 "emission_angle_min"				"-5"					//Emission angle minimum
 "emission_angle_max"				"5"					//Emission angle maximum

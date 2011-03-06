@@ -26,6 +26,7 @@ namespace sbe
     //Load images listed in the asset file
     void ImageHandler::loadAssets(const std::string& assetFile)
     {
+        std::ifstream fileReader;
         Logger::writeMsg(1) << "\nLoading assets from: \"" << assetFile << "\"...";
         //Open specified file
         fileReader.open(assetFile.c_str());

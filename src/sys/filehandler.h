@@ -31,7 +31,7 @@ namespace sbe
             static bool strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
 
         protected:
-            std::ifstream fileReader;
+            //std::ifstream fileReader;     //Removed because it keeps fucking my shit up
     };
 }
 

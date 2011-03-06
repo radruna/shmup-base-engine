@@ -44,6 +44,7 @@ namespace sbe
 
     void AudioHandler::loadAudio(const std::string& audioFile, const LoadType& load)
     {
+        std::ifstream fileReader;
         /*
             Purpose: Load audio assets into memory, and then save them as either sound or music
             based on if it was called by loadSound() or loadMusic().

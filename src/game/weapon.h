@@ -40,7 +40,8 @@ namespace sbe
             void update(const float& elapsed);
             void clear();
             void load();
-            void fire();
+            void startFiring();
+            void stopFiring();
 
         protected:
             void Render(sf::RenderTarget& Target) const;

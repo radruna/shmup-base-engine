@@ -40,6 +40,7 @@ namespace sbe
 
     void ParticleSystem::reload()
     {
+        std::ifstream fileReader;
         clear();
 
         Logger::writeMsg(1) << "\nLoading particle system " << scriptFile;
@@ -371,6 +372,8 @@ namespace sbe
 
     void ParticleSystem::reloadCheck()
     {
+        std::ifstream fileReader2;
+
         //Md5 checksum. Used for realtime update of particle systems
         fileReader2.open(scriptFile.c_str());
         std::string output;

@@ -145,12 +145,10 @@ namespace sbe
                 else if(GetInput().IsKeyDown(sf::Key::Down))
                     testShip->fly(Ship::DOWN);
 
-                if(GetInput().IsKeyDown(sf::Key::Space) && --counter < 2)
-                {
-                    counter = 10;
-
-                    wpn1->fire();
-                }
+                if(GetInput().IsKeyDown(sf::Key::Space) )
+                    wpn1->startFiring();
+                else
+                    wpn1->stopFiring();
 
                 pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
                 wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
