@@ -47,10 +47,7 @@ namespace sbe
         private:
             ImageHandler *imageHandler;
             std::string scriptFile;
-            std::string pSystem1File,
-                        pSystem2File,
-                        pSystem3File,
-                        pSystem4File;
+            std::string pSystemFile;
 
             struct ValueMod
             {

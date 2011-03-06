@@ -11,15 +11,24 @@
 "move_type"							"0"						//Should particles move with particle system?
 "speed_multiplier"					"1"						//Not implemented yet. Multiply emission rate with speed, allowing for trails and stuff without clustered particle systems
 
+//Color parameters
+"initial_color_r"					"0"
+"initial_color_g"					"255"
+"initial_color_b"					"200"
+
+"modified_color_r"					"255"					
+"modified_color_g"					"0"					
+"modified_color_b"					"255"
+
 //Emission parameters
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"10"					//Particles per second
+"emission_rate"						"200"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"0"						//Emission force minimum
 "emission_force_max"				"0"					//Emission force maximum
 "emission_friction_min"				"1"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"1"					//Emission friction maximum. Closer to 1 = less friction
-"emission_angle_min"				"-180"					//Emission angle minimum
+"emission_angle_min"				"180"					//Emission angle minimum
 "emission_angle_max"				"180"					//Emission angle maximum
 
 //Lifespan parameters
@@ -27,8 +36,8 @@
 "lifespan_max"						"2"					//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"0.5"					//Scale minimum
-"size_max"							"1"					//Scale maximum
+"size_min"							"0.1"					//Scale minimum
+"size_max"							"0.2"					//Scale maximum
 "size_ratio"						"1"						//x/y ratio. 1 = normal
 
 //Rotation parameters
@@ -37,6 +46,9 @@
 "rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
 "rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
+
+"size_mod_scalar_rate_min"				"1.2"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"				"2"						//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
 
 //Fade parameters
 "fade_in_min"						"0.2"						//Fade in duration minimum

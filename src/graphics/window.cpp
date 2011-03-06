@@ -64,7 +64,6 @@ namespace sbe
         optionsMenu = NULL;
         testShip = NULL;
         testPanel = NULL;
-        pSystem1 = NULL;
         pSystem2 = NULL;
         wpn1 = NULL;
         loli = NULL;
@@ -88,7 +87,6 @@ namespace sbe
         safeDelete(optionsMenu);
         safeDelete(testShip);
         safeDelete(testPanel);
-        safeDelete(pSystem1);
         safeDelete(pSystem2);
         safeDelete(wpn1);
         safeDelete(loli);
@@ -203,7 +201,6 @@ namespace sbe
 
                     if(events["R"])
                     {   //Reload particle systems
-                        pSystem1->reload();
                         pSystem2->reload();
                     }
 
@@ -237,12 +234,11 @@ namespace sbe
                 //Update the ship with the input data
                 testShip->update(ElapsedTime);
                 pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-                wpn1->SetPosition(pSystem2->GetPositionX() , pSystem2->GetPositionY());
+                wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
                 //Logger::writeMsg(1) << pSystem2->GetPosition().x << " " << pSystem2->GetPosition().y;
                 //wpn1->SetPosition(100 , 200);
 
                 //Particle system update test
-                pSystem1->update(ElapsedTime);
                 pSystem2->update(ElapsedTime);
                 wpn1->update(ElapsedTime);
                 scroll->update(ElapsedTime); //test
@@ -456,13 +452,13 @@ namespace sbe
         {
             menu = false;
 
-            testShip = new sbe::Ship("testShip", imgHandler);
+            testShip = new sbe::Ship("cross", imgHandler);
             renderList.push_back(testShip);
 
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(0.f, 0.f);
-            testShip->SetScale(0.5, 0.5);
-            testShip->SetAlpha(0);
+            //testShip->SetScale(0.5, 0.5);
+            //testShip->SetAlpha(0);
 
             std::vector<std::string> diag;
             diag.push_back("OHAYO");
@@ -470,13 +466,10 @@ namespace sbe
             diag.push_back("VN of the year all years");
             testPanel = new sbe::DialogPanel(res, diag, fonts["inconsolata"]);
 
-            pSystem1 = new ParticleSystem("scripts/particles/explosion/explosion1.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            pSystem1->SetPosition(500.f, 300.f);
             scroll = new Background("scripts/maps/background.ast", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler);
 
-            renderList.push_back(pSystem1);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
 
