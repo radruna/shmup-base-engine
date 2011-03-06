@@ -25,43 +25,40 @@ namespace sbe
                        const float&         yOffset,
                        const float&         yScale,
                        const float&         xScale,
-                       const int&           repeat,
-                       const float&           repeat_offsetx,
-                       const float&           repeat_offsety,
-                       const int&           nr_repeat
+                       const float&           repeat_space_x,
+                       const float&           repeat_space_y,
+                       const unsigned int& w,
+                       const unsigned int& h
                        )
     {
 
-        sprites.push_back(Movable(img, a, v));
+            width = w;
+            height = h;
+            space_x = repeat_space_x;
 
-        sprites.front().SetPosition(xOffset, yOffset);
+            if(a == 0)
+                angle = 0;
+            else
+                angle = 90;
 
-        if(repeat == 1)
-        {
-            for(int i= 0; i<nr_repeat; i++) {
-                sprites.push_back(Movable(img, a, v));
+
+            sprites.push_back(Movable(img, angle, v));
+            sprite_width = (sprites.front().GetSize().x);
+            repeat_nr = ceil(w/sprite_width);
+
+            for(int i= 0; i< repeat_nr; i++) {
+                sprites.push_back(Movable(img, angle, v));
             }
 
-            for(std::list<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
+            repeat_x = 0;
+            //repeat_y = 0;
+
+            for(std::vector<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
             {
-                repeat_x += repeat_offsetx;
-                repeat_y += repeat_offsety;
+                it->SetPosition(xOffset+repeat_x, yOffset);
 
-                it->SetPosition(xOffset+repeat_x, yOffset+repeat_y);
-
+                repeat_x -= (sprites.front().GetSize().x) + repeat_space_x;
             }
-        }
-
-
-        for(std::list<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
-            {
-
-
-                it->SetScale(xScale, yScale);
-
-            }
-
-
 
     }
 
@@ -69,7 +66,7 @@ namespace sbe
 
     void Layer::Render(sf::RenderTarget& Target) const
     {
-        for(std::list<sbe::Movable>::const_iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
+        for(std::vector<sbe::Movable>::const_iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
         {
             Target.Draw(*it);
         }
@@ -79,9 +76,18 @@ namespace sbe
 
     void Layer::update(const float& elapsed)
     {
-        for(std::list<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
+        for(unsigned int it = 0; it < sprites.size(); it++) //Iterate through layer vector
         {
-            it->update(elapsed);
+            sprites[it].update(elapsed);
+
+            if((sprites[it].GetPosition().x) > width) {
+                if(it == 0)
+                    sprites[it].SetPosition(sprites[sprites.size()-1].GetPosition().x - (sprite_width + space_x), sprites[sprites.size()-1].GetPosition().y);
+                else
+                    sprites[it].SetPosition(sprites[it-1].GetPosition().x - (sprite_width + space_x), sprites[sprites.size()-1].GetPosition().y);
+            }
+
         }
     }
+
 }

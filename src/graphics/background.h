@@ -27,8 +27,10 @@ namespace sbe
         */
         public:
             Background(
-                       const std::string& scrollayerFile,
-                       ImageHandler* imgHandler
+                        const std::string& scrollayerFile,
+                        ImageHandler* imgHandler,
+                        const unsigned int& w,
+                        const unsigned int& h
                        );
             ~Background()
             {
@@ -36,9 +38,6 @@ namespace sbe
             void load();
             void update(const float& elapsed);
         private:
-            //sf::Image bgImg;
-            //std::list <sf::Sprite> layers;
-            //sf::Sprite bgSprite;
             std::string scriptFile;
             std::string spriteName;
             float       xOffset,
@@ -46,7 +45,7 @@ namespace sbe
             float moveAngle;
             float moveSpeed;
             float yScale, xScale;
-            int repeat, nr_repeat;
+            unsigned int width, height;
             float repeat_offsetx, repeat_offsety;
             sf::Image tmpImg;
 
