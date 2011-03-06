@@ -11,13 +11,13 @@
 "move_type"							"0"						//Should particles move with particle system?
 
 //Color parameters
-"initial_color_r"					"200"
-"initial_color_g"					"255"
-"initial_color_b"					"200"
+"initial_color_r"					"150"
+"initial_color_g"					"200"
+"initial_color_b"					"150"
 
 "modified_color_r"					"255"					
-"modified_color_g"					"140"					
-"modified_color_b"					"150"
+"modified_color_g"					"110"					
+"modified_color_b"					"100"
 
 //Emission parameters
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
@@ -83,5 +83,5 @@
 "move_mod_angle_max"					"0"				//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"10"					//Minimum alpha value
-"alpha_max"							"50"					//Maximum alpha value
+"alpha_min"							"50"					//Minimum alpha value
+"alpha_max"							"100"					//Maximum alpha value

@@ -287,9 +287,14 @@ namespace sbe
 
     void Weapon::Render(sf::RenderTarget& Target) const
     {
-        for(std::list<Projectile>::const_iterator it = projectileList.begin(); it != projectileList.end(); it++)
+        for(std::list<Projectile>::const_iterator it = projectileList.begin(); it != projectileList.end(); it++) //Iterate through projectile list
         {
             Target.Draw(*it);
+        }
+
+        for(std::list<ParticleSystem>::const_iterator pIt = pSysList.begin(); pIt != pSysList.end(); pIt++) //Iterate through particle system list
+        {
+            Target.Draw(*pIt);
         }
 
     }
@@ -348,6 +353,11 @@ namespace sbe
 
     void Weapon::update(const float& elapsed)
     {
+
+        for(std::list<ParticleSystem>::iterator pIt = pSysList.begin(); pIt != pSysList.end(); pIt++) //Iterate through particle system list
+        {
+                pIt->update(elapsed); //Update particle system
+        }
 
         //Increase age
         age += elapsed;
@@ -431,6 +441,9 @@ namespace sbe
                                 projectileList.back().SetRotation( rand() % 360 );
                             else //Just spawn with rotation
                                 projectileList.back().SetRotation( rotation );
+
+                            //Add particle system //TODO (Fewes#1#) Fix particle systems problem due to streams not being copyable
+                            //pSysList.push_back( ParticleSystem( pSystemFile, imageHandler ) );
                         }
                         wavesLeft--;
                     }

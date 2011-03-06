@@ -49,6 +49,8 @@ namespace sbe
             std::string scriptFile;
             std::string pSystemFile;
 
+            std::list<ParticleSystem> pSysList;
+
             struct ValueMod
             {
                 float   scalarRateMin, //Scalar modifier min
