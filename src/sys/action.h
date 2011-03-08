@@ -15,11 +15,25 @@ namespace sbe
 	class Action
 	{
 		public:
-			Action();
-			~Action();
+			Action(void* callObject,
+                   void (*callFunction) (void* object),
+                   const std::string& key);
+			~Action() {}
+
+			void setKey(const std::string& k)
+			{
+                key = k;
+			}
+
+			void act()
+			{
+			    actionFunc(funcObject);
+			}
 		private:
 			std::string key;
 			void* funcObject;
 			void (*actionFunc) (void* object);
 	};
 }
+
+#endif

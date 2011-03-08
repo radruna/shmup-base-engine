@@ -106,6 +106,7 @@ namespace sbe
             PanelMap panels;
             FontMap fonts;
             sf::String *fps;
+            sf::String *fps2;
             std::stringstream fpsStr;
             sf::String *pauseStr;
             short fpsCount;

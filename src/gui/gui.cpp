@@ -30,6 +30,9 @@ namespace sbe
         fps = new sf::String("0", fonts["inconsolata"], 20);
         fps->SetPosition(10, 10);
         fps->SetColor(sf::Color::White);
+        fps2 = new sf::String("0", fonts["inconsolata"], 20);
+        fps2->SetPosition(12, 12);
+        fps2->SetColor(sf::Color(0, 0, 0, 150));
 
         pauseStr = new sf::String("Paused", fonts["inconsolata"], 30);
         pauseStr->SetCenter(pauseStr->GetRect().GetWidth() / 2, pauseStr->GetRect().GetHeight() / 2);
@@ -49,6 +52,7 @@ namespace sbe
         safeDelete(optionsMenu);
         safeDelete(diagPanel);
         safeDelete(fps);
+        safeDelete(fps2);
         safeDelete(pauseStr);
     }
 
@@ -128,6 +132,10 @@ namespace sbe
         {
             fpsStr << "fps: " << (int) ((1.f / elapsed));
             fps->SetText(fpsStr.str());
+            fps2->SetText(fpsStr.str());
+            if((int) ((1.f / elapsed)) < 20) fps->SetColor(sf::Color(255, 50, 50));
+            else if((int) ((1.f / elapsed)) < 40) fps->SetColor(sf::Color(255, 255, 50));
+            else fps->SetColor(sf::Color(155, 255, 155));
             fpsStr.str("");
             fpsCount = 0;
         }
@@ -155,7 +163,9 @@ namespace sbe
         if(diagPanel != NULL)
             target.Draw(*diagPanel);
 
+        target.Draw(*fps2);
         target.Draw(*fps);
+
         if(showPause) target.Draw(*pauseStr);
     }
 
