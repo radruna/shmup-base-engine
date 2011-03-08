@@ -44,12 +44,11 @@ namespace sbe
         private:
             std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
-
-            float offset, repeat_y, repeat_x, angle;
-            int repeat_nr;
+            float repeat_y, repeat_x, angle;
+            int repeat_nr_x, repeat_nr_y;
             unsigned int width, height;
-            float sprite_width;
-            float space_x;
+            float sprite_width, sprite_height;
+            float space_x, space_y;
 
     };
 }

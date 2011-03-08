@@ -1,9 +1,9 @@
 "sprite_name"				"bg_1"
-"movement_angle"			"0" 					//0 for horizontal, 1 for vertical
+"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
 "movement_speed"			"500"
 "offset_x"					"0"
 "offset_y"					"0"
-"scale_y"					"1"
-"scale_x"					"0.1"
+"scale_y"					"2"
+"scale_x"					"1"
 "repeat_space_x"			"0"
 "repeat_space_y"			"0"
