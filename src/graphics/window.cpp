@@ -32,7 +32,7 @@
 namespace sbe
 {
     Window::Window(sf::VideoMode Mode, ConfigReader* reader, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(Mode.Width, Mode.Height), respawn(false), pause(false)
+        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(reader->getRes()), respawn(false), pause(false)
     {
         /*
             Purpose: Constructor for sbe::Window.
@@ -48,7 +48,7 @@ namespace sbe
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
-        gui = new Gui("scripts/assets/fonts.ast");
+        gui = new Gui("scripts/assets/fonts.ast", res);
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
@@ -89,8 +89,6 @@ namespace sbe
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
 
-        int counter = 0;
-
         sf::Sound laser(audHandler->getSound("laser"));
 
         while(IsOpened())
@@ -113,7 +111,11 @@ namespace sbe
                 {
 
                     if (events["P"])
+                    {
                         loli->GetStatus() != sf::Music::Playing ? loli->Play() : loli->Pause();
+                        pause = !pause;
+                        gui->pause();
+                    }
                     if(events["B"])
                     {
                         testShip->setImage("kawaiiShip");
@@ -159,7 +161,7 @@ namespace sbe
 
             //Update everything
             for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)
-                (*it)->update(ElapsedTime);
+                if(!pause) (*it)->update(ElapsedTime);
 
             Clear();
 

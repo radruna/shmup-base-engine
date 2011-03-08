@@ -29,7 +29,7 @@ namespace sbe
     class Gui : public sbe::Drawable, public sbe::FileHandler
     {
         public:
-            Gui(const std::string& fontFile);
+            Gui(const std::string& fontFile, const sf::Vector2i& res);
             ~Gui();
 
             void createMainMenu(void* callObject,
@@ -84,6 +84,8 @@ namespace sbe
 
             void update(const float& elapsed);
 
+            void pause();
+
         protected:
             void Render(sf::RenderTarget& target) const;
 
@@ -95,8 +97,9 @@ namespace sbe
             }
 
             bool delMain,
-                 delOpt,
-                 delDia;
+                  delOpt,
+                  delDia,
+                  showPause;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
             sbe::DialogPanel *diagPanel;
@@ -104,6 +107,7 @@ namespace sbe
             FontMap fonts;
             sf::String *fps;
             std::stringstream fpsStr;
+            sf::String *pauseStr;
             short fpsCount;
     };
 }

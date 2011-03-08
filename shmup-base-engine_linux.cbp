@@ -42,11 +42,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="assets/debug/cross.png" />
 		<Unit filename="assets/debug/error.png" />
 		<Unit filename="assets/debug/particle.png" />
 		<Unit filename="assets/font/Inconsolata.otf" />
 		<Unit filename="assets/image/8bjet.png" />
 		<Unit filename="assets/image/background0.bmp" />
+		<Unit filename="assets/image/background_1.png" />
 		<Unit filename="assets/image/bubble.png" />
 		<Unit filename="assets/image/cb.bmp" />
 		<Unit filename="assets/image/jet.png" />
@@ -77,11 +79,16 @@
 		<Unit filename="scripts/particles/shield.ast" />
 		<Unit filename="scripts/particles/shield_old.ast" />
 		<Unit filename="scripts/particles/shot_01_p.ast" />
+		<Unit filename="scripts/particles/trails/fire_1.ast" />
+		<Unit filename="scripts/particles/trails/smoke_1.ast" />
 		<Unit filename="scripts/shots/shot_01.ast" />
+		<Unit filename="scripts/weapons/test_wpn.ast" />
 		<Unit filename="src/audio/audiohandler.cpp" />
 		<Unit filename="src/audio/audiohandler.h" />
 		<Unit filename="src/audio/music.cpp" />
 		<Unit filename="src/audio/music.h" />
+		<Unit filename="src/game/enemy.cpp" />
+		<Unit filename="src/game/enemy.h" />
 		<Unit filename="src/game/entity.cpp" />
 		<Unit filename="src/game/entity.h" />
 		<Unit filename="src/game/movable.cpp" />
@@ -103,6 +110,8 @@
 		<Unit filename="src/graphics/particle.h" />
 		<Unit filename="src/graphics/particlesystem.cpp" />
 		<Unit filename="src/graphics/particlesystem.h" />
+		<Unit filename="src/graphics/sprite.cpp" />
+		<Unit filename="src/graphics/sprite.h" />
 		<Unit filename="src/graphics/window.cpp" />
 		<Unit filename="src/graphics/window.h" />
 		<Unit filename="src/gui/button.cpp" />
@@ -111,6 +120,8 @@
 		<Unit filename="src/gui/checkbutton.h" />
 		<Unit filename="src/gui/dialogpanel.cpp" />
 		<Unit filename="src/gui/dialogpanel.h" />
+		<Unit filename="src/gui/gui.cpp" />
+		<Unit filename="src/gui/gui.h" />
 		<Unit filename="src/gui/mainmenu.cpp" />
 		<Unit filename="src/gui/mainmenu.h" />
 		<Unit filename="src/gui/menu.cpp" />
@@ -122,6 +133,7 @@
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/md5/md5.cpp" />
 		<Unit filename="src/md5/md5.h" />
+		<Unit filename="src/sys/action.h" />
 		<Unit filename="src/sys/configreader.cpp" />
 		<Unit filename="src/sys/configreader.h" />
 		<Unit filename="src/sys/const.h" />

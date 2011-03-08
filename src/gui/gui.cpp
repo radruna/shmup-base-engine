@@ -22,7 +22,7 @@
 
 namespace sbe
 {
-    Gui::Gui(const std::string& fontFile)
+    Gui::Gui(const std::string& fontFile, const sf::Vector2i& res)
         : delMain(false), delOpt(false), delDia(false), fpsCount(0)
     {
         loadFonts(fontFile);
@@ -30,6 +30,11 @@ namespace sbe
         fps = new sf::String("0", fonts["inconsolata"], 20);
         fps->SetPosition(10, 10);
         fps->SetColor(sf::Color::White);
+
+        pauseStr = new sf::String("Paused", fonts["inconsolata"], 30);
+        pauseStr->SetCenter(pauseStr->GetRect().GetWidth() / 2, pauseStr->GetRect().GetHeight() / 2);
+        pauseStr->SetPosition(res.x / 2, (res.y - 50) / 2);
+        pauseStr->SetColor(sf::Color::Black);
 
         mainMenu = NULL;
         optionsMenu = NULL;
@@ -44,6 +49,7 @@ namespace sbe
         safeDelete(optionsMenu);
         safeDelete(diagPanel);
         safeDelete(fps);
+        safeDelete(pauseStr);
     }
 
     void Gui::createMainMenu(void* callObject, void (*selectFunction) (void* object), void (*optionsFunction) (void* object), void (*hiscoreFunction) (void* object), void (*creditsFunction) (void* object), void (*exitFunction) (void* object),
@@ -132,6 +138,11 @@ namespace sbe
             optionsMenu->update(elapsed);
     }
 
+    void Gui::pause()
+    {
+        showPause = !showPause;
+    }
+
     void Gui::Render(sf::RenderTarget& target) const
     {
         for(PanelMap::const_iterator it = panels.begin(); it != panels.end(); it++)
@@ -145,6 +156,7 @@ namespace sbe
             target.Draw(*diagPanel);
 
         target.Draw(*fps);
+        if(showPause) target.Draw(*pauseStr);
     }
 
     void Gui::loadFonts(const std::string& fontFile)
