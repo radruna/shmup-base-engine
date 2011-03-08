@@ -43,12 +43,17 @@ namespace sbe
             void update(const float& elapsed);
             void reloadCheck();
             void reload();
+            bool isEmpty();
+            void turnOn();
+            void turnOff();
+            void kill();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
 
         private:
             bool isChild;
+            bool on;
             ImageHandler *imageHandler;
             std::string scriptFile;
             std::string fileContents;

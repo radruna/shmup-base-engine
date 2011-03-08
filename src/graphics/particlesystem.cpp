@@ -27,6 +27,7 @@ namespace sbe
 {
     ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r, const bool& isC)
     {
+        on = true;
         scriptFile = particleSystemFile;
         imageHandler = imgHandler;
         reloadInterval = r;
@@ -370,6 +371,21 @@ namespace sbe
 
     }
 
+    void ParticleSystem::kill()
+    {
+        if(child1 != "none")
+            delete pSystemChild1;
+
+        if(child2 != "none")
+            delete pSystemChild2;
+
+        if(child3 != "none")
+            delete pSystemChild3;
+
+        if(child4 != "none")
+            delete pSystemChild4;
+    }
+
     void ParticleSystem::reloadCheck()
     {
         std::ifstream fileReader2;
@@ -450,6 +466,14 @@ namespace sbe
         yPos += y;
     }
 
+    bool ParticleSystem::isEmpty() //Is particle list empty?
+    {
+        if(particleList.empty())
+            return true;
+        else
+            return false;
+    }
+
     template<class T>
     T ParticleSystem::boundsRand(T min, T max)
     {
@@ -467,6 +491,16 @@ namespace sbe
         return 0;
     }
 
+    void ParticleSystem::turnOn()
+    {
+        on = true;
+    }
+
+    void ParticleSystem::turnOff()
+    {
+        on = false;
+    }
+
     void ParticleSystem::update(const float& elapsed)
     {
 
@@ -482,122 +516,125 @@ namespace sbe
 
         counter += elapsed; //Count time
 
-        //Emit new particle
-        while(counter > 1 / emissionRate)
+        //Emit new particle if on
+        if(on)
         {
-
-            //int prcPerFrame = counter / (1/emissionRate); //Check how many particles should be emitted this frame.
-            //for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
-            if(1)
+            while(counter > 1 / emissionRate)
             {
 
-                if(emissionMax > 0 || emissionType != 2) //Check emission type and how many particles remain if type = 2
+                //int prcPerFrame = counter / (1/emissionRate); //Check how many particles should be emitted this frame.
+                //for(int i = 0;i< prcPerFrame;i++) //Make sure that enough particles are emitted. This fixes the issue with particle systems being unable to emit faster than the framerate
+                if(1)
                 {
-                    //Get values and spawn particle
 
-                    Particle::ParaMod sizeMod;
-                    Particle::ParaMod emissionAngleMod;
-
-                    //Get scale
-                    float scale = boundsRand( sizeMin , sizeMax );
-                    //Get rotation rate (divide by 10 for a nicer value)
-                    float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
-                    //Get force
-                    float emissionForce = boundsRand( emissionForceMin , emissionForceMax );
-                    //Get friction
-                    float emissionFriction = boundsRand( emissionFrictionMin , emissionFrictionMin );
-                    //Get lifespan
-                    float lifeSpan = boundsRand( lifeSpanMin , lifeSpanMax );
-                    //Get fade in duration
-                    float fadeInDur = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
-                    //Get fade in offset
-                    float fadeInOffset = boundsRand( fadeModifier.fadeInOffsetMin, fadeModifier.fadeInOffsetMax );
-                    //Get fade out duration
-                    float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
-                    //Get alpha
-                    int alpha = boundsRand( alphaMin, alphaMax );
-
-                    //Get scalar size mod rate
-                    sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
-                    //Get scalar size mod offset
-                    sizeMod.scalarOffset = sizeModifier.scalarRateOffset;
-                    //Get oscillating size mod frequency
-                    sizeMod.frequency = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
-                    //Get oscillating size mod amplitude
-                    sizeMod.amplitude = boundsRand( sizeModifier.oscAmpMin, sizeModifier.oscAmpMin );
-                    //Get oscillating size mod offset
-                    sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
-
-                    //Get scalar emission angle mod rate
-                    emissionAngleMod.scalarRate = emissionAngleModifier.scalarRateMin;
-                    //Get oscillating emission angle mod frequency
-                    emissionAngleMod.frequency = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
-                    //Get oscillating emission angle mod amplitude
-                    emissionAngleMod.amplitude = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
-                    //Get oscillating emission angle mod offset
-                    emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
-
-                    //Get emission angle
-
-                    if(emissionAngleMod.scalarRate != 0)
+                    if(emissionMax > 0 || emissionType != 2) //Check emission type and how many particles remain if type = 2
                     {
-                        emissionAngle += emissionAngleMod.scalarRate / (1/elapsed);
-                        //std::cout<<emissionAngleMod.scalarRate<<std::endl;
-                        if(emissionAngle > 360)
-                            emissionAngle -= 360;
+                        //Get values and spawn particle
+
+                        Particle::ParaMod sizeMod;
+                        Particle::ParaMod emissionAngleMod;
+
+                        //Get scale
+                        float scale = boundsRand( sizeMin , sizeMax );
+                        //Get rotation rate (divide by 10 for a nicer value)
+                        float rotRate = boundsRand( rotRateMin, rotRateMax ) / 10;
+                        //Get force
+                        float emissionForce = boundsRand( emissionForceMin , emissionForceMax );
+                        //Get friction
+                        float emissionFriction = boundsRand( emissionFrictionMin , emissionFrictionMin );
+                        //Get lifespan
+                        float lifeSpan = boundsRand( lifeSpanMin , lifeSpanMax );
+                        //Get fade in duration
+                        float fadeInDur = boundsRand( fadeModifier.fadeInMin, fadeModifier.fadeInMax );
+                        //Get fade in offset
+                        float fadeInOffset = boundsRand( fadeModifier.fadeInOffsetMin, fadeModifier.fadeInOffsetMax );
+                        //Get fade out duration
+                        float fadeOutDur = boundsRand( fadeModifier.fadeOutMin, fadeModifier.fadeOutMax );
+                        //Get alpha
+                        int alpha = boundsRand( alphaMin, alphaMax );
+
+                        //Get scalar size mod rate
+                        sizeMod.scalarRate = boundsRand( sizeModifier.scalarRateMin, sizeModifier.scalarRateMax );
+                        //Get scalar size mod offset
+                        sizeMod.scalarOffset = sizeModifier.scalarRateOffset;
+                        //Get oscillating size mod frequency
+                        sizeMod.frequency = boundsRand( sizeModifier.oscFreqMin, sizeModifier.oscFreqMax );
+                        //Get oscillating size mod amplitude
+                        sizeMod.amplitude = boundsRand( sizeModifier.oscAmpMin, sizeModifier.oscAmpMin );
+                        //Get oscillating size mod offset
+                        sizeMod.amplitudeOffset = sizeModifier.oscAmpOffset;
+
+                        //Get scalar emission angle mod rate
+                        emissionAngleMod.scalarRate = emissionAngleModifier.scalarRateMin;
+                        //Get oscillating emission angle mod frequency
+                        emissionAngleMod.frequency = boundsRand( emissionAngleModifier.oscFreqMin, emissionAngleModifier.oscFreqMax );
+                        //Get oscillating emission angle mod amplitude
+                        emissionAngleMod.amplitude = boundsRand( emissionAngleModifier.oscAmpMin, emissionAngleModifier.oscAmpMin );
+                        //Get oscillating emission angle mod offset
+                        emissionAngleMod.amplitudeOffset = emissionAngleModifier.oscAmpOffset;
+
+                        //Get emission angle
+
+                        if(emissionAngleMod.scalarRate != 0)
+                        {
+                            emissionAngle += emissionAngleMod.scalarRate / (1/elapsed);
+                            //std::cout<<emissionAngleMod.scalarRate<<std::endl;
+                            if(emissionAngle > 360)
+                                emissionAngle -= 360;
+                        }
+                        else if(emissionAngleMod.frequency != 0)
+                            emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax ) + emissionAngleMod.amplitude * sin(age * emissionAngleMod.frequency) + emissionAngleMod.amplitudeOffset;
+                        else
+                            emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
+
+                        //Get movement mod
+                        float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
+                        //sizeMod.scalarOffset
+                        //Logger::writeMsg(1) << sizeMod.scalarOffset;
+                        particleList.push_back(Particle(
+                                                        sprite, //Sprite to use
+                                                        scale, //Width
+                                                        scale * sizeRatio, //Height
+                                                        emissionAngle,
+                                                        emissionForce,
+                                                        lifeSpan,
+                                                        alpha,
+                                                        fadeInDur,
+                                                        fadeInOffset,
+                                                        fadeOutDur,
+                                                        emissionFriction,
+                                                        sizeMod, //Size modification data
+                                                        movementModAngle,
+                                                        age,
+                                                        rotAlign,
+                                                        internalOsc,
+                                                        colorInitial,
+                                                        colorModified,
+                                                        colorModData
+                                                        )); //Add new particle to list
+                        particleList.back().SetPosition( xPos , yPos ); //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
+                        particleList.back().setRotRate( rotRate ); //Set rotation rate
+
+                        if(elapsed > 1 / emissionRate)  //If time == shit
+                            particleList.back().push( emissionForce * counter);
+
+                        //Handle rotation
+                        if(rotAlign) //Should I align to emission angle?
+                            particleList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
+                        else if(rotRandom) //Should I start out with random rotation?
+                            particleList.back().SetRotation( rand() % 360 );
+                        else //Just spawn with rotation
+                            particleList.back().SetRotation( rotation );
+
+
+                        //Logger::writeMsg(1) << "New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce; //Debug
+
+                        if(emissionType == 2) //Particles remaining -1 if type = 2
+                            emissionMax--;
                     }
-                    else if(emissionAngleMod.frequency != 0)
-                        emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax ) + emissionAngleMod.amplitude * sin(age * emissionAngleMod.frequency) + emissionAngleMod.amplitudeOffset;
-                    else
-                        emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
-
-                    //Get movement mod
-                    float movementModAngle = boundsRand( movementAngleMin, movementAngleMax );
-                    //sizeMod.scalarOffset
-                    //Logger::writeMsg(1) << sizeMod.scalarOffset;
-                    particleList.push_back(Particle(
-                                                    sprite, //Sprite to use
-                                                    scale, //Width
-                                                    scale * sizeRatio, //Height
-                                                    emissionAngle,
-                                                    emissionForce,
-                                                    lifeSpan,
-                                                    alpha,
-                                                    fadeInDur,
-                                                    fadeInOffset,
-                                                    fadeOutDur,
-                                                    emissionFriction,
-                                                    sizeMod, //Size modification data
-                                                    movementModAngle,
-                                                    age,
-                                                    rotAlign,
-                                                    internalOsc,
-                                                    colorInitial,
-                                                    colorModified,
-                                                    colorModData
-                                                    )); //Add new particle to list
-                    particleList.back().SetPosition( xPos , yPos ); //Set start position of particle to the particle system's coordinates //TODO(Fewes#2#) Add offset functionality
-                    particleList.back().setRotRate( rotRate ); //Set rotation rate
-
-                    if(elapsed > 1 / emissionRate)  //If time == shit
-                        particleList.back().push( emissionForce * counter);
-
-                    //Handle rotation
-                    if(rotAlign) //Should I align to emission angle?
-                        particleList.back().SetRotation( (emissionAngle * -1) + rotation ); //If yes, then do so + rotation
-                    else if(rotRandom) //Should I start out with random rotation?
-                        particleList.back().SetRotation( rand() % 360 );
-                    else //Just spawn with rotation
-                        particleList.back().SetRotation( rotation );
-
-
-                    //Logger::writeMsg(1) << "New particle emitted. Angle: "<<emitAngle<<" Force: "<<emissionForce; //Debug
-
-                    if(emissionType == 2) //Particles remaining -1 if type = 2
-                        emissionMax--;
                 }
+                counter -=  1 / emissionRate;
             }
-            counter -=  1 / emissionRate;
         }
 
         if(!moveType)

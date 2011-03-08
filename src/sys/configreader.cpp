@@ -19,6 +19,7 @@ namespace sbe
         resList.push_back(sf::Vector2i(800, 600));
         resList.push_back(sf::Vector2i(1024, 768));
         resList.push_back(sf::Vector2i(1280, 720));
+        resList.push_back(sf::Vector2i(1280, 1024));
         resList.push_back(sf::Vector2i(1440, 900));
         resList.push_back(sf::Vector2i(1400, 1050));
         resList.push_back(sf::Vector2i(1680, 1050));

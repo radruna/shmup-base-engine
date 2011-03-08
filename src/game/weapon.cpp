@@ -26,11 +26,12 @@
 
 namespace sbe
 {
-    Weapon::Weapon(const std::string& weaponFile, ImageHandler* imgHandler)
+    Weapon::Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader)
     {
         firing = false;
         scriptFile = weaponFile;
         imageHandler = imgHandler;
+        configReader = cfgReader;
         load();
     }
 
@@ -284,36 +285,27 @@ namespace sbe
 
         counter = 0;
 
-        pSys = new ParticleSystem( pSystemFile, imageHandler, 1 );
-
     }
 
     void Weapon::Render(sf::RenderTarget& Target) const
     {
+        //Draw projectiles
         for(std::list<Projectile>::const_iterator it = projectileList.begin(); it != projectileList.end(); it++) //Iterate through projectile list
         {
             Target.Draw(*it);
         }
-
-        for(std::list<ParticleSystem>::const_iterator pIt = pSysList.begin(); pIt != pSysList.end(); pIt++) //Iterate through particle system list
-        {
-            Target.Draw(*pIt);
-        }
-
-        Target.Draw(*pSys);
-
     }
 
     void Weapon::startFiring()
     {
         if(!firing)
-            firing = true;
+            counter = 1 / emissionRate;
+        firing = true;
     }
 
     void Weapon::stopFiring()
     {
-        if(firing)
-            firing = false;
+        firing = false;
     }
 
     //Remove all projectiles from system
@@ -364,19 +356,6 @@ namespace sbe
 
     void Weapon::update(const float& elapsed)
     {
-
-        if(!projectileList.empty())
-            pSys->SetPosition( projectileList.back().GetPosition().x, projectileList.back().GetPosition().y  );
-        else
-            pSys->SetPosition( -1000, -1000  );
-
-        pSys->update(elapsed);
-
-        for(std::list<ParticleSystem>::iterator pIt = pSysList.begin(); pIt != pSysList.end(); pIt++) //Iterate through particle system list
-        {
-                pIt->update(elapsed); //Update particle system
-        }
-
         //Increase age
         age += elapsed;
 
@@ -450,7 +429,7 @@ namespace sbe
                         emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
 
                     //Fire new projectile
-                    projectileList.push_back(Projectile(imageHandler , xPos, yPos, sprite, emissionAngle, emissionForce));
+                    projectileList.push_back( Projectile(imageHandler, configReader, xPos, yPos, sprite, emissionAngle, emissionForce, pSystemFile ));
                     //Handle size/ratio
                     projectileList.back().SetScale(scale, scale * sizeRatio);
 
@@ -465,8 +444,6 @@ namespace sbe
                     else //Just spawn with rotation
                         projectileList.back().SetRotation( rotation );
 
-                    //Add particle system
-                    //pSysList.push_back( ParticleSystem( pSystemFile, imageHandler ) );
                 }
 
                 if(wavesLeft > 0)
@@ -482,11 +459,9 @@ namespace sbe
         for(std::list<Projectile>::iterator pIt = projectileList.begin(); pIt != projectileList.end(); pIt++) //Iterate through projectile list
         {
                 pIt->update(elapsed); //Update projectile
-                if(
-                   pIt->GetPosition().x < 0 ||
-                   pIt->GetPosition().y + 2000 < 0
-                )
+                if( pIt->isUseless() )
                 {
+                    pIt->kill();
                     pIt = projectileList.erase(pIt); //Erase projectile
                 }
         }

@@ -24,7 +24,7 @@
 
 //Emission parameters
 "emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
-"emission_rate"						"200"					//Particles per second
+"emission_rate"						"30"					//Particles per second
 "emission_max"						"10"					//Not implemented yet.	Particles to emit if type = 2
 "emission_force_min"				"-0"						//Emission force minimum
 "emission_force_max"				"0"					//Emission force maximum
@@ -75,8 +75,8 @@
 //Size modification parameters
 "emission_angle_mod_scalar_rate"				"00"			//Angle modification minimum (scalar)
 
-"emission_angle_mod_oscillate_freq_min"			"1"			//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
-"emission_angle_mod_oscillate_freq_max"			"1"			//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_freq_min"			"0.5"			//Oscillatoion frequency min. Oscillator turns this many times in one second. 0 = no oscillation
+"emission_angle_mod_oscillate_freq_max"			"0.5"			//Oscillatoion frequency max. Oscillator turns this many times in one second. 0 = no oscillation
 "emission_angle_mod_oscillate_amplitude_min"	"180"		//Oscillation amplitude minimum. 1 means oscillation between -1 and 1
 "emission_angle_mod_oscillate_amplitude_max"	"180"		//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
 "emission_angle_mod_oscillate_amplitude_offset"	"0"			//Offset oscillation timer. Has little effect except in special cases
@@ -86,5 +86,5 @@
 "move_mod_angle_max"					"-100"				//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"5"					//Minimum alpha value
-"alpha_max"							"5"					//Maximum alpha value
+"alpha_min"							"20"					//Minimum alpha value
+"alpha_max"							"20"					//Maximum alpha value

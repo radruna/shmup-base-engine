@@ -22,29 +22,29 @@
 
 //Emission parameters
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"100"					//Particles per second
+"emission_rate"						"50"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"00"						//Emission force minimum
-"emission_force_max"				"200"					//Emission force maximum
+"emission_force_max"				"100"					//Emission force maximum
 "emission_friction_min"				"1"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"1 "					//Emission friction maximum. Closer to 1 = less friction
-"emission_angle_min"				"-0"					//Emission angle minimum
-"emission_angle_max"				"360"					//Emission angle maximum
+"emission_angle_min"				"-180"					//Emission angle minimum
+"emission_angle_max"				"-180"					//Emission angle maximum
 
 //Lifespan parameters
 "lifespan_min"						"0.2"					//Lifespan duration minimum
 "lifespan_max"						"0.3"					//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"0.4"					//Scale minimum
-"size_max"							"0.6"					//Scale maximum
-"size_ratio"						"3"						//x/y ratio. 1 = normal
+"size_min"							"0.5"					//Scale minimum
+"size_max"							"0.8"					//Scale maximum
+"size_ratio"						"2"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_rate_min"					"-10"					//Rotation rate minimum
 "rotation_rate_max"					"10"						//Rotation rate maximum
-"rotation_random"					"1"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"90"						//If not random, then this
 
 "size_mod_scalar_rate_min"				"1.3"						//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
@@ -56,8 +56,7 @@
 "fade_out_min"						"0.1"
 "fade_out_max"						"0.1"
 
-"move_mod_angle_min"	"-2000"				
-"move_mod_angle_max"	"2000"
+
 
 //Alpha modification parameters
 "alpha_min"		"250"

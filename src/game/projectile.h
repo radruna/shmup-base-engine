@@ -24,35 +24,49 @@
 #include "../graphics/imagehandler.h" //For loading images
 #include "../graphics/particlesystem.h" //Particle system
 #include "../sys/util.h"
+#include "../sys/configreader.h"
 #include "movable.h"
 
 
 namespace sbe
 {
-    class Projectile : public Movable
+    class Projectile : public Drawable
     {
         /*
         Projectile class
         */
         public:
             Projectile(
-                       ImageHandler* imgHandler,
+                        ImageHandler* imgHandler,
+                        ConfigReader* cfgReader,
                         const int&          xPos,
                         const int&          yPos,
                         const sf::Image&    img,
                         const float&        a,
-                        const float&        v
+                        const float&        v,
+                        const std::string&  pSysFile
                        );
             ~Projectile()
             {
             }
             void update(const float& elapsed);
+            void push(const float& distance);
+            void SetScale(const float& x, const float& y);
+            void SetRotation(const float& r);
+            void kill();
+            bool isUseless();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
 
         private:
-            std::string         name;
+            Movable             proj;
+            ImageHandler        *imageHandler;
+            ConfigReader        *configReader;
+            std::string         name,
+                                pSystemFile;
+
+            ParticleSystem      *pSys;
 
             float               hitBoxRadius,
                                 damage;

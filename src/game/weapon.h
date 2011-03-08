@@ -18,6 +18,7 @@
 #include "../sys/filehandler.h" //Abstract base class
 #include "../graphics/drawable.h"
 #include "../graphics/imagehandler.h" //For loading images
+#include "../sys/configreader.h"
 #include "projectile.h" //Projectile header
 
 namespace sbe
@@ -28,7 +29,7 @@ namespace sbe
         Particle system class
         */
         public:
-            Weapon(const std::string& weaponFile, ImageHandler* imgHandler);
+            Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader);
             ~Weapon()
             {
             }
@@ -48,12 +49,9 @@ namespace sbe
 
         private:
             ImageHandler *imageHandler;
+            ConfigReader *configReader;
             std::string scriptFile;
             std::string pSystemFile;
-
-            ParticleSystem *pSys;
-
-            std::list<ParticleSystem> pSysList;
 
             struct ValueMod
             {
