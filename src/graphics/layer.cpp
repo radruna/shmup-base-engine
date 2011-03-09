@@ -63,6 +63,7 @@ namespace sbe
                         sprites[y].SetPosition(img_offsetX,img_offsetY);
                         img_offsetY += img_height;
                     }
+                    img_offsetY = 0;
                     img_offsetX += img_width;
                 }
             }
