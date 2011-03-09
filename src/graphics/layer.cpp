@@ -18,92 +18,73 @@ namespace sbe
 {
 
     Layer::Layer(
-                       const sf::Image&     img,
-                       const float&         a,
-                       const float&         v,
-                       const float&         xOffset,
-                       const float&         yOffset,
-                       const float&         yScale,
-                       const float&         xScale,
-                       const float&           repeat_space_x,
-                       const float&           repeat_space_y,
-                       const unsigned int& w,
-                       const unsigned int& h
+                        const sf::Image&     img,
+                        const float&         a,
+                        const float&         v,
+                        const float&         xOffset,
+                        const float&         yOffset,
+                        const float&         yScale,
+                        const float&         xScale,
+                        const float&           repeat_space_x,
+                        const float&           repeat_space_y,
+                        const unsigned int& w,
+                        const unsigned int& h,
+                        const bool& tile_x,
+                        const bool& tile_y
                        )
     {
 
             width = w;
             height = h;
+            angle = a;
             space_x = repeat_space_x;
             space_y = repeat_space_y;
 
-            if(a == 0)
-                angle = 0;
-            else if(a == 1)
-                angle = 180;
-            else if(a == 2)
-                angle = 90;
-            else if(a == 3)
-                angle = 270;
-            else
-                angle = 0;
+            //Get img width and height
+            img_width = img.GetWidth() * xScale;
+            img_height = img.GetHeight() * yScale;
 
+            //Numbers of sprites to fill the screen.
+            repeat_nr_x = ceil(w/img_width) + 1;
+            repeat_nr_y = ceil(h/img_height) + 1;
 
-            sprites.push_back(Movable(img, angle, v));
-            sprites.front().SetScale(xScale,yScale);
+            img_offsetX = 0;
+            img_offsetY = 0;
 
-            //Sprite width and height
-            sprite_width = (sprites.front().GetSize().x);
-            sprite_height = (sprites.front().GetSize().y);
-
-            repeat_nr_x = ceil(w/sprite_width);
-            repeat_nr_y = ceil(h/sprite_height);
-
-            if(angle == 0 || angle == 180)
+            //Create sprites
+            if(tile_x == 1 && tile_y == 1)
             {
-                for(int i= 0; i< repeat_nr_x; i++)
+                for(int x = 0; x<repeat_nr_x; x++)
+                {
+                    for(int y = 0; y < repeat_nr_y; y++)
+                    {
+                        sprites.push_back(Movable(img, angle, v));
+                        sprites[y].SetScale(xScale,yScale);
+                        sprites[y].SetPosition(img_offsetX,img_offsetY);
+                        img_offsetY += img_height;
+                    }
+                    img_offsetX += img_width;
+                }
+            }
+            else if(tile_x == 1)
+            {
+                for(int x = 0; x<repeat_nr_x; x++)
                 {
                     sprites.push_back(Movable(img, angle, v));
-                    sprites[i+1].SetScale(xScale,yScale);
+                    sprites[x].SetScale(xScale,yScale);
+                    sprites[x].SetPosition(img_offsetX,img_offsetY);
+
+                    img_offsetX += img_width;
                 }
             }
-            else if(angle == 90 || angle == 270)
+            else if(tile_y == 1)
             {
-                for(int i= 0; i< repeat_nr_y; i++)
+                for(int y = 0; y < repeat_nr_y; y++)
                 {
                     sprites.push_back(Movable(img, angle, v));
-                    sprites[i+1].SetScale(xScale,yScale);
-                }
-
-            }
-
-            repeat_x = 0;
-            repeat_y = 0;
-
-
-            if(angle == 0 || angle == 180)
-            {
-                for(std::vector<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
-                {
-                    it->SetPosition(xOffset+repeat_x, yOffset);
-
-                    if(angle == 0)
-                        repeat_x -= (sprites.front().GetSize().x) + repeat_space_x;
-                    else
-                        repeat_x += (sprites.front().GetSize().x) + repeat_space_x;
-                }
-
-            }
-            else if(angle == 90 || angle == 270)
-            {
-                for(std::vector<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
-                {
-                    it->SetPosition(xOffset, yOffset+repeat_y);
-
-                    if(angle == 90)
-                        repeat_y -= (sprites.front().GetSize().y) + repeat_space_y;
-                    else
-                        repeat_y += (sprites.front().GetSize().y) + repeat_space_y;
+                    sprites[y].SetScale(xScale,yScale);
+                    sprites[y].SetPosition(img_offsetX,img_offsetY);
+                    img_offsetY += img_height;
                 }
             }
     }
@@ -124,48 +105,19 @@ namespace sbe
     {
         for(unsigned int it = 0; it < sprites.size(); it++) //Iterate through layer vector
         {
-                sprites[it].update(elapsed);
+            sprites[it].update(elapsed);
 
-                if(angle == 0)
+            /*if(angle > 0 && angle < 90)
+            {
+                if(sprites[it].GetPosition().x > width)
                 {
-                        if((sprites[it].GetPosition().x) > width)
-                        {
-                            if(it == 0)
-                                sprites[it].SetPosition(sprites[sprites.size()-1].GetPosition().x - (sprite_width + space_x), sprites[0].GetPosition().y);
-                            else
-                                sprites[it].SetPosition(sprites[it-1].GetPosition().x - (sprite_width + space_x), sprites[0].GetPosition().y);
-                        }
                 }
-                else if(angle == 90)
+                if(sprites[it].GetPosition().y > height)
                 {
-                       if((sprites[it].GetPosition().y) > height)
-                        {
-                            if(it == 0)
-                                sprites[it].SetPosition(sprites[0].GetPosition().x, sprites[sprites.size()-1].GetPosition().y - (sprite_height + space_y));
-                            else
-                                sprites[it].SetPosition(sprites[0].GetPosition().x, sprites[it-1].GetPosition().y - (sprite_height + space_y));
-                        }
                 }
-                else if(angle == 180)
-                {
-                       if((sprites[it].GetPosition().x + sprite_width) < 0 )
-                        {
-                            if(it == 0)
-                                sprites[it].SetPosition(sprites[sprites.size()-1].GetPosition().x + (sprite_width + space_x), sprites[0].GetPosition().y);
-                            else
-                                sprites[it].SetPosition(sprites[it-1].GetPosition().x + (sprite_width + space_x), sprites[0].GetPosition().y);
-                        }
-                }
-                else if(angle == 270)
-                {
-                       if((sprites[it].GetPosition().y + sprite_height) < 0)
-                        {
-                            if(it == 0)
-                                sprites[it].SetPosition(sprites[0].GetPosition().x, sprites[sprites.size()-1].GetPosition().y + (sprite_height + space_y));
-                            else
-                                sprites[it].SetPosition(sprites[0].GetPosition().x, sprites[it-1].GetPosition().y + (sprite_height + space_y));
-                        }
-                }
+
+            }*/
+
         }
 
     }

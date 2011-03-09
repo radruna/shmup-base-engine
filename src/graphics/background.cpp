@@ -81,6 +81,10 @@ namespace sbe
                     repeat_offsetx = atof(parameterValue.c_str());
                 else if(parameterKey == "repeat_space_y")
                     repeat_offsety = atof(parameterValue.c_str());
+                else if(parameterKey == "tile_x")
+                    tile_x = (bool) atoi(parameterValue.c_str());
+                else if(parameterKey == "tile_y")
+                    tile_y = (bool) atoi(parameterValue.c_str());
                 else
                     Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;
             }
@@ -89,7 +93,7 @@ namespace sbe
 
         tmpImg = imageHandler->getImage(spriteName);
 
-        layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, width, height));
+        layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, width, height, tile_x, tile_y));
 
     }
 

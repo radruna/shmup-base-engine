@@ -35,7 +35,9 @@ namespace sbe
                         const float&         repeat_space_x,
                         const float&         repeat_space_y,
                         const unsigned int& w,
-                        const unsigned int& h
+                        const unsigned int& h,
+                        const bool& tile_x,
+                        const bool& tile_y
                        );
             ~Layer()
             {
@@ -46,9 +48,8 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
             float repeat_y, repeat_x, angle;
             int repeat_nr_x, repeat_nr_y;
-            unsigned int width, height;
-            float sprite_width, sprite_height;
-            float space_x, space_y;
+            unsigned int width, height, img_width, img_height;
+            float space_x, space_y, img_offsetX, img_offsetY;
 
     };
 }

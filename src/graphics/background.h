@@ -42,10 +42,17 @@ namespace sbe
             std::string spriteName;
             float       xOffset,
                         yOffset;
+
+            float   yScale,
+                    xScale;
+
+            bool    tile_x,
+                    tile_y;
             float moveAngle;
             float moveSpeed;
-            float yScale, xScale;
+
             unsigned int width, height;
+
             float repeat_offsetx, repeat_offsety;
             sf::Image tmpImg;
 
