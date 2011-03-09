@@ -28,7 +28,7 @@ namespace sbe
 
     void Movable::update(const float& elapsed)
     {   //Use elapsed to ensure likewise speed on platforms etc
-        sbe::Drawable::Move( (cos(angle / (180/PI)) * speed) / (1/elapsed), (sin(angle / (180/PI)) * speed) / (1/elapsed));
+        sbe::Drawable::Move( (cos(angle / (180/PI)) * speed) * elapsed, (sin(angle / (180/PI)) * speed) * elapsed);
     }
 
     void Movable::push(const float& distance)   //Push object

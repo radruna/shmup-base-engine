@@ -140,6 +140,8 @@ namespace sbe
                     return false;
             }
         }
+
+        return false;
     }
 
     void Projectile::push(const float& distance)
