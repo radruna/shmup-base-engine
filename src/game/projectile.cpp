@@ -45,10 +45,13 @@ namespace sbe
         hitBoxRadius    =   5;
         damage          =   10;
 
-        if(pSysFile != "" || pSysFile != "none")
+        pSystemFile = pSysFile;
+
+        if(pSystemFile == "none")
+        {}
+        else
         {
             pSys = new ParticleSystem( pSysFile, imageHandler, 0 );
-            pSystemFile = pSysFile;
             pSys->SetPosition(xPos, yPos);
         }
     }
@@ -57,26 +60,36 @@ namespace sbe
     {
         Target.Draw(proj);
 
-        if(pSystemFile != "" || pSystemFile != "none")
+        if(pSystemFile == "none")
+        {}
+        else
             Target.Draw(*pSys);
     }
 
     void Projectile::update(const float& elapsed)
     {
-        if(
-           pSys->GetPositionX() < 0
-           ||
-           pSys->GetPositionX() > configReader->getRes().x
-           ||
-           pSys->GetPositionY() < 0
-           ||
-           pSys->GetPositionY() > configReader->getRes().y
-        )
-            pSys->turnOff();
+
+        if(pSystemFile == "none")
+        {}
+        else
+        {
+            if(
+               pSys->GetPositionX() < 0
+               ||
+               pSys->GetPositionX() > configReader->getRes().x
+               ||
+               pSys->GetPositionY() < 0
+               ||
+               pSys->GetPositionY() > configReader->getRes().y
+            )
+                pSys->turnOff();
+        }
 
         proj.update(elapsed);
 
-        if(pSystemFile != "" || pSystemFile != "none")
+        if(pSystemFile == "none")
+        {}
+        else
         {
             pSys->update(elapsed);
             pSys->SetPosition(proj.GetPosition().x, proj.GetPosition().y);
@@ -85,24 +98,48 @@ namespace sbe
 
     void Projectile::kill()
     {
+        if(pSystemFile == "none")
+        {}
+        else
         pSys->kill();
         safeDelete(pSys);
     }
 
     bool Projectile::isUseless()
     {
-        if(
-           ( pSys->GetPositionX() < 0 && pSys->isEmpty() )
-           ||
-           ( pSys->GetPositionX() > configReader->getRes().x && pSys->isEmpty() )
-           ||
-           ( pSys->GetPositionY() < 0 && pSys->isEmpty() )
-           ||
-           ( pSys->GetPositionY() > configReader->getRes().y && pSys->isEmpty() )
-        )
-            return true;
+        if(pSystemFile == "none")
+        {
+            if(
+                     proj.GetPosition().x < 0
+                    ||
+                     proj.GetPosition().x > configReader->getRes().x
+                    ||
+                     proj.GetPosition().y < 0
+                    ||
+                     proj.GetPosition().y > configReader->getRes().y
+                )
+                return true;
+            else
+                return false;
+        }
         else
-            return false;
+        {
+            if(pSys->isEmpty())
+            {
+                if(
+                     pSys->GetPositionX() < - 20
+                    ||
+                     pSys->GetPositionX() > configReader->getRes().x + 20
+                    ||
+                     pSys->GetPositionY() < 0 - 20
+                    ||
+                     pSys->GetPositionY() > configReader->getRes().y + 20
+                )
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 
     void Projectile::push(const float& distance)
