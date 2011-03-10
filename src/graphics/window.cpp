@@ -326,9 +326,11 @@ namespace sbe
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader);
 
             std::vector<std::string> diag;
-            diag.push_back("OHAYO");
-            diag.push_back("Sugoi sugoi!");
-            diag.push_back("VN of the year all years");
+            diag.push_back("In my restless dreams, I see that town...");
+            diag.push_back("Silent Hill");
+            diag.push_back("You promised you'd take me there again some day. But you never did.");
+            diag.push_back("Well I'm alone now... In our 'special place'...");
+            diag.push_back("Waiting for you...");
             gui->createDialogPanel(res, diag);
 
             renderList.push_back(scroll3);
