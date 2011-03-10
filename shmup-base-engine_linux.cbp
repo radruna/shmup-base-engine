@@ -133,6 +133,7 @@
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/md5/md5.cpp" />
 		<Unit filename="src/md5/md5.h" />
+		<Unit filename="src/sys/action.cpp" />
 		<Unit filename="src/sys/action.h" />
 		<Unit filename="src/sys/configreader.cpp" />
 		<Unit filename="src/sys/configreader.h" />

@@ -1,20 +1,22 @@
 /*
 / Event handler class
-/ Author: Jonathan Orrö
+/ Authors: Jonathan Orrö and Victor Rådmark
 / File created: 2010-11-30
-/ File updated: 2010-12-22
+/ File updated: 2011-03-10
 / License: GPLv3
 */
 
 #ifndef EVENTHANDLER_H_INCLUDED
 #define EVENTHANDLER_H_INCLUDED
 
-#include <map> //For maps
+#include <list> //For lists
 #include <string> //For strings
 
 #include <SFML/Window.hpp> //Event header
 
-typedef std::map<std::string, bool> boolMap;
+#include "action.h"
+
+typedef std::list<sbe::Action> actionList;
 
 namespace sbe
 {
@@ -28,17 +30,30 @@ namespace sbe
             EventHandler();
             ~EventHandler()
             {
-
+                actions.clear();
+                inputActions.clear();
             }
 
-            //Returns what buttons are being pressed
-            static void returnEvents(const sf::Event& evt, boolMap& keyReleased);
+            //Handles the events and tells the actions that should act to act
+            void processEvents(const sf::Event& evt);
+            void processInput(const sf::Input& input);
+
+            void addAction(const sf::Key::Code& keyCode,
+                            void* object,
+                            void (*func) (void* object));
+            void addInputAction(const sf::Key::Code& keyCode,
+                                 void* object,
+                                 void (*func) (void* object));
+            void addInputAction(const sf::Key::Code& keyCode,
+                                 void* object,
+                                 void (*func) (void* object),
+                                 void (*otherFunc) (void* object));
 
         private:
+            bool isKeyReleased(const sf::Key::Code& key, const sf::Event& evt);
 
-            static bool isKeyReleased(const sf::Key::Code& key, const sf::Event& evt);
-
-            //boolMap keyReleased;
+            actionList actions;
+            actionList inputActions;
     };
 }
 

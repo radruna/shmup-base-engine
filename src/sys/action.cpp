@@ -11,10 +11,19 @@
 
 namespace sbe
 {
-    Action::Action(void* callObject, void (*callFunction) (void* object), const std::string& key)
+    Action::Action(void* callObject, void (*callFunction) (void* object), const sf::Key::Code& key)
         : key(key)
     {
         funcObject = callObject;
         actionFunc = callFunction;
+        elseFunc = NULL;
+    }
+
+    Action::Action(void* callObject, void (*callFunction) (void* object), void (*otherFunction) (void* object), const sf::Key::Code& key)
+        : key(key)
+    {
+        funcObject = callObject;
+        actionFunc = callFunction;
+        elseFunc = otherFunction;
     }
 }

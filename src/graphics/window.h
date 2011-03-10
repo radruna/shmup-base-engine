@@ -29,7 +29,6 @@
 #include "imagehandler.h" //For loading images
 #include "background.h" // Background layers
 
-typedef std::map<std::string, bool> boolMap;
 typedef std::list<sbe::Drawable*> RenderList;
 typedef std::list<sbe::Panel*> PanelList;
 
@@ -54,9 +53,19 @@ namespace sbe
             static void options(void* object);
             static void hiscore(void* object);
             static void credits(void* object);
-            static void exit(void* object);
             static void apply(void* object);
             static void back(void* object);
+
+            static void exit(void* object);
+            static void pauseG(void* object);
+            static void flyR(void* object);
+            static void flyL(void* object);
+            static void flyU(void* object);
+            static void flyD(void* object);
+            static void startFire(void* object);
+            static void stopFire(void* object);
+            static void defShipMod(void* object);
+            static void othShipMod(void* object);
 
             void loadStuff(const int& map = 0);
             void showOptions();
@@ -64,6 +73,20 @@ namespace sbe
             void showCredits() {}
             void applyOptions();
             void goBack();
+
+            void pauseGame();
+            void flyShip(const Ship::Dir& dir)
+            {
+                testShip->fly(dir);
+            }
+            void shipFire(bool start = 1)
+            {
+                start ? wpn1->startFiring() : wpn1->stopFiring();
+            }
+            void setShipMod(bool set = 0)
+            {
+                testShip->setMod(set);
+            }
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
@@ -81,8 +104,6 @@ namespace sbe
             bool respawn,
                  pause,
                  menu;
-
-            boolMap events;
 
             RenderList renderList;
             std::list<Projectile> projectileList;

@@ -17,27 +17,38 @@ namespace sbe
 
     }
 
-    //Returns what buttons are being pressed
-    void EventHandler::returnEvents(const sf::Event& evt, boolMap& keyReleased)
+    //Handles the events and tells the actions that should act to act
+    void EventHandler::processEvents(const sf::Event& evt)
     {
         if(evt.Type == sf::Event::KeyReleased)
         {
-            if (isKeyReleased(sf::Key::Escape, evt))
-                    keyReleased["Escape"] = true;
-            if (isKeyReleased(sf::Key::L, evt))
-                    keyReleased["L"] = true;
-            if (isKeyReleased(sf::Key::B, evt))
-                    keyReleased["B"] = true;
-            if (isKeyReleased(sf::Key::P, evt))
-                    keyReleased["P"] = true;
-            if (isKeyReleased(sf::Key::R, evt))
-                    keyReleased["R"] = true;
-            if (isKeyReleased(sf::Key::I, evt))
-                    keyReleased["I"] = true;
-            if (isKeyReleased(sf::Key::F1, evt))
-                    keyReleased["F1"] = true;
+            for(actionList::iterator it = actions.begin(); it != actions.end(); it++)
+                isKeyReleased(it->getKey(), evt) ? it->act() : it->act(1);
         }
+    }
 
+    void EventHandler::processInput(const sf::Input& input)
+    {
+        for(actionList::iterator it = inputActions.begin(); it != inputActions.end(); it++)
+            input.IsKeyDown(it->getKey()) ? it->act() : it->act(1);
+    }
+
+    void EventHandler::addAction(const sf::Key::Code& keyCode, void* object, void (*func) (void* object))
+    {
+        Action tmpAction(object, func, keyCode);
+        actions.push_back(tmpAction);
+    }
+
+    void EventHandler::addInputAction(const sf::Key::Code& keyCode, void* object, void (*func) (void* object))
+    {
+        Action tmpAction(object, func, keyCode);
+        inputActions.push_back(tmpAction);
+    }
+
+    void EventHandler::addInputAction(const sf::Key::Code& keyCode, void* object, void (*func) (void* object), void (*otherFunc) (void* object))
+    {
+        Action tmpAction(object, func, otherFunc, keyCode);
+        inputActions.push_back(tmpAction);
     }
 
     bool EventHandler::isKeyReleased(const sf::Key::Code& key, const sf::Event& evt)

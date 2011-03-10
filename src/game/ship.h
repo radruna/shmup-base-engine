@@ -21,8 +21,8 @@ namespace sbe
     {
         public:
             Ship() {}
-            Ship(const sf::Image& img, const int& max = 15, const unsigned int& mod = 30);
-            Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max = 15, const unsigned int& mod = 30);
+            Ship(const sf::Image& img, const int& max = 15, const unsigned int& dMod = 65, const unsigned int& oMod = 30);
+            Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max = 15, const unsigned int& dMod = 65, const unsigned int& oMod = 30);
             ~Ship();
 
             enum Dir
@@ -45,9 +45,9 @@ namespace sbe
                 maxSpeed = max;
             }
 
-            void setMod(const unsigned int& mod = 0)
+            void setMod(bool def = 0)
             {
-                modifier = mod;
+                !def ? modifier = otherMod : modifier = defMod;
             }
 
         protected:
@@ -55,6 +55,8 @@ namespace sbe
             int maxSpeed;
             unsigned int modifier;
             short xDir, yDir;
+            unsigned int defMod,
+                           otherMod;
     };
 }
 

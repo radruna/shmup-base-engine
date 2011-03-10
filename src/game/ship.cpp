@@ -15,14 +15,14 @@
 
 namespace sbe
 {
-    Ship::Ship(const sf::Image& img, const int& max, const unsigned int& mod)
-        : Movable(img, 0, 0), speedV(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
+    Ship::Ship(const sf::Image& img, const int& max, const unsigned int& dMod, const unsigned int& oMod)
+        : Movable(img, 0, 0), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
     {
 
     }
 
-    Ship::Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max, const unsigned int& mod)
-        : Movable(imgStr, iHandler, 0, 0), speedV(0, 0), maxSpeed(max), modifier(mod), xDir(0), yDir(0)
+    Ship::Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max, const unsigned int& dMod, const unsigned int& oMod)
+        : Movable(imgStr, iHandler, 0, 0), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
     {
     }
 

@@ -48,6 +48,7 @@ namespace sbe
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
+        evtHandler->addAction(sf::Key::Escape, this, exit);
         gui = new Gui("scripts/assets/fonts.ast", res);
         Logger::writeMsg(1) << "Handlers loaded!";
 
@@ -98,44 +99,20 @@ namespace sbe
             sf::Event event;
             while(GetEvent(event))
             {
-                EventHandler::returnEvents(event, events);
+                evtHandler->processEvents(event);
 
                 if (event.Type == sf::Event::Closed)
                     Close();
-                if (events["Escape"])
-                    Close();
                 if(event.Type == sf::Event::MouseButtonReleased)
                     gui->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
-
-                if(!menu)
-                {
-
-                    if (events["P"])
-                    {
-                        loli->GetStatus() != sf::Music::Playing ? loli->Play() : loli->Pause();
-                        pause = !pause;
-                        gui->pause();
-                    }
-                    if(events["B"])
-                    {
-                        testShip->setImage("kawaiiShip");
-
-                        //audHandler->setMusic("8bitloli");
-                        loli->Stop();
-                        loli->OpenFromFile(audHandler->getMusic("8bitloli"));
-                        loli->Play();
-                    }
-                    if (events["L"])
-                        testShip->SetPosition(res.x / 2, res.y / 2);
-                }
             }
 
-            events.clear();
+            evtHandler->processInput(GetInput());
 
             if(!menu)
             {
                 //Process inputs
-                GetInput().IsKeyDown(sf::Key::LShift) ? testShip->setMod(30) : testShip->setMod(65);
+                /*GetInput().IsKeyDown(sf::Key::LShift) ? testShip->setMod(30) : testShip->setMod(65);
 
                 if(GetInput().IsKeyDown(sf::Key::Left))
                     testShip->fly(Ship::LEFT);
@@ -150,7 +127,7 @@ namespace sbe
                 if(GetInput().IsKeyDown(sf::Key::Space) )
                     wpn1->startFiring();
                 else
-                    wpn1->stopFiring();
+                    wpn1->stopFiring();*/
 
                 pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
                 wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
@@ -239,6 +216,87 @@ namespace sbe
         self->goBack();
     }
 
+    void Window::pauseG(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->pauseGame();
+    }
+
+    void Window::flyR(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->flyShip(Ship::RIGHT);
+    }
+
+    void Window::flyL(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->flyShip(Ship::LEFT);
+    }
+
+    void Window::flyU(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->flyShip(Ship::UP);
+    }
+
+    void Window::flyD(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->flyShip(Ship::DOWN);
+    }
+
+    void Window::startFire(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->shipFire();
+    }
+
+    void Window::stopFire(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->shipFire(0);
+    }
+
+    void Window::defShipMod(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->setShipMod(1);
+    }
+
+    void Window::othShipMod(void* object)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->setShipMod();
+    }
+
     void Window::showOptions()
     {
         gui->deleteMainMenu();
@@ -255,6 +313,13 @@ namespace sbe
     {
         gui->deleteOptionsMenu();
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, gui->getPSPos(), gui->getNextPSPos());
+    }
+
+    void Window::pauseGame()
+    {
+        loli->GetStatus() != sf::Music::Playing ? loli->Play() : loli->Pause();
+        pause = !pause;
+        gui->pause();
     }
 
     void Window::loadStuff(const int& map)
@@ -291,6 +356,15 @@ namespace sbe
             loli->OpenFromFile(audHandler->getMusic("loli2"));
             loli->SetVolume(audHandler->getMusicVol());
             loli->Play();
+
+            evtHandler->addAction(sf::Key::P, this, pauseG);
+
+            evtHandler->addInputAction(sf::Key::LShift, this, othShipMod, defShipMod);
+            evtHandler->addInputAction(sf::Key::Right, this, flyR);
+            evtHandler->addInputAction(sf::Key::Left, this, flyL);
+            evtHandler->addInputAction(sf::Key::Up, this, flyU);
+            evtHandler->addInputAction(sf::Key::Down, this, flyD);
+            evtHandler->addInputAction(sf::Key::Space, this, startFire, stopFire);
         }
     }
 }

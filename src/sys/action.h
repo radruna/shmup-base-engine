@@ -1,8 +1,8 @@
 /*
 / Class for action constructs
 / Author: Victor Rådmark
-/ File created: 2011-03-08
-/ File updated: 2010-03-08
+/ File created: 2011-03-10
+/ File updated: 2010-03-10
 / License: GPLv3
 */
 #ifndef ACTION_H_INCLUDED
@@ -10,29 +10,45 @@
 
 #include <string>
 
+#include <SFML/Window.hpp>
+
 namespace sbe
 {
 	class Action
 	{
 		public:
+            Action() { funcObject = NULL; }
 			Action(void* callObject,
                    void (*callFunction) (void* object),
-                   const std::string& key);
+                   const sf::Key::Code& key);
+			Action(void* callObject,
+                   void (*callFunction) (void* object),
+                   void (*otherFunction) (void* object),
+                   const sf::Key::Code& key);
 			~Action() {}
 
-			void setKey(const std::string& k)
+			void setKey(const sf::Key::Code& k)
 			{
                 key = k;
 			}
 
-			void act()
+			sf::Key::Code getKey()
 			{
-			    actionFunc(funcObject);
+			    return key;
+			}
+
+			void act(bool sec = 0)
+			{
+			    if(!sec)
+                    actionFunc(funcObject);
+                else
+                    if(elseFunc != NULL) elseFunc(funcObject);
 			}
 		private:
-			std::string key;
+			sf::Key::Code key;
 			void* funcObject;
 			void (*actionFunc) (void* object);
+			void (*elseFunc) (void *object);
 	};
 }
 
