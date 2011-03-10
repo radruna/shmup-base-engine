@@ -108,7 +108,8 @@ namespace sbe
             sf::String *fps;
             sf::String *fps2;
             std::stringstream fpsStr;
-            sf::String *pauseStr;
+            sf::String *pauseStr,
+                       *pauseStrShadow;
             short fpsCount;
     };
 }

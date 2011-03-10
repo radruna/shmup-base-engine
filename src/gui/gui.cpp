@@ -37,7 +37,12 @@ namespace sbe
         pauseStr = new sf::String("Paused", fonts["inconsolata"], 30);
         pauseStr->SetCenter(pauseStr->GetRect().GetWidth() / 2, pauseStr->GetRect().GetHeight() / 2);
         pauseStr->SetPosition(res.x / 2, (res.y - 50) / 2);
-        pauseStr->SetColor(sf::Color::Black);
+        pauseStr->SetColor(sf::Color::White);
+        pauseStrShadow = new sf::String("Paused", fonts["inconsolata"], 30);
+        pauseStrShadow->SetCenter(pauseStrShadow->GetRect().GetWidth() / 2, pauseStrShadow->GetRect().GetHeight() / 2);
+        pauseStrShadow->SetPosition((res.x / 2) + 2, ((res.y - 50) / 2) + 2);
+        pauseStrShadow->SetColor(sf::Color(0, 0, 0, 150));
+
 
         mainMenu = NULL;
         optionsMenu = NULL;
@@ -54,6 +59,7 @@ namespace sbe
         safeDelete(fps);
         safeDelete(fps2);
         safeDelete(pauseStr);
+        safeDelete(pauseStrShadow);
     }
 
     void Gui::createMainMenu(void* callObject, void (*selectFunction) (void* object), void (*optionsFunction) (void* object), void (*hiscoreFunction) (void* object), void (*creditsFunction) (void* object), void (*exitFunction) (void* object),
@@ -166,7 +172,11 @@ namespace sbe
         target.Draw(*fps2);
         target.Draw(*fps);
 
-        if(showPause) target.Draw(*pauseStr);
+        if(showPause)
+        {
+            target.Draw(*pauseStrShadow);
+            target.Draw(*pauseStr);
+        }
     }
 
     void Gui::loadFonts(const std::string& fontFile)
