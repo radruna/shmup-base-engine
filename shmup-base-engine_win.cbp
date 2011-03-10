@@ -60,6 +60,10 @@
 		<Unit filename="assets\music\8bitloli.ogg" />
 		<Unit filename="assets\music\loli.ogg" />
 		<Unit filename="assets\music\loli2.ogg" />
+		<Unit filename="assets\resources.rc">
+			<Option compilerVar="WINDRES" />
+			<Option target="release" />
+		</Unit>
 		<Unit filename="assets\sound\durr.wav" />
 		<Unit filename="assets\sound\error.wav" />
 		<Unit filename="maps\default\1.map" />
