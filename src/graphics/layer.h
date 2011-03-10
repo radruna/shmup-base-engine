@@ -44,6 +44,7 @@ namespace sbe
             }
             void update(const float& elapsed);
         private:
+            bool tileX, tileY;
             ConfigReader* cfgReader;
             std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
