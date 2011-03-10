@@ -1,5 +1,5 @@
 //----------------------------------------------------------
-//						Generic shield
+//					Generic particle trail
 //----------------------------------------------------------
 
 //Most values are randomized between the minimum and maximum parameters.
@@ -12,20 +12,23 @@
 "speed_multiplier"					"1"						//Not implemented yet. Multiply emission rate with speed, allowing for trails and stuff without clustered particle systems
 
 //Color parameters
-"initial_color_r"					"255"
-"initial_color_g"					"150"
-"initial_color_b"					"00"
+"initial_color_r"					"100"
+"initial_color_g"					"120"
+"initial_color_b"					"110"
 
 "modified_color_r"					"255"					
-"modified_color_g"					"0"					
+"modified_color_g"					"255"					
 "modified_color_b"					"255"
 
 "color_mod_duration"				"0"						//Color mod duration. If 0 then duration = particle lifetime
 "color_mod_offset"					"0"						//Particle mod starts after this many seconds
 
+"move_x"							"0"
+"move_y"							"0"
+
 //Emission parameters
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"100"					//Particles per second
+"emission_rate"						"30"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"0"						//Emission force minimum
 "emission_force_max"				"200"					//Emission force maximum
@@ -85,5 +88,5 @@
 "move_mod_angle_max"					"00"				//Movement mod angle maximum. Particle turns this many degrees in one second
 
 //Alpha modification parameters
-"alpha_min"							"10"					//Minimum alpha value
+"alpha_min"							"255"					//Minimum alpha value
 "alpha_max"							"255"					//Maximum alpha value

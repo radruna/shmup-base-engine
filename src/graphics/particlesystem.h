@@ -130,7 +130,9 @@ namespace sbe
                             rotRateMax,             //Rotation speed max
                             rotation,               //Particle rotation if not random
                             movementAngleMin,
-                            movementAngleMax;
+                            movementAngleMax,
+                            moveX,
+                            moveY;
             ValueMod        sizeModifier,           //Size modifiers
                             emissionAngleModifier,  //Emission angle modifier
                             alphaModifier;          //Alpha modifier

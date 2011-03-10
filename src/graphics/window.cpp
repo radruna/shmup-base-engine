@@ -65,6 +65,7 @@ namespace sbe
         scroll = NULL;
         scroll2 = NULL;
         scroll3 = NULL;
+        scroll4 = NULL;
 
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -321,6 +322,7 @@ namespace sbe
             scroll = new Background(cfgReader, "scripts/maps/bg_foggy1.ast", imgHandler);
             scroll2 = new Background(cfgReader, "scripts/maps/bg_foggy2.ast", imgHandler);
             scroll3 = new Background(cfgReader, "scripts/maps/bg_foggy3.ast", imgHandler);
+            scroll4 = new Background(cfgReader, "scripts/maps/bg_rain.ast", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader);
 
             std::vector<std::string> diag;
@@ -331,6 +333,7 @@ namespace sbe
 
             renderList.push_back(scroll3);
             renderList.push_back(scroll2);
+            renderList.push_back(scroll4);
             renderList.push_back(scroll);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);

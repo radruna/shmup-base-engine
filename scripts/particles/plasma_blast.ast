@@ -12,13 +12,13 @@
 "speed_multiplier"					"1"						//Not implemented yet. Multiply emission rate with speed, allowing for trails and stuff without clustered particle systems
 
 //Color parameters
-"initial_color_r"					"0"
-"initial_color_g"					"255"
+"initial_color_r"					"220"
+"initial_color_g"					"210"
 "initial_color_b"					"200"
 
-"modified_color_r"					"255"					
+"modified_color_r"					"100"					
 "modified_color_g"					"0"					
-"modified_color_b"					"255"
+"modified_color_b"					"0"
 
 "color_mod_duration"				"0"						//Color mod duration. If 0 then duration = particle lifetime
 "color_mod_offset"					"0"						//Particle mod starts after this many seconds

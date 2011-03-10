@@ -101,6 +101,7 @@ namespace sbe
             sbe::Background *scroll; // test
             sbe::Background *scroll2; // test
             sbe::Background *scroll3; // test
+            sbe::Background *scroll4; // test
 
             sf::Vector2i res;
             bool respawn,

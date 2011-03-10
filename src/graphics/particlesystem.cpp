@@ -67,6 +67,9 @@ namespace sbe
         child3 = "none";
         child4 = "none";
 
+        moveX = 0;
+        moveY = 0;
+
         colorInitial.r = 255;
         colorInitial.g = 255;
         colorInitial.b = 255;
@@ -170,6 +173,11 @@ namespace sbe
                     child3 = parameterValue;
                 else if(parameterKey == "child4")
                     child4 = parameterValue;
+
+                else if(parameterKey == "move_x")
+                    moveX = atof(parameterValue.c_str());
+                else if(parameterKey == "move_y")
+                    moveY = atof(parameterValue.c_str());
 
                 //Color parameters
                 else if(parameterKey == "initial_color_r")
@@ -645,6 +653,7 @@ namespace sbe
                     pIt = particleList.erase(pIt); //Erase particle
                 else
                 {
+                    pIt->Move(moveX, moveY);
                     pIt->update(elapsed); //Update particle
                 }
             }
