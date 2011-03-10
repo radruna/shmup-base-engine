@@ -27,18 +27,18 @@ namespace sbe
     {
         loadFonts(fontFile);
 
-        fps = new sf::String("0", fonts["inconsolata"], 20);
+        fps = new sf::String("0", fonts["chiller"], 20);
         fps->SetPosition(10, 10);
         fps->SetColor(sf::Color::White);
-        fps2 = new sf::String("0", fonts["inconsolata"], 20);
+        fps2 = new sf::String("0", fonts["chiller"], 20);
         fps2->SetPosition(12, 12);
         fps2->SetColor(sf::Color(0, 0, 0, 150));
 
-        pauseStr = new sf::String("Paused", fonts["inconsolata"], 30);
+        pauseStr = new sf::String("Paused", fonts["chiller"], 30);
         pauseStr->SetCenter(pauseStr->GetRect().GetWidth() / 2, pauseStr->GetRect().GetHeight() / 2);
         pauseStr->SetPosition(res.x / 2, (res.y - 50) / 2);
         pauseStr->SetColor(sf::Color::White);
-        pauseStrShadow = new sf::String("Paused", fonts["inconsolata"], 30);
+        pauseStrShadow = new sf::String("Paused", fonts["chiller"], 30);
         pauseStrShadow->SetCenter(pauseStrShadow->GetRect().GetWidth() / 2, pauseStrShadow->GetRect().GetHeight() / 2);
         pauseStrShadow->SetPosition((res.x / 2) + 2, ((res.y - 50) / 2) + 2);
         pauseStrShadow->SetColor(sf::Color(0, 0, 0, 150));
@@ -65,17 +65,17 @@ namespace sbe
     void Gui::createMainMenu(void* callObject, void (*selectFunction) (void* object), void (*optionsFunction) (void* object), void (*hiscoreFunction) (void* object), void (*creditsFunction) (void* object), void (*exitFunction) (void* object),
                              const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cfgReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        mainMenu = new MainMenu(callObject, selectFunction, optionsFunction, hiscoreFunction, creditsFunction, exitFunction,  psFile, imgHandler, cfgReader, r, fonts["inconsolata"], psPos, next);
+        mainMenu = new MainMenu(callObject, selectFunction, optionsFunction, hiscoreFunction, creditsFunction, exitFunction,  psFile, imgHandler, cfgReader, r, fonts["chiller"], psPos, next);
     }
 
     void Gui::createOptionsMenu(void* callObject, void (*applyFunction) (void* object), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["inconsolata"], psPos, next);
+        optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
     void Gui::createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog)
     {
-        diagPanel = new DialogPanel(res, dialog, fonts["inconsolata"]);
+        diagPanel = new DialogPanel(res, dialog, fonts["chiller"]);
     }
 
     void Gui::createPanel(const std::string& name, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
