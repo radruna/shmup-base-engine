@@ -20,16 +20,14 @@ namespace sbe
 {
 
     Background::Background(
-                       const std::string& scrollayerFile,
-                       ImageHandler* imgHandler,
-                        const unsigned int& w,
-                        const unsigned int& h
+                        ConfigReader* configReader,
+                        const std::string& scrollayerFile,
+                        ImageHandler* imgHandler
                        )
     {
+        cfgReader = configReader;
         scriptFile = scrollayerFile;
         imageHandler = imgHandler;
-        width = w;
-        height = h;
         load();
     }
 
@@ -93,7 +91,7 @@ namespace sbe
 
         tmpImg = imageHandler->getImage(spriteName);
 
-        layers.push_back(Layer(tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, width, height, tile_x, tile_y));
+        layers.push_back(Layer(cfgReader, tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, tile_x, tile_y));
 
     }
 

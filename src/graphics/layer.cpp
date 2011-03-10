@@ -18,6 +18,7 @@ namespace sbe
 {
 
     Layer::Layer(
+                        ConfigReader* configReader,
                         const sf::Image&     img,
                         const float&         a,
                         const float&         v,
@@ -25,72 +26,44 @@ namespace sbe
                         const float&         yOffset,
                         const float&         yScale,
                         const float&         xScale,
-                        const float&           repeat_space_x,
-                        const float&           repeat_space_y,
-                        const unsigned int& w,
-                        const unsigned int& h,
+                        const float&         repeat_space_x,
+                        const float&         repeat_space_y,
                         const bool& tile_x,
                         const bool& tile_y
                        )
     {
+        cfgReader = configReader;
+        angle = a;
+        speed = v;
+        space_x = repeat_space_x;
+        space_y = repeat_space_y;
 
-            width = w;
-            height = h;
-            angle = a;
-            space_x = repeat_space_x;
-            space_y = repeat_space_y;
+        tileX = tile_x;
+        tileY = tile_y;
 
-            //Get img width and height
-            img_width = img.GetWidth() * xScale;
-            img_height = img.GetHeight() * yScale;
+        //Get img width and height
+        img_width = img.GetWidth() * xScale;
+        img_height = img.GetHeight() * yScale;
 
-            //Numbers of sprites to fill the screen.
-            repeat_nr_x = ceil(w/img_width) + 1;
-            repeat_nr_y = ceil(h/img_height) + 1;
+        //Numbers of sprites needed to fill the screen.
+        repeat_nr_x = ceil(cfgReader->getRes().x / img_width) + 1;
+        repeat_nr_y = ceil(cfgReader->getRes().y / img_height) + 2;
 
-            img_offsetX = 0;
-            img_offsetY = 0;
+        img_offsetX = 0;
+        img_offsetY = 0;
 
-            //Create sprites
-            if(tile_x == 1 && tile_y == 1)
+        for(int u = 0; u < repeat_nr_y; u++)
+        {
+            for(int i = 0; i < repeat_nr_x; i++)
             {
-                for(int x = 0; x<repeat_nr_x; x++)
-                {
-                    for(int y = 0; y < repeat_nr_y; y++)
-                    {
-                        sprites.push_back(Movable(img, angle, v));
-                        sprites[y].SetScale(xScale,yScale);
-                        sprites[y].SetPosition(img_offsetX,img_offsetY);
-                        img_offsetY += img_height;
-                    }
-                    img_offsetY = 0;
-                    img_offsetX += img_width;
-                }
+                sprites.push_back(Movable(img, angle, v));
+                sprites.back().SetCenter(img_width / 2, img_height / 2);
+                sprites.back().SetScale(xScale,yScale);
+                sprites.back().SetPosition(i * img_width,u * img_height);
             }
-            else if(tile_x == 1)
-            {
-                for(int x = 0; x<repeat_nr_x; x++)
-                {
-                    sprites.push_back(Movable(img, angle, v));
-                    sprites[x].SetScale(xScale,yScale);
-                    sprites[x].SetPosition(img_offsetX,img_offsetY);
+        }
 
-                    img_offsetX += img_width;
-                }
-            }
-            else if(tile_y == 1)
-            {
-                for(int y = 0; y < repeat_nr_y; y++)
-                {
-                    sprites.push_back(Movable(img, angle, v));
-                    sprites[y].SetScale(xScale,yScale);
-                    sprites[y].SetPosition(img_offsetX,img_offsetY);
-                    img_offsetY += img_height;
-                }
-            }
     }
-
-
 
     void Layer::Render(sf::RenderTarget& Target) const
     {
@@ -100,25 +73,48 @@ namespace sbe
         }
     }
 
-
-
     void Layer::update(const float& elapsed)
     {
-        for(unsigned int it = 0; it < sprites.size(); it++) //Iterate through layer vector
+        for(unsigned int i = 0; i < sprites.size(); i++) //Iterate through layer vector
         {
-            sprites[it].update(elapsed);
-
-            /*if(angle > 0 && angle < 90)
+            if(tileX)
             {
-                if(sprites[it].GetPosition().x > width)
+                //Handle x tiling
+                if( ( angle < 90 && angle > -90 && speed > 0 ) || ( ( angle > 90 || angle < -90 ) && speed < 0 ) )  //Layer is moving to the right
                 {
+                    if( ( sprites[i].GetPosition().x - sprites[i].GetSize().x / 2 ) > cfgReader->getRes().x)
+                    {
+                        sprites[i].SetPosition( sprites[i].GetPosition().x - repeat_nr_x * img_width, sprites[i].GetPosition().y);
+                    }
                 }
-                if(sprites[it].GetPosition().y > height)
+                else  //Layer is moving to the left
                 {
+                    if( ( sprites[i].GetPosition().x + sprites[i].GetSize().x / 2 ) < 0)
+                    {
+                        sprites[i].SetPosition( sprites[i].GetPosition().x + repeat_nr_x * img_width, sprites[i].GetPosition().y);
+                    }
                 }
+            }
 
-            }*/
-
+            if(tileY)
+            {
+                //Handle y tiling
+                if( ( angle > 0 && angle < 180 && speed > 0 ) || ( ( angle < 0 || angle > 180 ) && speed < 0 ) )   //Layer is moving downwards
+                {
+                    if( ( sprites[i].GetPosition().y - sprites[i].GetSize().y / 2 ) > cfgReader->getRes().y)
+                    {
+                        sprites[i].SetPosition( sprites[i].GetPosition().x, sprites[i].GetPosition().y - repeat_nr_y * img_height);
+                    }
+                }
+                else   //Layer is moving upwards
+                {
+                    if( ( sprites[i].GetPosition().y + sprites[i].GetSize().y / 2 ) < 0)
+                    {
+                        sprites[i].SetPosition( sprites[i].GetPosition().x, sprites[i].GetPosition().y + repeat_nr_y * img_height);
+                    }
+                }
+            }
+            sprites[i].update(elapsed);
         }
 
     }
