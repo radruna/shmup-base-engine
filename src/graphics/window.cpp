@@ -299,8 +299,11 @@ namespace sbe
 
     void Window::pauseGame()
     {
-        loli->GetStatus() != sf::Music::Playing ? loli->Play() : loli->Pause();
         pause = !pause;
+        if(pause && loli->GetStatus() == sf::Music::Playing)
+            loli->Pause();
+        else if(!pause && loli->GetStatus() != sf::Music::Stopped)
+            loli->Play();
         gui->pause();
     }
 
