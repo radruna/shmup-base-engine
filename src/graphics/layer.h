@@ -15,6 +15,7 @@
 
 #include "../graphics/drawable.h"
 #include "../game/movable.h" //Base class def
+#include "../sys/configreader.h"
 
 namespace sbe
 {
@@ -25,6 +26,7 @@ namespace sbe
         */
         public:
             Layer(
+                        ConfigReader* configReader,
                         const sf::Image&     img,
                         const float&         a,
                         const float&         v,
@@ -34,8 +36,6 @@ namespace sbe
                         const float&         xScale,
                         const float&         repeat_space_x,
                         const float&         repeat_space_y,
-                        const unsigned int& w,
-                        const unsigned int& h,
                         const bool& tile_x,
                         const bool& tile_y
                        );
@@ -44,9 +44,10 @@ namespace sbe
             }
             void update(const float& elapsed);
         private:
+            ConfigReader* cfgReader;
             std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
-            float repeat_y, repeat_x, angle;
+            float repeat_y, repeat_x, angle, speed;
             int repeat_nr_x, repeat_nr_y;
             unsigned int width, height, img_width, img_height;
             float space_x, space_y, img_offsetX, img_offsetY;

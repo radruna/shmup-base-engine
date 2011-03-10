@@ -1,4 +1,4 @@
-"sprite_name"				"bg_1"
+"sprite_name"				"dev1"
 "movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
 "movement_speed"			"500"
 "offset_x"					"0"

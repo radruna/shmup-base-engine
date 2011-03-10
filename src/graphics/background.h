@@ -17,6 +17,7 @@
 #include "../graphics/drawable.h"
 #include "../graphics/layer.h"   //Layer class
 #include "../game/movable.h" //Base class def
+#include "../sys/configreader.h"
 
 namespace sbe
 {
@@ -27,10 +28,9 @@ namespace sbe
         */
         public:
             Background(
+                        ConfigReader* configReader,
                         const std::string& scrollayerFile,
-                        ImageHandler* imgHandler,
-                        const unsigned int& w,
-                        const unsigned int& h
+                        ImageHandler* imgHandler
                        );
             ~Background()
             {
@@ -38,6 +38,7 @@ namespace sbe
             void load();
             void update(const float& elapsed);
         private:
+            ConfigReader* cfgReader;
             std::string scriptFile;
             std::string spriteName;
             float       xOffset,
