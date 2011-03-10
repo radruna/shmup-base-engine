@@ -1,0 +1,11 @@
+"sprite_name"				"bg_foggy_layer1"
+"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+"movement_speed"			"-800"
+"offset_x"					"0"
+"offset_y"					"0"
+"fit_x"						"1"
+"fit_y"						"1"
+"scale_y"					"1"
+"scale_x"					"1"
+"tile_x"					"1"
+"tile_y"					"1"

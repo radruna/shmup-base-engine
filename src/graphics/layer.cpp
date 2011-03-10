@@ -19,34 +19,58 @@ namespace sbe
 
     Layer::Layer(
                         ConfigReader* configReader,
-                        const sf::Image&     img,
+                        ImageHandler* imgHandler,
+                        const std::string&   spriteName,
                         const float&         a,
                         const float&         v,
                         const float&         xOffset,
                         const float&         yOffset,
                         const float&         yScale,
                         const float&         xScale,
-                        const float&         repeat_space_x,
-                        const float&         repeat_space_y,
                         const bool& tile_x,
-                        const bool& tile_y
+                        const bool& tile_y,
+                        const bool& fit_x,
+                        const bool& fit_y
                        )
     {
         cfgReader = configReader;
         angle = a;
         speed = v;
-        space_x = repeat_space_x;
-        space_y = repeat_space_y;
+
+        imgHandler->getImage(spriteName).GetWidth();
 
         tileX = tile_x;
         tileY = tile_y;
 
-        offsetX = xOffset;
-        offsetY = yOffset;
+        if(fit_x)
+        {
+            float a = cfgReader->getRes().x;
+            float b = imgHandler->getImage(spriteName).GetWidth();
+            scale_x = a / b;
+            offsetX = a / 2;
+        }
+        else
+        {
+            scale_x = xScale;
+            offsetX = xOffset + xOffset;
+        }
+        if(fit_y)
+        {
+            float a = cfgReader->getRes().y;
+            float b = imgHandler->getImage(spriteName).GetHeight();
+            scale_y = a / b;
+            offsetY = a / 2 + yOffset;
+        }
+        else
+        {
+            scale_y = yScale;
+            offsetY = yOffset;
+        }
 
         //Get img width and height
-        img_width = img.GetWidth() * xScale;
-        img_height = img.GetHeight() * yScale;
+        img_width = imgHandler->getImage(spriteName).GetWidth() * scale_x;
+        img_height = imgHandler->getImage(spriteName).GetHeight() * scale_y;
+        std::cout << img_width << std::endl;
 
         //Numbers of sprites needed to fill the screen.
         repeat_nr_x = ceil(cfgReader->getRes().x / img_width);
@@ -61,13 +85,14 @@ namespace sbe
         else
             repeat_nr_y += 1;
 
+
         for(int u = 0; u < repeat_nr_y; u++)
         {
             for(int i = 0; i < repeat_nr_x; i++)
             {
-                sprites.push_back(Movable(img, angle, v));
-                sprites.back().SetScale(xScale,yScale);
-                sprites.back().SetCenter( sprites.back().GetSize().x / (2 * xScale), sprites.back().GetSize().y / (2 * yScale));    //Don't know what the fuck is going on here. Just leave it
+                sprites.push_back(Movable(spriteName, imgHandler, angle, v));
+                sprites.back().SetScale(scale_x,scale_y);
+                sprites.back().SetCenter( sprites.back().GetSize().x / (2 * scale_x), sprites.back().GetSize().y / (2 * scale_y));    //Don't know what the fuck is going on here. Just leave it
                 sprites.back().SetPosition(offsetX + i * sprites.back().GetSize().x,offsetY + u * sprites.back().GetSize().y);
             }
         }

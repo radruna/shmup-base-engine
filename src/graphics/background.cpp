@@ -37,6 +37,19 @@ namespace sbe
 
         Logger::writeMsg(1) << "\nLoading background" << scriptFile;
 
+        //Set default values
+        spriteName = "dev1";
+        moveAngle = 0;
+        moveSpeed = 0;
+        xOffset = 0;
+        yOffset = 0;
+        xScale = 1;
+        yScale = 1;
+        tile_x = 1;
+        tile_y = 1;
+        fit_x = 0;
+        fit_y = 0;
+
         //Open specified file
         fileReader.open(scriptFile.c_str());
         if(!fileReader.is_open())
@@ -71,27 +84,25 @@ namespace sbe
                     xOffset = atof(parameterValue.c_str());
                 else if(parameterKey == "offset_y")
                     yOffset = atof(parameterValue.c_str());
-                else if(parameterKey == "scale_y")
-                    yScale = atof(parameterValue.c_str());
                 else if(parameterKey == "scale_x")
                     xScale = atof(parameterValue.c_str());
-                else if(parameterKey == "repeat_space_x")
-                    repeat_offsetx = atof(parameterValue.c_str());
-                else if(parameterKey == "repeat_space_y")
-                    repeat_offsety = atof(parameterValue.c_str());
+                else if(parameterKey == "scale_y")
+                    yScale = atof(parameterValue.c_str());
                 else if(parameterKey == "tile_x")
                     tile_x = (bool) atoi(parameterValue.c_str());
                 else if(parameterKey == "tile_y")
                     tile_y = (bool) atoi(parameterValue.c_str());
+                else if(parameterKey == "fit_x")
+                    fit_x = (bool) atoi(parameterValue.c_str());
+                else if(parameterKey == "fit_y")
+                    fit_y = (bool) atoi(parameterValue.c_str());
                 else
                     Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;
             }
 
         }
 
-        tmpImg = imageHandler->getImage(spriteName);
-
-        layers.push_back(Layer(cfgReader, tmpImg, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, repeat_offsetx, repeat_offsety, tile_x, tile_y));
+        layers.push_back(Layer(cfgReader, imageHandler, spriteName, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, tile_x, tile_y, fit_x, fit_y));
 
     }
 

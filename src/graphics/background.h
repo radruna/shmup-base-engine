@@ -48,14 +48,11 @@ namespace sbe
                     xScale;
 
             bool    tile_x,
-                    tile_y;
+                    tile_y,
+                    fit_x,
+                    fit_y;
             float moveAngle;
             float moveSpeed;
-
-            unsigned int width, height;
-
-            float repeat_offsetx, repeat_offsety;
-            sf::Image tmpImg;
 
             std::list <Layer> layers;
             void Render(sf::RenderTarget& Target) const;

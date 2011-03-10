@@ -99,6 +99,8 @@ namespace sbe
             sbe::Weapon *wpn1;
             sbe::Music *loli;
             sbe::Background *scroll; // test
+            sbe::Background *scroll2; // test
+            sbe::Background *scroll3; // test
 
             sf::Vector2i res;
             bool respawn,

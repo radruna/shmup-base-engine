@@ -27,17 +27,18 @@ namespace sbe
         public:
             Layer(
                         ConfigReader* configReader,
-                        const sf::Image&     img,
+                        ImageHandler* imgHandler,
+                        const std::string&   spriteName,
                         const float&         a,
                         const float&         v,
                         const float&         xOffset,
                         const float&         yOffset,
                         const float&         yScale,
                         const float&         xScale,
-                        const float&         repeat_space_x,
-                        const float&         repeat_space_y,
                         const bool& tile_x,
-                        const bool& tile_y
+                        const bool& tile_y,
+                        const bool& fit_x,
+                        const bool& fit_y
                        );
             ~Layer()
             {
@@ -48,7 +49,7 @@ namespace sbe
             ConfigReader* cfgReader;
             std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
-            float repeat_y, repeat_x, angle, speed;
+            float repeat_y, repeat_x, angle, speed, scale_x, scale_y;
             int repeat_nr_x, repeat_nr_y;
             unsigned int width, height, img_width, img_height;
             float space_x, space_y, offsetX, offsetY;
