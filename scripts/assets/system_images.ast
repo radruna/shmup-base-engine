@@ -6,3 +6,4 @@
 "default_particle"		"assets/debug/particle.png"		//Default particle sprite
 "cross"					"assets/debug/cross.png"
 "dev1"					"assets/debug/dev1.jpg"
+"white"					"assets/debug/white.jpg"

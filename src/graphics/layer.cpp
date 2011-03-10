@@ -41,25 +41,34 @@ namespace sbe
         tileX = tile_x;
         tileY = tile_y;
 
+        offsetX = xOffset;
+        offsetY = yOffset;
+
         //Get img width and height
         img_width = img.GetWidth() * xScale;
         img_height = img.GetHeight() * yScale;
 
         //Numbers of sprites needed to fill the screen.
-        repeat_nr_x = ceil(cfgReader->getRes().x / img_width) + 1;
-        repeat_nr_y = ceil(cfgReader->getRes().y / img_height) + 2;
+        repeat_nr_x = ceil(cfgReader->getRes().x / img_width);
+        if( repeat_nr_x * img_width < cfgReader->getRes().x)
+            repeat_nr_x += 2;
+        else
+            repeat_nr_x += 1;
 
-        img_offsetX = 0;
-        img_offsetY = 0;
+        repeat_nr_y = ceil(cfgReader->getRes().y / img_height) ;
+        if( repeat_nr_y * img_height < cfgReader->getRes().y)
+            repeat_nr_y += 2;
+        else
+            repeat_nr_y += 1;
 
         for(int u = 0; u < repeat_nr_y; u++)
         {
             for(int i = 0; i < repeat_nr_x; i++)
             {
                 sprites.push_back(Movable(img, angle, v));
-                sprites.back().SetCenter(img_width / 2, img_height / 2);
                 sprites.back().SetScale(xScale,yScale);
-                sprites.back().SetPosition(i * img_width,u * img_height);
+                sprites.back().SetCenter( sprites.back().GetSize().x / (2 * xScale), sprites.back().GetSize().y / (2 * yScale));    //Don't know what the fuck is going on here. Just leave it
+                sprites.back().SetPosition(offsetX + i * sprites.back().GetSize().x,offsetY + u * sprites.back().GetSize().y);
             }
         }
 
@@ -82,7 +91,7 @@ namespace sbe
                 //Handle x tiling
                 if( ( angle < 90 && angle > -90 && speed > 0 ) || ( ( angle > 90 || angle < -90 ) && speed < 0 ) )  //Layer is moving to the right
                 {
-                    if( ( sprites[i].GetPosition().x - sprites[i].GetSize().x / 2 ) > cfgReader->getRes().x)
+                    if( sprites[i].GetPosition().x - sprites[i].GetSize().x / 2 > cfgReader->getRes().x)
                     {
                         sprites[i].SetPosition( sprites[i].GetPosition().x - repeat_nr_x * img_width, sprites[i].GetPosition().y);
                     }

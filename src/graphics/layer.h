@@ -51,7 +51,7 @@ namespace sbe
             float repeat_y, repeat_x, angle, speed;
             int repeat_nr_x, repeat_nr_y;
             unsigned int width, height, img_width, img_height;
-            float space_x, space_y, img_offsetX, img_offsetY;
+            float space_x, space_y, offsetX, offsetY;
 
     };
 }

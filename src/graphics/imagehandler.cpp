@@ -56,6 +56,7 @@ namespace sbe
                 else
                 {
                     sf::Image img;
+                    img.SetSmooth(false);   //Turn off image smoothing because it fucks tiling up and generally looks like shit.
                     //Load image file
                     if(!img.LoadFromFile(imagePath))
                     {
