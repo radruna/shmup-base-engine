@@ -109,29 +109,8 @@ namespace sbe
 
             evtHandler->processInput(GetInput());
 
-            if(!menu)
-            {
-                //Process inputs
-                /*GetInput().IsKeyDown(sf::Key::LShift) ? testShip->setMod(30) : testShip->setMod(65);
-
-                if(GetInput().IsKeyDown(sf::Key::Left))
-                    testShip->fly(Ship::LEFT);
-                else if(GetInput().IsKeyDown(sf::Key::Right))
-                    testShip->fly(Ship::RIGHT);
-
-                if(GetInput().IsKeyDown(sf::Key::Up))
-                    testShip->fly(Ship::UP);
-                else if(GetInput().IsKeyDown(sf::Key::Down))
-                    testShip->fly(Ship::DOWN);
-
-                if(GetInput().IsKeyDown(sf::Key::Space) )
-                    wpn1->startFiring();
-                else
-                    wpn1->stopFiring();*/
-
-                pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-                wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-            }
+            if(pSystem2 != NULL) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
+            if(wpn1 != NULL) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
 
             //Get elapsed time since last frame to ensure constant speed
             float ElapsedTime = GetFrameTime();
