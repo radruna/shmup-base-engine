@@ -98,9 +98,9 @@ namespace sbe
             sbe::ParticleSystem *pSystem2;
             sbe::Weapon *wpn1;
             sbe::Music *loli;
-            sbe::Background *scroll; // test
-                            *scroll2; // test
-                            *scroll3; // test
+            sbe::Background *scroll, // test
+                            *scroll2, // test
+                            *scroll3, // test
                             *scroll4; // test
 
             sf::Vector2i res;
