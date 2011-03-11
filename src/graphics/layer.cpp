@@ -71,8 +71,6 @@ namespace sbe
         img_width = imgHandler->getImage(spriteName).GetWidth() * scale_x;
         img_height = imgHandler->getImage(spriteName).GetHeight() * scale_y;
 
-        std::cout << img_width << std::endl;
-
         //Numbers of sprites needed to fill the screen.
         repeat_nr_x = ceil(cfgReader->getRes().x / img_width);
         if( repeat_nr_x * (int) img_width < cfgReader->getRes().x)

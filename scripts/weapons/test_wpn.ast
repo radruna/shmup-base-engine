@@ -6,7 +6,7 @@
 "particle_system"					"scripts/particles/trails/smoke_1.ast"
 
 "firing_sound"						"blaster_1"
-"impact_sound"						"explosion_1"
+"impact_sound"						"pop_1"
 
 "shots_per_wave"					"1"
 "waves_per_attack"					"1"				

@@ -1,2 +1,3 @@
-"laser" "assets/sound/durr.wav"
-"blaster_1"	"assets/sound/blaster1.wav"
+"laser" 		"assets/sound/durr.wav"
+"blaster_1"		"assets/sound/blaster1.wav"
+"pop_1"			"assets/sound/pop1.wav"

@@ -325,7 +325,7 @@ namespace sbe
             scroll2 = new Background(cfgReader, "scripts/maps/bg_foggy2.ast", imgHandler);
             scroll3 = new Background(cfgReader, "scripts/maps/bg_foggy3.ast", imgHandler);
             scroll4 = new Background(cfgReader, "scripts/maps/bg_rain.ast", imgHandler);
-            wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader);
+            wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
             diag.push_back("In my restless dreams, I see that town...");

@@ -30,7 +30,7 @@ namespace sbe
         Particle system class
         */
         public:
-            Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader);
+            Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader, AudioHandler* audHandler);
             ~Weapon()
             {
             }
@@ -52,8 +52,12 @@ namespace sbe
             AudioHandler *audioHandler;
             ImageHandler *imageHandler;
             ConfigReader *configReader;
-            std::string scriptFile;
-            std::string pSystemFile;
+            std::string scriptFile,
+                        pSystemFile,
+                        sndKeyFiring,
+                        sndKeyImpact;
+            sf::Sound   sndFiring,
+                        sndImpact;
 
             struct ValueMod
             {

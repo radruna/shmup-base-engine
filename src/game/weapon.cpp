@@ -26,10 +26,11 @@
 
 namespace sbe
 {
-    Weapon::Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader)
+    Weapon::Weapon(const std::string& weaponFile, ImageHandler* imgHandler, ConfigReader* cfgReader, AudioHandler* audHandler)
     {
         firing = false;
         scriptFile = weaponFile;
+        audioHandler = audHandler;
         imageHandler = imgHandler;
         configReader = cfgReader;
         load();
@@ -62,6 +63,8 @@ namespace sbe
         randEmissionAngle = false;
 
         pSystemFile = "none";
+        sndKeyFiring = "none";
+        sndKeyImpact = "none";
 
         emissionRate = 1;
         emissionAngleMin = -180;
@@ -148,6 +151,11 @@ namespace sbe
 
                 else if(parameterKey == "particle_system")
                     pSystemFile = parameterValue;
+
+                else if(parameterKey == "firing_sound")
+                    sndKeyFiring = parameterValue;
+                else if(parameterKey == "impact_sound")
+                    sndKeyImpact = parameterValue;
 
                 else if(parameterKey == "internal_oscillation")
                     internalOsc = (bool) atoi(parameterValue.c_str());//Convert string to bool
@@ -262,6 +270,22 @@ namespace sbe
                 else
                     Logger::writeMsg(1) << "Invalid weapon parameter: " << parameterKey;
             }
+        }
+
+        if(sndKeyFiring == "none")
+        {}
+        else
+        {
+            sndFiring = sf::Sound( audioHandler->getSound(sndKeyFiring) );
+            sndFiring.SetVolume( audioHandler->getSFXVol() );
+        }
+
+        if(sndKeyImpact == "none")
+        {}
+        else
+        {
+            sndImpact = sf::Sound( audioHandler->getSound(sndKeyImpact) );
+            sndImpact.SetVolume( audioHandler->getSFXVol() );
         }
 
         wavesLeft = 0;
@@ -433,6 +457,11 @@ namespace sbe
                     //Handle size/ratio
                     projectileList.back().SetScale(scale, scale * sizeRatio);
 
+                    if(sndKeyFiring == "none")
+                    {}
+                    else
+                        sndFiring.Play();
+
                     if(elapsed > 1 / emissionRate)  //If time == shit
                         projectileList.back().push( emissionForce * counter);
 
@@ -463,6 +492,10 @@ namespace sbe
                 {
                     pIt->kill();
                     pIt = projectileList.erase(pIt); //Erase projectile
+                    if(sndKeyImpact == "none")
+                    {}
+                    else
+                        sndImpact.Play();
                 }
         }
 
