@@ -93,15 +93,15 @@ namespace sbe
             sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
             sbe::Gui *gui;
-            std::map<std::string, Ship> *ships;
+            std::map<std::string, Ship> ships;
             sbe::Ship *testShip;
             sbe::ParticleSystem *pSystem2;
             sbe::Weapon *wpn1;
             sbe::Music *loli;
             sbe::Background *scroll; // test
-            sbe::Background *scroll2; // test
-            sbe::Background *scroll3; // test
-            sbe::Background *scroll4; // test
+                            *scroll2; // test
+                            *scroll3; // test
+                            *scroll4; // test
 
             sf::Vector2i res;
             bool respawn,

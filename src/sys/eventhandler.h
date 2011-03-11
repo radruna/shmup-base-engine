@@ -9,14 +9,14 @@
 #ifndef EVENTHANDLER_H_INCLUDED
 #define EVENTHANDLER_H_INCLUDED
 
-#include <list> //For lists
+#include <map> //For maps
 #include <string> //For strings
 
 #include <SFML/Window.hpp> //Event header
 
 #include "action.h"
 
-typedef std::list<sbe::Action> actionList;
+typedef std::map<std::string, sbe::Action> actionMap;
 
 namespace sbe
 {
@@ -38,13 +38,16 @@ namespace sbe
             void processEvents(const sf::Event& evt);
             void processInput(const sf::Input& input);
 
-            void addAction(const sf::Key::Code& keyCode,
+            void addAction(const std::string& name,
+                            const sf::Key::Code& keyCode,
                             void* object,
                             void (*func) (void* object));
-            void addInputAction(const sf::Key::Code& keyCode,
+            void addInputAction(const std::string& name,
+                                 const sf::Key::Code& keyCode,
                                  void* object,
                                  void (*func) (void* object));
-            void addInputAction(const sf::Key::Code& keyCode,
+            void addInputAction(const std::string& name,
+                                 const sf::Key::Code& keyCode,
                                  void* object,
                                  void (*func) (void* object),
                                  void (*otherFunc) (void* object));
@@ -52,8 +55,8 @@ namespace sbe
         private:
             bool isKeyReleased(const sf::Key::Code& key, const sf::Event& evt);
 
-            actionList actions;
-            actionList inputActions;
+            actionMap actions;
+            actionMap inputActions;
     };
 }
 

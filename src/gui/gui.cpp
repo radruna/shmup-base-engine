@@ -23,7 +23,7 @@
 namespace sbe
 {
     Gui::Gui(const std::string& fontFile, const sf::Vector2i& res)
-        : delMain(false), delOpt(false), delDia(false), fpsCount(0)
+        : delMain(false), delOpt(false), delDia(false), showPause(false), fpsCount(0)
     {
         loadFonts(fontFile);
 

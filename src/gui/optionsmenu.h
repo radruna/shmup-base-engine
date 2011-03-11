@@ -39,8 +39,10 @@ namespace sbe
             static void incrRes(void* object);
             static void decrRes(void* object);
             static void toggleFS(void* object);
+            static void toggleVSync(void* object);
             void setRes(const bool& incr);
             void setFS();
+            void setVS();
     };
 }
 

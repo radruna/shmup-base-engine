@@ -41,6 +41,9 @@ namespace sbe
         createString("fs", "Fullscreen ", font, 30, sf::Vector2f(110, 212));
         createCheckButton("fs", this, toggleFS, cfgReader->getSetting<int>("fullscreen"), sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(280, 220), sf::Vector2f(310, 250), sf::Color(30, 30, 50, 0), sf::Color::White);
 
+        createString("vsync", "Vertical sync ", font, 30, sf::Vector2f(110, 256));
+        createCheckButton("vsync", this, toggleVSync, cfgReader->getSetting<int>("vsync"), sf::String("", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(280, 264), sf::Vector2f(310, 294), sf::Color(30, 30, 50, 0), sf::Color::White);
+
         createButton("apply", callObject, applyFunction, sf::String("Apply", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 220), sf::Vector2f(280, res.y - 180), sf::Color(30, 80, 30, 80), 1, sf::Color::White);
         createButton("back", callObject, backFunction, sf::String("Back", font, 24), sf::Color(225, 225, 225, 255), sf::Vector2f(125, res.y - 165), sf::Vector2f(280, res.y - 125), sf::Color(80, 30, 30, 80), 1, sf::Color::White);
     }
@@ -70,6 +73,15 @@ namespace sbe
 
         //Call member
         self->setFS();
+    }
+
+    void OptionsMenu::toggleVSync(void* object)
+    {
+        //Explicitly cast to a pointer to OptionsMember
+        OptionsMenu* self = (OptionsMenu*) object;
+
+        //Call member
+        self->setVS();
     }
 
     void OptionsMenu::setRes(const bool& incr)
@@ -112,5 +124,13 @@ namespace sbe
             cfgReader->set<int>("fullscreen", 0);
         else
             cfgReader->set<int>("fullscreen", 1);
+    }
+
+    void OptionsMenu::setVS()
+    {
+        if(cfgReader->getSetting<int>("vsync") == 1)
+            cfgReader->set<int>("vsync", 0);
+        else
+            cfgReader->set<int>("vsync", 1);
     }
 }

@@ -5,7 +5,6 @@
 / File updated: 2011-03-06
 / License: GPLv3
 */
-#include <iostream> //Debug output
 #include <string> //For strings
 #include <map> //For mapping objects
 #include <cstdlib>
@@ -48,7 +47,7 @@ namespace sbe
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
-        evtHandler->addAction(sf::Key::Escape, this, exit);
+        evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
         gui = new Gui("scripts/assets/fonts.ast", res);
         Logger::writeMsg(1) << "Handlers loaded!";
 
@@ -112,8 +111,8 @@ namespace sbe
 
             evtHandler->processInput(GetInput());
 
-            if(pSystem2 != NULL) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-            if(wpn1 != NULL) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
+            if(pSystem2 != NULL && !pause) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
+            if(wpn1 != NULL && !pause) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
 
             //Get elapsed time since last frame to ensure constant speed
             float ElapsedTime = GetFrameTime();
@@ -350,14 +349,14 @@ namespace sbe
             loli->SetVolume(audHandler->getMusicVol());
             loli->Play();
 
-            evtHandler->addAction(sf::Key::P, this, pauseG);
+            evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
 
-            evtHandler->addInputAction(sf::Key::LShift, this, othShipMod, defShipMod);
-            evtHandler->addInputAction(sf::Key::Right, this, flyR);
-            evtHandler->addInputAction(sf::Key::Left, this, flyL);
-            evtHandler->addInputAction(sf::Key::Up, this, flyU);
-            evtHandler->addInputAction(sf::Key::Down, this, flyD);
-            evtHandler->addInputAction(sf::Key::Space, this, startFire, stopFire);
+            evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
+            evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
+            evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
+            evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
+            evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
+            evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
         }
     }
 }
