@@ -19,6 +19,7 @@
 #include "../graphics/drawable.h"
 #include "../graphics/imagehandler.h" //For loading images
 #include "../sys/configreader.h"
+#include "../audio/audiohandler.h" //For loading and playing sound and music
 #include "projectile.h" //Projectile header
 
 namespace sbe
@@ -48,6 +49,7 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
 
         private:
+            AudioHandler *audioHandler;
             ImageHandler *imageHandler;
             ConfigReader *configReader;
             std::string scriptFile;
