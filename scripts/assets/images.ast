@@ -6,6 +6,7 @@
 "logo01"		"assets/image/cb.bmp"			//Code Blocks logo
 "kawaiiShip"	"assets/image/8bjet.png"		//8bit jet
 "smoke_01"		"assets/image/smoke01.png"		//Test smoke sprite to be used with particle system
+"smoke_02"		"assets/image/smoke02.png"
 "bubble_01"		"assets/image/bubble.png"		//Bubble
 "shield_01"		"assets/image/shield.png"		//Test shield
 "shockwave"		"assets/image/shockwave.png"	//Shockwave
