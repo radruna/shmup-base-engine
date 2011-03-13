@@ -28,7 +28,7 @@
 
 //Emission parameters
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"100"					//Particles per second
+"emission_rate"						"50"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"50"						//Emission force minimum
 "emission_force_max"				"250"					//Emission force maximum

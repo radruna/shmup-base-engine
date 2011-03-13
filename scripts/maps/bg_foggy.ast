@@ -1,0 +1,44 @@
+//Background mountain layer
+layer
+{
+	"sprite_name"				"bg_foggy_layer3"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-75"
+	"fit_x"						"0"
+	"fit_y"						"1"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+//Mountain layer
+layer
+{
+	"sprite_name"				"bg_foggy_layer2"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-400"
+	"fit_x"						"0"
+	"fit_y"						"1"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+//Rain layer
+layer
+{
+	"sprite_name"				"rain"
+	"movement_angle"			"-70" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-1500"
+	"fit_x"						"0"
+	"fit_y"						"0"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+//Fog layer
+layer
+{
+	"sprite_name"				"bg_foggy_layer1"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-800"
+	"fit_x"						"0"
+	"fit_y"						"1"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}

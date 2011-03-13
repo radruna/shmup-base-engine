@@ -62,9 +62,6 @@ namespace sbe
         wpn1 = NULL;
         loli = NULL;
         scroll = NULL;
-        scroll2 = NULL;
-        scroll3 = NULL;
-        scroll4 = NULL;
 
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -321,10 +318,7 @@ namespace sbe
             //testShip->SetAlpha(0);
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            scroll = new Background(cfgReader, "scripts/maps/bg_foggy1.ast", imgHandler);
-            scroll2 = new Background(cfgReader, "scripts/maps/bg_foggy2.ast", imgHandler);
-            scroll3 = new Background(cfgReader, "scripts/maps/bg_foggy3.ast", imgHandler);
-            scroll4 = new Background(cfgReader, "scripts/maps/bg_rain.ast", imgHandler);
+            scroll = new Background(cfgReader, "scripts/maps/bg_foggy.ast", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
@@ -335,9 +329,6 @@ namespace sbe
             diag.push_back("Waiting for you...");
             gui->createDialogPanel(res, diag);
 
-            renderList.push_back(scroll3);
-            renderList.push_back(scroll2);
-            renderList.push_back(scroll4);
             renderList.push_back(scroll);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);

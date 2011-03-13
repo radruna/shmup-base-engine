@@ -22,7 +22,7 @@ namespace sbe
         genMap.clear();
     }
     //Search and remove any spaces
-    void FileHandler::strStripSpace(std::string& stripper)
+    std::string FileHandler::strStripSpace(std::string stripper)
     {
         int spacePos;
         while(stripper.find(' ') != std::string::npos)
@@ -30,6 +30,12 @@ namespace sbe
             spacePos = stripper.find(' ');
             stripper.erase(spacePos,1);
         }
+        while(stripper.find('\t') != std::string::npos)
+        {
+            spacePos = stripper.find('\t');
+            stripper.erase(spacePos,1);
+        }
+        return stripper;
     }
     //Read line and output two strings
     bool FileHandler::strReadLine(std::string& strSource, std::string& strKey, std::string& strValue)
