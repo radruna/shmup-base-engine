@@ -14,9 +14,9 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
-#include "../graphics/drawable.h"
+#include "../graphics/drawable.h" //Base class def
 #include "../graphics/layer.h"   //Layer class
-#include "../game/movable.h" //Base class def
+#include "../sys/filehandler.h" //Base class def
 #include "../sys/configreader.h"
 
 namespace sbe
@@ -27,11 +27,12 @@ namespace sbe
             Background class
         */
         public:
-            Background(
-                        ConfigReader* configReader,
-                        const std::string& scrollayerFile,
-                        ImageHandler* imgHandler
-                       );
+            Background
+            (
+                ConfigReader* configReader,
+                const std::string& scrollayerFile,
+                ImageHandler* imgHandler
+            );
             ~Background()
             {
             }

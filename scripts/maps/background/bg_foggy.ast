@@ -3,7 +3,7 @@ layer
 {
 	"sprite_name"				"bg_foggy_layer3"
 	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
-	"movement_speed"			"-75"
+	"movement_speed"			"-45"
 	"fit_x"						"0"
 	"fit_y"						"1"
 	"tile_x"					"1"
@@ -14,7 +14,7 @@ layer
 {
 	"sprite_name"				"bg_foggy_layer2"
 	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
-	"movement_speed"			"-400"
+	"movement_speed"			"-350"
 	"fit_x"						"0"
 	"fit_y"						"1"
 	"tile_x"					"1"

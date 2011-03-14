@@ -99,6 +99,8 @@
 		<Unit filename="src\game\projectile.h" />
 		<Unit filename="src\game\ship.cpp" />
 		<Unit filename="src\game\ship.h" />
+		<Unit filename="src\game\stage.cpp" />
+		<Unit filename="src\game\stage.h" />
 		<Unit filename="src\game\weapon.cpp" />
 		<Unit filename="src\game\weapon.h" />
 		<Unit filename="src\graphics\background.cpp" />

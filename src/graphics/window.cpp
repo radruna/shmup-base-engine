@@ -318,7 +318,7 @@ namespace sbe
             //testShip->SetAlpha(0);
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            scroll = new Background(cfgReader, "scripts/maps/bg_foggy.ast", imgHandler);
+            scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;

@@ -1,8 +1,8 @@
 /*
-/ Background class
-/ Author: Niklas Andréasson
-/ File created: 2011-02-25
-/ File updated: 2011-03-03
+/ Stage class
+/ Author: Felix Westin
+/ File created: 2011-03-14
+/ File updated: 2011-03-14
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -11,18 +11,21 @@
 
 #include "../sys/const.h" //Constants
 #include "../sys/logger.h" //Outputs debug in console and log
-#include "../graphics/background.h"   //Header
+#include "../game/movable.h" //Base entity class
+#include "../game/stage.h"   //Header
 #include "../graphics/layer.h"   //Layer class
+#include "../audio/audiohandler.h"
 #include <list> //For lists
 
 namespace sbe
 {
 
-    Background::Background
+    Stage::Stage
     (
         ConfigReader* configReader,
-        const std::string& scrollayerFile,
-        ImageHandler* imgHandler
+        ImageHandler* imgHandler,
+        AudioHandler* audioHandler,
+        const std::string& stageScriptFile
     )
 
     {
@@ -31,37 +34,29 @@ namespace sbe
         //Save image handler pointer
         imageHandler = imgHandler;
         //Save script file string
-        scriptFile = scrollayerFile;
+        audHandler = audioHandler;
+        //Save stage file
+        stageFile = stageScriptFile;
         //Load background
         load();
     }
 
-    void Background::load()
+    void Stage::load()
     {
         std::ifstream fileReader;
 
-        Logger::writeMsg(1) << "\nLoading background" << scriptFile;
+        Logger::writeMsg(1) << "\nLoading stage" << stageFile;
 
         //Set default values
-        spriteName = "dev1";
-        moveAngle = 0;
-        moveSpeed = 0;
-        xOffset = 0;
-        yOffset = 0;
-        xScale = 1;
-        yScale = 1;
-        tile_x = 1;
-        tile_y = 1;
-        fit_x = 0;
-        fit_y = 0;
+
 
         //Open specified file
-        fileReader.open(scriptFile.c_str());
+        fileReader.open(stageFile.c_str());
 
         if(!fileReader.is_open())
         {
             //Debug output
-            Logger::writeMsg(1) << "Couldn't open the specified background layer file";
+            Logger::writeMsg(1) << "Couldn't open the specified stage file";
             fileReader.close();
             return; //Um, can I do this?
         }
@@ -77,7 +72,7 @@ namespace sbe
             getline(fileReader,output);
 
             //If line == "layer"...
-            while( strStripSpace(output) == "layer" )
+            while( strStripSpace(output) == "info" )
             {
                 //Read line
                 getline(fileReader,output);
@@ -93,6 +88,7 @@ namespace sbe
                         //Check if line is empty and perform string operation
                         if(strReadLine(output,parameterKey,parameterValue))
                         {
+                            /*
                             //Assign parameter values
                             if(parameterKey == "sprite_name")
                                 spriteName = parameterValue;
@@ -118,30 +114,54 @@ namespace sbe
                                 fit_y = (bool) atoi(parameterValue.c_str());
                             else
                                 Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;  //Variable not found
+                                */
                         }
                     }
-                    //Push new layer
-                    layers.push_back(Layer(cfgReader, imageHandler, spriteName, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, tile_x, tile_y, fit_x, fit_y));
+                }
+            }
+
+            //If line == "assets"...
+            while( strStripSpace(output) == "assets" )
+            {
+                //Read line
+                getline(fileReader,output);
+
+                //...look for bracket and start reading data
+                if( strStripSpace(output) == "{" )
+                {
+                    //Read until bracket ends data input
+                    while( strStripSpace(output) != "}" )
+                    {
+                        //Read line
+                        getline(fileReader,output);
+                        //Check if line is empty and perform string operation
+                        if(strReadLine(output,parameterKey,parameterValue))
+                        {
+                            //Assign parameter values
+                            if(parameterKey == "images")
+                                1; //Load image asset file using imagehandler
+                            if(parameterKey == "sounds")
+                                1; //Load sound asset file using imagehandler
+                            if(parameterKey == "music")
+                                1; //Load image asset file using imagehandler
+                            if(parameterKey == "particles")
+                                1; //Load particle asset file using imagehandler
+                            else
+                                Logger::writeMsg(1) << "Invalid map asset parameter: " << parameterKey;  //Variable not found
+                        }
+                    }
                 }
             }
         }
     }
 
-    void Background::Render(sf::RenderTarget& Target) const
+    void Stage::Render(sf::RenderTarget& Target) const
     {
-        //Iterate through layer list and render all layers
-        for(std::list<Layer>::const_iterator it = layers.begin(); it != layers.end(); it++) //Iterate through layer list
-        {
-            Target.Draw(*it);
-        }
+
     }
 
-    void Background::update(const float& elapsed)
+    void Stage::update(const float& elapsed)
     {
-        //Iterate through layer list and update all layers
-        for(std::list<Layer>::iterator it = layers.begin(); it != layers.end(); it++) //Iterate through layer list
-        {
-            it->update(elapsed);
-        }
+
     }
 }
