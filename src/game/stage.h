@@ -2,7 +2,7 @@
 / Stage class
 / Author: Felix Westin
 / File created: 2011-03-14
-/ File updated: 2011-03-14
+/ File updated: 2011-03-15
 / License: GPLv3
 */
 #ifndef STAGE_H_INCLUDED
@@ -18,6 +18,7 @@
 #include "../sys/filehandler.h" //Base class def
 #include "../sys/configreader.h"
 #include "../audio/audiohandler.h"
+#include "../graphics/background.h" // Background
 
 namespace sbe
 {
@@ -30,7 +31,7 @@ namespace sbe
             Stage
             (
                 ConfigReader* configReader,
-                ImageHandler* imgHandler,
+                ImageHandler* imageHandler,
                 AudioHandler* audioHandler,
                 const std::string& stageFile
             );
@@ -44,7 +45,8 @@ namespace sbe
             void Render(sf::RenderTarget& Target) const;
             AudioHandler* audHandler;
             ConfigReader* cfgReader;
-            ImageHandler *imageHandler;
+            ImageHandler *imgHandler;
+            sbe::Background *bg; // test
 
     };
 }

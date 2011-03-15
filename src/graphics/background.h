@@ -2,7 +2,7 @@
 / Background class
 / Author: Niklas Andréasson
 / File created: 2011-02-25
-/ File updated: 2011-03-03
+/ File updated: 2011-03-15
 / License: GPLv3
 */
 #ifndef BACKGROUND_H_INCLUDED

@@ -1,17 +1,18 @@
 //Map info
 info
 {
-"name"					"Chocolate Kingdom"
-"mod"					"Fudge Man's Adventures II"
-"chapter"				"3"
+"name"					"SBE Test Map 1"
+"mod"					"SBE Default Maps"
+"chapter"				"1"
 }
 
 //Assets to load
-assets
+data
 {
-"images"		"scripts/assets/fudge_man_2_sprites.ast"
-"sounds"		"scripts/assets/fudge_man_2_sounds.ast"
-"music"			"scripts/assets/fudge_man_2_music.ast"
+"background"	"scripts/assets/maps/background/bg_foggy.ast"
+"images"		"scripts/assets/images.ast"
+"sounds"		"scripts/assets/sound.ast"
+"music"			"scripts/assets/music.ast"
 "particles"		"scripts/particles/fudge_man_2_particles.ast"
 "player"		"?"
 "powerups"		"?"

@@ -2,7 +2,7 @@
 / Stage class
 / Author: Felix Westin
 / File created: 2011-03-14
-/ File updated: 2011-03-14
+/ File updated: 2011-03-15
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -16,6 +16,7 @@
 #include "../graphics/layer.h"   //Layer class
 #include "../audio/audiohandler.h"
 #include <list> //For lists
+#include "../graphics/background.h" // Background
 
 namespace sbe
 {
@@ -23,7 +24,7 @@ namespace sbe
     Stage::Stage
     (
         ConfigReader* configReader,
-        ImageHandler* imgHandler,
+        ImageHandler* imageHandler,
         AudioHandler* audioHandler,
         const std::string& stageScriptFile
     )
@@ -32,12 +33,12 @@ namespace sbe
         //Save config reader pointer
         cfgReader = configReader;
         //Save image handler pointer
-        imageHandler = imgHandler;
-        //Save script file string
+        imgHandler = imageHandler;
+        //Save audio handler pointer
         audHandler = audioHandler;
         //Save stage file
         stageFile = stageScriptFile;
-        //Load background
+        //Load stage
         load();
     }
 
@@ -48,7 +49,7 @@ namespace sbe
         Logger::writeMsg(1) << "\nLoading stage" << stageFile;
 
         //Set default values
-
+        bg = NULL;
 
         //Open specified file
         fileReader.open(stageFile.c_str());
@@ -71,7 +72,7 @@ namespace sbe
             //Read line
             getline(fileReader,output);
 
-            //If line == "layer"...
+            //If line == "info"...
             while( strStripSpace(output) == "info" )
             {
                 //Read line
@@ -90,38 +91,22 @@ namespace sbe
                         {
                             /*
                             //Assign parameter values
-                            if(parameterKey == "sprite_name")
-                                spriteName = parameterValue;
-                            else if(parameterKey == "movement_angle")
-                                moveAngle = atoi(parameterValue.c_str());
-                            else if(parameterKey == "movement_speed")
-                                moveSpeed = atoi(parameterValue.c_str());
-                            else if(parameterKey == "offset_x")
-                                xOffset = atof(parameterValue.c_str());
-                            else if(parameterKey == "offset_y")
-                                yOffset = atof(parameterValue.c_str());
-                            else if(parameterKey == "scale_x")
-                                xScale = atof(parameterValue.c_str());
-                            else if(parameterKey == "scale_y")
-                                yScale = atof(parameterValue.c_str());
-                            else if(parameterKey == "tile_x")
-                                tile_x = (bool) atoi(parameterValue.c_str());
-                            else if(parameterKey == "tile_y")
-                                tile_y = (bool) atoi(parameterValue.c_str());
-                            else if(parameterKey == "fit_x")
-                                fit_x = (bool) atoi(parameterValue.c_str());
-                            else if(parameterKey == "fit_y")
-                                fit_y = (bool) atoi(parameterValue.c_str());
+                            if(parameterKey == "name")
+                                info_name = parameterValue;
+                            else if(parameterKey == "mod")
+                                info_mod = parameterValue;
+                            else if(parameterKey == "chapter")
+                                info_chapter = atoi(parameterValue.c_str());
                             else
-                                Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;  //Variable not found
-                                */
+                                Logger::writeMsg(1) << "Invalid map info parameter: " << parameterKey;  //Variable not found
+                            */
                         }
                     }
                 }
             }
 
-            //If line == "assets"...
-            while( strStripSpace(output) == "assets" )
+            //If line == "data"...
+            while( strStripSpace(output) == "data" )
             {
                 //Read line
                 getline(fileReader,output);
@@ -132,23 +117,27 @@ namespace sbe
                     //Read until bracket ends data input
                     while( strStripSpace(output) != "}" )
                     {
+                        Logger::writeMsg(1) << "\nLoading data...";
                         //Read line
                         getline(fileReader,output);
                         //Check if line is empty and perform string operation
                         if(strReadLine(output,parameterKey,parameterValue))
                         {
                             //Assign parameter values
-                            if(parameterKey == "images")
-                                1; //Load image asset file using imagehandler
-                            if(parameterKey == "sounds")
-                                1; //Load sound asset file using imagehandler
-                            if(parameterKey == "music")
-                                1; //Load image asset file using imagehandler
-                            if(parameterKey == "particles")
-                                1; //Load particle asset file using imagehandler
+                            if(parameterKey == "background")
+                                Logger::writeMsg(1) << "\nLoading background..."; //Load background
+                            else if(parameterKey == "images")
+                                imgHandler->loadAssets(parameterValue); //Load image asset file using image handler
+                            else if(parameterKey == "sounds")
+                                audHandler->loadSound(parameterValue); //Load sound asset file using audio handler
+                            else if(parameterKey == "music")
+                                audHandler->loadMusic(parameterValue); //Load music asset file using audio handler
+                            else if(parameterKey == "particles")
+                                1; //Load particle asset file using particle handler (Doesn't exist yet, mind you)
                             else
                                 Logger::writeMsg(1) << "Invalid map asset parameter: " << parameterKey;  //Variable not found
                         }
+                        Logger::writeMsg(1) << "\Data loaded";
                     }
                 }
             }
@@ -162,6 +151,6 @@ namespace sbe
 
     void Stage::update(const float& elapsed)
     {
-
+        //Shitload of stuff is going to happen here
     }
 }
