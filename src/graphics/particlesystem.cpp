@@ -25,7 +25,12 @@
 
 namespace sbe
 {
-    ParticleSystem::ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r, const bool& isC)
+    ParticleSystem::ParticleSystem(
+        const std::string& particleSystemFile,
+        ImageHandler* imgHandler,
+        const float& r,
+        const bool& isC
+        )
     {
         on = true;
         scriptFile = particleSystemFile;

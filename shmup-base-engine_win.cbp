@@ -112,6 +112,8 @@
 		<Unit filename="src\graphics\layer.h" />
 		<Unit filename="src\graphics\particle.cpp" />
 		<Unit filename="src\graphics\particle.h" />
+		<Unit filename="src\graphics\particlehandler.cpp" />
+		<Unit filename="src\graphics\particlehandler.h" />
 		<Unit filename="src\graphics\particlesystem.cpp" />
 		<Unit filename="src\graphics\particlesystem.h" />
 		<Unit filename="src\graphics\sprite.cpp" />

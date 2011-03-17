@@ -42,19 +42,6 @@ namespace sbe
 
         Logger::writeMsg(1) << "\nLoading background" << scriptFile;
 
-        //Set default values
-        spriteName = "dev1";
-        moveAngle = 0;
-        moveSpeed = 0;
-        xOffset = 0;
-        yOffset = 0;
-        xScale = 1;
-        yScale = 1;
-        tile_x = 1;
-        tile_y = 1;
-        fit_x = 0;
-        fit_y = 0;
-
         //Open specified file
         fileReader.open(scriptFile.c_str());
 
@@ -79,6 +66,19 @@ namespace sbe
             //If line == "layer"...
             while( strStripSpace(output) == "layer" )
             {
+                //Set default values
+                spriteName = "dev1";
+                moveAngle = 0;
+                moveSpeed = 0;
+                xOffset = 0;
+                yOffset = 0;
+                xScale = 1;
+                yScale = 1;
+                tile_x = 1;
+                tile_y = 1;
+                fit_x = 0;
+                fit_y = 0;
+
                 //Read line
                 getline(fileReader,output);
 

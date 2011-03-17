@@ -18,6 +18,7 @@
 #include "../sys/filehandler.h" //Base class def
 #include "../sys/configreader.h"
 #include "../audio/audiohandler.h"
+#include "../graphics/imagehandler.h"
 #include "../graphics/background.h" // Background
 
 namespace sbe

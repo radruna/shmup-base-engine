@@ -9,7 +9,12 @@
 
 namespace sbe
 {
-    Enemy::Enemy()
+    Enemy::Enemy
+    (
+        const sf::Image& img,
+        ImageHandler* imgHandler
+    )
+    //: Ship(img, imgHandler)
     {
 
     }

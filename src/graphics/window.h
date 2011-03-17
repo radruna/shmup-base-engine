@@ -23,6 +23,7 @@
 #include "../gui/gui.h"
 #include "../game/entity.h"
 #include "../game/ship.h"
+#include "../game/enemy.h"
 //#include "../game/player.h"
 #include "../game/weapon.h"
 #include "drawable.h"
@@ -99,6 +100,7 @@ namespace sbe
             sbe::Weapon *wpn1;
             sbe::Music *loli;
             sbe::Background *scroll; // test
+            sbe::Enemy* enm1;
 
             sf::Vector2i res;
             bool respawn,

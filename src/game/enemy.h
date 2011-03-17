@@ -5,6 +5,9 @@
 / File updated: 2011-03-04
 / License: GPLv3
 */
+#ifndef ENEMY_H_INCLUDED
+#define ENEMY_H_INCLUDED
+
 #include "ship.h"
 
 namespace sbe
@@ -12,7 +15,11 @@ namespace sbe
     class Enemy : public Ship
     {
         public:
-            Enemy();
+            Enemy(
+                const sf::Image&     img,
+                ImageHandler* imgHandler
+            );
     };
 }
 
+#endif

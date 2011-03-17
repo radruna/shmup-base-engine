@@ -62,6 +62,7 @@ namespace sbe
         wpn1 = NULL;
         loli = NULL;
         scroll = NULL;
+        enm1 = NULL;
 
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -78,6 +79,7 @@ namespace sbe
         delete evtHandler;
         safeDelete(gui);
         safeDelete(testShip);
+        safeDelete(enm1);
         safeDelete(pSystem2);
         safeDelete(wpn1);
         safeDelete(loli);
@@ -319,6 +321,7 @@ namespace sbe
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
+            //enm1 = new Enemy("cross", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
@@ -330,6 +333,7 @@ namespace sbe
             gui->createDialogPanel(res, diag);
 
             renderList.push_back(scroll);
+            //renderList.push_back(enm1);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);

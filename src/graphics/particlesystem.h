@@ -28,7 +28,12 @@ namespace sbe
         Particle system class
         */
         public:
-            ParticleSystem(const std::string& particleSystemFile, ImageHandler* imgHandler, const float& r = 10, const bool& isC = false);
+            ParticleSystem(
+                const std::string& particleSystemFile,
+                ImageHandler* imgHandler,
+                const float& r = 10,
+                const bool& isC = false
+            );
             ~ParticleSystem()
             {
                 clear();
