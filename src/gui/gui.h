@@ -17,6 +17,7 @@
 #include "../graphics/drawable.h"
 #include "mainmenu.h"
 #include "optionsmenu.h"
+#include "selectmenu.h"
 #include "dialogpanel.h"
 #include "panel.h"
 
@@ -53,6 +54,15 @@ namespace sbe
                                    const sf::Vector2i& r,
                                    const sf::Vector2f& psPos = sf::Vector2f(-1, -1),
                                    const sf::Vector2i& next = sf::Vector2i(-1, -1));
+            void createSelectMenu(void* callObject,
+                                   void (*selectFunction) (void* object, const int& map),
+                                   void (*backFunction) (void* object),
+                                   const std::string& psFile,
+                                   ImageHandler* imgHandler,
+                                   ConfigReader* cReader,
+                                   const sf::Vector2i& r,
+                                   const sf::Vector2f& psPos = sf::Vector2f(-1, -1),
+                                   const sf::Vector2i& next = sf::Vector2i(-1, -1));
             void createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog);
             void createPanel(const std::string& name,
                              const sf::Vector2f& p1,
@@ -69,6 +79,11 @@ namespace sbe
             void deleteOptionsMenu()
             {
                 delOpt = true;
+            }
+
+            void deleteSelectMenu()
+            {
+                delSec = true;
             }
 
             void deleteMain()
@@ -98,10 +113,12 @@ namespace sbe
 
             bool delMain,
                   delOpt,
+                  delSec,
                   delDia,
                   showPause;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
+            sbe::SelectMenu *selectMenu;
             sbe::DialogPanel *diagPanel;
             PanelMap panels;
             FontMap fonts;

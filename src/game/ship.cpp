@@ -62,7 +62,7 @@ namespace sbe
         xDir = 0;
         yDir = 0;
 
-        sbe::Drawable::Move(speedV.x * elapsed * modifier, speedV.y * elapsed * modifier);
+        Move(speedV.x * elapsed * modifier, speedV.y * elapsed * modifier);
     }
 
     void Ship::fly(const Dir& dir)

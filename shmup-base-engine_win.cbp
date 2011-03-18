@@ -132,6 +132,8 @@
 		<Unit filename="src\gui\optionsmenu.h" />
 		<Unit filename="src\gui\panel.cpp" />
 		<Unit filename="src\gui\panel.h" />
+		<Unit filename="src\gui\selectmenu.cpp" />
+		<Unit filename="src\gui\selectmenu.h" />
 		<Unit filename="src\main.cpp" />
 		<Unit filename="src\md5\md5.cpp" />
 		<Unit filename="src\md5\md5.h" />

@@ -1,7 +1,7 @@
 /*
 / Class for action constructs
 / Author: Victor Rådmark
-/ File created: 2011-03-10
+/ File created: 2011-03-08
 / File updated: 2010-03-10
 / License: GPLv3
 */

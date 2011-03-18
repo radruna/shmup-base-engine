@@ -293,6 +293,7 @@ namespace sbe
     void Window::goBack()
     {
         gui->deleteOptionsMenu();
+        gui->deleteSelectMenu();
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, gui->getPSPos(), gui->getNextPSPos());
     }
 

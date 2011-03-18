@@ -42,6 +42,8 @@ namespace sbe
 
     void Menu::update(const float& elapsed)
     {
+        if(pSystem == NULL) return;
+
         if(pSystem->GetPositionX() == nextPos.x && pSystem->GetPositionY() == nextPos.y)
         {
             nextPos.x = sf::Randomizer::Random(0, res.x / 5) * 5;
@@ -79,8 +81,8 @@ namespace sbe
 
     void Menu::Render(sf::RenderTarget& target) const
     {
-        if(pSystem != NULL)
-            target.Draw(*pSystem);
+        if(pSystem != NULL) target.Draw(*pSystem);
+
         Panel::Render(target);
     }
 }
