@@ -86,7 +86,7 @@ namespace sbe
                 delSec = true;
             }
 
-            void deleteMain()
+            void deleteDia()
             {
                 delDia = true;
             }
@@ -96,6 +96,7 @@ namespace sbe
             sf::Vector2f getPSPos();
 
             void click(const sf::Vector2i& mousePos);
+            void hover(const sf::Vector2i& mousePos);
 
             void update(const float& elapsed);
 

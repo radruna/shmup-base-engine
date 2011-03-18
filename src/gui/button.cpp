@@ -19,8 +19,8 @@ namespace sbe
         : funcObject(NULL), buttonFunc(NULL)
     {}
 
-    Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
-        : string(text)
+    Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, bool h, const float& outline, const sf::Color& outlineColor)
+        : string(text), isHover(h), hovered(false)
     {
         buttonRect = sf::Shape(sf::Shape::Rectangle(p1, p2, color, outline, outlineColor));
         string.SetColor(txtCol);
@@ -29,8 +29,8 @@ namespace sbe
         buttonFunc = callFunction;
     }
 
-    Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
-        : string(text)
+    Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3, const sf::Color& color, bool h, const float& outline, const sf::Color& outlineColor)
+        : string(text), isHover(h), hovered(false)
     {
         buttonRect.AddPoint(p1, color, outlineColor);
         buttonRect.AddPoint(p2, color, outlineColor);
@@ -68,6 +68,41 @@ namespace sbe
         {
             if(mousePos.y > pos1.y && mousePos.y < pos2.y)
                 buttonFunc(funcObject);
+        }
+    }
+
+    void Button::hover(const sf::Vector2i& mousePos)
+    {
+        if(!isHover) return;
+
+        sf::Vector2f pos1 = buttonRect.GetPointPosition(0), pos2 = buttonRect.GetPointPosition(2);
+
+        if(mousePos.x > pos1.x && mousePos.x < pos2.x)
+        {
+            if(mousePos.y > pos1.y && mousePos.y < pos2.y)
+            {
+                if(!hovered)
+                {
+                    buttonRect.SetColor(sf::Color(buttonRect.GetColor().r, buttonRect.GetColor().b, buttonRect.GetColor().g, buttonRect.GetColor().a + 50));
+                    hovered = !hovered;
+                }
+            }
+            else
+            {
+                if(hovered)
+                {
+                    buttonRect.SetColor(sf::Color(buttonRect.GetColor().r, buttonRect.GetColor().b, buttonRect.GetColor().g, buttonRect.GetColor().a - 50));
+                    hovered = !hovered;
+                }
+            }
+        }
+        else
+        {
+            if(hovered)
+            {
+                buttonRect.SetColor(sf::Color(buttonRect.GetColor().r, buttonRect.GetColor().b, buttonRect.GetColor().g, buttonRect.GetColor().a - 50));
+                hovered = !hovered;
+            }
         }
     }
 }

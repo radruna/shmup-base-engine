@@ -20,7 +20,7 @@ namespace sbe
 
     CheckButton::CheckButton(void* callObject, void (*callFunction) (void* object), const bool& c, const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2,
                              const sf::Color& color, const sf::Color& outlineColor)
-        : Button(callObject, callFunction, text, txtCol, p1, p2, color, 1, outlineColor), checked(c)
+        : Button(callObject, callFunction, text, txtCol, p1, p2, color, false, 1, outlineColor), checked(c)
     {
         line1 = sf::Shape::Line(p1, p2, 1, outlineColor);
         line2 = sf::Shape::Line(p1.x, p2.y, p2.x, p1.y, 1, outlineColor);

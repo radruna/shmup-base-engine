@@ -115,6 +115,8 @@ namespace sbe
             mainMenu->click(mousePos);
         if(optionsMenu != NULL)
             optionsMenu->click(mousePos);
+        /*if(selectMenu != NULL)
+            selectMenu->click(mousePos);*/
         if(diagPanel != NULL)
             diagPanel->click(mousePos);
 
@@ -141,6 +143,21 @@ namespace sbe
             safeDelete(diagPanel);
             delDia = false;
         }
+    }
+
+    void Gui::hover(const sf::Vector2i& mousePos)
+    {
+        for(PanelMap::iterator it = panels.begin(); it != panels.end(); it++)
+            it->second.hover(mousePos);
+
+        if(mainMenu != NULL)
+            mainMenu->hover(mousePos);
+        if(optionsMenu != NULL)
+            optionsMenu->hover(mousePos);
+        /*if(selectMenu != NULL)
+            selectMenu->hover(mousePos);*/
+        if(diagPanel != NULL)
+            diagPanel->hover(mousePos);
     }
 
     void Gui::update(const float& elapsed)
@@ -178,6 +195,8 @@ namespace sbe
             target.Draw(*mainMenu);
         if(optionsMenu != NULL)
             target.Draw(*optionsMenu);
+        //if(selectMenu != NULL)
+            //target.Draw(*selectMenu);
         if(diagPanel != NULL)
             target.Draw(*diagPanel);
 

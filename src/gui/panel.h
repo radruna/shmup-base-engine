@@ -53,6 +53,7 @@ namespace sbe
                               const sf::Vector2f& p1,
                               const sf::Vector2f& p2,
                               const sf::Color& color,
+                              bool hover = 0,
                               const float& outline = 1,
                               const sf::Color& outlineColor = sf::Color::Black);
 
@@ -80,6 +81,7 @@ namespace sbe
                                    const sf::Color& outlineColor = sf::Color::Black);
 
             void click(const sf::Vector2i& mousePos);
+            void hover(const sf::Vector2i& mousePos);
 
             virtual sf::Vector2i getNextPSPos() { return sf::Vector2i(0, 0); }
             virtual sf::Vector2f getPSPos() { return sf::Vector2f(0.f, 0.f); }

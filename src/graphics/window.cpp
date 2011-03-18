@@ -110,6 +110,8 @@ namespace sbe
 
             evtHandler->processInput(GetInput());
 
+            gui->hover(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
+
             if(pSystem2 != NULL && !pause) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
             if(wpn1 != NULL && !pause) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
 
