@@ -19,6 +19,7 @@
 #include "../sys/configreader.h"
 #include "../audio/audiohandler.h"
 #include "../graphics/imagehandler.h"
+#include "../graphics/particlehandler.h"
 #include "../graphics/background.h" // Background
 
 namespace sbe
@@ -34,6 +35,7 @@ namespace sbe
                 ConfigReader* configReader,
                 ImageHandler* imageHandler,
                 AudioHandler* audioHandler,
+                ParticleHandler* particleHandler,
                 const std::string& stageFile
             );
             ~Stage()
@@ -47,6 +49,7 @@ namespace sbe
             AudioHandler* audHandler;
             ConfigReader* cfgReader;
             ImageHandler *imgHandler;
+            ParticleHandler *prcHandler;
             sbe::Background *bg; // test
 
     };

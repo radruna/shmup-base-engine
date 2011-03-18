@@ -11,10 +11,10 @@ namespace sbe
 {
     Enemy::Enemy
     (
-        const sf::Image& img,
+        const std::string&     spriteName,
         ImageHandler* imgHandler
     )
-    //: Ship(img, imgHandler)
+    : Ship(spriteName, imgHandler)
     {
 
     }

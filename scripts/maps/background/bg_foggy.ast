@@ -1,3 +1,14 @@
+//Background landscape layer
+layer
+{
+	"sprite_name"				"landscape"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-10"
+	"fit_x"						"1"
+	"fit_y"						"1"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
 //Background mountain layer
 layer
 {
@@ -7,7 +18,8 @@ layer
 	"fit_x"						"0"
 	"fit_y"						"1"
 	"tile_x"					"1"
-	"tile_y"					"1"
+	"tile_y"					"0"
+	"offset_y"					"100"
 }
 //Mountain layer
 layer
@@ -18,10 +30,11 @@ layer
 	"fit_x"						"0"
 	"fit_y"						"1"
 	"tile_x"					"1"
-	"tile_y"					"1"
+	"tile_y"					"0"
+	"offset_y"					"100"
 }
 //Rain layer
-layer
+//layer
 {
 	"sprite_name"				"rain"
 	"movement_angle"			"-70" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
@@ -40,5 +53,5 @@ layer
 	"fit_x"						"0"
 	"fit_y"						"1"
 	"tile_x"					"1"
-	"tile_y"					"1"
+	"tile_y"					"0"
 }

@@ -91,6 +91,8 @@
 		<Unit filename="src\audio\music.h" />
 		<Unit filename="src\game\enemy.cpp" />
 		<Unit filename="src\game\enemy.h" />
+		<Unit filename="src\game\enemyhandler.cpp" />
+		<Unit filename="src\game\enemyhandler.h" />
 		<Unit filename="src\game\entity.cpp" />
 		<Unit filename="src\game\entity.h" />
 		<Unit filename="src\game\movable.cpp" />

@@ -23,7 +23,9 @@
 #include "../gui/gui.h"
 #include "../game/entity.h"
 #include "../game/ship.h"
+#include "../game/stage.h"
 #include "../game/enemy.h"
+#include "particlehandler.h"
 //#include "../game/player.h"
 #include "../game/weapon.h"
 #include "drawable.h"
@@ -93,6 +95,7 @@ namespace sbe
             sbe::AudioHandler *audHandler;
             sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
+            sbe::ParticleHandler *prcHandler;
             sbe::Gui *gui;
             std::map<std::string, Ship> ships;
             sbe::Ship *testShip;
@@ -101,6 +104,7 @@ namespace sbe
             sbe::Music *loli;
             sbe::Background *scroll; // test
             sbe::Enemy* enm1;
+            sbe::Stage* stage;
 
             sf::Vector2i res;
             bool respawn,

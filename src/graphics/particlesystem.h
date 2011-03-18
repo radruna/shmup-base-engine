@@ -28,6 +28,7 @@ namespace sbe
         Particle system class
         */
         public:
+            ParticleSystem() {}
             ParticleSystem(
                 const std::string& particleSystemFile,
                 ImageHandler* imgHandler,
