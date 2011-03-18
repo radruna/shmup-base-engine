@@ -46,7 +46,7 @@ namespace sbe
 
         mainMenu = NULL;
         optionsMenu = NULL;
-        selectMenu = NULL;
+        //selectMenu = NULL;
         diagPanel = NULL;
     }
 
@@ -74,9 +74,9 @@ namespace sbe
         optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
-    void Gui::createOptionsMenu(void* callObject, void (*selectFunction) (void* object), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
+    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, const int& map), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        optionsMenu = new OptionsMenu(callObject, selectFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
+        //selectMenu = new OptionsMenu(callObject, selectFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
     void Gui::createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog)
@@ -132,7 +132,7 @@ namespace sbe
 
         if(delSec)
         {
-            safeDelete(selectMenu);
+            //safeDelete(selectMenu);
             delSec = false;
         }
 

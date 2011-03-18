@@ -17,7 +17,7 @@
 #include "../graphics/drawable.h"
 #include "mainmenu.h"
 #include "optionsmenu.h"
-#include "selectmenu.h"
+//#include "selectmenu.h"
 #include "dialogpanel.h"
 #include "panel.h"
 
@@ -118,7 +118,7 @@ namespace sbe
                   showPause;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
-            sbe::SelectMenu *selectMenu;
+            //sbe::SelectMenu *selectMenu;
             sbe::DialogPanel *diagPanel;
             PanelMap panels;
             FontMap fonts;
