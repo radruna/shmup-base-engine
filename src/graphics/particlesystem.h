@@ -102,7 +102,7 @@ namespace sbe
                             age,
                             emissionAngle,
                             reloadInterval;
-            sf::Image sprite;
+            sf::Image *sprite;
 
             //Parameters
             std::string     name,                   //The particle system name

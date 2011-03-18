@@ -350,8 +350,7 @@ namespace sbe
         //Close file
         fileReader.close();
 
-        sprite = imageHandler->getImage(spriteName);
-
+        //*sprite = imageHandler->getImage(spriteName);
         age = 0;
 
         counter = 0;
@@ -605,7 +604,8 @@ namespace sbe
                         //sizeMod.scalarOffset
                         //Logger::writeMsg(1) << sizeMod.scalarOffset;
                         particleList.push_back(Particle(
-                                                        sprite, //Sprite to use
+                                                        imageHandler,
+                                                        spriteName,
                                                         scale, //Width
                                                         scale * sizeRatio, //Height
                                                         emissionAngle,
