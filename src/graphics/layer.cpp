@@ -2,7 +2,7 @@
 / Layer class
 / Author: Felix Westin, Niklas Andréasson
 / File created: 2011-03-03
-/ File updated: 2011-03-03
+/ File updated: 2011-03-15
 / License: GPLv3
 */
 #include <iostream> //Debug output
@@ -17,21 +17,22 @@
 namespace sbe
 {
 
-    Layer::Layer(
-                        ConfigReader* configReader,
-                        ImageHandler* imgHandler,
-                        const std::string&   spriteName,
-                        const float&         a,
-                        const float&         v,
-                        const float&         xOffset,
-                        const float&         yOffset,
-                        const float&         yScale,
-                        const float&         xScale,
-                        const bool& tile_x,
-                        const bool& tile_y,
-                        const bool& fit_x,
-                        const bool& fit_y
-                       )
+    Layer::Layer
+    (
+        ConfigReader* configReader,
+        ImageHandler* imgHandler,
+        const std::string&   spriteName,
+        const float&         a,
+        const float&         v,
+        const float&         xOffset,
+        const float&         yOffset,
+        const float&         yScale,
+        const float&         xScale,
+        const bool& tile_x,
+        const bool& tile_y,
+        const bool& fit_x,
+        const bool& fit_y
+    )
     {
         cfgReader = configReader;
         angle = a;

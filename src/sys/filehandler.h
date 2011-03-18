@@ -2,7 +2,7 @@
 / Abstract file handler class
 / Author: Victor Rådmark, Felix Westin
 / File created: 2010-11-17
-/ File updated: 2010-11-25
+/ File updated: 2011-03-15
 / License: GPLv3
 */
 #ifndef FILEHANDLER_H_INCLUDED
@@ -26,7 +26,7 @@ namespace sbe
             //Unload all media
             void unloadAssets(std::map<std::string, genMedia>& genMap);
             //Search and remove any spaces
-            static void strStripSpace(std::string& stripper);
+            static std::string strStripSpace(std::string stripper);
             //Read line and output two strings
             static bool strReadLine(std::string& strSource, std::string& strKey, std::string& strValue);
 

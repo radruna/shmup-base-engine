@@ -17,27 +17,28 @@
 namespace sbe
 {
 
-    Particle::Particle(
-                       const sf::Image&     img,
-                       const float&         width,
-                       const float&         height,
-                       const float&         a,
-                       const float&         v,
-                       const float&         lifeTime,
-                       const int&           alpha,
-                       const float&         fInDur,
-                       const float&         fInOffset,
-                       const float&         fOutDur,
-                       const float&         fric,
-                       const ParaMod&       sizeModifier,
-                       const float&         movementModAngle,
-                       const float&         spawnT,
-                       const bool&          moveAlign,
-                       const bool&          internalOsc,
-                       const DiffColor&     colorInitial,
-                       const DiffColor&     colorModified,
-                       const ColModData&    colorModData
-                       )
+    Particle::Particle
+    (
+       const sf::Image&     img,
+       const float&         width,
+       const float&         height,
+       const float&         a,
+       const float&         v,
+       const float&         lifeTime,
+       const int&           alpha,
+       const float&         fInDur,
+       const float&         fInOffset,
+       const float&         fOutDur,
+       const float&         fric,
+       const ParaMod&       sizeModifier,
+       const float&         movementModAngle,
+       const float&         spawnT,
+       const bool&          moveAlign,
+       const bool&          internalOsc,
+       const DiffColor&     colorInitial,
+       const DiffColor&     colorModified,
+       const ColModData&    colorModData
+    )
         : Movable(img, a, v)
     {
 
