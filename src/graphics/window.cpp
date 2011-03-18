@@ -44,6 +44,7 @@ namespace sbe
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
+        prcHandler = new ParticleHandler(cfgReader, imgHandler);
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
@@ -52,9 +53,9 @@ namespace sbe
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
-        imgHandler->loadAssets("scripts/assets/images.ast");
-        audHandler->loadMusic("scripts/assets/music.ast");
-        audHandler->loadSound("scripts/assets/sound.ast");
+        //imgHandler->loadAssets("scripts/assets/images.ast");
+        //audHandler->loadMusic("scripts/assets/music.ast");
+        //audHandler->loadSound("scripts/assets/sound.ast");
         Logger::writeMsg(1) << "\nAssets loaded!";
 
         testShip = NULL;
@@ -63,6 +64,7 @@ namespace sbe
         loli = NULL;
         scroll = NULL;
         enm1 = NULL;
+        stage = NULL;
 
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -77,9 +79,11 @@ namespace sbe
         delete imgHandler;
         delete audHandler;
         delete evtHandler;
+        delete prcHandler;
         safeDelete(gui);
         safeDelete(testShip);
         safeDelete(enm1);
+        safeDelete(stage);
         safeDelete(pSystem2);
         safeDelete(wpn1);
         safeDelete(loli);
@@ -314,6 +318,8 @@ namespace sbe
             renderList.pop_back();
             gui->deleteMainMenu();
 
+            stage = new Stage(cfgReader, imgHandler, audHandler, prcHandler, "scripts/maps/test_map.ast");
+
             testShip = new sbe::Ship("cross", imgHandler);
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(0.f, 0.f);
@@ -321,7 +327,7 @@ namespace sbe
             //testShip->SetAlpha(0);
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
+            //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
             //enm1 = new Enemy("cross", imgHandler);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
@@ -333,8 +339,9 @@ namespace sbe
             diag.push_back("Waiting for you...");
             gui->createDialogPanel(res, diag);
 
-            renderList.push_back(scroll);
+            //renderList.push_back(scroll);
             //renderList.push_back(enm1);
+            renderList.push_back(stage);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
