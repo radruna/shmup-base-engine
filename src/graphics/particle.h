@@ -45,7 +45,8 @@ namespace sbe
             };
 
             Particle(
-                       const sf::Image&     img,
+                       ImageHandler *imgHandler,
+                       const std::string spriteName,
                        const float&         width,
                        const float&         height,
                        const float&         a,

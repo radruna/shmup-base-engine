@@ -56,7 +56,7 @@ namespace sbe
 
             if(strReadLine(output,pSysKey,pSysPath))
             {
-                                                                            /*
+
                 //Search pSystemList
                 if(pSystemList.find(pSysKey) != pSystemList.end())
                     Logger::writeMsg(1) << "Failed to load particle system \"" << pSysPath << "\". Reason: Particle system key already in system";
@@ -70,7 +70,7 @@ namespace sbe
                     //Debug output
                     Logger::writeMsg(1) << "Loaded particle system \"" << pSysKey << "\" with filepath \"" << pSysPath << "\"";
                 }
-                                                                            */
+
             }
         }
         //Debug output
@@ -82,7 +82,7 @@ namespace sbe
     //Load a single particle system without the use of an asset file
     void ParticleHandler::loadAsset(const std::string& pSysKey,const std::string& pSysPath)
     {
-        /*
+
         //Search pSystemList
         if(pSystemList.find(pSysKey) != pSystemList.end())
             Logger::writeMsg(1) << "Failed to load particle system \"" << pSysPath << "\". Reason: particle system key already in system";
@@ -95,18 +95,18 @@ namespace sbe
             //Debug output
             Logger::writeMsg(1) << "Loaded particle system \"" << pSysKey << "\" with filepath \"" << pSysPath << "\"";
         }
-        */
+
     }
 
     //Unload all particle systems
     void ParticleHandler::unloadAssets(){
-        //FileHandler::unloadAssets(pSystemList);
-        //pSystemList.clear();
+        //unloadAssets(pSystemList);
+        pSystemList.clear();
     }
 
     //Handle particle system requests
     ParticleSystem& ParticleHandler::getPSys(const std::string& pSysKey){
-        /*
+
         //Search pSystemList
         if( pSystemList.find(pSysKey) != pSystemList.end() )
         {
@@ -116,6 +116,6 @@ namespace sbe
             //Assign error particle system
             return pSystemList["error"];
         }
-        */
+
     }
 }

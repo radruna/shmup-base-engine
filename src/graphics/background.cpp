@@ -40,7 +40,7 @@ namespace sbe
     {
         std::ifstream fileReader;
 
-        Logger::writeMsg(1) << "\nLoading background" << scriptFile;
+        Logger::writeMsg(1) << "\nLoading background " << scriptFile;
 
         //Open specified file
         fileReader.open(scriptFile.c_str());

@@ -5,15 +5,14 @@
 "testShip"		"assets/image/kawaii.png"		//Very kawaii head
 "logo01"		"assets/image/cb.bmp"			//Code Blocks logo
 "kawaiiShip"	"assets/image/8bjet.png"		//8bit jet
-"smoke_01"		"assets/image/smoke01.png"		//Test smoke sprite to be used with particle system
 "smoke_02"		"assets/image/smoke02.png"
 "bubble_01"		"assets/image/bubble.png"		//Bubble
 "shield_01"		"assets/image/shield.png"		//Test shield
 "shockwave"		"assets/image/shockwave.png"	//Shockwave
-"particle_2"	"assets/image/particle_2.png"
 "bg_1"			"assets/image/background_1.png"
 "bg_foggy_layer1"			"assets/image/backgrounds/foggy/foggy_layer1.png"
 "bg_foggy_layer2"			"assets/image/backgrounds/foggy/foggy_layer2.png"
 "bg_foggy_layer3"			"assets/image/backgrounds/foggy/foggy_layer3.png"
+"landscape"			"assets/image/backgrounds/foggy/landscape.jpg"
 "rain"			"assets/image/backgrounds/rain.png"
 "hil"	"assets/image/hilarious.jpg"

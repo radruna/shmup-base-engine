@@ -17,7 +17,7 @@
 #include "../graphics/drawable.h"
 #include "mainmenu.h"
 #include "optionsmenu.h"
-#include "selectmenu.h"
+//#include "selectmenu.h"
 #include "dialogpanel.h"
 #include "panel.h"
 
@@ -86,7 +86,7 @@ namespace sbe
                 delSec = true;
             }
 
-            void deleteMain()
+            void deleteDia()
             {
                 delDia = true;
             }
@@ -96,6 +96,7 @@ namespace sbe
             sf::Vector2f getPSPos();
 
             void click(const sf::Vector2i& mousePos);
+            void hover(const sf::Vector2i& mousePos);
 
             void update(const float& elapsed);
 
@@ -118,7 +119,7 @@ namespace sbe
                   showPause;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
-            sbe::SelectMenu *selectMenu;
+            //sbe::SelectMenu *selectMenu;
             sbe::DialogPanel *diagPanel;
             PanelMap panels;
             FontMap fonts;

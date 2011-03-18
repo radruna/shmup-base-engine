@@ -28,6 +28,7 @@ namespace sbe
                    const sf::Vector2f& p1,
                    const sf::Vector2f& p2,
                    const sf::Color& color,
+                   bool h = 0,
                    const float& outline = 1,
                    const sf::Color& outlineColor = sf::Color::White);
             Button(void* callObject,
@@ -38,11 +39,13 @@ namespace sbe
                    const sf::Vector2f& p2,
                    const sf::Vector2f& p3,
                    const sf::Color& color,
+                   bool h = 0,
                    const float& outline = 1,
                    const sf::Color& outlineColor = sf::Color::White);
             ~Button() {}
             //Check if mouse click is within bounds and if so execute callback
             void click(const sf::Vector2i& mousePos);
+            void hover(const sf::Vector2i& mousePos);
 
             void setTextColor(const sf::Color& txtCol)
             {
@@ -53,6 +56,8 @@ namespace sbe
             virtual void Render(sf::RenderTarget& target) const;
             sf::Shape buttonRect;
             sf::String string;
+            bool isHover;
+            bool hovered;
             void* funcObject; //The object which the callback function is a member of
             //The callback function has to be implemented as a wrapper to the actual function
             void (*buttonFunc) (void* object);

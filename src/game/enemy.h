@@ -16,7 +16,7 @@ namespace sbe
     {
         public:
             Enemy(
-                const sf::Image&     img,
+                const std::string&     spriteName,
                 ImageHandler* imgHandler
             );
     };

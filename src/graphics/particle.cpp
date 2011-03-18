@@ -19,7 +19,8 @@ namespace sbe
 
     Particle::Particle
     (
-       const sf::Image&     img,
+       ImageHandler *imgHandler,
+       const std::string spriteName,
        const float&         width,
        const float&         height,
        const float&         a,
@@ -39,7 +40,7 @@ namespace sbe
        const DiffColor&     colorModified,
        const ColModData&    colorModData
     )
-        : Movable(img, a, v)
+        : Movable(imgHandler->getImage(spriteName), a, v)
     {
 
         SetCenter(GetSize().x / 2,GetSize().y / 2);

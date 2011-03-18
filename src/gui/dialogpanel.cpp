@@ -29,7 +29,7 @@ namespace sbe
         /*
             Purpose: Create a new button based on parameters, many of which are default.
         */
-        sbe::Button tmpBtn(this, callFunction, sf::String(text, font, 20), txtCol, p, sf::Vector2f(p.x + width, p.y + 30), color, outline, outlineColor);
+        sbe::Button tmpBtn(this, callFunction, sf::String(text, font, 20), txtCol, p, sf::Vector2f(p.x + width, p.y + 30), color, false, outline, outlineColor);
         buttons[name] = tmpBtn;
     }
 

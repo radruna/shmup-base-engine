@@ -46,7 +46,7 @@ namespace sbe
 
         mainMenu = NULL;
         optionsMenu = NULL;
-        selectMenu = NULL;
+        //selectMenu = NULL;
         diagPanel = NULL;
     }
 
@@ -74,9 +74,9 @@ namespace sbe
         optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
-    void Gui::createOptionsMenu(void* callObject, void (*selectFunction) (void* object), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
+    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, const int& map), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        optionsMenu = new OptionsMenu(callObject, selectFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
+        //selectMenu = new OptionsMenu(callObject, selectFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
     void Gui::createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog)
@@ -115,6 +115,8 @@ namespace sbe
             mainMenu->click(mousePos);
         if(optionsMenu != NULL)
             optionsMenu->click(mousePos);
+        /*if(selectMenu != NULL)
+            selectMenu->click(mousePos);*/
         if(diagPanel != NULL)
             diagPanel->click(mousePos);
 
@@ -132,7 +134,7 @@ namespace sbe
 
         if(delSec)
         {
-            safeDelete(selectMenu);
+            //safeDelete(selectMenu);
             delSec = false;
         }
 
@@ -141,6 +143,21 @@ namespace sbe
             safeDelete(diagPanel);
             delDia = false;
         }
+    }
+
+    void Gui::hover(const sf::Vector2i& mousePos)
+    {
+        for(PanelMap::iterator it = panels.begin(); it != panels.end(); it++)
+            it->second.hover(mousePos);
+
+        if(mainMenu != NULL)
+            mainMenu->hover(mousePos);
+        if(optionsMenu != NULL)
+            optionsMenu->hover(mousePos);
+        /*if(selectMenu != NULL)
+            selectMenu->hover(mousePos);*/
+        if(diagPanel != NULL)
+            diagPanel->hover(mousePos);
     }
 
     void Gui::update(const float& elapsed)
@@ -178,6 +195,8 @@ namespace sbe
             target.Draw(*mainMenu);
         if(optionsMenu != NULL)
             target.Draw(*optionsMenu);
+        //if(selectMenu != NULL)
+            //target.Draw(*selectMenu);
         if(diagPanel != NULL)
             target.Draw(*diagPanel);
 

@@ -28,6 +28,7 @@ namespace sbe
         Particle system class
         */
         public:
+            ParticleSystem() {}
             ParticleSystem(
                 const std::string& particleSystemFile,
                 ImageHandler* imgHandler,
@@ -102,7 +103,7 @@ namespace sbe
                             age,
                             emissionAngle,
                             reloadInterval;
-            sf::Image sprite;
+            sf::Image *sprite;
 
             //Parameters
             std::string     name,                   //The particle system name

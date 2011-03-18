@@ -9,11 +9,11 @@ info
 //Assets to load
 data
 {
-"background"	"scripts/assets/maps/background/bg_foggy.ast"
+"background"	"scripts/maps/background/bg_foggy.ast"
 "images"		"scripts/assets/images.ast"
 "sounds"		"scripts/assets/sound.ast"
 "music"			"scripts/assets/music.ast"
-"particles"		"scripts/particles/default_particles.ast"
+"particles"		"scripts/assets/particles.ast"
 "player"		"?"
 "powerups"		"?"
 "enemies"		"?"

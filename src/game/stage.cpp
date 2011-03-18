@@ -26,6 +26,7 @@ namespace sbe
         ConfigReader* configReader,
         ImageHandler* imageHandler,
         AudioHandler* audioHandler,
+        ParticleHandler* particleHandler,
         const std::string& stageScriptFile
     )
 
@@ -36,8 +37,12 @@ namespace sbe
         imgHandler = imageHandler;
         //Save audio handler pointer
         audHandler = audioHandler;
+        //Save particle handler pointer
+        prcHandler = particleHandler;
         //Save stage file
         stageFile = stageScriptFile;
+
+        bg = NULL;
         //Load stage
         load();
     }
@@ -114,10 +119,13 @@ namespace sbe
                 //...look for bracket and start reading data
                 if( strStripSpace(output) == "{" )
                 {
+                    Logger::writeMsg(1) << "\nLoading data...";
                     //Read until bracket ends data input
+
+                    std::string bgFile = "";
+
                     while( strStripSpace(output) != "}" )
                     {
-                        Logger::writeMsg(1) << "\nLoading data...";
                         //Read line
                         getline(fileReader,output);
                         //Check if line is empty and perform string operation
@@ -125,20 +133,26 @@ namespace sbe
                         {
                             //Assign parameter values
                             if(parameterKey == "background")
-                                Logger::writeMsg(1) << "\nLoading background..."; //Load background
-                            else if(parameterKey == "images")
+                                bgFile = parameterValue;
+                            if(parameterKey == "images")
                                 imgHandler->loadAssets(parameterValue); //Load image asset file using image handler
                             else if(parameterKey == "sounds")
                                 audHandler->loadSound(parameterValue); //Load sound asset file using audio handler
                             else if(parameterKey == "music")
                                 audHandler->loadMusic(parameterValue); //Load music asset file using audio handler
                             else if(parameterKey == "particles")
-                                1; //Load particle asset file using particle handler (Doesn't exist yet, mind you)
+                                prcHandler->loadAssets(parameterValue);
                             else
                                 Logger::writeMsg(1) << "Invalid map asset parameter: " << parameterKey;  //Variable not found
                         }
-                        Logger::writeMsg(1) << "\Data loaded";
                     }
+
+                    if( bgFile == "")
+                    {}
+                    else
+                        bg = new Background(cfgReader, bgFile, imgHandler);
+
+                    Logger::writeMsg(1) << "\Data loaded";
                 }
             }
         }
@@ -146,11 +160,14 @@ namespace sbe
 
     void Stage::Render(sf::RenderTarget& Target) const
     {
-
+        if(bg != NULL)
+            Target.Draw(*bg);   //Update background
     }
 
     void Stage::update(const float& elapsed)
     {
         //Shitload of stuff is going to happen here
+        if(bg != NULL)
+            bg->update(elapsed);    //Update background
     }
 }
