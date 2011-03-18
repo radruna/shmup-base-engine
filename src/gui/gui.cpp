@@ -2,7 +2,7 @@
 / GUI class
 / Author: Victor Rådmark
 / File created: 2011-03-06
-/ File updated: 2010-03-06
+/ File updated: 2010-03-18
 / License: GPLv3
 */
 #include <map>
@@ -16,6 +16,7 @@
 #include "../sys/util.h"
 #include "panel.h"
 #include "mainmenu.h"
+#include "selectmenu.h"
 #include "optionsmenu.h"
 #include "dialogpanel.h"
 #include "gui.h"
@@ -43,10 +44,9 @@ namespace sbe
         pauseStrShadow->SetPosition((res.x / 2) + 2, ((res.y - 50) / 2) + 2);
         pauseStrShadow->SetColor(sf::Color(0, 0, 0, 150));
 
-
         mainMenu = NULL;
         optionsMenu = NULL;
-        //selectMenu = NULL;
+        selectMenu = NULL;
         diagPanel = NULL;
     }
 
@@ -56,6 +56,7 @@ namespace sbe
         unloadFonts();
         safeDelete(mainMenu);
         safeDelete(optionsMenu);
+        safeDelete(selectMenu);
         safeDelete(diagPanel);
         safeDelete(fps);
         safeDelete(fps2);
@@ -74,9 +75,9 @@ namespace sbe
         optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
     }
 
-    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, const int& map), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
+    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, const int& map), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r)
     {
-        //selectMenu = new OptionsMenu(callObject, selectFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
+        selectMenu = new SelectMenu(callObject, selectFunction, backFunction, cReader, r, fonts["chiller"]);
     }
 
     void Gui::createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog)
@@ -94,16 +95,20 @@ namespace sbe
     {
         if(mainMenu != NULL)
             return mainMenu->getNextPSPos();
-        else
+        else if(optionsMenu != NULL)
             return optionsMenu->getNextPSPos();
+        else
+            return sf::Vector2i(-1, -1);
     }
 
     sf::Vector2f Gui::getPSPos()
     {
         if(mainMenu != NULL)
             return mainMenu->getPSPos();
-        else
+        else if(optionsMenu != NULL)
             return optionsMenu->getPSPos();
+        else
+            return sf::Vector2f(-1, -1);
     }
 
     void Gui::click(const sf::Vector2i& mousePos)
@@ -115,8 +120,8 @@ namespace sbe
             mainMenu->click(mousePos);
         if(optionsMenu != NULL)
             optionsMenu->click(mousePos);
-        /*if(selectMenu != NULL)
-            selectMenu->click(mousePos);*/
+        if(selectMenu != NULL && !delMain)
+            selectMenu->click(mousePos);
         if(diagPanel != NULL)
             diagPanel->click(mousePos);
 
@@ -134,7 +139,7 @@ namespace sbe
 
         if(delSec)
         {
-            //safeDelete(selectMenu);
+            safeDelete(selectMenu);
             delSec = false;
         }
 
@@ -143,6 +148,8 @@ namespace sbe
             safeDelete(diagPanel);
             delDia = false;
         }
+
+
     }
 
     void Gui::hover(const sf::Vector2i& mousePos)
@@ -154,8 +161,8 @@ namespace sbe
             mainMenu->hover(mousePos);
         if(optionsMenu != NULL)
             optionsMenu->hover(mousePos);
-        /*if(selectMenu != NULL)
-            selectMenu->hover(mousePos);*/
+        if(selectMenu != NULL)
+            selectMenu->hover(mousePos);
         if(diagPanel != NULL)
             diagPanel->hover(mousePos);
     }
@@ -195,8 +202,8 @@ namespace sbe
             target.Draw(*mainMenu);
         if(optionsMenu != NULL)
             target.Draw(*optionsMenu);
-        //if(selectMenu != NULL)
-            //target.Draw(*selectMenu);
+        if(selectMenu != NULL)
+            target.Draw(*selectMenu);
         if(diagPanel != NULL)
             target.Draw(*diagPanel);
 

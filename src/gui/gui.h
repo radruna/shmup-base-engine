@@ -2,7 +2,7 @@
 / GUI class
 / Author: Victor Rådmark
 / File created: 2011-03-06
-/ File updated: 2010-03-06
+/ File updated: 2010-03-18
 / License: GPLv3
 */
 #ifndef GUI_H_INCLUDED
@@ -17,7 +17,7 @@
 #include "../graphics/drawable.h"
 #include "mainmenu.h"
 #include "optionsmenu.h"
-//#include "selectmenu.h"
+#include "selectmenu.h"
 #include "dialogpanel.h"
 #include "panel.h"
 
@@ -57,12 +57,8 @@ namespace sbe
             void createSelectMenu(void* callObject,
                                    void (*selectFunction) (void* object, const int& map),
                                    void (*backFunction) (void* object),
-                                   const std::string& psFile,
-                                   ImageHandler* imgHandler,
                                    ConfigReader* cReader,
-                                   const sf::Vector2i& r,
-                                   const sf::Vector2f& psPos = sf::Vector2f(-1, -1),
-                                   const sf::Vector2i& next = sf::Vector2i(-1, -1));
+                                   const sf::Vector2i& r);
             void createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog);
             void createPanel(const std::string& name,
                              const sf::Vector2f& p1,
@@ -119,7 +115,7 @@ namespace sbe
                   showPause;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
-            //sbe::SelectMenu *selectMenu;
+            sbe::SelectMenu *selectMenu;
             sbe::DialogPanel *diagPanel;
             PanelMap panels;
             FontMap fonts;

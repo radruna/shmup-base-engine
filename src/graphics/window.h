@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-03-06
+/ File updated: 2011-03-18
 / License: GPLv3
 */
 #ifndef WINDOW_H_INCLUDED
@@ -53,6 +53,7 @@ namespace sbe
 
         private:
             static void select(void* object);
+            static void load(void* object, const int& map);
             static void options(void* object);
             static void hiscore(void* object);
             static void credits(void* object);
@@ -72,6 +73,7 @@ namespace sbe
 
             void loadStuff(const int& map = 0);
             void showOptions();
+            void showSelect();
             void showHiScore() {}
             void showCredits() {}
             void applyOptions();

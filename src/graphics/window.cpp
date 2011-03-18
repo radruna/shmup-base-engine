@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-03-06
+/ File updated: 2011-03-18
 / License: GPLv3
 */
 #include <string> //For strings
@@ -145,7 +145,16 @@ namespace sbe
         Window* self = (Window*) object;
 
         //Call member
-        self->loadStuff(0);
+        self->showSelect();
+    }
+
+    void Window::load(void* object, const int& map)
+    {
+        //Explicitly cast to a pointer to Window
+        Window* self = (Window*) object;
+
+        //Call member
+        self->loadStuff(map);
     }
 
     void Window::options(void* object)
@@ -195,7 +204,7 @@ namespace sbe
 
     void Window::back(void* object)
     {
-        //Explicitly cast to a pointer to Window
+        //Explicitly cast to a pointer to Windowk
         Window* self = (Window*) object;
 
         //Call member
@@ -289,6 +298,12 @@ namespace sbe
         gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res, gui->getPSPos(), gui->getNextPSPos());
     }
 
+    void Window::showSelect()
+    {
+        gui->deleteMainMenu();
+        gui->createSelectMenu(this, load, back, cfgReader, res);
+    }
+
     void Window::applyOptions()
     {
         respawn = true;
@@ -318,7 +333,7 @@ namespace sbe
         {
             menu = false;
             renderList.pop_back();
-            gui->deleteMainMenu();
+            gui->deleteSelectMenu();
 
             stage = new Stage(cfgReader, imgHandler, audHandler, prcHandler, "scripts/maps/test_map.ast");
 

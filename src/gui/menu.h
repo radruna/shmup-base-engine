@@ -26,6 +26,13 @@ namespace sbe
             {
                 pSystem = NULL;
             }
+
+            Menu(const sf::Vector2i& r)
+                : Panel(sf::Vector2f(75, 75), sf::Vector2f(r.x - 75, r.y - 75), sf::Color(50, 80, 80, 25), 1, sf::Color::White), res(r)
+            {
+                pSystem = NULL;
+            }
+
             Menu(const std::string& psFile,
                  ImageHandler* imgHandler,
                  ConfigReader* cfgReader,
