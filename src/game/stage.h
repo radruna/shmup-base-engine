@@ -18,6 +18,7 @@
 #include "../sys/filehandler.h" //Base class def
 #include "../sys/configreader.h"
 #include "../audio/audiohandler.h"
+#include "../game/enemyhandler.h"   //Enemy handler
 #include "../graphics/imagehandler.h"
 #include "../graphics/particlehandler.h"
 #include "../graphics/background.h" // Background
@@ -35,6 +36,7 @@ namespace sbe
                 ConfigReader* configReader,
                 ImageHandler* imageHandler,
                 AudioHandler* audioHandler,
+                EnemyHandler* enemyHandler,
                 ParticleHandler* particleHandler,
                 const std::string& stageFile
             );
@@ -46,9 +48,10 @@ namespace sbe
         private:
             std::string stageFile;
             void Render(sf::RenderTarget& Target) const;
-            AudioHandler* audHandler;
-            ConfigReader* cfgReader;
+            AudioHandler *audHandler;
+            ConfigReader *cfgReader;
             ImageHandler *imgHandler;
+            EnemyHandler *enmHandler;
             ParticleHandler *prcHandler;
             sbe::Background *bg; // test
 

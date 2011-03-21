@@ -1,0 +1,8 @@
+enemies
+{
+	"enemy"	"scripts/enemies/enemy_01.ast"
+}
+paths
+{
+	"path" "scripts/paths/path_01.ast"
+}

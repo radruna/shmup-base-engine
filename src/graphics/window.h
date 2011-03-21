@@ -28,6 +28,7 @@
 #include "particlehandler.h"
 //#include "../game/player.h"
 #include "../game/weapon.h"
+#include "../game/enemyhandler.h"   //Enemy handler
 #include "drawable.h"
 #include "imagehandler.h" //For loading images
 #include "background.h" // Background layers
@@ -95,6 +96,7 @@ namespace sbe
 
             sbe::ImageHandler *imgHandler;
             sbe::AudioHandler *audHandler;
+            sbe::EnemyHandler *enmHandler;
             sbe::EventHandler *evtHandler;
             sbe::ConfigReader *cfgReader;
             sbe::ParticleHandler *prcHandler;

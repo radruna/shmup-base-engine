@@ -15,10 +15,12 @@ namespace sbe
     class Enemy : public Ship
     {
         public:
+            Enemy(){}
             Enemy(
-                const std::string&     spriteName,
-                ImageHandler* imgHandler
+                ImageHandler* imgHandler,
+                const std::string spriteName
             );
+            bool LoadFromFile(const std::string& Filename);
     };
 }
 

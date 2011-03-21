@@ -16,6 +16,10 @@
 
 #include "../sys/filehandler.h" //Abstract base class
 
+
+#include "../game/enemy.h"
+
+
 namespace sbe
 {
     class EnemyHandler : public FileHandler
@@ -24,7 +28,7 @@ namespace sbe
             Loads images, stores them and handles requests
         */
         public:
-            EnemyHandler();
+            EnemyHandler(ImageHandler* iHandler);
             ~EnemyHandler()
             {
                 unloadAssets();
@@ -32,15 +36,15 @@ namespace sbe
 
             //Load images listed in the asset file
             void loadAssets(const std::string& assetFile);
-            //Load a single image without the use of an asset file
-            void loadAsset(const std::string& imageKey,const std::string& filePath);
             //Unload all enemies
             void unloadAssets();
             //Handle image requests
-            sf::Image& getImage(const std::string& enemyKey);
+            Enemy& getEnemy(const std::string& enemyKey);
         private:
             //Enemy list
-            std::map<std::string, sf::Image> enemyList;
+            std::map<std::string, Enemy> enemyList;
+        protected:
+            ImageHandler* imgHandler;
     };
 }
 

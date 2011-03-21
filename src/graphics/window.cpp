@@ -44,6 +44,7 @@ namespace sbe
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
+        enmHandler = new EnemyHandler(imgHandler);
         prcHandler = new ParticleHandler(cfgReader, imgHandler);
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
@@ -53,6 +54,7 @@ namespace sbe
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
+        enmHandler->loadAssets("scripts/assets/");
         //imgHandler->loadAssets("scripts/assets/images.ast");
         //audHandler->loadMusic("scripts/assets/music.ast");
         //audHandler->loadSound("scripts/assets/sound.ast");
@@ -78,6 +80,7 @@ namespace sbe
         renderList.clear();
         delete imgHandler;
         delete audHandler;
+        delete enmHandler;
         delete evtHandler;
         delete prcHandler;
         safeDelete(gui);
@@ -335,7 +338,7 @@ namespace sbe
             renderList.pop_back();
             gui->deleteSelectMenu();
 
-            stage = new Stage(cfgReader, imgHandler, audHandler, prcHandler, "scripts/maps/test_map.ast");
+            stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
             testShip = new sbe::Ship("cross", imgHandler);
             //*ships["testShip"] = *testShip;
@@ -354,6 +357,7 @@ namespace sbe
             diag.push_back("You promised you'd take me there again some day. But you never did.");
             diag.push_back("Well I'm alone now... In our 'special place'...");
             diag.push_back("Waiting for you...");
+            diag.push_back("ASSHOLE");
             gui->createDialogPanel(res, diag);
 
             //renderList.push_back(scroll);

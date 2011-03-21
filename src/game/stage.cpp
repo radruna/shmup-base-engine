@@ -26,6 +26,7 @@ namespace sbe
         ConfigReader* configReader,
         ImageHandler* imageHandler,
         AudioHandler* audioHandler,
+        EnemyHandler* enemyHandler,
         ParticleHandler* particleHandler,
         const std::string& stageScriptFile
     )
@@ -37,6 +38,8 @@ namespace sbe
         imgHandler = imageHandler;
         //Save audio handler pointer
         audHandler = audioHandler;
+        //Save enemy handler pointer
+        enmHandler = enemyHandler;
         //Save particle handler pointer
         prcHandler = particleHandler;
         //Save stage file
@@ -140,6 +143,8 @@ namespace sbe
                                 audHandler->loadSound(parameterValue); //Load sound asset file using audio handler
                             else if(parameterKey == "music")
                                 audHandler->loadMusic(parameterValue); //Load music asset file using audio handler
+                            else if(parameterKey == "enemies")
+                                enmHandler->loadAssets(parameterValue); //Load enemies + paths using enemy handler
                             else if(parameterKey == "particles")
                                 prcHandler->loadAssets(parameterValue);
                             else
@@ -152,7 +157,7 @@ namespace sbe
                     else
                         bg = new Background(cfgReader, bgFile, imgHandler);
 
-                    Logger::writeMsg(1) << "\Data loaded";
+                    Logger::writeMsg(1) << "\nData loaded";
                 }
             }
         }
