@@ -135,7 +135,7 @@ namespace sbe
         //FileHandler::unloadAssets(enemyList);
         enemyList.clear();
     }
-/*
+
     //Handle image requests
     sbe::Enemy& EnemyHandler::getEnemy(const std::string& enemyKey){
         //Search enemyList
@@ -149,5 +149,5 @@ namespace sbe
         }
     }
 
-    */
+
 }

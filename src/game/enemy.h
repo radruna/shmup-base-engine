@@ -20,7 +20,7 @@ namespace sbe
                 ImageHandler* imgHandler,
                 const std::string spriteName
             );
-            bool LoadFromFile(const std::string& Filename);
+
     };
 }
 
