@@ -16,7 +16,7 @@ data
 "particles"		"scripts/assets/particles.ast"
 "player"		"?"
 "powerups"		"?"
-"enemies"		"?"
+"enemies"		"scripts/assets/test_enemies.ast"
 "bosses"		"?"
 }
 

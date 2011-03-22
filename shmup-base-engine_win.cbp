@@ -97,6 +97,8 @@
 		<Unit filename="src\game\entity.h" />
 		<Unit filename="src\game\movable.cpp" />
 		<Unit filename="src\game\movable.h" />
+		<Unit filename="src\game\path.cpp" />
+		<Unit filename="src\game\path.h" />
 		<Unit filename="src\game\projectile.cpp" />
 		<Unit filename="src\game\projectile.h" />
 		<Unit filename="src\game\ship.cpp" />

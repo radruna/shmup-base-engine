@@ -54,7 +54,7 @@ namespace sbe
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
-        enmHandler->loadAssets("scripts/assets/");
+        //enmHandler->loadAssets("scripts/assets/test_enemies.ast");
         //imgHandler->loadAssets("scripts/assets/images.ast");
         //audHandler->loadMusic("scripts/assets/music.ast");
         //audHandler->loadSound("scripts/assets/sound.ast");
@@ -348,10 +348,11 @@ namespace sbe
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
-            //enm1 = new Enemy("cross", imgHandler);
+            enm1 = &enmHandler->getEnemy("enemy1");
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
+            diag.push_back("Om man trycker på en piltangent i huvudmenyn krashar spelet =(. Så att alla vet.");
             diag.push_back("In my restless dreams, I see that town...");
             diag.push_back("Silent Hill");
             diag.push_back("You promised you'd take me there again some day. But you never did.");
@@ -361,12 +362,14 @@ namespace sbe
             gui->createDialogPanel(res, diag);
 
             //renderList.push_back(scroll);
-            //renderList.push_back(enm1);
+
             renderList.push_back(stage);
+            renderList.push_back(enm1);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
             renderList.push_back(gui);
+            //renderList.push_back(enmHandler->getEnemy("enemy1"));
 
             loli = new sbe::Music();
             loli->OpenFromFile(audHandler->getMusic("loli2"));

@@ -18,6 +18,7 @@
 
 
 #include "../game/enemy.h"
+#include "../game/path.h"
 
 
 namespace sbe
@@ -42,9 +43,12 @@ namespace sbe
             void unloadAssets();
             //Handle image requests
             Enemy& getEnemy(const std::string& enemyKey);
+            Path& getPath(const std::string& enemyKey);
         private:
             //Enemy list
             std::map<std::string, Enemy> enemyList;
+            //Path list
+            std::map<std::string, Path> pathList;
         protected:
             ImageHandler* imgHandler;
     };

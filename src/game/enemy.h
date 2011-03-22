@@ -9,6 +9,7 @@
 #define ENEMY_H_INCLUDED
 
 #include "ship.h"
+#include "path.h"
 
 namespace sbe
 {
@@ -18,8 +19,13 @@ namespace sbe
             Enemy(){}
             Enemy(
                 ImageHandler* imgHandler,
-                const std::string spriteName
+                const std::string spriteName,
+                Path& pth
             );
+
+        private:
+            void update(const float& elapsed);
+            Path path;
 
     };
 }
