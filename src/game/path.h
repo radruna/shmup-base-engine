@@ -8,21 +8,27 @@
 #ifndef PATH_H_INCLUDED
 #define PATH_H_INCLUDED
 
+#include <vector>
 
 namespace sbe
 {
     class Path
     {
         public:
+            struct pathContent {
+                float moveAngle;
+                float moveSpeed;
+                float duration;
+            };
+
+
             Path(){}
             Path(
-                float speed
+                std::vector <Path::pathContent>& pathContentList
             );
-            float getSpeed();
+            std::vector <Path::pathContent>  getVector();
 
-        private:
-            float speed;
-
+            std::vector <Path::pathContent> vektor;
     };
 }
 

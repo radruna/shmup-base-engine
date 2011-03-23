@@ -10,14 +10,14 @@
 
 namespace sbe
 {
-    Path::Path(float spd)
+    Path::Path(std::vector <Path::pathContent>& pathContentList)
     {
-        speed = spd;
+        vektor = pathContentList;
     }
 
-    float Path::getSpeed()
+    std::vector <Path::pathContent> Path::getVector()
     {
-        return speed;
+        return vektor;
     }
 }
 

@@ -26,6 +26,8 @@ namespace sbe
         private:
             void update(const float& elapsed);
             Path path;
+            sf::Clock Clock;
+            float Time;
 
     };
 }

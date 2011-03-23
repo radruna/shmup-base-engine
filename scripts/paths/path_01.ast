@@ -1,2 +1,12 @@
 "path_name"		"path1"
-"movement_speed"	"10"
+path 
+{
+"movement_speed"	"2"
+"movement_duration" "5"
+"movement_angle"	"0"
+}
+//ABC
+path 
+{
+"movement_speed"	"40"
+}

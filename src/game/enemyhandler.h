@@ -21,6 +21,7 @@
 #include "../game/path.h"
 
 
+
 namespace sbe
 {
     class EnemyHandler : public FileHandler
@@ -49,6 +50,13 @@ namespace sbe
             std::map<std::string, Enemy> enemyList;
             //Path list
             std::map<std::string, Path> pathList;
+           /* struct pathContent {
+                float moveAngle;
+                float moveSpeed;
+                float duration;
+            };*/
+
+            std::vector <Path::pathContent> pathContentList;
         protected:
             ImageHandler* imgHandler;
     };

@@ -45,6 +45,8 @@ namespace sbe
         std::string enemyName;
         std::string pathName;
         float moveSpeed;
+        Path::pathContent struktur;
+
 
         //Loop until end of file
         while(!fileReader.eof())
@@ -71,6 +73,7 @@ namespace sbe
                         {
                             if(parameterKey == "path")
                             {
+                                pathContentList.clear();
                                 targetPath = parameterValue;
                                 fileReader2.open(parameterValue.c_str());
 
@@ -78,43 +81,62 @@ namespace sbe
                                 {
                                     getline(fileReader2,output);
 
+
                                     if(strReadLine(output,parameterKey,parameterValue))
                                     {
 
                                         //Assign parameter values
-                                        if(parameterKey == "path_name")
+                                        if(parameterKey == "path_name") {
                                             enemyName = parameterValue;
-                                        else if(parameterKey == "movement_speed")
-                                            moveSpeed = atof(parameterValue.c_str());
-                                            /*
-                                        else if(parameterKey == "offset_x")
-                                            xOffset = atof(parameterValue.c_str());
-                                        else if(parameterKey == "offset_y")
-                                            yOffset = atof(parameterValue.c_str());
-                                        else if(parameterKey == "scale_x")
-                                            xScale = atof(parameterValue.c_str());
-                                        else if(parameterKey == "scale_y")
-                                            yScale = atof(parameterValue.c_str());
-                                        else if(parameterKey == "tile_x")
-                                            tile_x = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "tile_y")
-                                            tile_y = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "fit_x")
-                                            fit_x = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "fit_y")
-                                            fit_y = (bool) atoi(parameterValue.c_str());
-                                            */
-                                        else
-                                            Logger::writeMsg(1) << "Invalid path parameter: " << parameterKey;  //Variable not found
-
+                                            getline(fileReader2,output);
+                                        }
                                     }
+
+
+                                        while( strStripSpace(output) == "path" )
+                                        {
+                                            //Set default values
+                                            struktur.moveSpeed = 0;
+                                            struktur.moveAngle = 0;
+                                            struktur.duration = 0;
+
+                                            getline(fileReader2,output);
+
+                                            if( strStripSpace(output) == "{" )
+                                            {
+                                                //Read until bracket ends data input
+                                                while( strStripSpace(output) != "}" )
+                                                {
+                                                    //Read line
+                                                    getline(fileReader2,output);
+                                                    //Check if line is empty and perform string operation
+                                                    if(strReadLine(output,parameterKey,parameterValue))
+                                                    {
+                                                        //Assign parameter values
+                                                        if(parameterKey == "movement_speed")
+                                                            struktur.moveSpeed = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "movement_duration")
+                                                            struktur.duration = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "movement_angle")
+                                                            struktur.moveAngle = atof(parameterValue.c_str());
+                                                        else
+                                                            Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;  //Variable not found
+                                                    }
+                                                }
+                                                //Push new layer
+                                                pathContentList.push_back(struktur);
+
+                                            }
+                                        }
+
+
                                 }
                                 //Search enemyList
                                 if(enemyList.find(enemyName) != enemyList.end())
                                     Logger::writeMsg(1) << "Failed to load path \"" << targetPath << "\". Reason: Path key already in system";
                                 else
                                 {
-                                    Path path(moveSpeed);
+                                    Path path(pathContentList);
                                     //Add to enemyList
                                     pathList[enemyName] = path;
                                     //Debug output
