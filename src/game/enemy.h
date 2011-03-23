@@ -25,10 +25,29 @@ namespace sbe
 
         private:
             void update(const float& elapsed);
-            Path path;
-            sf::Clock Clock;
-            float Time;
 
+            Path path;
+            sf::Clock   MoveClock,
+                        OrientClock;
+            float       Time,
+                        OrientTime,
+                        maxangle,
+                        duration,
+                        orientation,
+                        orientDuration,
+                        orientStart,
+                        orientStop,
+                        orientmax,
+                        orientmin,
+                        startAngle,
+                        stopAngle,
+                        stopMax,
+                        rotationTime,
+                        angleTime,
+                        angle;
+            int         orientDir,
+                        dir,
+                        i;
     };
 }
 

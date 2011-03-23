@@ -16,9 +16,15 @@ namespace sbe
     {
         public:
             struct pathContent {
-                float moveAngle;
-                float moveSpeed;
-                float duration;
+                float startAngle,
+                      stopAngle,
+                      moveSpeed,
+                      duration,
+                      orientation,
+                      orientStart,
+                      orientStop,
+                      orientDuration,
+                      stopMax;
             };
 
 

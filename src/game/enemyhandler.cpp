@@ -45,7 +45,7 @@ namespace sbe
         std::string enemyName;
         std::string pathName;
         float moveSpeed;
-        Path::pathContent struktur;
+        Path::pathContent stats;
 
 
         //Loop until end of file
@@ -96,9 +96,14 @@ namespace sbe
                                         while( strStripSpace(output) == "path" )
                                         {
                                             //Set default values
-                                            struktur.moveSpeed = 0;
-                                            struktur.moveAngle = 0;
-                                            struktur.duration = 0;
+                                            stats.moveSpeed = 0;
+                                            stats.startAngle = 0;
+                                            stats.stopAngle = 0;
+                                            stats.duration = 0;
+                                            stats.orientation = 0;
+                                            stats.orientStart = 0;
+                                            stats.orientStop = 0;
+                                            stats.orientDuration = 0;
 
                                             getline(fileReader2,output);
 
@@ -114,17 +119,29 @@ namespace sbe
                                                     {
                                                         //Assign parameter values
                                                         if(parameterKey == "movement_speed")
-                                                            struktur.moveSpeed = atof(parameterValue.c_str());
+                                                            stats.moveSpeed = atof(parameterValue.c_str());
                                                         else if(parameterKey == "movement_duration")
-                                                            struktur.duration = atof(parameterValue.c_str());
-                                                        else if(parameterKey == "movement_angle")
-                                                            struktur.moveAngle = atof(parameterValue.c_str());
+                                                            stats.duration = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "start_angle")
+                                                            stats.startAngle = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "stop_angle")
+                                                            stats.stopAngle = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "ship_orientation")
+                                                            stats.orientation = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "orientation_start")
+                                                            stats.orientStart = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "orientation_stop")
+                                                            stats.orientStop = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "orientation_duration")
+                                                            stats.orientDuration = atof(parameterValue.c_str());
+                                                        else if(parameterKey == "stop_at_max")
+                                                            stats.stopMax = atof(parameterValue.c_str());
                                                         else
                                                             Logger::writeMsg(1) << "Invalid scroll layer parameter: " << parameterKey;  //Variable not found
                                                     }
                                                 }
                                                 //Push new layer
-                                                pathContentList.push_back(struktur);
+                                                pathContentList.push_back(stats);
 
                                             }
                                         }
@@ -187,27 +204,6 @@ namespace sbe
                                             spriteName = parameterValue;
                                         else if(parameterKey == "path_name")
                                             pathName = parameterValue;
-
-                                            /*
-                                        else if(parameterKey == "movement_speed")
-                                            moveSpeed = atoi(parameterValue.c_str());
-                                        else if(parameterKey == "offset_x")
-                                            xOffset = atof(parameterValue.c_str());
-                                        else if(parameterKey == "offset_y")
-                                            yOffset = atof(parameterValue.c_str());
-                                        else if(parameterKey == "scale_x")
-                                            xScale = atof(parameterValue.c_str());
-                                        else if(parameterKey == "scale_y")
-                                            yScale = atof(parameterValue.c_str());
-                                        else if(parameterKey == "tile_x")
-                                            tile_x = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "tile_y")
-                                            tile_y = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "fit_x")
-                                            fit_x = (bool) atoi(parameterValue.c_str());
-                                        else if(parameterKey == "fit_y")
-                                            fit_y = (bool) atoi(parameterValue.c_str());
-                                            */
                                         else
                                             Logger::writeMsg(1) << "Invalid enemy parameter: " << parameterKey;  //Variable not found
 
