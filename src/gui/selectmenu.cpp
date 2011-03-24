@@ -2,7 +2,7 @@
 / Select menu
 / Author: Victor Rådmark
 / Created: 2011-03-12
-/ Updated: 2011-03-18
+/ Updated: 2011-03-23
 / License: GPL v3
 */
 #include <SFML/Graphics.hpp>
@@ -16,7 +16,7 @@ namespace sbe
         : funcObject(NULL), loadFunc(NULL)
     {}
 
-    SelectMenu::SelectMenu(void* callObject, void (*loadFunction) (void* object, const int& map), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r, const sf::Font& font)
+    SelectMenu::SelectMenu(void* callObject, void (*loadFunction) (void* object, void* menu, const int& map), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r, const sf::Font& font)
         : Menu(r)
     {
         createString("select", "SBE - Select stage", font, 34, sf::Vector2f(0, 0));
@@ -42,6 +42,6 @@ namespace sbe
 
     void SelectMenu::load(const int& map)
     {
-        loadFunc(funcObject, map);
+        loadFunc(funcObject, this, map);
     }
 }

@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-03-18
+/ File updated: 2011-03-23
 / License: GPLv3
 */
 #include <string> //For strings
@@ -151,13 +151,13 @@ namespace sbe
         self->showSelect();
     }
 
-    void Window::load(void* object, const int& map)
+    void Window::load(void* object, void* selectMenu, const int& map)
     {
         //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
-        self->loadStuff(map);
+        self->loadStuff(selectMenu, map);
     }
 
     void Window::options(void* object)
@@ -330,8 +330,9 @@ namespace sbe
         gui->pause();
     }
 
-    void Window::loadStuff(const int& map)
+    void Window::loadStuff(void* selectMenu, const int& map)
     {
+        if()
         if(map == 0)
         {
             menu = false;

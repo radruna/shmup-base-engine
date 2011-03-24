@@ -28,15 +28,18 @@ namespace sbe
 
     void EventHandler::processInput(const sf::Input& input)
     {
-        if(input.IsKeyDown(sf::Key::Right) && !input.IsKeyDown(sf::Key::Left))
-            inputActions["Right"].act();
-        else if(input.IsKeyDown(sf::Key::Left) && !input.IsKeyDown(sf::Key::Right))
-            inputActions["Left"].act();
+        if(inputActions.find("Right") != inputActions.end())
+        {
+            if(input.IsKeyDown(sf::Key::Right) && !input.IsKeyDown(sf::Key::Left))
+                inputActions["Right"].act();
+            else if(input.IsKeyDown(sf::Key::Left) && !input.IsKeyDown(sf::Key::Right))
+                inputActions["Left"].act();
 
-        if(input.IsKeyDown(sf::Key::Up) && !input.IsKeyDown(sf::Key::Down))
-            inputActions["Up"].act();
-        else if(input.IsKeyDown(sf::Key::Down) && !input.IsKeyDown(sf::Key::Up))
-            inputActions["Down"].act();
+            if(input.IsKeyDown(sf::Key::Up) && !input.IsKeyDown(sf::Key::Down))
+                inputActions["Up"].act();
+            else if(input.IsKeyDown(sf::Key::Down) && !input.IsKeyDown(sf::Key::Up))
+                inputActions["Down"].act();
+        }
 
         for(actionMap::iterator it = inputActions.begin(); it != inputActions.end(); it++)
         {
