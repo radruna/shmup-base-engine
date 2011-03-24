@@ -55,7 +55,7 @@ namespace sbe
                                    const sf::Vector2f& psPos = sf::Vector2f(-1, -1),
                                    const sf::Vector2i& next = sf::Vector2i(-1, -1));
             void createSelectMenu(void* callObject,
-                                   void (*selectFunction) (void* object, const int& map),
+                                   void (*selectFunction) (void* object, const int& map, bool selected),
                                    void (*backFunction) (void* object),
                                    ConfigReader* cReader,
                                    const sf::Vector2i& r);

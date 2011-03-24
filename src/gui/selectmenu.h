@@ -19,7 +19,7 @@ namespace sbe
         public:
             SelectMenu();
             SelectMenu(void* callObject,
-                       void (*loadFunction) (void* object, void* menu, const int& map),
+                       void (*loadFunction) (void* object, const int& map, bool selected),
                        void (*backFunction) (void* object),
                        ConfigReader* cReader,
                        const sf::Vector2i& r,
@@ -33,7 +33,7 @@ namespace sbe
             void load(const int& map = 0);
 
             void *funcObject;
-            void (*loadFunc) (void* object, void* menu, const int& map);
+            void (*loadFunc) (void* object, const int& map, bool selected);
     };
 }
 

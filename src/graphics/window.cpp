@@ -151,13 +151,13 @@ namespace sbe
         self->showSelect();
     }
 
-    void Window::load(void* object, void* selectMenu, const int& map)
+    void Window::load(void* object, const int& map, bool selected)
     {
         //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
-        self->loadStuff(selectMenu, map);
+        self->loadStuff(map, selected);
     }
 
     void Window::options(void* object)
@@ -330,14 +330,16 @@ namespace sbe
         gui->pause();
     }
 
-    void Window::loadStuff(void* selectMenu, const int& map)
+    void Window::loadStuff(const int& map, bool selected)
     {
-        if()
         if(map == 0)
         {
-            menu = false;
+            if(selected)
+            {
+                menu = false;
+                gui->deleteSelectMenu();
+            }
             renderList.pop_back();
-            gui->deleteSelectMenu();
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
@@ -350,16 +352,14 @@ namespace sbe
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
             enm1 = &enmHandler->getEnemy("enemy1");
-            wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
+            if(selected) wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
-            diag.push_back("Om man trycker på en piltangent i huvudmenyn krashar spelet =(. Så att alla vet.");
             diag.push_back("In my restless dreams, I see that town...");
             diag.push_back("Silent Hill");
             diag.push_back("You promised you'd take me there again some day. But you never did.");
             diag.push_back("Well I'm alone now... In our 'special place'...");
             diag.push_back("Waiting for you...");
-            diag.push_back("ASSHOLE");
             gui->createDialogPanel(res, diag);
 
             //renderList.push_back(scroll);
@@ -372,19 +372,22 @@ namespace sbe
             renderList.push_back(gui);
             //renderList.push_back(enmHandler->getEnemy("enemy1"));
 
-            loli = new sbe::Music();
-            loli->OpenFromFile(audHandler->getMusic("loli2"));
-            loli->SetVolume(audHandler->getMusicVol());
-            loli->Play();
+            if(selected)
+            {
+                loli = new sbe::Music();
+                loli->OpenFromFile(audHandler->getMusic("loli2"));
+                loli->SetVolume(audHandler->getMusicVol());
+                loli->Play();
 
-            evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
+                evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
 
-            evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
-            evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
-            evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
-            evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
-            evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
-            evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
+                evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
+                evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
+                evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
+                evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
+                evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
+                evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
+            }
         }
     }
 }
