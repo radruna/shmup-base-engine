@@ -26,6 +26,10 @@ namespace sbe
                        const sf::Font& font);
             ~SelectMenu() {}
 
+            bool isSelected()
+            {
+                return select;
+            }
         private:
             bool select;
             static void loadLevel(void* object);

@@ -32,6 +32,10 @@ namespace sbe
             Path(
                 std::vector <Path::pathContent>& pathContentList
             );
+            ~Path()
+            {
+                vektor.clear();
+            }
             std::vector <Path::pathContent>  getVector();
 
             std::vector <Path::pathContent> vektor;

@@ -46,8 +46,8 @@ namespace sbe
                         angleTime,
                         angle;
             int         orientDir,
-                        dir,
-                        i;
+                        dir;
+            unsigned    i;
     };
 }
 

@@ -238,6 +238,8 @@ namespace sbe
     void EnemyHandler::unloadAssets(){
         //FileHandler::unloadAssets(enemyList);
         enemyList.clear();
+        pathList.clear();
+        pathContentList.clear();
     }
 
     //Handle enemy requests

@@ -17,7 +17,7 @@ namespace sbe
     {}
 
     SelectMenu::SelectMenu(void* callObject, void (*loadFunction) (void* object, const int& map, bool selected), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r, const sf::Font& font)
-        : Menu(r), select(false)
+        : Menu(r, sf::Color(50, 80, 80, 150)), select(false)
     {
         createString("select", "SBE - Select stage", font, 34, sf::Vector2f(0, 0));
         strings["select"].SetCenter(strings["select"].GetRect().GetWidth() / 2, strings["select"].GetRect().GetHeight() / 2);

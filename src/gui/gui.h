@@ -91,6 +91,11 @@ namespace sbe
 
             sf::Vector2f getPSPos();
 
+            bool selectMenuIsSelected()
+            {
+                if(selectMenu != NULL) return selectMenu->isSelected();
+            }
+
             void click(const sf::Vector2i& mousePos);
             void hover(const sf::Vector2i& mousePos);
 

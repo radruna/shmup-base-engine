@@ -315,6 +315,17 @@ namespace sbe
 
     void Window::goBack()
     {
+        if(gui->selectMenuIsSelected())
+        {
+            safeDelete(testShip);
+            safeDelete(enm1);
+            safeDelete(stage);
+            safeDelete(pSystem2);
+            renderList.clear();
+            gui->deleteDia();
+            renderList.push_back(gui);
+        }
+
         gui->deleteOptionsMenu();
         gui->deleteSelectMenu();
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, gui->getPSPos(), gui->getNextPSPos());
@@ -368,7 +379,7 @@ namespace sbe
             renderList.push_back(enm1);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
-            renderList.push_back(wpn1);
+            if(selected) renderList.push_back(wpn1);
             renderList.push_back(gui);
             //renderList.push_back(enmHandler->getEnemy("enemy1"));
 
