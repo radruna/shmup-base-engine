@@ -46,6 +46,7 @@ namespace sbe
         public:
             Window(sf::VideoMode Mode, //The video mode of the window, used for res etc
                    ConfigReader* reader, //Loads all the settings and stuff
+                   bool respawned = 0, //If optionsmenu should be loaded first
                    unsigned long WindowStyle = sf::Style::Resize | sf::Style::Close, //Style of the window, used for fullscreen etc
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();
@@ -54,7 +55,7 @@ namespace sbe
 
         private:
             static void select(void* object);
-            static void load(void* object, const int& map, bool selected);
+            static void load(void* object, int map, bool selected);
             static void options(void* object);
             static void hiscore(void* object);
             static void credits(void* object);
@@ -72,7 +73,7 @@ namespace sbe
             static void defShipMod(void* object);
             static void othShipMod(void* object);
 
-            void loadStuff(const int& map = 0, bool selected = 1);
+            void loadStuff(int map = 0, bool selected = 1);
             void showOptions();
             void showSelect();
             void showHiScore() {}

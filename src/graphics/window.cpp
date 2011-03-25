@@ -30,7 +30,7 @@
 
 namespace sbe
 {
-    Window::Window(sf::VideoMode Mode, ConfigReader* reader, unsigned long WindowStyle, const sf::WindowSettings& Params)
+    Window::Window(sf::VideoMode Mode, ConfigReader* reader, bool respawned, unsigned long WindowStyle, const sf::WindowSettings& Params)
         : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(reader->getRes()), respawn(false), pause(false)
     {
         /*
@@ -59,7 +59,6 @@ namespace sbe
         //audHandler->loadMusic("scripts/assets/music.ast");
         //audHandler->loadSound("scripts/assets/sound.ast");
         Logger::writeMsg(1) << "\nAssets loaded!";
-
         testShip = NULL;
         pSystem2 = NULL;
         wpn1 = NULL;
@@ -68,7 +67,7 @@ namespace sbe
         enm1 = NULL;
         stage = NULL;
 
-        gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res);
+        !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
     }
 
@@ -85,7 +84,7 @@ namespace sbe
         delete prcHandler;
         safeDelete(gui);
         safeDelete(testShip);
-        safeDelete(enm1);
+        enm1 = NULL;
         safeDelete(stage);
         safeDelete(pSystem2);
         safeDelete(wpn1);
@@ -151,7 +150,7 @@ namespace sbe
         self->showSelect();
     }
 
-    void Window::load(void* object, const int& map, bool selected)
+    void Window::load(void* object, int map, bool selected)
     {
         //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
@@ -318,7 +317,7 @@ namespace sbe
         if(gui->selectMenuIsSelected())
         {
             safeDelete(testShip);
-            safeDelete(enm1);
+            enm1 = NULL;
             safeDelete(stage);
             safeDelete(pSystem2);
             renderList.clear();
@@ -341,9 +340,9 @@ namespace sbe
         gui->pause();
     }
 
-    void Window::loadStuff(const int& map, bool selected)
+    void Window::loadStuff(int map, bool selected)
     {
-        if(map == 0)
+        if(map == 1)
         {
             if(selected)
             {
@@ -365,13 +364,16 @@ namespace sbe
             enm1 = &enmHandler->getEnemy("enemy1");
             if(selected) wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
-            std::vector<std::string> diag;
-            diag.push_back("In my restless dreams, I see that town...");
-            diag.push_back("Silent Hill");
-            diag.push_back("You promised you'd take me there again some day. But you never did.");
-            diag.push_back("Well I'm alone now... In our 'special place'...");
-            diag.push_back("Waiting for you...");
-            gui->createDialogPanel(res, diag);
+            if(selected)
+            {
+                std::vector<std::string> diag;
+                diag.push_back("In my restless dreams, I see that town...");
+                diag.push_back("Silent Hill");
+                diag.push_back("You promised you'd take me there again some day. But you never did.");
+                diag.push_back("Well I'm alone now... In our 'special place'...");
+                diag.push_back("Waiting for you...");
+                gui->createDialogPanel(res, diag);
+            }
 
             //renderList.push_back(scroll);
 

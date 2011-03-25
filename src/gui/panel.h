@@ -59,6 +59,18 @@ namespace sbe
 
             void createButton(const std::string& name,
                               void* callObject,
+                              void (*callFunction) (void* object, const std::string& name),
+                              const sf::String& text,
+                              const sf::Color& txtCol,
+                              const sf::Vector2f& p1,
+                              const sf::Vector2f& p2,
+                              const sf::Color& color,
+                              bool hover = 0,
+                              const float& outline = 1,
+                              const sf::Color& outlineColor = sf::Color::Black);
+
+            void createButton(const std::string& name,
+                              void* callObject,
                               void (*callFunction) (void* object),
                               const sf::String& text,
                               const sf::Color& txtCol,

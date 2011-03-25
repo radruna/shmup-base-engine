@@ -16,11 +16,11 @@
 namespace sbe
 {
     Button::Button()
-        : funcObject(NULL), buttonFunc(NULL)
+        : funcObject(NULL), buttonFunc(NULL), nameFunc(NULL)
     {}
 
     Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, bool h, const float& outline, const sf::Color& outlineColor)
-        : string(text), isHover(h), hovered(false)
+        : string(text), isHover(h), hovered(false), nameFunc(NULL)
     {
         buttonRect = sf::Shape(sf::Shape::Rectangle(p1, p2, color, outline, outlineColor));
         string.SetColor(txtCol);
@@ -29,8 +29,18 @@ namespace sbe
         buttonFunc = callFunction;
     }
 
+    Button::Button(void* callObject, void (*callFunction) (void* object, const std::string& name), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, bool h, const float& outline, const sf::Color& outlineColor)
+        : string(text), isHover(h), hovered(false), buttonFunc(NULL)
+    {
+        buttonRect = sf::Shape(sf::Shape::Rectangle(p1, p2, color, outline, outlineColor));
+        string.SetColor(txtCol);
+        string.SetPosition(p1.x + 5, p1.y + 2);
+        funcObject = callObject;
+        nameFunc = callFunction;
+    }
+
     Button::Button(void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3, const sf::Color& color, bool h, const float& outline, const sf::Color& outlineColor)
-        : string(text), isHover(h), hovered(false)
+        : string(text), isHover(h), hovered(false), nameFunc(NULL)
     {
         buttonRect.AddPoint(p1, color, outlineColor);
         buttonRect.AddPoint(p2, color, outlineColor);
@@ -48,7 +58,7 @@ namespace sbe
         target.Draw(string);
     }
 
-    void Button::click(const sf::Vector2i& mousePos)
+    void Button::click(const sf::Vector2i& mousePos, const std::string& name)
     {
         sf::Vector2f pos1 = buttonRect.GetPointPosition(0), pos2 = buttonRect.GetPointPosition(2);
 
@@ -67,7 +77,7 @@ namespace sbe
         if(mousePos.x > pos1.x && mousePos.x < pos2.x)
         {
             if(mousePos.y > pos1.y && mousePos.y < pos2.y)
-                buttonFunc(funcObject);
+                (nameFunc == NULL) ? buttonFunc(funcObject) : nameFunc(funcObject, name);
         }
     }
 

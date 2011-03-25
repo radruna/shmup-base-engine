@@ -31,9 +31,9 @@ int main()
     {
         //Create the main window
         if(cfgReader->getSetting<int>("fullscreen"))
-            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, sf::Style::Fullscreen);
+            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, respawn, sf::Style::Fullscreen);
         else
-            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader);
+            mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, respawn);
 
         respawn = mainWindow->exec();
 

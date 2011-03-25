@@ -70,6 +70,15 @@ namespace sbe
         buttons[name] = tmpBtn;
     }
 
+    void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object, const std::string& name), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Color& color, bool hover, const float& outline, const sf::Color& outlineColor)
+    {
+        /*
+            Purpose: Create a new button based on parameters.
+        */
+        sbe::Button tmpBtn(callObject, callFunction, text, txtCol, p1, p2, color, hover, outline, outlineColor);
+        buttons[name] = tmpBtn;
+    }
+
     void Panel::createButton(const std::string& name, void* callObject, void (*callFunction) (void* object), const sf::String& text, const sf::Color& txtCol, const sf::Vector2f& p1, const sf::Vector2f& p2, const sf::Vector2f& p3, const sf::Color& color, const float& outline, const sf::Color& outlineColor)
     {
         /*
@@ -104,7 +113,7 @@ namespace sbe
         if(withinPanel(mousePos))
         {
             for(buttonMap::iterator it = buttons.begin(); it != buttons.end(); it++)
-                it->second.click(mousePos);
+                it->second.click(mousePos, it->first);
 
             for(checkButtonMap::iterator it = checkButtons.begin(); it != checkButtons.end(); it++)
                 it->second.click(mousePos);
