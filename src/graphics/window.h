@@ -61,6 +61,7 @@ namespace sbe
             static void credits(void* object);
             static void apply(void* object);
             static void back(void* object);
+            static void console(void* object);
 
             static void exit(void* object);
             static void pauseG(void* object);
@@ -80,6 +81,10 @@ namespace sbe
             void showCredits() {}
             void applyOptions();
             void goBack();
+            void showConsole()
+            {
+                gui->showConsole();
+            }
 
             void pauseGame();
             void flyShip(const Ship::Dir& dir)

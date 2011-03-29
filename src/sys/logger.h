@@ -10,8 +10,11 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <fstream>
 #include <sstream>
+
+typedef std::vector<std::string> StrVec;
 
 namespace sbe
 {
@@ -35,6 +38,12 @@ namespace sbe
                 fileWriter.close();
             }
 
+            static StrVec getLog()
+            {
+                return logHistory;
+                logHistory.clear();
+            }
+
             //std::ostream& operator<< (std::ostream& out, )
         private:
             static unsigned char curLevel;
@@ -42,6 +51,7 @@ namespace sbe
             static std::ofstream fileWriter;
             static std::ostringstream oss;
             static bool log;
+            static StrVec logHistory;
     };
 }
 #endif

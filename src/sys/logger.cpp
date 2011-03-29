@@ -21,6 +21,7 @@ namespace sbe
     unsigned char Logger::workLevel;
     std::ostringstream Logger::oss;
     bool Logger::log;
+    StrVec Logger::logHistory;
 
     void Logger::init(const bool l)
     {
@@ -55,6 +56,7 @@ namespace sbe
             {
                 //Add date and stuff
                 std::cout << oss.str() << std::endl;
+                logHistory.push_back(oss.str());
 
                 if(log && fileWriter.is_open())
                     fileWriter << oss.str() << std::endl;
