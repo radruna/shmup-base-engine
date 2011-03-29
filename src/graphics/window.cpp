@@ -50,6 +50,7 @@ namespace sbe
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
         evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
+        evtHandler->addAction("Console", sf::Key::C, this, console);
         gui = new Gui("scripts/assets/fonts.ast", res);
         Logger::writeMsg(1) << "Handlers loaded!";
 
@@ -211,6 +212,15 @@ namespace sbe
 
         //Call member
         self->goBack();
+    }
+
+    void Window::console(void* object)
+    {
+        //Explicitly cast to a pointer to Windowk
+        Window* self = (Window*) object;
+
+        //Call member
+        self->showConsole();
     }
 
     void Window::pauseG(void* object)

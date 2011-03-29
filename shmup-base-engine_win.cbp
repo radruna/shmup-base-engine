@@ -128,6 +128,7 @@
 		<Unit filename="src\gui\button.h" />
 		<Unit filename="src\gui\checkbutton.cpp" />
 		<Unit filename="src\gui\checkbutton.h" />
+		<Unit filename="src\gui\console.cpp" />
 		<Unit filename="src\gui\console.h" />
 		<Unit filename="src\gui\dialogpanel.cpp" />
 		<Unit filename="src\gui\dialogpanel.h" />

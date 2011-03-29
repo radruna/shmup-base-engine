@@ -20,6 +20,7 @@
 #include "selectmenu.h"
 #include "dialogpanel.h"
 #include "panel.h"
+#include "console.h"
 
 typedef std::map<std::string, sbe::Menu> MenuMap;
 typedef std::map<std::string, sbe::Panel> PanelMap;
@@ -66,6 +67,11 @@ namespace sbe
                              const sf::Color& color,
                              const float& outline = 0,
                              const sf::Color& outlineColor = sf::Color::Black);
+
+            void showConsole()
+            {
+                console->showConsole();
+            }
 
             void deleteMainMenu()
             {
@@ -124,6 +130,7 @@ namespace sbe
             sbe::OptionsMenu *optionsMenu;
             sbe::SelectMenu *selectMenu;
             sbe::DialogPanel *diagPanel;
+            sbe::Console *console;
             PanelMap panels;
             FontMap fonts;
             sf::String *fps;

@@ -48,6 +48,7 @@ namespace sbe
         optionsMenu = NULL;
         selectMenu = NULL;
         diagPanel = NULL;
+        console = new Console(res, fonts["inconsolata"]);
     }
 
     Gui::~Gui()
@@ -58,6 +59,7 @@ namespace sbe
         safeDelete(optionsMenu);
         safeDelete(selectMenu);
         safeDelete(diagPanel);
+        safeDelete(console);
         safeDelete(fps);
         safeDelete(fps2);
         safeDelete(pauseStr);
@@ -116,14 +118,20 @@ namespace sbe
         for(PanelMap::iterator it = panels.begin(); it != panels.end(); it++)
             it->second.click(mousePos);
 
-        if(mainMenu != NULL)
-            mainMenu->click(mousePos);
-        if(optionsMenu != NULL)
-            optionsMenu->click(mousePos);
-        if(selectMenu != NULL && !delMain)
-            selectMenu->click(mousePos);
-        if(diagPanel != NULL)
-            diagPanel->click(mousePos);
+        if(console->isShown())
+            console->click(mousePos);
+        else
+        {
+            if(mainMenu != NULL)
+                mainMenu->click(mousePos);
+            if(optionsMenu != NULL)
+                optionsMenu->click(mousePos);
+            if(selectMenu != NULL && !delMain)
+                selectMenu->click(mousePos);
+            if(diagPanel != NULL)
+                diagPanel->click(mousePos);
+        }
+
 
         if(delMain)
         {
@@ -157,14 +165,19 @@ namespace sbe
         for(PanelMap::iterator it = panels.begin(); it != panels.end(); it++)
             it->second.hover(mousePos);
 
-        if(mainMenu != NULL)
-            mainMenu->hover(mousePos);
-        if(optionsMenu != NULL)
-            optionsMenu->hover(mousePos);
-        if(selectMenu != NULL)
-            selectMenu->hover(mousePos);
-        if(diagPanel != NULL)
-            diagPanel->hover(mousePos);
+        if(console->isShown())
+            console->hover(mousePos);
+        else
+        {
+            if(mainMenu != NULL)
+                mainMenu->hover(mousePos);
+            if(optionsMenu != NULL)
+                optionsMenu->hover(mousePos);
+            if(selectMenu != NULL)
+                selectMenu->hover(mousePos);
+            if(diagPanel != NULL)
+                diagPanel->hover(mousePos);
+        }
     }
 
     void Gui::update(const float& elapsed)
@@ -186,6 +199,8 @@ namespace sbe
             mainMenu->update(elapsed);
         if(optionsMenu != NULL)
             optionsMenu->update(elapsed);
+
+        console->update();
     }
 
     void Gui::pause()
@@ -215,6 +230,9 @@ namespace sbe
             target.Draw(*pauseStrShadow);
             target.Draw(*pauseStr);
         }
+
+        if(console->isShown())
+            target.Draw(*console);
     }
 
     void Gui::loadFonts(const std::string& fontFile)
