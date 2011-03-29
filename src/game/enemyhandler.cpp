@@ -44,7 +44,7 @@ namespace sbe
         std::string targetPath;
         std::string enemyName;
         std::string pathName;
-        float moveSpeed;
+        //float moveSpeed;
         Path::pathContent stats;
 
 
@@ -250,12 +250,10 @@ namespace sbe
             //Assign enemy
             return enemyList[enemyKey];
         }
-        /*
         else{
             //Assign error image
             return enemyList["error"];
         }
-        */
     }
 
     //Handle path requests
@@ -266,12 +264,10 @@ namespace sbe
             //Assign enemy
             return pathList[enemyKey];
         }
-        /*
         else{
             //Assign error image
-            return enemyList["error"];
+            return pathList["error"];
         }
-        */
     }
 
 
