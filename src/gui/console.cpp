@@ -18,7 +18,7 @@
 namespace sbe
 {
     Console::Console(const sf::Vector2i& res, const sf::Font& f)
-        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, 300), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f)
+        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, 300), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f), active(false)
     {
     }
 
@@ -42,12 +42,13 @@ namespace sbe
     void Console::update()
     {
         StrVec tmpLog = Logger::getLog();
-        if(!tmpLog.empty())
+        Logger::clearLog();
+        if(!tmpLog.empty() && tmpLog.at(0) != "")
         {
             for(unsigned int i = 0; i < tmpLog.size(); i++)
                 addString(tmpLog.at(i));
 
-            while(strings.size() > 30) removeString();
+            while(strings.size() > 20) removeString();
         }
     }
 
@@ -72,5 +73,7 @@ namespace sbe
     void Console::removeString()
     {
         strings.erase(strings.begin());
+        for(unsigned int i = 0; i < strings.size(); i++)
+            strings.at(i).SetPosition(strings.at(i).GetPosition().x, strings.at(i).GetPosition().y - 16);
     }
 }
