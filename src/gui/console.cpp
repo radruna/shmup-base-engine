@@ -46,9 +46,13 @@ namespace sbe
         if(!tmpLog.empty() && tmpLog.at(0) != "")
         {
             for(unsigned int i = 0; i < tmpLog.size(); i++)
+            {
+                while(tmpLog.at(i).find("\n") != std::string::npos)
+                    tmpLog.at(i).erase(tmpLog.at(i).find("\n"), 1);
                 addString(tmpLog.at(i));
+            }
 
-            while(strings.size() > 20) removeString();
+            while(strings.size() > 18) removeString();
         }
     }
 
