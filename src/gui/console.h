@@ -50,7 +50,8 @@ namespace sbe
 
             sf::Font font;
             txtVec strings;
-            bool active;
+            bool active,
+                  focus;
             //CmdMap commands;
             StrVec history;
     };

@@ -18,7 +18,7 @@
 namespace sbe
 {
     Console::Console(const sf::Vector2i& res, const sf::Font& f)
-        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, 300), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f), active(false)
+        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, res.y / 2), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f), active(false), focus(false)
     {
     }
 
@@ -31,7 +31,7 @@ namespace sbe
 
     void Console::click(const sf::Vector2i& mousePos)
     {
-
+        focus = true;
     }
 
     void Console::hover(const sf::Vector2i& mousePos)
@@ -52,7 +52,7 @@ namespace sbe
                 addString(tmpLog.at(i));
             }
 
-            while(strings.size() > 18) removeString();
+            while(strings.size() > panelRect) removeString();
         }
     }
 
