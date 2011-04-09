@@ -41,6 +41,10 @@ namespace sbe
             static StrVec getLog()
             {
                 return logHistory;
+            }
+
+            static void clearLog()
+            {
                 logHistory.clear();
             }
 
