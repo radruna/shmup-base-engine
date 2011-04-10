@@ -346,7 +346,7 @@ namespace sbe
             spriteName = "default_particle";
 
         //Debug output
-        Logger::writeMsg(1) << "Finished!";
+        //Logger::writeMsg(1) << "Finished!";
         //Close file
         fileReader.close();
 

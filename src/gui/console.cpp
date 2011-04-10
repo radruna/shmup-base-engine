@@ -18,7 +18,7 @@
 namespace sbe
 {
     Console::Console(const sf::Vector2i& res, const sf::Font& f)
-        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, 300), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f), active(false)
+        : Panel(sf::Vector2f(1, 1), sf::Vector2f(res.x - 1, res.y / 2), sf::Color(0, 0, 0, 150), 1, sf::Color::White), font(f), active(false), focus(false)
     {
     }
 
@@ -31,7 +31,7 @@ namespace sbe
 
     void Console::click(const sf::Vector2i& mousePos)
     {
-
+        focus = true;
     }
 
     void Console::hover(const sf::Vector2i& mousePos)
@@ -43,12 +43,16 @@ namespace sbe
     {
         StrVec tmpLog = Logger::getLog();
         Logger::clearLog();
-        if(!tmpLog.empty())
+        if(!tmpLog.empty() && tmpLog.at(0) != "")
         {
             for(unsigned int i = 0; i < tmpLog.size(); i++)
+            {
+                while(tmpLog.at(i).find("\n") != std::string::npos)
+                    tmpLog.at(i).erase(tmpLog.at(i).find("\n"), 1);
                 addString(tmpLog.at(i));
+            }
 
-            while(strings.size() > 20) removeString();
+            while(strings.size() > panelRect) removeString();
         }
     }
 
@@ -74,6 +78,6 @@ namespace sbe
     {
         strings.erase(strings.begin());
         for(unsigned int i = 0; i < strings.size(); i++)
-            strings.at(i).SetPosition(sf::Vector2f(strings.at(i).GetPosition().x, strings.at(i).GetPosition().y - 16));
+            strings.at(i).SetPosition(strings.at(i).GetPosition().x, strings.at(i).GetPosition().y - 16);
     }
 }
