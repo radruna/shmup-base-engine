@@ -48,7 +48,7 @@ namespace sbe
         optionsMenu = NULL;
         selectMenu = NULL;
         diagPanel = NULL;
-        console = new Console(res, fonts["consolas"]);
+        console = new Console(res, fonts["inconsolata"]);
     }
 
     Gui::~Gui()

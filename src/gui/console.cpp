@@ -52,7 +52,7 @@ namespace sbe
                 addString(tmpLog.at(i));
             }
 
-            while(strings.size() > ((panelRect.GetPointPosition(2).y - panelRect.GetPointPosition(0).y) / 16)) removeString();
+            while(strings.size() > ((int) ((panelRect.GetPointPosition(2).y - panelRect.GetPointPosition(0).y) / 16))) removeString();
         }
     }
 
@@ -67,8 +67,8 @@ namespace sbe
     {
         history.push_back(str);
         int pos = 2;
-        if(!strings.empty()) pos = strings.back().GetPosition().y + 20;
-        sf::String tmpStr(history.back(), font, 12.f);
+        if(!strings.empty()) pos = strings.back().GetPosition().y + 16;
+        sf::String tmpStr(history.back(), font, 14.f);
         tmpStr.SetColor(sf::Color::White);
         tmpStr.SetPosition(5, pos);
         strings.push_back(tmpStr);
