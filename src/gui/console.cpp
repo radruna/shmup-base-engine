@@ -52,7 +52,7 @@ namespace sbe
                 addString(tmpLog.at(i));
             }
 
-            while(strings.size() > panelRect) removeString();
+            while(strings.size() > ((panelRect.GetPointPosition(2).y - panelRect.GetPointPosition(0).y) / 16)) removeString();
         }
     }
 
