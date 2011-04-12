@@ -2,7 +2,7 @@
 / GUI class
 / Author: Victor Rådmark
 / File created: 2011-03-06
-/ File updated: 2010-03-18
+/ File updated: 2010-04-12
 / License: GPLv3
 */
 #include <map>
@@ -23,7 +23,7 @@
 
 namespace sbe
 {
-    Gui::Gui(const std::string& fontFile, const sf::Vector2i& res)
+    Gui::Gui(const std::string& fontFile, const sf::Vector2i& res, void* object, void (*exitFunc) (void* object))
         : delMain(false), delOpt(false), delSec(false), delDia(false), showPause(false), fpsCount(0)
     {
         loadFonts(fontFile);
@@ -49,6 +49,7 @@ namespace sbe
         selectMenu = NULL;
         diagPanel = NULL;
         console = new Console(res, fonts["inconsolata"]);
+        console->addCommand("exit", object, exitFunc);
     }
 
     Gui::~Gui()
@@ -178,6 +179,15 @@ namespace sbe
             if(diagPanel != NULL)
                 diagPanel->hover(mousePos);
         }
+    }
+
+    void Gui::type(const sf::Event& event)
+    {
+        if(!console->isShown()) return;
+
+        //Logger::writeMsg(1) << "event text: " << (int) event.Text.Unicode;
+
+        console->type(event.Text.Unicode);
     }
 
     void Gui::update(const float& elapsed)

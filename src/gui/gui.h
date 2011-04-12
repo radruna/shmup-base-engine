@@ -2,7 +2,7 @@
 / GUI class
 / Author: Victor Rådmark
 / File created: 2011-03-06
-/ File updated: 2010-03-18
+/ File updated: 2010-04-12
 / License: GPLv3
 */
 #ifndef GUI_H_INCLUDED
@@ -31,7 +31,7 @@ namespace sbe
     class Gui : public sbe::Drawable, public sbe::FileHandler
     {
         public:
-            Gui(const std::string& fontFile, const sf::Vector2i& res);
+            Gui(const std::string& fontFile, const sf::Vector2i& res, void* object, void (*exitFunc) (void* object));
             ~Gui();
 
             void createMainMenu(void* callObject,
@@ -106,6 +106,7 @@ namespace sbe
 
             void click(const sf::Vector2i& mousePos);
             void hover(const sf::Vector2i& mousePos);
+            void type(const sf::Event& event);
 
             void update(const float& elapsed);
 
