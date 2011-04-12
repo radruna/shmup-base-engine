@@ -33,7 +33,8 @@ namespace sbe
                         const sf::Image&    img,
                         const float&        a,
                         const float&        v,
-                        const std::string&  pSysFile
+                        const std::string&  pSysFile,
+                        const float         radie
                        )
     {
         imageHandler = imgHandler;
@@ -42,8 +43,9 @@ namespace sbe
         proj.SetCenter(proj.GetSize().x / 2, proj.GetSize().y / 2);
         proj.SetPosition(xPos, yPos);
         //Set default values
-        hitBoxRadius    =   5;
+        hitBoxRadius    =   radie;
         damage          =   10;
+        hitbox = new Hitbox(hitBoxRadius);
 
         pSystemFile = pSysFile;
 
@@ -157,5 +159,17 @@ namespace sbe
     void Projectile::SetRotation(const float& r)
     {
         proj.SetRotation(r);
+    }
+
+    int Projectile::returnRadius() {
+        return hitBoxRadius;
+    }
+
+    float Projectile::xPos() {
+        return proj.GetPosition().x;
+    }
+
+        float Projectile::yPos() {
+        return proj.GetPosition().y;
     }
 }

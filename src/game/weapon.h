@@ -44,7 +44,10 @@ namespace sbe
             void load();
             void startFiring();
             void stopFiring();
-
+            int projectileSize();
+            float projectileRadius(unsigned int index);
+            float projectileXpos(unsigned int index);
+            float projectileYpos(unsigned int index);
         protected:
             void Render(sf::RenderTarget& Target) const;
 
@@ -59,6 +62,7 @@ namespace sbe
             sf::Sound   sndFiring,
                         sndImpact;
 
+            float radie;
             struct ValueMod
             {
                 float   scalarRateMin, //Scalar modifier min

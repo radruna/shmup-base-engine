@@ -26,6 +26,7 @@
 #include "../sys/util.h"
 #include "../sys/configreader.h"
 #include "movable.h"
+#include "hitbox.h"
 
 
 namespace sbe
@@ -44,7 +45,8 @@ namespace sbe
                         const sf::Image&    img,
                         const float&        a,
                         const float&        v,
-                        const std::string&  pSysFile
+                        const std::string&  pSysFile,
+                        const float         radie
                        );
             ~Projectile()
             {
@@ -55,9 +57,13 @@ namespace sbe
             void SetRotation(const float& r);
             void kill();
             bool isUseless();
+            int returnRadius();
+            float xPos();
+            float yPos();
 
         protected:
             void Render(sf::RenderTarget& Target) const;
+            Hitbox* hitbox;
 
         private:
             Movable             proj;

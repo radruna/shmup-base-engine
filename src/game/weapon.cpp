@@ -139,6 +139,8 @@ namespace sbe
                 else if(parameterKey == "sprite_name")
                     spriteName = parameterValue;
 
+                else if(parameterKey == "hitbox_radius")
+                    radie = atof(parameterValue.c_str());
                 else if(parameterKey == "shots_per_wave")
                     shotsPerWave = atoi(parameterValue.c_str());
                 else if(parameterKey == "waves_per_attack")
@@ -453,7 +455,7 @@ namespace sbe
                         emissionAngle = boundsRand( emissionAngleMin , emissionAngleMax );
 
                     //Fire new projectile
-                    projectileList.push_back( Projectile(imageHandler, configReader, xPos, yPos, sprite, emissionAngle, emissionForce, pSystemFile ));
+                    projectileList.push_back( Projectile(imageHandler, configReader, xPos, yPos, sprite, emissionAngle, emissionForce, pSystemFile, radie ));
                     //Handle size/ratio
                     projectileList.back().SetScale(scale, scale * sizeRatio);
 
@@ -502,6 +504,34 @@ namespace sbe
         xPosOld = GetPositionX();
         yPosOld = GetPositionY();
 
+    }
+
+    int Weapon::projectileSize() {
+        return projectileList.size();
+    }
+
+    float Weapon::projectileRadius(unsigned int index) {
+            std::list<Projectile>::iterator it = projectileList.begin();
+            for(unsigned int i = 0; i < index; i++)
+                it++;
+
+            return it->returnRadius();
+    }
+
+    float Weapon::projectileXpos(unsigned int index) {
+            std::list<Projectile>::iterator it = projectileList.begin();
+            for(unsigned int i = 0; i < index; i++)
+                it++;
+
+            return it->xPos();
+    }
+
+    float Weapon::projectileYpos(unsigned int index) {
+            std::list<Projectile>::iterator it = projectileList.begin();
+            for(unsigned int i = 0; i < index; i++)
+                it++;
+
+            return it->yPos();
     }
 
 }

@@ -67,6 +67,7 @@ namespace sbe
         scroll = NULL;
         enm1 = NULL;
         stage = NULL;
+        alive = 1;
 
         !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -124,6 +125,18 @@ namespace sbe
 
             //Get elapsed time since last frame to ensure constant speed
             float ElapsedTime = GetFrameTime();
+
+            if(wpn1 != NULL && alive)
+            {
+                int projectileSize = wpn1->projectileSize();
+                for(int i=0; i<projectileSize; i++)
+                {
+                    if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2))) {
+                        Logger::writeMsg(1) << "HITT";
+                        //delete enm1;
+                    }
+                }
+            }
 
             //Update everything
             for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)

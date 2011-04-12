@@ -10,12 +10,14 @@
 
 namespace sbe
 {
-    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path& pth)
+    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path& pth, float r)
     : Ship(spriteName, imgHandler)
     {
+        hitBoxRadius = r;
         path = pth;
         i = 0;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
+        hitbox = new Hitbox(hitBoxRadius);
     }
     void Enemy::update(const float& elapsed)
     {
@@ -77,6 +79,7 @@ namespace sbe
             maxangle = 0;
             angle = stopAngle;
         }
+
         //Calculates how much the enemy is to move based on elapsed time
         angleTime = Time/duration;
         //Calculates how much the enemy is to rotate based on elapsed time
@@ -98,6 +101,10 @@ namespace sbe
         sbe::Sprite::SetRotation(-(angle+90+orientmin));
         //Moves the enemy
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
+    }
+
+    int Enemy::returnRadius() {
+        return hitBoxRadius;
     }
 
 }

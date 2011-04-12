@@ -52,6 +52,7 @@ namespace sbe
             ~Window();
 
             bool exec(); //Main game loop, returns respawn
+            bool alive;
 
         private:
             static void select(void* object);

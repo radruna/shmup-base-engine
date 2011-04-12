@@ -10,6 +10,7 @@
 
 #include "ship.h"
 #include "path.h"
+#include "hitbox.h"
 
 namespace sbe
 {
@@ -20,12 +21,14 @@ namespace sbe
             Enemy(
                 ImageHandler* imgHandler,
                 const std::string spriteName,
-                Path& pth
+                Path& pth,
+                float r
             );
-
+            int returnRadius();
         private:
             void update(const float& elapsed);
-
+            float hitBoxRadius;
+            Hitbox* hitbox;
             Path path;
             sf::Clock   MoveClock,
                         OrientClock;

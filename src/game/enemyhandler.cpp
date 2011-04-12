@@ -45,6 +45,7 @@ namespace sbe
         std::string enemyName;
         std::string pathName;
         //float moveSpeed;
+        float radie;
         Path::pathContent stats;
 
 
@@ -204,6 +205,8 @@ namespace sbe
                                             spriteName = parameterValue;
                                         else if(parameterKey == "path_name")
                                             pathName = parameterValue;
+                                        else if(parameterKey == "hitbox_radius")
+                                            radie = atof(parameterValue.c_str());
                                         else
                                             Logger::writeMsg(1) << "Invalid enemy parameter: " << parameterKey;  //Variable not found
 
@@ -214,7 +217,7 @@ namespace sbe
                                     Logger::writeMsg(1) << "Failed to load enemy \"" << targetPath << "\". Reason: Enemy key already in system";
                                 else
                                 {
-                                    Enemy enemy(imgHandler,spriteName, getPath(pathName));
+                                    Enemy enemy(imgHandler,spriteName, getPath(pathName), radie);
                                     //Add to enemyList
                                     enemyList[enemyName] = enemy;
                                     //Debug output

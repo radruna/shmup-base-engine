@@ -5,6 +5,8 @@
 "sprite_name"						"particle_2"				//Sprite to use. Needs to be loaded by asset file
 "particle_system"					"scripts/particles/trails/smoke_1.ast"
 
+"hitbox_radius"						"50"
+
 "firing_sound"						"blaster_1"
 "impact_sound"						"pop_1"
 
