@@ -63,11 +63,13 @@ namespace sbe
     {
         history.push_back(str);
         int pos = 2;
+
         if(!strings.empty()) pos = strings.back().GetPosition().y + 16;
         sf::String tmpStr(history.back(), font, 14.f);
         tmpStr.SetColor(sf::Color::White);
         tmpStr.SetPosition(5, pos);
         strings.push_back(tmpStr);
+        std::cout << strings.back().GetPosition().y << std::endl;
     }
 
     void Console::removeString()

@@ -44,7 +44,8 @@ namespace sbe
                         stopMax,
                         rotationTime,
                         angleTime,
-                        angle;
+                        angle,
+                        speed;
             int         orientDir,
                         dir;
             unsigned    i;
