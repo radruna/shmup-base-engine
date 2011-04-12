@@ -93,6 +93,8 @@
 		<Unit filename="src/game/enemyhandler.h" />
 		<Unit filename="src/game/entity.cpp" />
 		<Unit filename="src/game/entity.h" />
+		<Unit filename="src/game/hitbox.cpp" />
+		<Unit filename="src/game/hitbox.h" />
 		<Unit filename="src/game/movable.cpp" />
 		<Unit filename="src/game/movable.h" />
 		<Unit filename="src/game/path.cpp" />
