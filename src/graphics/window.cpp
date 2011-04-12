@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-03-23
+/ File updated: 2011-04-12
 / License: GPLv3
 */
 #include <string> //For strings
@@ -50,8 +50,8 @@ namespace sbe
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
         evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
-        evtHandler->addAction("Console", sf::Key::C, this, console);
-        gui = new Gui("scripts/assets/fonts.ast", res);
+        evtHandler->addAction("Console", sf::Key::Tab, this, console);
+        gui = new Gui("scripts/assets/fonts.ast", res, this, exit);
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
@@ -114,6 +114,8 @@ namespace sbe
                     Close();
                 if(event.Type == sf::Event::MouseButtonReleased)
                     gui->click(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
+                if(event.Type == sf::Event::TextEntered)
+                    gui->type(event);
             }
 
             evtHandler->processInput(GetInput());
