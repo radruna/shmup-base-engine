@@ -19,16 +19,22 @@ namespace sbe
     {
         public:
             Command();
-            Command(void* callObject, void (*cmdFunction) (void* object, StrVec args));
-            Command(void* callObject, void (*cmdFunction) (void* object));
+            Command(const std::string& description, void* callObject, void (*cmdFunction) (void* object, StrVec args));
+            Command(const std::string& description, void* callObject, void (*cmdFunction) (void* object));
             ~Command()
             {
 
             }
 
-            void exec(StrVec args);
+            bool exec(StrVec args);
+
+            std::string getDescription()
+            {
+                return desc;
+            }
 
         private:
+            std::string desc;
             void* object;
             void (*function) (void* object);
             void (*parFunction) (void* object, StrVec);

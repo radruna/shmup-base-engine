@@ -28,8 +28,8 @@ namespace sbe
             Console(const sf::Vector2i& res, const sf::Font& f);
             ~Console();
 
-            void addCommand(const std::string& name, void* callObject, void (*cmdFunction) (void* object));
-            void addCommand(const std::string& name, void* callObject, void (*cmdFunction) (void* object, StrVec args));
+            void addCommand(const std::string& name, const std::string& description, void* callObject, void (*cmdFunction) (void* object));
+            void addCommand(const std::string& name, const std::string& description, void* callObject, void (*cmdFunction) (void* object, StrVec args));
 
             void click(const sf::Vector2i& mousePos);
             void hover(const sf::Vector2i& mousePos);
@@ -53,7 +53,7 @@ namespace sbe
             static void cmd(void* object);
             void printHelp();
             void printCmds();
-            void exec(const std::string& cmd);
+            void exec(std::string cmd);
             void addString(const std::string& str);
             void removeString();
 

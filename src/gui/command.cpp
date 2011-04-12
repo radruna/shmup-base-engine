@@ -19,22 +19,32 @@ namespace sbe
         parFunction = NULL;
     }
 
-    Command::Command(void* callObject, void (*cmdFunction) (void* object, StrVec args))
+    Command::Command(const std::string& description, void* callObject, void (*cmdFunction) (void* object, StrVec args))
+        : desc(description)
     {
         object = callObject;
         parFunction = cmdFunction;
         function = NULL;
     }
 
-    Command::Command(void* callObject, void (*cmdFunction) (void* object))
+    Command::Command(const std::string& description, void* callObject, void (*cmdFunction) (void* object))
+        : desc(description)
     {
         object = callObject;
         function = cmdFunction;
         parFunction = NULL;
     }
 
-    void Command::exec(const StrVec args)
+    bool Command::exec(const StrVec args)
     {
-        (function != NULL) ? function(object) : parFunction(object, args);
+        if(function != NULL)
+            function(object);
+        else
+        {
+            if(args.empty()) return false;
+            parFunction(object, args);
+        }
+
+        return true;
     }
 }

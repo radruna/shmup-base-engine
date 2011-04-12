@@ -116,6 +116,11 @@ namespace sbe
             void Render(sf::RenderTarget& target) const;
 
         private:
+            static void frames(void* object, StrVec args);
+            void showFrames(StrVec args)
+            {
+                (args[0] == "1") ? showFps = true : showFps = false;
+            }
             void loadFonts(const std::string& fontFile);
             void unloadFonts()
             {
@@ -126,7 +131,8 @@ namespace sbe
                   delOpt,
                   delSec,
                   delDia,
-                  showPause;
+                  showPause,
+                  showFps;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
             sbe::SelectMenu *selectMenu;

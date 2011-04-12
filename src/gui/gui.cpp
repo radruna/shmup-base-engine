@@ -24,7 +24,7 @@
 namespace sbe
 {
     Gui::Gui(const std::string& fontFile, const sf::Vector2i& res, void* object, void (*exitFunc) (void* object))
-        : delMain(false), delOpt(false), delSec(false), delDia(false), showPause(false), fpsCount(0)
+        : delMain(false), delOpt(false), delSec(false), delDia(false), showPause(false), showFps(true), fpsCount(0)
     {
         loadFonts(fontFile);
 
@@ -48,8 +48,9 @@ namespace sbe
         optionsMenu = NULL;
         selectMenu = NULL;
         diagPanel = NULL;
-        console = new Console(res, fonts["inconsolata"]);
-        console->addCommand("exit", object, exitFunc);
+        console = new Console(res, fonts["consolas"]);
+        console->addCommand("exit", "Exit the game.", object, exitFunc);
+        console->addCommand("showfps", "Display the frames per second counter.", this, frames);
     }
 
     Gui::~Gui()
@@ -70,17 +71,17 @@ namespace sbe
     void Gui::createMainMenu(void* callObject, void (*selectFunction) (void* object), void (*optionsFunction) (void* object), void (*hiscoreFunction) (void* object), void (*creditsFunction) (void* object), void (*exitFunction) (void* object),
                              const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cfgReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        mainMenu = new MainMenu(callObject, selectFunction, optionsFunction, hiscoreFunction, creditsFunction, exitFunction,  psFile, imgHandler, cfgReader, r, fonts["chiller"], psPos, next);
+        mainMenu = new MainMenu(callObject, selectFunction, optionsFunction, hiscoreFunction, creditsFunction, exitFunction,  psFile, imgHandler, cfgReader, r, fonts["consolas"], psPos, next);
     }
 
     void Gui::createOptionsMenu(void* callObject, void (*applyFunction) (void* object), void (*backFunction) (void* object), const std::string& psFile, ImageHandler* imgHandler, ConfigReader* cReader, const sf::Vector2i& r, const sf::Vector2f& psPos, const sf::Vector2i& next)
     {
-        optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["chiller"], psPos, next);
+        optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["consolas"], psPos, next);
     }
 
     void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, int map, bool selected), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r)
     {
-        selectMenu = new SelectMenu(callObject, selectFunction, backFunction, cReader, r, fonts["chiller"]);
+        selectMenu = new SelectMenu(callObject, selectFunction, backFunction, cReader, r, fonts["consolas"]);
     }
 
     void Gui::createDialogPanel(const sf::Vector2i& res, const std::vector<std::string>& dialog)
@@ -185,7 +186,7 @@ namespace sbe
     {
         if(!console->isShown()) return;
 
-        //Logger::writeMsg(1) << "event text: " << (int) event.Text.Unicode;
+        Logger::writeMsg(1) << "event text: " << (int) event.Text.Unicode;
 
         console->type(event.Text.Unicode);
     }
@@ -232,8 +233,11 @@ namespace sbe
         if(diagPanel != NULL)
             target.Draw(*diagPanel);
 
-        target.Draw(*fps2);
-        target.Draw(*fps);
+        if(showFps)
+        {
+            target.Draw(*fps2);
+            target.Draw(*fps);
+        }
 
         if(showPause)
         {
@@ -243,6 +247,15 @@ namespace sbe
 
         if(console->isShown())
             target.Draw(*console);
+    }
+
+    void Gui::frames(void* object, StrVec args)
+    {
+        //Explicitly cast to a pointer to Gui
+        Gui* self = (Gui*) object;
+
+        //Call member
+        self->showFrames(args);
     }
 
     void Gui::loadFonts(const std::string& fontFile)

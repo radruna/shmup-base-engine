@@ -25,8 +25,8 @@ namespace sbe
         inStr->SetColor(sf::Color::White);
         inStr->SetPosition(5, (res.y / 2) - 20);
 
-        addCommand("help", this, help);
-        addCommand("cmd", this, cmd);
+        addCommand("help", "Display the console help.", this, help);
+        addCommand("cmd", "Display a list of all available console commands.", this, cmd);
     }
 
     Console::~Console()
@@ -37,15 +37,15 @@ namespace sbe
         delete inStr;
     }
 
-    void Console::addCommand(const std::string& name, void* callObject, void (*cmdFunction) (void* object))
+    void Console::addCommand(const std::string& name, const std::string& description, void* callObject, void (*cmdFunction) (void* object))
     {
-        Command tmpCmd(callObject, cmdFunction);
+        Command tmpCmd(description, callObject, cmdFunction);
         commands[name] = tmpCmd;
     }
 
-    void Console::addCommand(const std::string& name, void* callObject, void (*cmdFunction) (void* object, StrVec args))
+    void Console::addCommand(const std::string& name, const std::string& description, void* callObject, void (*cmdFunction) (void* object, StrVec args))
     {
-        Command tmpCmd(callObject, cmdFunction);
+        Command tmpCmd(description, callObject, cmdFunction);
         commands[name] = tmpCmd;
     }
 
@@ -75,8 +75,11 @@ namespace sbe
             return;
         }
 
-        if(text != 8) tmpStr.insert(tmpStr.end() - 1, (char) text);
-        else if(tmpStr != "> _") tmpStr.erase(tmpStr.end() - 2, tmpStr.end() - 1);
+        if(text != 9)
+        {
+            if(text != 8 && text != 127) tmpStr.insert(tmpStr.end() - 1, (char) text);
+            else if(tmpStr != "> _") tmpStr.erase(tmpStr.end() - 2, tmpStr.end() - 1);
+        }
 
         inStr->SetText(tmpStr);
     }
@@ -140,22 +143,35 @@ namespace sbe
         addString("SBE version 0.1");
         addString("Console commands");
         addString(" ");
-        addString("help - display the console help.");
-        addString("help <command> - display help on a specific command.");
-        addString("cmd - display all console commands.");
-        addString("exit - exit the game.");
+        for(CmdMap::iterator it = commands.begin(); it != commands.end(); it++)
+            addString(it->first + " - " + it->second.getDescription());
+        //addString("help <command> - display help on a specific command.");
     }
 
-    void Console::exec(const std::string& cmd)
+    void Console::exec(std::string cmd)
     {
         StrVec args;
-        /*if(cmd.find(' '))
+
+        if(cmd.find(' ') != std::string::npos)
         {
+            args.push_back(cmd.substr(cmd.find(' ') + 1, cmd.size() - cmd.find(' ')));
+            cmd = cmd.substr(0, cmd.find(' '));
 
-        }*/
+            while(args.back().find(' ') != std::string::npos)
+            {
+                args.push_back(args.back().substr(args.back().find(' ') + 1 , args.size() - args.back().find(' ')));
+                args.at(args.size() - 1) = args.at(args.size() - 1).substr(0, args.at(args.size() - 1).find(' ') - 1);
+            }
+        }
 
-        if(commands.find(cmd) != commands.end()) commands[cmd].exec(args);
-        else addString("Command '" + cmd + "' not found");
+        if(commands.find(cmd) == commands.end())
+        {
+            addString("Command '" + cmd + "' not found");
+            return;
+        }
+
+        if(!commands[cmd].exec(args)) addString("Wrong number of arguments for command '" + cmd + "'.");
+
     }
 
     void Console::addString(const std::string& str)
@@ -169,7 +185,7 @@ namespace sbe
         tmpStr.SetPosition(5, pos);
         strings.push_back(tmpStr);
 
-        if(strings.size() > ((int) ((panelRect.GetPointPosition(2).y - panelRect.GetPointPosition(0).y) / 17))) removeString();
+        if(strings.size() > ((unsigned int) ((panelRect.GetPointPosition(2).y - panelRect.GetPointPosition(0).y) / 17))) removeString();
     }
 
     void Console::removeString()
