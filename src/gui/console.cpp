@@ -73,7 +73,6 @@ namespace sbe
         tmpStr.SetColor(sf::Color::White);
         tmpStr.SetPosition(5, pos);
         strings.push_back(tmpStr);
-        std::cout << strings.back().GetPosition().y << std::endl;
     }
 
     void Console::removeString()
