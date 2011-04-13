@@ -223,20 +223,22 @@ namespace sbe
                     eventCounter = timeAdd;
                     //eventPos++;
                 }
-                if(quote == "music")
+                else if(quote == "music")
                 {
-                    //Change music, crossfade etc.
+                    std::string piss = nextQuote(eventList.at(eventPos));
+                     Logger::writeMsg(1) << piss;
+                    //audHandler->setMusic( );
                 }
-                if(quote == "enemy")
+                else if(quote == "enemy")
                 {
 
                 }
-                if(quote == "bg_speed")
+                else if(quote == "bg_speed")
                 {
                     float piss = atof( nextQuote(eventList.at(eventPos)).c_str() );
                     bg->setSpeedFactor( piss );
                 }
-                if(quote == "fin")
+                else if(quote == "fin")
                 {
                     //HOLY SHIT YOU WON
                 }
@@ -262,7 +264,7 @@ namespace sbe
             return "";
 
         std::string newStr = strSource.substr(qPos[0] + 1,qPos[1] - qPos[0] -1);
-        strSource = strSource.substr( newStr.length() + 2, strSource.length() - newStr.length() );
+        strSource = strSource.substr( qPos[1] + 1, strSource.length() - newStr.length() );
         return newStr;
     }
 }

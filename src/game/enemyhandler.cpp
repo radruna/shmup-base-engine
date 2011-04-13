@@ -258,7 +258,7 @@ namespace sbe
         }
         else{
             //Assign error image
-            return enemyMap["error"];
+            return enemyMap["enemy_01"];
         }
     }
 
@@ -272,7 +272,7 @@ namespace sbe
         }
         else{
             //Assign error image
-            return pathList["error"];
+            return pathList["path_01"];
         }
     }
 
@@ -280,6 +280,7 @@ namespace sbe
     {
         for(int i=0; i<amount; i++) {
             enm1 = getEnemy(type);
+            enm1.SetPosition(res.x, 10*i);
             enemyList.push_back(enm1);
         }
 

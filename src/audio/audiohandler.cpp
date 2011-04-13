@@ -184,7 +184,7 @@ namespace sbe
 
         if(musicList.find(musicKey) == musicList.end())
         {
-            std::cout << "Music not found";
+            Logger::writeMsg(1) << "Music not found: " << musicKey;
             return true;
         }
 
