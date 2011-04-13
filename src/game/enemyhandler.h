@@ -43,7 +43,7 @@ namespace sbe
             //Unload all enemies
             void unloadAssets();
             //Handle image requests
-            Enemy& getEnemy(const std::string& enemyKey);
+            Enemy getEnemy(const std::string& enemyKey);
             Path& getPath(const std::string& enemyKey);
         private:
             //Enemy list

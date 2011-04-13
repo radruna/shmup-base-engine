@@ -186,7 +186,7 @@ namespace sbe
     {
         if(!console->isShown()) return;
 
-        Logger::writeMsg(1) << "event text: " << (int) event.Text.Unicode;
+       // Logger::writeMsg(1) << "event text: " << (int) event.Text.Unicode;
 
         console->type(event.Text.Unicode);
     }

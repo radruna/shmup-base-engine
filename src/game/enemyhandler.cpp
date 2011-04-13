@@ -246,7 +246,7 @@ namespace sbe
     }
 
     //Handle enemy requests
-    sbe::Enemy& EnemyHandler::getEnemy(const std::string& enemyKey){
+    sbe::Enemy EnemyHandler::getEnemy(const std::string& enemyKey){
         //Search enemyList
         if( enemyList.find(enemyKey) != enemyList.end() )
         {
