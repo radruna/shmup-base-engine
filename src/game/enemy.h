@@ -28,9 +28,8 @@ namespace sbe
             );
             ~Enemy();
             int returnRadius();
-
-        private:
             void update(const float& elapsed);
+        private:
             float hitBoxRadius;
             //Hitbox* hitbox;
             Path path;

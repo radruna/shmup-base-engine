@@ -280,7 +280,8 @@ namespace sbe
     {
         for(int i=0; i<amount; i++) {
             enm1 = getEnemy(type);
-            enm1.SetPosition(res.x, 10*i);
+            enm1.SetPosition(res.x/2, 100*i);
+            Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x/2<<","<<i*100;
             enemyList.push_back(enm1);
         }
 
@@ -291,6 +292,15 @@ namespace sbe
         for(std::list<Enemy>::const_iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
             Target.Draw(*it);
+        }
+    }
+
+    void EnemyHandler::update(const float& elapsed)
+    {
+
+        for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
+        {
+            //it->update(elapsed);
         }
     }
 

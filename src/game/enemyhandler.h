@@ -25,7 +25,7 @@
 
 namespace sbe
 {
-    class EnemyHandler : public FileHandler
+    class EnemyHandler : public FileHandler , public sbe::Drawable
     {
         /*
             Loads images, stores them and handles requests
@@ -47,6 +47,7 @@ namespace sbe
             //Handle image requests
             Enemy getEnemy(const std::string& enemyKey);
             Path& getPath(const std::string& enemyKey);
+            void update(const float& elapsed);
         private:
             //Enemy list
             std::map<std::string, Enemy> enemyMap;
