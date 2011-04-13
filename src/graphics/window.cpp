@@ -150,6 +150,7 @@ namespace sbe
             //Update everything
             for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)
                 if(!pause) (*it)->update(ElapsedTime);
+            audHandler->update();
 
             Clear();
 

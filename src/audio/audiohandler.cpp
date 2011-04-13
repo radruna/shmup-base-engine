@@ -20,7 +20,7 @@
 namespace sbe
 {
     AudioHandler::AudioHandler(const int& s, const int& m)
-        : sVol(s), mVol(m)//, curSong("")
+        : sVol(s), mVol(m), fadeCounter(0), interval(0)
     {
         song = NULL;
         //Add intro/menu sounds
@@ -180,7 +180,7 @@ namespace sbe
     bool AudioHandler::setMusic(const std::string& musicKey)
     {
         //Set current music playing.
-        //stopMusic();
+        stopMusic();
 
         if(musicList.find(musicKey) == musicList.end())
         {
@@ -204,26 +204,22 @@ namespace sbe
         return false;
     }
 
-    /*void AudioHandler::stopMusic()
+    void AudioHandler::fadeOut(float eleapsed, int s)
     {
-        //Stop current music.
-        if(musicList[curSong].GetStatus() != sf::Sound::Stopped)
-            musicList[curSong].Stop();
+        //Fade out music during s seconds.
+        fadeCounter = elapsed;
+        interval = mVol / s;
     }
 
-    void AudioHandler::pauseMusic()
+    void AudioHandler::update(float elapsed)
     {
-        //Pause/play current music
-        if(musicList[curSong].GetStatus() != sf::Sound::Playing)
-            musicList[curSong].Play();
-        else
-            musicList[curSong].Pause();
-    }
+        if(fadeCounter == 0) return;
 
-    void AudioHandler::setMusicLoop(bool loop)
-    {
-        musicList[curSong].SetLoop(loop);
-    }*/
+        fadeCounter += elapsed;
+
+        song->SetVolume(mVol - (fadeCounter * interval))
+
+    }
 
     void AudioHandler::getAudioList()
     {
@@ -231,6 +227,5 @@ namespace sbe
             std::cout << (*it).first << " " << std::endl;
         for(musicMap::iterator it = musicList.begin(); it != musicList.end(); it++)
             std::cout << (*it).first << " " << std::endl;
-
     }
 }

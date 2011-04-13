@@ -83,8 +83,7 @@ namespace sbe
             //Stop current music.
             void stopMusic()
             {
-                song->Stop();
-                safeDelete(song);
+                if(song->GetStatus() != sf::Music::Stopped) song->Stop();
             }
             //Pause/play current music
             void pauseMusic()
@@ -95,7 +94,12 @@ namespace sbe
                     song->Play();
             }
             //Set music to loop
-            void setMusicLoop(bool loop);
+            void setMusicLoop(bool loop)
+            {
+                song->SetLoop(loop);
+            }
+            //Fade out the music for s seconds
+            void fadeOut(int s = 5);
             void getAudioList();
             float getSFXVol()
             {
@@ -106,6 +110,8 @@ namespace sbe
                 return (float) mVol;
             }
 
+            void update(float elapsed);
+
         private:
             sbe::Music* song;
             //Sound list
@@ -114,7 +120,9 @@ namespace sbe
             musicMap musicList;
 
             int sVol,
-                mVol;
+                mVol,
+                fadeCounter,
+                interval;
             //std::string curSong;
     };
 }
