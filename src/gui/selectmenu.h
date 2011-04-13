@@ -21,30 +21,20 @@ namespace sbe
         public:
             SelectMenu();
             SelectMenu(void* callObject,
-                       void (*loadFunction) (void* object, int map, bool selected),
+                       void (*loadFunction) (void* object, int map),
                        void (*backFunction) (void* object),
                        ConfigReader* cReader,
                        const sf::Vector2i& r,
                        const sf::Font& font);
             ~SelectMenu() {}
 
-            bool isSelected()
-            {
-                for(unsigned int i = 0; i < selections.size(); i++)
-                    if(selections.at(i)) return true;
-
-                return false;
-            }
-
         private:
             static void loadLevel(void* object, const std::string& name);
 
             void load(int map = 0);
 
-            std::vector<bool> selections;
-
             void *funcObject;
-            void (*loadFunc) (void* object, int map, bool selected);
+            void (*loadFunc) (void* object, int map);
     };
 }
 

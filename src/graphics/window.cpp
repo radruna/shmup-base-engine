@@ -173,13 +173,13 @@ namespace sbe
         self->showSelect();
     }
 
-    void Window::load(void* object, int map, bool selected)
+    void Window::load(void* object, int map)
     {
         //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
 
         //Call member
-        self->loadStuff(map, selected);
+        self->loadStuff(map);
     }
 
     void Window::options(void* object)
@@ -346,17 +346,6 @@ namespace sbe
 
     void Window::goBack()
     {
-        if(gui->selectMenuIsSelected())
-        {
-            safeDelete(testShip);
-            //enm1 = NULL;
-            safeDelete(stage);
-            safeDelete(pSystem2);
-            renderList.clear();
-            gui->deleteDia();
-            renderList.push_back(gui);
-        }
-
         gui->deleteOptionsMenu();
         gui->deleteSelectMenu();
         gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res, gui->getPSPos(), gui->getNextPSPos());
@@ -369,15 +358,12 @@ namespace sbe
         gui->pause();
     }
 
-    void Window::loadStuff(int map, bool selected)
+    void Window::loadStuff(int map)
     {
         if(map == 1)
         {
-            if(selected)
-            {
-                menu = false;
-                gui->deleteSelectMenu();
-            }
+            menu = false;
+            gui->deleteSelectMenu();
             renderList.pop_back();
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
@@ -391,18 +377,15 @@ namespace sbe
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
             enm1 = new Enemy(enmHandler->getEnemy("enemy1"));
-            if(selected) wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
+            wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
-            if(selected)
-            {
-                std::vector<std::string> diag;
-                diag.push_back("In my restless dreams, I see that town...");
-                diag.push_back("Silent Hill");
-                diag.push_back("You promised you'd take me there again some day. But you never did.");
-                diag.push_back("Well I'm alone now... In our 'special place'...");
-                diag.push_back("Waiting for you...");
-                gui->createDialogPanel(res, diag);
-            }
+            std::vector<std::string> diag;
+            diag.push_back("In my restless dreams, I see that town...");
+            diag.push_back("Silent Hill");
+            diag.push_back("You promised you'd take me there again some day. But you never did.");
+            diag.push_back("Well I'm alone now... In our 'special place'...");
+            diag.push_back("Waiting for you...");
+            gui->createDialogPanel(res, diag);
 
             //renderList.push_back(scroll);
 
@@ -410,27 +393,20 @@ namespace sbe
             renderList.push_back(enm1);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
-            if(selected) renderList.push_back(wpn1);
+            renderList.push_back(wpn1);
             renderList.push_back(gui);
             //renderList.push_back(enmHandler->getEnemy("enemy1"));
 
-            if(selected)
-            {
-                /*loli = new sbe::Music();
-                loli->OpenFromFile(audHandler->getMusic("loli2"));
-                loli->SetVolume(audHandler->getMusicVol());
-                loli->Play();*/
-                audHandler->setMusic("loli2");
+            audHandler->setMusic("loli2");
 
-                evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
+            evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
 
-                evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
-                evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
-                evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
-                evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
-                evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
-                evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
-            }
+            evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
+            evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
+            evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
+            evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
+            evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
+            evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
         }
     }
 }

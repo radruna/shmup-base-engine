@@ -55,7 +55,7 @@ namespace sbe
 
         private:
             static void select(void* object);
-            static void load(void* object, int map, bool selected);
+            static void load(void* object, int map);
             static void options(void* object);
             static void hiscore(void* object);
             static void credits(void* object);
@@ -74,7 +74,7 @@ namespace sbe
             static void defShipMod(void* object);
             static void othShipMod(void* object);
 
-            void loadStuff(int map = 0, bool selected = 1);
+            void loadStuff(int map = 0);
             void showOptions();
             void showSelect();
             void showHiScore() {}
