@@ -44,7 +44,7 @@ namespace sbe
 
         imgHandler = new ImageHandler();
         audHandler = new AudioHandler();
-        enmHandler = new EnemyHandler(imgHandler);
+        enmHandler = new EnemyHandler(imgHandler, cfgReader);
         prcHandler = new ParticleHandler(cfgReader, imgHandler);
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
@@ -342,7 +342,7 @@ namespace sbe
         if(gui->selectMenuIsSelected())
         {
             safeDelete(testShip);
-            enm1 = NULL;
+            //enm1 = NULL;
             safeDelete(stage);
             safeDelete(pSystem2);
             renderList.clear();

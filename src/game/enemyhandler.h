@@ -11,6 +11,7 @@
 #include <fstream>   //Read script files
 #include <map> //Map for objects
 #include <string>
+#include <list>
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
@@ -30,7 +31,7 @@ namespace sbe
             Loads images, stores them and handles requests
         */
         public:
-            EnemyHandler(ImageHandler* iHandler);
+            EnemyHandler(ImageHandler* iHandler, ConfigReader* cfgReader);
             ~EnemyHandler()
             {
                 unloadAssets();
@@ -42,23 +43,22 @@ namespace sbe
             void loadAsset(const std::string& enemyKey,const std::string& filePath);
             //Unload all enemies
             void unloadAssets();
+            void spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side);
             //Handle image requests
             Enemy& getEnemy(const std::string& enemyKey);
             Path& getPath(const std::string& enemyKey);
         private:
             //Enemy list
-            std::map<std::string, Enemy> enemyList;
+            std::map<std::string, Enemy> enemyMap;
             //Path list
             std::map<std::string, Path> pathList;
-           /* struct pathContent {
-                float moveAngle;
-                float moveSpeed;
-                float duration;
-            };*/
-
+            std::list<Enemy> enemyList;
             std::vector <Path::pathContent> pathContentList;
+            sf::Vector2i res;
+            sbe::Enemy enm1;
         protected:
             ImageHandler* imgHandler;
+            void Render(sf::RenderTarget& Target) const;
     };
 }
 

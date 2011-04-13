@@ -13,6 +13,7 @@
 #include <list> //For lists
 
 #include <SFML/Graphics.hpp> //Sfml stuff
+#include <vector>
 
 #include "../graphics/drawable.h"
 #include "../sys/filehandler.h" //Base class def
@@ -46,6 +47,7 @@ namespace sbe
             void load();
             void update(const float& elapsed);
         private:
+            std::string nextQuote(std::string& strSource);
             std::string stageFile;
             void Render(sf::RenderTarget& Target) const;
             AudioHandler *audHandler;
@@ -54,6 +56,9 @@ namespace sbe
             EnemyHandler *enmHandler;
             ParticleHandler *prcHandler;
             sbe::Background *bg; // test
+            std::vector <std::string> eventList;
+            int eventPos;
+            float eventCounter;
 
     };
 }

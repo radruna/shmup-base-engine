@@ -31,6 +31,7 @@ namespace sbe
                         const std::string&   spriteName,
                         const float&         a,
                         const float&         v,
+                        const bool&          ignoreSpeedFactor,
                         const float&         xOffset,
                         const float&         yOffset,
                         const float&         yScale,
@@ -44,15 +45,36 @@ namespace sbe
             {
             }
             void update(const float& elapsed);
+            void setSpeedFactor(float f);
         private:
-            bool tileX, tileY;
+            bool    ignoreSpeedFactor,
+                    tileX,
+                    tileY;
+
             ConfigReader* cfgReader;
             std::vector <sbe::Movable> sprites;
             void Render(sf::RenderTarget& Target) const;
-            float repeat_y, repeat_x, angle, speed, scale_x, scale_y;
-            int repeat_nr_x, repeat_nr_y;
-            unsigned int width, height, img_width, img_height;
-            float space_x, space_y, offsetX, offsetY;
+
+            float   repeat_y,
+                    repeat_x,
+                    angle,
+                    speed,
+                    scale_x,
+                    scale_y,
+                    speedFactor;
+
+            int     repeat_nr_x,
+                    repeat_nr_y;
+
+            unsigned int    width,
+                            height,
+                            img_width,
+                            img_height;
+
+            float   space_x,
+                    space_y,
+                    offsetX,
+                    offsetY;
 
     };
 }

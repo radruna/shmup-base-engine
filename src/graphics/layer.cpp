@@ -24,6 +24,7 @@ namespace sbe
         const std::string&   spriteName,
         const float&         a,
         const float&         v,
+        const bool&          ignSpeedFactor,
         const float&         xOffset,
         const float&         yOffset,
         const float&         yScale,
@@ -34,9 +35,12 @@ namespace sbe
         const bool& fit_y
     )
     {
+        ignoreSpeedFactor = ignSpeedFactor;
         cfgReader = configReader;
         angle = a;
         speed = v;
+
+        speedFactor = 1;
 
         imgHandler->getImage(spriteName).GetWidth();
 
@@ -107,6 +111,19 @@ namespace sbe
         }
     }
 
+    void Layer::setSpeedFactor(float f)
+    {
+        if(!ignoreSpeedFactor)
+        {
+            speedFactor = f;
+
+            for(std::vector<sbe::Movable>::iterator it = sprites.begin(); it != sprites.end(); it++) //Iterate through layer list
+            {
+                it->setSpeedFactor(f);
+            }
+        }
+    }
+
     void Layer::update(const float& elapsed)
     {
         for(unsigned int i = 0; i < sprites.size(); i++) //Iterate through layer vector
@@ -114,7 +131,7 @@ namespace sbe
             if(tileX)
             {
                 //Handle x tiling
-                if( ( angle < 90 && angle > -90 && speed > 0 ) || ( ( angle > 90 || angle < -90 ) && speed < 0 ) )  //Layer is moving to the right
+                if( ( angle < 90 && angle > -90 && speed * speedFactor > 0 ) || ( ( angle > 90 || angle < -90 ) && speed * speedFactor < 0 ) )  //Layer is moving to the right
                 {
                     if( sprites[i].GetPosition().x - sprites[i].GetSize().x / 2 > cfgReader->getRes().x)
                     {
@@ -133,7 +150,7 @@ namespace sbe
             if(tileY)
             {
                 //Handle y tiling
-                if( ( angle > 0 && angle < 180 && speed > 0 ) || ( ( angle < 0 || angle > 180 ) && speed < 0 ) )   //Layer is moving downwards
+                if( ( angle > 0 && angle < 180 && speed * speedFactor > 0 ) || ( ( angle < 0 || angle > 180 ) && speed * speedFactor < 0 ) )   //Layer is moving downwards
                 {
                     if( ( sprites[i].GetPosition().y - sprites[i].GetSize().y / 2 ) > cfgReader->getRes().y)
                     {

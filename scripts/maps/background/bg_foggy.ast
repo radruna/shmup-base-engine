@@ -34,11 +34,12 @@ layer
 	"offset_y"					"100"
 }
 //Rain layer
-//layer
+layer
 {
 	"sprite_name"				"rain"
 	"movement_angle"			"-70" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
 	"movement_speed"			"-1500"
+	"ignore_speed_factor"		"1"
 	"fit_x"						"0"
 	"fit_y"						"0"
 	"tile_x"					"1"

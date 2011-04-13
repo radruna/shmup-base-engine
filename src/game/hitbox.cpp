@@ -12,13 +12,13 @@ namespace sbe
 {
     Hitbox::Hitbox(float r)
     {
-        radie = r;
+        radius = r;
     }
 
 
-    float Hitbox::returnRadie()
+    float Hitbox::returnRadius()
     {
-        return radie;
+        return radius;
     }
 }
 

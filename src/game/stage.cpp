@@ -13,10 +13,10 @@
 #include "../sys/logger.h" //Outputs debug in console and log
 #include "../game/movable.h" //Base entity class
 #include "../game/stage.h"   //Header
-#include "../graphics/layer.h"   //Layer class
-#include "../audio/audiohandler.h"
+//#include "../graphics/layer.h"   //Layer class
+//#include "../audio/audiohandler.h"
 #include <list> //For lists
-#include "../graphics/background.h" // Background
+//#include "../graphics/background.h" // Background
 
 namespace sbe
 {
@@ -44,6 +44,9 @@ namespace sbe
         prcHandler = particleHandler;
         //Save stage file
         stageFile = stageScriptFile;
+
+        eventPos = 0;
+        eventCounter = 0;
 
         bg = NULL;
         //Load stage
@@ -160,6 +163,38 @@ namespace sbe
                     Logger::writeMsg(1) << "\nData loaded";
                 }
             }
+
+            //If line == "map"...
+            while( strStripSpace(output) == "map" )
+            {
+                //Read line
+                getline(fileReader,output);
+
+                //...look for bracket and start reading data
+                if( strStripSpace(output) == "{" )
+                {
+                    Logger::writeMsg(1) << "\nLoading map data...";
+                    //Read until bracket ends data input
+
+                    while( strStripSpace(output) != "}" )
+                    {
+                        //Read line
+                        getline(fileReader,output);
+                        //Check if line is empty
+                        if(output != "")
+                        {
+                            eventList.push_back(output);
+                        }
+                    }
+
+                    Logger::writeMsg(1) << "\nData loaded";
+                }
+            }
+
+            for(int i =0;i<eventList.size();i++)
+            {
+                std::cout << eventList.at(i) << std::endl;
+            }
         }
     }
 
@@ -171,8 +206,63 @@ namespace sbe
 
     void Stage::update(const float& elapsed)
     {
-        //Shitload of stuff is going to happen here
         if(bg != NULL)
             bg->update(elapsed);    //Update background
+        //std::cout << eventCounter << std::endl;
+        eventCounter -= elapsed;
+        if(eventCounter <= 0 && eventList.size() > eventPos)
+        {
+            std::string quote = nextQuote(eventList.at(eventPos));
+            if(quote != "")
+            {
+                if(quote == "break")
+                {
+                    float timeAdd = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                    //eventCounter = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                    Logger::writeMsg(1) << "Break! More time added to map counter: " << timeAdd;
+                    eventCounter = timeAdd;
+                    //eventPos++;
+                }
+                if(quote == "music")
+                {
+                    //Change music, crossfade etc.
+                }
+                if(quote == "enemy")
+                {
+
+                }
+                if(quote == "bg_speed")
+                {
+                    float piss = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                    bg->setSpeedFactor( piss );
+                }
+                if(quote == "fin")
+                {
+                    //HOLY SHIT YOU WON
+                }
+                eventPos++;
+            }
+
+        }
+    }
+
+    std::string Stage::nextQuote(std::string& strSource)
+    {
+        //Quotation mark position array
+        int qPos[2];
+
+        //Find first quotation mark
+        qPos[0] = strSource.find("\"");
+        if(qPos[0] == -1)
+            return "";
+
+        //Find second quotation mark
+        qPos[1] = strSource.find("\"",  qPos[0] + 1);
+        if(qPos[1] == -1)
+            return "";
+
+        std::string newStr = strSource.substr(qPos[0] + 1,qPos[1] - qPos[0] -1);
+        strSource = strSource.substr( newStr.length() + 2, strSource.length() - newStr.length() );
+        return newStr;
     }
 }

@@ -70,6 +70,7 @@ namespace sbe
                 spriteName = "dev1";
                 moveAngle = 0;
                 moveSpeed = 0;
+                ignoreSpeedFactor = 0;
                 xOffset = 0;
                 yOffset = 0;
                 xScale = 1;
@@ -100,6 +101,8 @@ namespace sbe
                                 moveAngle = atoi(parameterValue.c_str());
                             else if(parameterKey == "movement_speed")
                                 moveSpeed = atoi(parameterValue.c_str());
+                            else if(parameterKey == "ignore_speed_factor")
+                                ignoreSpeedFactor = (bool) atoi(parameterValue.c_str());
                             else if(parameterKey == "offset_x")
                                 xOffset = atof(parameterValue.c_str());
                             else if(parameterKey == "offset_y")
@@ -121,9 +124,17 @@ namespace sbe
                         }
                     }
                     //Push new layer
-                    layers.push_back(Layer(cfgReader, imageHandler, spriteName, moveAngle, moveSpeed, xOffset, yOffset, yScale, xScale, tile_x, tile_y, fit_x, fit_y));
+                    layers.push_back(Layer(cfgReader, imageHandler, spriteName, moveAngle, moveSpeed, ignoreSpeedFactor, xOffset, yOffset, yScale, xScale, tile_x, tile_y, fit_x, fit_y));
                 }
             }
+        }
+    }
+
+    void Background::setSpeedFactor(float f)
+    {
+        for(std::list<Layer>::iterator it = layers.begin(); it != layers.end(); it++) //Iterate through layer list
+        {
+            it->setSpeedFactor(f);
         }
     }
 

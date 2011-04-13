@@ -74,7 +74,7 @@ namespace sbe
         }
         else
             orientmax = orientStop - orientStart;
-        //Makes enemy go in a straight line on last path
+        //Makes enemy go in a straight line after last path
         if(Time >=duration){
             maxangle = 0;
             angle = stopAngle;

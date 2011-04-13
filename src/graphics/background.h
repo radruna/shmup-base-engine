@@ -38,6 +38,7 @@ namespace sbe
             }
             void load();
             void update(const float& elapsed);
+            void setSpeedFactor(float f);
         private:
             ConfigReader* cfgReader;
             std::string scriptFile;
@@ -48,7 +49,8 @@ namespace sbe
             float   yScale,
                     xScale;
 
-            bool    tile_x,
+            bool    ignoreSpeedFactor,
+                    tile_x,
                     tile_y,
                     fit_x,
                     fit_y;

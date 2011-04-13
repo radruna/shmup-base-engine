@@ -17,9 +17,9 @@ namespace sbe
                     float r
             );
             Hitbox(){}
-            float returnRadie();
+            float returnRadius();
         protected:
-            float radie;
+            float radius;
 
     };
 }

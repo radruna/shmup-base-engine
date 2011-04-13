@@ -12,15 +12,18 @@
 
 #include <SFML/Graphics.hpp> //Sfml stuff
 
+
+#include "../sys/configreader.h" //Config reader
 #include "../sys/filehandler.h" //Base class
 #include "../sys/logger.h" //Outputs debug in console and log
 #include "enemyhandler.h"   //Class def
 
 namespace sbe
 {
-    EnemyHandler::EnemyHandler(ImageHandler* iHandler)
+    EnemyHandler::EnemyHandler(ImageHandler* iHandler, ConfigReader* cfgReader)
     {
         imgHandler = iHandler;
+        res = cfgReader->getRes();
     }
 
     //Load images listed in the asset file
@@ -149,13 +152,13 @@ namespace sbe
 
 
                                 }
-                                //Search enemyList
-                                if(enemyList.find(enemyName) != enemyList.end())
+                                //Search enemyMap
+                                if(enemyMap.find(enemyName) != enemyMap.end())
                                     Logger::writeMsg(1) << "Failed to load path \"" << targetPath << "\". Reason: Path key already in system";
                                 else
                                 {
                                     Path path(pathContentList);
-                                    //Add to enemyList
+                                    //Add to enemyMap
                                     pathList[enemyName] = path;
                                     //Debug output
                                     Logger::writeMsg(1) << "Loaded path \"" << parameterKey << "\" with filepath \"" << targetPath << "\"";
@@ -212,14 +215,14 @@ namespace sbe
 
                                     }
                                 }
-                                //Search enemyList
-                                if(enemyList.find(enemyName) != enemyList.end())
+                                //Search enemyMap
+                                if(enemyMap.find(enemyName) != enemyMap.end())
                                     Logger::writeMsg(1) << "Failed to load enemy \"" << targetPath << "\". Reason: Enemy key already in system";
                                 else
                                 {
                                     Enemy enemy(imgHandler,spriteName, getPath(pathName), radie);
-                                    //Add to enemyList
-                                    enemyList[enemyName] = enemy;
+                                    //Add to enemyMap
+                                    enemyMap[enemyName] = enemy;
                                     //Debug output
                                     Logger::writeMsg(1) << "Loaded enemy \"" << parameterKey << "\" with filepath \"" << targetPath << "\"";
                                 }
@@ -239,29 +242,29 @@ namespace sbe
 
     //Unload all enemies
     void EnemyHandler::unloadAssets(){
-        //FileHandler::unloadAssets(enemyList);
-        enemyList.clear();
+        //FileHandler::unloadAssets(enemyMap);
+        enemyMap.clear();
         pathList.clear();
         pathContentList.clear();
     }
 
     //Handle enemy requests
     sbe::Enemy& EnemyHandler::getEnemy(const std::string& enemyKey){
-        //Search enemyList
-        if( enemyList.find(enemyKey) != enemyList.end() )
+        //Search enemyMap
+        if( enemyMap.find(enemyKey) != enemyMap.end() )
         {
             //Assign enemy
-            return enemyList[enemyKey];
+            return enemyMap[enemyKey];
         }
         else{
             //Assign error image
-            return enemyList["error"];
+            return enemyMap["error"];
         }
     }
 
     //Handle path requests
     sbe::Path& EnemyHandler::getPath(const std::string& enemyKey){
-        //Search enemyList
+        //Search enemyMap
         if( pathList.find(enemyKey) != pathList.end() )
         {
             //Assign enemy
@@ -273,5 +276,21 @@ namespace sbe
         }
     }
 
+    void EnemyHandler::spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side)
+    {
+        for(int i=0; i<amount; i++) {
+            enm1 = getEnemy(type);
+            enemyList.push_back(enm1);
+        }
+
+    }
+
+    void EnemyHandler::Render(sf::RenderTarget& Target) const
+    {
+        for(std::list<Enemy>::const_iterator it = enemyList.begin(); it != enemyList.end(); it++)
+        {
+            Target.Draw(*it);
+        }
+    }
 
 }

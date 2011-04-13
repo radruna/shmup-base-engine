@@ -54,8 +54,6 @@ namespace sbe
         qPos[0] = strSource.find("\"");
         if(qPos[0] == -1)
             return false;
-        else
-            qPos[0] = strSource.find("\"");
 
         //Find second, third and fourth quotation mark
         for(int i=1;i<=3;i++){

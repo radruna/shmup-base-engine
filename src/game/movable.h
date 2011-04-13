@@ -28,6 +28,7 @@ namespace sbe
 
             void update(const float& elapsed);
             void push(const float& distance);
+            void setSpeedFactor(float f);
             float getAngle()
             {
                 return angle;
@@ -36,6 +37,8 @@ namespace sbe
             {
                 angle = a;
             }
+        private:
+            float speedFactor;
         protected:
             float angle,
                   speed;
