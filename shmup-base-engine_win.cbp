@@ -129,6 +129,7 @@
 		<Unit filename="src\game\weapon.h" />
 		<Unit filename="src\graphics\background.cpp" />
 		<Unit filename="src\graphics\background.h" />
+		<Unit filename="src\graphics\drawable.cpp" />
 		<Unit filename="src\graphics\drawable.h" />
 		<Unit filename="src\graphics\imagehandler.cpp" />
 		<Unit filename="src\graphics\imagehandler.h" />
