@@ -22,7 +22,7 @@ namespace sbe
     AudioHandler::AudioHandler(const int& s, const int& m)
         : sVol(s), mVol(m)//, curSong("")
     {
-
+        song = NULL;
         //Add intro/menu sounds
     }
 
@@ -177,26 +177,33 @@ namespace sbe
         mVol = m;
     }
 
-    /*bool AudioHandler::setMusic(const std::string& musicKey)
+    bool AudioHandler::setMusic(const std::string& musicKey)
     {
         //Set current music playing.
-        stopMusic();
+        //stopMusic();
 
         if(musicList.find(musicKey) == musicList.end())
         {
             std::cout << "Music not found";
-            return 1;
+            return true;
         }
 
-        musicList[musicKey].Initialize(2, 44100);
-        musicList[musicKey].Play();
-        curSong = musicKey;
-        std::cout << "Music \"" << musicKey << "\" now playing.";
+        song = new sbe::Music();
+        if(!song->OpenFromFile(musicList[musicKey]))
+        {
+            Logger::writeMsg(1) << "Music could not be loaded!";
+            safeDelete(song);
+            return true;
+        }
+        song->SetVolume(mVol);
+        song->Initialize(2, 44100);
+        song->Play();
+        Logger::writeMsg(1) << "Music \"" << musicKey << "\" now playing.";
 
-        return 0;
+        return false;
     }
 
-    void AudioHandler::stopMusic()
+    /*void AudioHandler::stopMusic()
     {
         //Stop current music.
         if(musicList[curSong].GetStatus() != sf::Sound::Stopped)

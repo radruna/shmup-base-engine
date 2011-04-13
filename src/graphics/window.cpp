@@ -365,10 +365,7 @@ namespace sbe
     void Window::pauseGame()
     {
         pause = !pause;
-        if(pause && loli->GetStatus() == sf::Music::Playing)
-            loli->Pause();
-        else if(!pause && loli->GetStatus() != sf::Music::Stopped)
-            loli->Play();
+        audHandler->pauseMusic();
         gui->pause();
     }
 
@@ -419,10 +416,11 @@ namespace sbe
 
             if(selected)
             {
-                loli = new sbe::Music();
+                /*loli = new sbe::Music();
                 loli->OpenFromFile(audHandler->getMusic("loli2"));
                 loli->SetVolume(audHandler->getMusicVol());
-                loli->Play();
+                loli->Play();*/
+                audHandler->setMusic("loli2");
 
                 evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
 
