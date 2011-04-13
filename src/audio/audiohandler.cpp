@@ -188,6 +188,7 @@ namespace sbe
             return true;
         }
 
+        if(song != NULL) safeDelete(song);
         song = new sbe::Music();
         if(!song->OpenFromFile(musicList[musicKey]))
         {

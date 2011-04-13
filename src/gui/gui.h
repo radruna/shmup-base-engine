@@ -56,7 +56,7 @@ namespace sbe
                                    const sf::Vector2f& psPos = sf::Vector2f(-1, -1),
                                    const sf::Vector2i& next = sf::Vector2i(-1, -1));
             void createSelectMenu(void* callObject,
-                                   void (*selectFunction) (void* object, int map, bool selected),
+                                   void (*selectFunction) (void* object, int map),
                                    void (*backFunction) (void* object),
                                    ConfigReader* cReader,
                                    const sf::Vector2i& r);
@@ -96,13 +96,6 @@ namespace sbe
             sf::Vector2i getNextPSPos();
 
             sf::Vector2f getPSPos();
-
-            bool selectMenuIsSelected()
-            {
-                if(selectMenu != NULL) return selectMenu->isSelected();
-
-                return false;
-            }
 
             void click(const sf::Vector2i& mousePos);
             void hover(const sf::Vector2i& mousePos);
