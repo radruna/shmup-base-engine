@@ -249,7 +249,7 @@ namespace sbe
     }
 
     //Handle enemy requests
-    sbe::Enemy& EnemyHandler::getEnemy(const std::string& enemyKey){
+    sbe::Enemy EnemyHandler::getEnemy(const std::string& enemyKey){
         //Search enemyMap
         if( enemyMap.find(enemyKey) != enemyMap.end() )
         {

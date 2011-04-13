@@ -16,6 +16,7 @@
 
 #include "../sys/filehandler.h" //Abstract base class
 #include "music.h" //Copyable music
+#include "../sys/util.h" //Utilities
 
 typedef std::map<std::string, sf::SoundBuffer> soundMap;
 typedef std::map<std::string, std::string> musicMap;
@@ -56,6 +57,8 @@ namespace sbe
             inline void unloadMusic()
             {
                 musicList.clear();
+                song->Stop();
+                safeDelete(song);
             }
             inline void unloadAudio()
             {
@@ -75,14 +78,24 @@ namespace sbe
             void setSFXVol(const short& s = 100);
             //Set music volume
             void setMusicVol(const short& m = 100);
-            /*//Set current music playing.
+            //Set current music playing.
             bool setMusic(const std::string& strM);
             //Stop current music.
-            void stopMusic();
+            void stopMusic()
+            {
+                song->Stop();
+                safeDelete(song);
+            }
             //Pause/play current music
-            void pauseMusic();
+            void pauseMusic()
+            {
+                if(song->GetStatus() == sf::Music::Playing)
+                    song->Pause();
+                else if(song->GetStatus() == sf::Music::Paused)
+                    song->Play();
+            }
             //Set music to loop
-            void setMusicLoop(bool loop);*/
+            void setMusicLoop(bool loop);
             void getAudioList();
             float getSFXVol()
             {
@@ -94,6 +107,7 @@ namespace sbe
             }
 
         private:
+            sbe::Music* song;
             //Sound list
             soundMap soundList;
             //Music list

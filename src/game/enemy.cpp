@@ -7,18 +7,25 @@
 */
 #include "enemy.h"
 #include "../sys/logger.h" //Outputs debug in console and log
+#include "../sys/util.h"
 
 namespace sbe
 {
-    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path& pth, float r)
+    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r)
     : Ship(spriteName, imgHandler)
     {
         hitBoxRadius = r;
         path = pth;
         i = 0;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
-        hitbox = new Hitbox(hitBoxRadius);
+        //hitbox = new Hitbox(hitBoxRadius);
     }
+
+    Enemy::~Enemy()
+    {
+        //safeDelete(hitbox);
+    }
+
     void Enemy::update(const float& elapsed)
     {
         //Timers for two different movements

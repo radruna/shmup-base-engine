@@ -15,11 +15,19 @@ namespace sbe
     class Drawable : public sf::Drawable
     {
         public:
-            Drawable(int zLevel = 0) : sf::Drawable(), z(zLevel) { }
-            Drawable(const sf::Vector2f& Position, const sf::Vector2f& Scale, float Rotation, const sf::Color& Col)
-             : sf::Drawable(Position, Scale, Rotation, Col)
-            {}
+            Drawable(int zLevel = 0);
+            Drawable(const sf::Vector2f& Position, const sf::Vector2f& Scale, float Rotation, const sf::Color& Col);
             virtual void update(const float& elapsed) {};
+
+            bool getIfEqual(int otherId)
+            {
+                return(otherId == id);
+            }
+
+            bool operator==(Drawable param)
+            {
+                return(param.getIfEqual(id));
+            }
 
             int getZPos()
             {
@@ -30,8 +38,20 @@ namespace sbe
             {
                 z = zPos;
             }
+
+            int getId()
+            {
+                return id;
+            }
         protected:
-            int z;
+            void Render(sf::RenderTarget& target) const
+            {
+
+            }
+
+            int z,
+                id;
+            static int globId;
     };
 }
 

@@ -17,18 +17,22 @@ namespace sbe
     class Enemy : public Ship
     {
         public:
-            Enemy(){}
+            Enemy()
+                //: hitbox(NULL)
+            {}
             Enemy(
                 ImageHandler* imgHandler,
                 const std::string spriteName,
-                Path& pth,
+                Path pth,
                 float r
             );
+            ~Enemy();
             int returnRadius();
+
         private:
             void update(const float& elapsed);
             float hitBoxRadius;
-            Hitbox* hitbox;
+            //Hitbox* hitbox;
             Path path;
             sf::Clock   MoveClock,
                         OrientClock;

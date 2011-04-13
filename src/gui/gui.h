@@ -119,7 +119,8 @@ namespace sbe
             static void frames(void* object, StrVec args);
             void showFrames(StrVec args)
             {
-                (args[0] == "1") ? showFps = true : showFps = false;
+                if(args[0] == "1" || args[0] == "true") showFps = true;
+                else if(args[0] == "0" || args[0] == "false") showFps = false;
             }
             void loadFonts(const std::string& fontFile);
             void unloadFonts()

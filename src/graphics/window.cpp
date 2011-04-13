@@ -67,7 +67,6 @@ namespace sbe
         scroll = NULL;
         enm1 = NULL;
         stage = NULL;
-        alive = 1;
 
         !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
@@ -86,7 +85,7 @@ namespace sbe
         delete prcHandler;
         safeDelete(gui);
         safeDelete(testShip);
-        enm1 = NULL;
+        safeDelete(enm1);
         safeDelete(stage);
         safeDelete(pSystem2);
         safeDelete(wpn1);
@@ -128,14 +127,22 @@ namespace sbe
             //Get elapsed time since last frame to ensure constant speed
             float ElapsedTime = GetFrameTime();
 
-            if(wpn1 != NULL && alive)
+            if(wpn1 != NULL && enm1 != NULL)
             {
                 int projectileSize = wpn1->projectileSize();
                 for(int i=0; i<projectileSize; i++)
                 {
                     if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2))) {
                         Logger::writeMsg(1) << "HITT";
-                        //delete enm1;
+
+                        renderList.clear();
+                        renderList.push_back(stage);
+                        renderList.push_back(testShip);
+                        renderList.push_back(pSystem2);
+                        renderList.push_back(wpn1);
+                        renderList.push_back(gui);
+
+                        safeDelete(enm1);
                     }
                 }
             }
@@ -148,7 +155,7 @@ namespace sbe
 
             // Draw stuff
             for(RenderList::const_iterator it = renderList.begin(); it != renderList.end(); it++)
-                Draw(**it);
+                if((*it) != NULL) Draw(**it);
 
             // Update the window
             Display();
@@ -358,10 +365,7 @@ namespace sbe
     void Window::pauseGame()
     {
         pause = !pause;
-        if(pause && loli->GetStatus() == sf::Music::Playing)
-            loli->Pause();
-        else if(!pause && loli->GetStatus() != sf::Music::Stopped)
-            loli->Play();
+        audHandler->pauseMusic();
         gui->pause();
     }
 
@@ -386,7 +390,7 @@ namespace sbe
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
             //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
-            enm1 = &enmHandler->getEnemy("enemy1");
+            enm1 = new Enemy(enmHandler->getEnemy("enemy1"));
             if(selected) wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             if(selected)
@@ -412,10 +416,11 @@ namespace sbe
 
             if(selected)
             {
-                loli = new sbe::Music();
+                /*loli = new sbe::Music();
                 loli->OpenFromFile(audHandler->getMusic("loli2"));
                 loli->SetVolume(audHandler->getMusicVol());
-                loli->Play();
+                loli->Play();*/
+                audHandler->setMusic("loli2");
 
                 evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
 

@@ -45,7 +45,7 @@ namespace sbe
             void unloadAssets();
             void spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side);
             //Handle image requests
-            Enemy& getEnemy(const std::string& enemyKey);
+            Enemy getEnemy(const std::string& enemyKey);
             Path& getPath(const std::string& enemyKey);
         private:
             //Enemy list
