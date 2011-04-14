@@ -12,16 +12,14 @@
 namespace sbe
 {
     Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysExpl)
-    : Ship(spriteName, imgHandler)
+    : Ship(spriteName, imgHandler), deathDelay(0)
     {
         pSysDeath = NULL;
         pSysDeath_f = pSysExpl;
         hitBoxRadius = r;
         path = pth;
         i = 0;
-        hej = 23;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
-        alive = 1;
         deathTimer = -1;
         //hitbox = new Hitbox(hitBoxRadius);
     }
@@ -33,7 +31,7 @@ namespace sbe
 
     void Enemy::Render(sf::RenderTarget& Target) const
     {
-        Ship::Render(Target);
+        if(deathTimer == -1 || deathTimer >= deathDelay) Ship::Render(Target);
 
         if(pSysDeath != NULL)
         {
@@ -41,14 +39,15 @@ namespace sbe
         }
     }
 
-    void Enemy::kill()
+    void Enemy::kill(float s)
     {
-            pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
-            pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
-            alive = 0;
+        pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
+        pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
+        deathTimer = s;
+        deathDelay = s - 0.1;
     }
 
-    void Enemy::update(const float& elapsed)
+    void Enemy::update(const float elapsed)
     {
         if(pSysDeath != NULL)
         {
@@ -82,9 +81,9 @@ namespace sbe
         //Will it stop or loop at end of orientation
         stopMax = path.getVector()[i].stopMax;
 
-        if(alive == 0){
+        if(deathTimer != -1){
             Logger::writeMsg(1) << "Nu";
-            deathTimer += elapsed;
+            deathTimer -= elapsed;
         }
 
         //Changes path when duration time reached
@@ -165,10 +164,4 @@ namespace sbe
     float Enemy::yPos() {
         return GetPosition().y;
     }
-
-    float Enemy::death()
-    {
-        return deathTimer;
-    }
-
 }

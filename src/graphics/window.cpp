@@ -139,7 +139,7 @@ namespace sbe
                         {
                             Logger::writeMsg(1) << "Hit";
 
-                            enmHandler->getEnemy(n).kill();
+                            enmHandler->removeEnemy(n);
                             //enmHandler->removeEnemy(n);
                             /*
                             renderList.clear();
@@ -401,7 +401,6 @@ namespace sbe
             //renderList.push_back(scroll);
 
             renderList.push_back(stage);
-            renderList.push_back(enm1);
             renderList.push_back(testShip);
             renderList.push_back(pSystem2);
             renderList.push_back(wpn1);

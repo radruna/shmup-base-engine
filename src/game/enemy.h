@@ -30,11 +30,16 @@ namespace sbe
                 std::string pSysDeath
             );
             ~Enemy();
-            void update(const float& elapsed);
-            void kill();
+            void update(const float elapsed);
+            void kill(float s = 0.5);
             float xPos();
             float yPos();
-            float death();
+            bool death()
+            {
+                if(deathTimer != -1 && deathTimer <= 0) return true;
+
+                return false;
+            }
         private:
 
             ParticleSystem *pSysDeath;
@@ -60,11 +65,10 @@ namespace sbe
                         angle,
                         speed,
                         deathTimer,
-                        hej;
+                        deathDelay;
             int         orientDir,
                         dir;
             unsigned    i;
-            int        alive;
         protected:
             void Render(sf::RenderTarget& Target) const;
     };

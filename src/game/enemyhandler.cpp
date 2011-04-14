@@ -340,12 +340,30 @@ namespace sbe
 
     void EnemyHandler::update(const float& elapsed)
     {
-        for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
+        /*for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
             it->update(elapsed);
-            if(it->death()>= 0)
-                enemyList.erase(it);
+            if(it->death())
+            {
+                std::list<Enemy>::iterator it2 = it;
+                enemyList.erase(it2);
+            }
+        }*/
+
+        bool kill = false;
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < enemyList.size(); i++)
+        {
+            it->update(elapsed);
+            if(it->death())
+            {
+                kill = true;
+                break;
+            }
+            it++;
         }
+
+        if(kill) enemyList.erase(it);
     }
 
     int EnemyHandler::enemyListSize()
@@ -386,7 +404,7 @@ namespace sbe
         for(unsigned int i = 0; i < index; i++)
             it++;
 
-        enemyList.erase(it);
+        it->kill();
     }
 
 }
