@@ -20,9 +20,10 @@
 namespace sbe
 {
     AudioHandler::AudioHandler(const int& s, const int& m)
-        : sVol(s), mVol(m), interval(0), fadeCounter(0.f)
+        : cross(false), sVol(s), mVol(m), interval(0), fadeCounter(0.f)
     {
         song = NULL;
+        crossSong = NULL;
         //Add intro/menu sounds
     }
 
@@ -204,19 +205,30 @@ namespace sbe
         return false;
     }
 
-    void AudioHandler::fadeOut(float elapsed, float s)
+    void AudioHandler::fadeOut(float elapsed, const std::string& strM, float s)
     {
-        //Fade out music during s seconds.
+        //Fade out music during s seconds, or crossfade between song and strM if c = true.
+        if(fadeCounter != 0) return;
+        if(strM != "") cross = true;
         fadeCounter = elapsed;
         interval = mVol / s;
-        Logger::writeMsg(1) << "fadeCounter: " << fadeCounter;
-        Logger::writeMsg(1) << "interval: " << interval;
-    }
 
-    void crossFade(float elapsed, const std::string& strM, float s = 5)
-    {
-        //Fade out music and fade in during s seconds
+        if(cross)
+        {
+            if(musicList.find(strM) == musicList.end())
+                std::cout << "Music not found";
 
+            crossSong = new sbe::Music();
+            if(!crossSong->OpenFromFile(musicList[strM]))
+            {
+                Logger::writeMsg(1) << "Music could not be loaded!";
+                safeDelete(crossSong);
+            }
+            crossSong->SetVolume(0);
+            crossSong->Initialize(2, 44100);
+            crossSong->Play();
+            Logger::writeMsg(1) << "Music \"" << strM << "\" now playing.";
+        }
     }
 
     void AudioHandler::update(float elapsed)
@@ -225,12 +237,25 @@ namespace sbe
 
         fadeCounter += elapsed;
 
-        song->SetVolume(mVol - (fadeCounter * interval));
-
-        if(fadeCounter >= (mVol / interval))
+        if((mVol - (fadeCounter * interval) <= 0) || (fadeCounter >= (mVol / interval)))
         {
             fadeCounter = 0;
-            song->SetVolume(0);
+            song->Stop();
+            crossSong->Stop();
+            if(cross)
+            {
+                safeDelete(song);
+                song = crossSong;
+                crossSong = NULL;
+            }
+
+            song->SetVolume(mVol);
+            song->Play();
+        }
+        else
+        {
+            if(cross) crossSong->SetVolume(fadeCounter * interval);
+            song->SetVolume(mVol - (fadeCounter * interval));
         }
     }
 

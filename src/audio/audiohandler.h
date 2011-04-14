@@ -58,7 +58,9 @@ namespace sbe
             {
                 musicList.clear();
                 if(song != NULL) song->Stop();
+                if(crossSong != NULL) crossSong->Stop();
                 safeDelete(song);
+                safeDelete(crossSong);
             }
             inline void unloadAudio()
             {
@@ -94,9 +96,7 @@ namespace sbe
                 song->SetLoop(loop);
             }
             //Fade out the music for s seconds
-            void fadeOut(float elapsed, float s = 5);
-            //Fade out music and fade in during s seconds
-            void crossFade(float elapsed, const std::string& strM, float s = 5);
+            void fadeOut(float elapsed, const std::string& strM = "", float s = 5);
             void getAudioList();
             float getSFXVol()
             {
@@ -117,6 +117,7 @@ namespace sbe
             //Music list
             musicMap musicList;
 
+            bool cross;
             int sVol,
                 mVol,
                 interval;
