@@ -16,7 +16,7 @@
 #include <SFML/Graphics.hpp> //Sfml stuff
 
 #include "../sys/filehandler.h" //Abstract base class
-
+#include "../graphics/particlesystem.h" //Particle system
 
 #include "../game/enemy.h"
 #include "../game/path.h"
@@ -48,8 +48,10 @@ namespace sbe
             Enemy getEnemy(const std::string& enemyKey);
             Path& getPath(const std::string& enemyKey);
             void update(const float& elapsed);
+
         private:
             //Enemy list
+            std::string pSysDeath;
             std::map<std::string, Enemy> enemyMap;
             //Path list
             std::map<std::string, Path> pathList;
@@ -57,6 +59,7 @@ namespace sbe
             std::vector <Path::pathContent> pathContentList;
             sf::Vector2i res;
             sbe::Enemy enm1;
+
         protected:
             ImageHandler* imgHandler;
             void Render(sf::RenderTarget& Target) const;

@@ -12,6 +12,8 @@
 #include "path.h"
 #include "hitbox.h"
 
+#include "../graphics/particlesystem.h" //Particle system
+
 namespace sbe
 {
     class Enemy : public Ship
@@ -24,12 +26,16 @@ namespace sbe
                 ImageHandler* imgHandler,
                 const std::string spriteName,
                 Path pth,
-                float r
+                float r,
+                std::string pSysDeath
             );
             ~Enemy();
             int returnRadius();
             void update(const float& elapsed);
         private:
+
+            ParticleSystem pSysDeath;
+
             float hitBoxRadius;
             //Hitbox* hitbox;
             Path path;

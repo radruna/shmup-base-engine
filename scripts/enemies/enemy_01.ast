@@ -2,3 +2,4 @@
 "sprite_name"	"kawaiiShip"
 "path_name"			"path1"
 "hitbox_radius"		"50"
+"explosion"			"scripts\particles\explosion\explosion1.ast"
