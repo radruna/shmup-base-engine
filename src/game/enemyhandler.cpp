@@ -412,6 +412,7 @@ namespace sbe
         for(unsigned int i = 0; i < index; i++)
             it++;
 
+        if(it->readyToDie()) return;
         it->hit();
         if(it->isDead())
             it->kill();

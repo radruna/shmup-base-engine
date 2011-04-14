@@ -46,6 +46,12 @@ namespace sbe
 
                 return false;
             }
+            bool readyToDie()
+            {
+                if(deathTimer != -1) return true;
+
+                return false;
+            }
             float isDead();
             void hit();
         private:
