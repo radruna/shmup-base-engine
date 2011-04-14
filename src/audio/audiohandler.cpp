@@ -241,7 +241,6 @@ namespace sbe
         {
             fadeCounter = 0;
             song->Stop();
-            crossSong->Stop();
             if(cross)
             {
                 safeDelete(song);
@@ -250,7 +249,6 @@ namespace sbe
             }
 
             song->SetVolume(mVol);
-            song->Play();
         }
         else
         {

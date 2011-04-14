@@ -19,6 +19,11 @@ namespace sbe
             pointer = NULL;
         }
     }
+
+    /*static sf::Vector2i const getScreenRes()
+    {
+        return sf::Vector2i(0, 0);
+    }*/
 }
 
 #endif

@@ -57,7 +57,7 @@ namespace sbe
             ParticleHandler *prcHandler;
             sbe::Background *bg; // test
             std::vector <std::string> eventList;
-            int eventPos;
+            unsigned int eventPos;
             float eventCounter;
 
     };
