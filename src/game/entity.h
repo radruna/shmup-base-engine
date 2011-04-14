@@ -38,6 +38,7 @@ namespace sbe
 
             //virtual void update(const float& elapsed) =0; //Or onThink(), whatever.
             void SetAlpha(int alpha);
+            float GetAlpha();
             void SetDiffuseColor(const int& r, const int& g, const int& b);
             void SetColorR(const int& r);
             void SetColorG(const int& g);

@@ -250,7 +250,21 @@ namespace sbe
                     }
                     else if(quote == "enemy")
                     {
-                        enmHandler->spawnEnemies("enemy1",4,100,100,100,1);
+                        std::string enmType     = nextQuote(eventList.at(eventPos));     //Enemy type
+                        int amount              = atoi( nextQuote(eventList.at(eventPos)).c_str() );     //Amount of enemies
+                        float interval          = atof( nextQuote(eventList.at(eventPos)).c_str() );     //Interval
+                        float spacing           = atof( nextQuote(eventList.at(eventPos)).c_str() );     //Spacing
+                        float offset            = atof( nextQuote(eventList.at(eventPos)).c_str() );     //Offset
+                        int side                = atoi( nextQuote(eventList.at(eventPos)).c_str() );     //Side
+
+                        enmHandler->spawnEnemies(
+                                                 enmType,
+                                                 amount,
+                                                 interval,
+                                                 spacing,
+                                                 offset,
+                                                 side
+                                                 );
                     }
                     else if(quote == "bg_speed")
                     {
