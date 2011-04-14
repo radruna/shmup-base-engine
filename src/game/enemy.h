@@ -32,9 +32,11 @@ namespace sbe
             ~Enemy();
             int returnRadius();
             void update(const float& elapsed);
+            void kill();
         private:
 
-            ParticleSystem pSysDeath;
+            ParticleSystem *pSysDeath;
+            std::string pSysDeath_f;
 
             float hitBoxRadius;
             //Hitbox* hitbox;

@@ -11,10 +11,11 @@
 
 namespace sbe
 {
-    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysDeath)
+    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysExpl)
     : Ship(spriteName, imgHandler)
     {
-
+        pSysDeath = NULL;
+        pSysDeath_f = pSysExpl;
         hitBoxRadius = r;
         path = pth;
         i = 0;
@@ -25,6 +26,17 @@ namespace sbe
     Enemy::~Enemy()
     {
         //safeDelete(hitbox);
+    }
+
+    void Enemy::kill()
+    {
+        Logger::writeMsg(1) << "WHAT THE FUCK";
+
+
+            pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
+            pSysDeath->SetPosition(GetPosition().x, GetPosition().y);
+
+
     }
 
     void Enemy::update(const float& elapsed)

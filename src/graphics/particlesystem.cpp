@@ -381,6 +381,8 @@ namespace sbe
             pSystemChild4 = new ParticleSystem(child4, imageHandler, reloadInterval, true);
         }
 
+        Logger::writeMsg(1) << "\nFinished";
+
     }
 
     void ParticleSystem::kill()

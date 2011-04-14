@@ -132,9 +132,13 @@ namespace sbe
                 int projectileSize = wpn1->projectileSize();
                 for(int i=0; i<projectileSize; i++)
                 {
-                    if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2))) {
+                    if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2)))
+                    {
                         Logger::writeMsg(1) << "Hit";
 
+                        enm1->kill();
+
+                        /*
                         renderList.clear();
                         renderList.push_back(stage);
                         renderList.push_back(testShip);
@@ -143,6 +147,7 @@ namespace sbe
                         renderList.push_back(gui);
 
                         safeDelete(enm1);
+                        */
                     }
                 }
             }

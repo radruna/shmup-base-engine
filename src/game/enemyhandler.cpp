@@ -201,16 +201,15 @@ namespace sbe
 
                                     if(strReadLine(output,parameterKey,parameterValue))
                                     {
-
                                         //Assign parameter values
                                         if(parameterKey == "enemy_name")
                                             enemyName = parameterValue;
+                                        else if(parameterKey == "explosion")
+                                            Logger::writeMsg(1) << "Vad--------------------";
                                         else if(parameterKey == "sprite_name")
                                             spriteName = parameterValue;
                                         else if(parameterKey == "path_name")
                                             pathName = parameterValue;
-                                        else if(parameterKey == "explosion")
-                                            pSysDeath = parameterValue;
                                         else if(parameterKey == "hitbox_radius")
                                             radius = atof(parameterValue.c_str());
                                         else
@@ -220,7 +219,7 @@ namespace sbe
                                 }
                                 //Search enemyMap
                                 if(enemyMap.find(enemyName) != enemyMap.end())
-                                    Logger::writeMsg(1) << "Failed to load enemy \"" << targetPath << "\". Reason: Enemy key already in system";
+                                    Logger::writeMsg(1) << "Failed to load enemy \"" << enemyName << "\". Reason: Enemy key already in system";
                                 else
                                 {
                                     Enemy enemy(imgHandler,spriteName, getPath(pathName), radius, pSysDeath);
