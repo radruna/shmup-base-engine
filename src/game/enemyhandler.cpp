@@ -274,18 +274,47 @@ namespace sbe
         }
         else{
             //Assign error image
-            return pathList["path_01"];
+            return pathList["path1"];
         }
     }
 
     void EnemyHandler::spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side)
     {
-        for(int i=0; i<amount; i++) {
-            Enemy enm = getEnemy(type);
-            enm.SetPosition(res.x, 100*i);
-            Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
-            enemyList.push_back(enm);
+        float width = (amount-1)*spacing;
+        if(side == 0)
+        {
+            for(int i=0; i<amount; i++){
+                Enemy enm = getEnemy(type);
+                enm.SetPosition(res.x + interval*i, (res.y-width)/2 + (i*spacing) + offset);
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                enemyList.push_back(enm);
+            }
+        }else if(side == 1)
+        {
+             for(int i=0; i<amount; i++){
+                Enemy enm = getEnemy(type);
+                enm.SetPosition((res.x-width)/2 + (i*spacing) + offset, res.y + interval*i);
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                enemyList.push_back(enm);
+            }
+        }else if(side == 2)
+        {
+            for(int i=0; i<amount; i++){
+                Enemy enm = getEnemy(type);
+                enm.SetPosition(0 - interval*i, (res.y-width)/2 + (i*spacing) + offset);
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                enemyList.push_back(enm);
+            }
+        }else if(side == 3)
+        {
+            for(int i=0; i<amount; i++){
+                Enemy enm = getEnemy(type);
+                enm.SetPosition((res.x-width)/2 + (i*spacing) + offset, 0 - interval*i);
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                enemyList.push_back(enm);
+            }
         }
+
 
     }
 
@@ -293,7 +322,7 @@ namespace sbe
     {
         for(std::list<Enemy>::const_iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
-            //Target.Draw(*it);
+            Target.Draw(*it);
         }
     }
 
@@ -302,7 +331,7 @@ namespace sbe
 
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
-            //it->update(elapsed);
+            it->update(elapsed);
         }
     }
 

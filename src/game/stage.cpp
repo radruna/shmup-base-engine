@@ -250,7 +250,7 @@ namespace sbe
                     }
                     else if(quote == "enemy")
                     {
-                        enmHandler->spawnEnemies("enemy_01",3,0,0,0,0);
+                        enmHandler->spawnEnemies("enemy_01",4,100,100,100,1);
                     }
                     else if(quote == "bg_speed")
                     {

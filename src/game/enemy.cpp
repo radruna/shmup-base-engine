@@ -144,7 +144,7 @@ namespace sbe
 
         //Sets rotation for enemy
         sbe::Sprite::SetRotation(-(angle+90+orientmin));
-        Logger::writeMsg(1) << "Fiendevinkel: "<< angle;
+
         //Moves the enemy
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
     }
