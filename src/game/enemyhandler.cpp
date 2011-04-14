@@ -261,7 +261,7 @@ namespace sbe
         }
         else{
             //Assign error image
-            return enemyMap["enemy_01"];
+            return enemyMap["enemy1"];
         }
     }
 
@@ -303,7 +303,7 @@ namespace sbe
 
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
-            //it->update(elapsed);
+            it->update(elapsed);
         }
     }
 

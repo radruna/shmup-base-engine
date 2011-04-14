@@ -30,7 +30,7 @@ map
 	"break"				"5"
 	"enemy"				"douchebag2"	"5"		"0.5"	"-25"
 	"break"				"1"
-	"change_music"		"8bitloli"
+	"crossfade_music"	"8bitloli"	"10"
 	"break"				"5"
 	"fade_out_music"	"5"	
 	"enemy"				"douchebag1"	"10"	"0.5"	"-20"

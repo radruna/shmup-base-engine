@@ -232,7 +232,14 @@ namespace sbe
                     else if(quote == "fade_out_music")
                     {
                         float fade = atof( nextQuote(eventList.at(eventPos)).c_str());
-                        audHandler->fadeOut(elapsed, fade);
+                        audHandler->fadeOut(elapsed, "", fade);
+                        Logger::writeMsg(1) << "Fading out for " << fade << " seconds.";
+                    }
+                    else if(quote == "crossfade_music")
+                    {
+                        std::string newSong = nextQuote(eventList.at(eventPos));
+                        float fade = atof( nextQuote(eventList.at(eventPos)).c_str());
+                        audHandler->fadeOut(elapsed, newSong, fade);
                         Logger::writeMsg(1) << "Fading out for " << fade << " seconds.";
                     }
                     else if(quote == "change_music")
