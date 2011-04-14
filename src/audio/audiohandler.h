@@ -57,7 +57,7 @@ namespace sbe
             inline void unloadMusic()
             {
                 musicList.clear();
-                song->Stop();
+                if(song != NULL) song->Stop();
                 safeDelete(song);
             }
             inline void unloadAudio()
