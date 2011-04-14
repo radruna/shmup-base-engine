@@ -20,7 +20,7 @@
 namespace sbe
 {
     AudioHandler::AudioHandler(const int& s, const int& m)
-        : sVol(s), mVol(m), fadeCounter(0), interval(0)
+        : sVol(s), mVol(m), interval(0), fadeCounter(0.f)
     {
         song = NULL;
         //Add intro/menu sounds
@@ -184,7 +184,7 @@ namespace sbe
 
         if(musicList.find(musicKey) == musicList.end())
         {
-            Logger::writeMsg(1) << "Music not found: " << musicKey;
+            std::cout << "Music not found";
             return true;
         }
 
@@ -204,11 +204,19 @@ namespace sbe
         return false;
     }
 
-    void AudioHandler::fadeOut(float elapsed, int s)
+    void AudioHandler::fadeOut(float elapsed, float s)
     {
         //Fade out music during s seconds.
         fadeCounter = elapsed;
         interval = mVol / s;
+        Logger::writeMsg(1) << "fadeCounter: " << fadeCounter;
+        Logger::writeMsg(1) << "interval: " << interval;
+    }
+
+    void crossFade(float elapsed, const std::string& strM, float s = 5)
+    {
+        //Fade out music and fade in during s seconds
+
     }
 
     void AudioHandler::update(float elapsed)
@@ -219,6 +227,11 @@ namespace sbe
 
         song->SetVolume(mVol - (fadeCounter * interval));
 
+        if(fadeCounter >= (mVol / interval))
+        {
+            fadeCounter = 0;
+            song->SetVolume(0);
+        }
     }
 
     void AudioHandler::getAudioList()

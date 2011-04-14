@@ -19,7 +19,7 @@ namespace sbe
     /*
         Copyable music class, derived from sf::Music and overriding NonCopyable with the second constructor.
     */
-    class Music : sf::Music
+    class Music : public sf::Music
     {
         public:
             Music();
