@@ -9,7 +9,7 @@ info
 //Assets to load
 data
 {
-	"background"	"scripts/maps/background/bg_foggy.ast"
+	"background"	"scripts/maps/background/bg_sbe.ast"
 	"images"		"scripts/assets/images.ast"
 	"sounds"		"scripts/assets/sound.ast"
 	"music"			"scripts/assets/music.ast"

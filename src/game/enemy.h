@@ -32,7 +32,6 @@ namespace sbe
                 float scale_y
             );
             ~Enemy();
-            int returnRadius();
             void update(const float& elapsed);
             void kill();
             float xPos();
@@ -43,7 +42,6 @@ namespace sbe
             ParticleSystem *pSysDeath;
             std::string pSysDeath_f;
 
-            float hitBoxRadius;
             //Hitbox* hitbox;
             Path path;
             float       Time,

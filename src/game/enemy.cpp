@@ -159,10 +159,6 @@ namespace sbe
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
     }
 
-    int Enemy::returnRadius() {
-        return hitBoxRadius;
-    }
-
     float Enemy::xPos() {
         return GetPosition().x;
     }
