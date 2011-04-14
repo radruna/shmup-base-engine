@@ -46,7 +46,7 @@ namespace sbe
             void spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side);
             //Handle image requests
             Enemy getEnemy(const std::string& enemyKey);
-            Path& getPath(const std::string& enemyKey);
+            Path getPath(const std::string& enemyKey);
             void update(const float& elapsed);
 
         private:
@@ -57,7 +57,6 @@ namespace sbe
             std::list<Enemy> enemyList;
             std::vector <Path::pathContent> pathContentList;
             sf::Vector2i res;
-            sbe::Enemy enm1;
 
         protected:
             ImageHandler* imgHandler;

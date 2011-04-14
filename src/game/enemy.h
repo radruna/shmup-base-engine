@@ -41,8 +41,6 @@ namespace sbe
             float hitBoxRadius;
             //Hitbox* hitbox;
             Path path;
-            sf::Clock   MoveClock,
-                        OrientClock;
             float       Time,
                         OrientTime,
                         maxangle,
@@ -63,6 +61,8 @@ namespace sbe
             int         orientDir,
                         dir;
             unsigned    i;
+        protected:
+            void Render(sf::RenderTarget& Target) const;
     };
 }
 

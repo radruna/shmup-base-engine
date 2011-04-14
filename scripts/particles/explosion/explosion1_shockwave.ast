@@ -37,7 +37,7 @@
 "lifespan_max"						"0.15"						//Lifespan duration maximum
 
 //Size parameters
-"size_min"							"0.3"					//Scale minimum
+"size_min"							"0.05"					//Scale minimum
 "size_max"							"0.3"					//Scale maximum
 "size_ratio"						"1"						//x/y ratio. 1 = normal
 

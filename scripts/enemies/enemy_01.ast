@@ -1,4 +1,4 @@
-"explosion"			"scripts\particles\explosion\explosion1.ast"
+"explosion"			"scripts/particles/explosion/explosion1.ast"
 "enemy_name" 		"enemy1"
 "sprite_name"		"kawaiiShip"
 "path_name"			"path1"

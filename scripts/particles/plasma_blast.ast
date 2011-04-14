@@ -7,7 +7,7 @@
 
 //Generic parameters
 "name"								"shield_01_p"			//Particle system name
-"sprite_name"						"particle_2"			//Sprite to use. Needs to be loaded by asset file
+"sprite_name"						"white"			//Sprite to use. Needs to be loaded by asset file
 "move_type"							"0"						//Should particles move with particle system?
 "speed_multiplier"					"1"						//Not implemented yet. Multiply emission rate with speed, allowing for trails and stuff without clustered particle systems
 
@@ -25,7 +25,7 @@
 
 //Emission parameters
 "emission_type"						"1"						//1 = continuous, 2 = instant
-"emission_rate"						"150"					//Particles per second
+"emission_rate"						"75"					//Particles per second
 "emission_max"						"10"					//Particles to emit if type = 2
 "emission_force_min"				"0"						//Emission force minimum
 "emission_force_max"				"600"					//Emission force maximum
@@ -47,7 +47,7 @@
 "rotation_rate_min"					"-0"					//Rotation rate minimum
 "rotation_rate_max"					"0"						//Rotation rate maximum
 "rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters
@@ -80,10 +80,8 @@
 "emission_angle_mod_oscillate_amplitude_max"	"100"		//Oscillation amplitude maximum. 1 means oscillation between -1 and 1
 "emission_angle_mod_oscillate_amplitude_offset"	"0"			//Offset oscillation timer. Has little effect except in special cases
 
-//Movement modification parameters
-"move_mod_angle_min"					"-2000"				//Movement mod angle minimum. Particle turns this many degrees in one second
-"move_mod_angle_max"					"2000"				//Movement mod angle maximum. Particle turns this many degrees in one second
+
 
 //Alpha modification parameters
-"alpha_min"							"10"					//Minimum alpha value
+"alpha_min"							"255"					//Minimum alpha value
 "alpha_max"							"255"					//Maximum alpha value

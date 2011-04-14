@@ -205,7 +205,7 @@ namespace sbe
                                         if(parameterKey == "enemy_name")
                                             enemyName = parameterValue;
                                         else if(parameterKey == "explosion")
-                                            Logger::writeMsg(1) << "Vad--------------------";
+                                            pSysDeath = parameterValue;
                                         else if(parameterKey == "sprite_name")
                                             spriteName = parameterValue;
                                         else if(parameterKey == "path_name")
@@ -226,7 +226,7 @@ namespace sbe
                                     //Add to enemyMap
                                     enemyMap[enemyName] = enemy;
                                     //Debug output
-                                    Logger::writeMsg(1) << "Loaded enemy \"" << parameterKey << "\" with filepath \"" << targetPath << "\"";
+                                    Logger::writeMsg(1) << "Loaded enemy \"" << enemyName << "\" with filepath \"" << targetPath << "\"";
                                 }
 
                                 fileReader2.close();
@@ -265,7 +265,7 @@ namespace sbe
     }
 
     //Handle path requests
-    sbe::Path& EnemyHandler::getPath(const std::string& enemyKey){
+    sbe::Path EnemyHandler::getPath(const std::string& enemyKey){
         //Search enemyMap
         if( pathList.find(enemyKey) != pathList.end() )
         {
@@ -281,10 +281,10 @@ namespace sbe
     void EnemyHandler::spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side)
     {
         for(int i=0; i<amount; i++) {
-            enm1 = getEnemy(type);
-            enm1.SetPosition(res.x/2, 100*i);
-            Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x/2<<","<<i*100;
-            enemyList.push_back(enm1);
+            Enemy enm = getEnemy(type);
+            enm.SetPosition(res.x, 100*i);
+            Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+            enemyList.push_back(enm);
         }
 
     }
@@ -293,7 +293,7 @@ namespace sbe
     {
         for(std::list<Enemy>::const_iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
-            Target.Draw(*it);
+            //Target.Draw(*it);
         }
     }
 
@@ -302,7 +302,7 @@ namespace sbe
 
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
-            it->update(elapsed);
+            //it->update(elapsed);
         }
     }
 

@@ -425,6 +425,7 @@ namespace sbe
 
     void ParticleSystem::Render(sf::RenderTarget& Target) const
     {
+
         for(std::list<Particle>::const_iterator it = particleList.begin(); it != particleList.end(); it++)
         {
             Target.Draw(*it);

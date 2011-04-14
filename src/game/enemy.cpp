@@ -28,22 +28,32 @@ namespace sbe
         //safeDelete(hitbox);
     }
 
+    void Enemy::Render(sf::RenderTarget& Target) const
+    {
+        Ship::Render(Target);
+
+        if(pSysDeath != NULL)
+        {
+            Target.Draw(*pSysDeath);
+        }
+    }
+
     void Enemy::kill()
     {
-        Logger::writeMsg(1) << "WHAT THE FUCK";
-
-
             pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
-            pSysDeath->SetPosition(GetPosition().x, GetPosition().y);
-
-
+            pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
     }
 
     void Enemy::update(const float& elapsed)
     {
+        if(pSysDeath != NULL)
+        {
+            pSysDeath->update(elapsed);
+        }
+
         //Timers for two different movements
-        Time        = MoveClock.GetElapsedTime();
-        OrientTime  = OrientClock.GetElapsedTime();
+        Time        += elapsed;
+        OrientTime  += elapsed;
 
         //Duration for one path
         duration = path.getVector()[i].duration;
@@ -71,13 +81,11 @@ namespace sbe
         //Changes path when duration time reached
         if(Time > duration && i != (path.getVector().size()-1)){
             i++;
-            MoveClock.Reset();
             Time = 0;
         }
 
         //If stopMax == 0 and orientDuration is reached reset clock
         if(OrientTime > orientDuration && stopMax == 0){
-            OrientClock.Reset();
             OrientTime = 0;
         }
 
@@ -103,14 +111,18 @@ namespace sbe
             orientmax = orientStop - orientStart;
 
         //Makes enemy go in a straight line after last path
-        if(Time >=duration){
+        if(Time > duration){
             maxangle = 0;
             angle = stopAngle;
         }
 
         //Calculates how much the enemy is to move based on elapsed time
-        angleTime = Time/duration;
-
+        if(Time == 0)
+        {
+            angleTime = 1;
+        }else{
+            angleTime = Time/duration;
+        }
         //Calculates how much the enemy is to rotate based on elapsed time
         rotationTime = OrientTime/orientDuration;
 
@@ -132,7 +144,7 @@ namespace sbe
 
         //Sets rotation for enemy
         sbe::Sprite::SetRotation(-(angle+90+orientmin));
-
+        Logger::writeMsg(1) << "Fiendevinkel: "<< angle;
         //Moves the enemy
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
     }
