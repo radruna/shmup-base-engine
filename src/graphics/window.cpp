@@ -133,7 +133,7 @@ namespace sbe
                 for(int i=0; i<projectileSize; i++)
                 {
                     if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2))) {
-                        Logger::writeMsg(1) << "HITT";
+                        Logger::writeMsg(1) << "Hit";
 
                         renderList.clear();
                         renderList.push_back(stage);

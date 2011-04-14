@@ -190,11 +190,6 @@ namespace sbe
                     Logger::writeMsg(1) << "\nData loaded";
                 }
             }
-
-            for(int i =0;i<eventList.size();i++)
-            {
-                std::cout << eventList.at(i) << std::endl;
-            }
         }
     }
 
@@ -202,48 +197,62 @@ namespace sbe
     {
         if(bg != NULL)
             Target.Draw(*bg);   //Update background
+
+        Target.Draw(*enmHandler);
     }
 
     void Stage::update(const float& elapsed)
     {
         if(bg != NULL)
             bg->update(elapsed);    //Update background
-        //std::cout << eventCounter << std::endl;
-        eventCounter -= elapsed;
+
+        eventCounter -= elapsed;    //Count time
+
         if(eventCounter <= 0 && eventList.size() > eventPos)
         {
-            std::string quote = nextQuote(eventList.at(eventPos));
-            if(quote != "")
+            if(eventList.at(eventPos) == "")
+            {}
+            else
             {
-                if(quote == "break")
+                std::string quote = nextQuote(eventList.at(eventPos));
+                if(quote != "")
                 {
-                    float timeAdd = atof( nextQuote(eventList.at(eventPos)).c_str() );
-                    //eventCounter = atof( nextQuote(eventList.at(eventPos)).c_str() );
-                    Logger::writeMsg(1) << "Break! More time added to map counter: " << timeAdd;
-                    eventCounter = timeAdd;
-                    //eventPos++;
-                }
-                if(quote == "music")
-                {
-                    //Change music, crossfade etc.
-                }
-                if(quote == "enemy")
-                {
-
-                }
-                if(quote == "bg_speed")
-                {
-                    float piss = atof( nextQuote(eventList.at(eventPos)).c_str() );
-                    bg->setSpeedFactor( piss );
-                }
-                if(quote == "fin")
-                {
-                    //HOLY SHIT YOU WON
+                    if(quote == "break")
+                    {
+                        float timeAdd = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                        //eventCounter = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                        Logger::writeMsg(1) << "Break! More time added to map counter: " << timeAdd;
+                        eventCounter = timeAdd;
+                        //eventPos++;
+                    }
+                    else if(quote == "pause_music")
+                    {
+                        audHandler->pauseMusic();
+                    }
+                    else if(quote == "change_music")
+                    {
+                        std::string piss = nextQuote(eventList.at(eventPos));
+                        Logger::writeMsg(1) << piss;
+                        audHandler->setMusic( piss );
+                    }
+                    else if(quote == "enemy")
+                    {
+                        enmHandler->spawnEnemies("enemy_01",3,0,0,0,0);
+                    }
+                    else if(quote == "bg_speed")
+                    {
+                        float piss = atof( nextQuote(eventList.at(eventPos)).c_str() );
+                        bg->setSpeedFactor( piss );
+                    }
+                    else if(quote == "fin")
+                    {
+                        //HOLY SHIT YOU WON
+                    }
                 }
                 eventPos++;
             }
-
         }
+        enmHandler->update(elapsed);
     }
 
     std::string Stage::nextQuote(std::string& strSource)
@@ -262,7 +271,7 @@ namespace sbe
             return "";
 
         std::string newStr = strSource.substr(qPos[0] + 1,qPos[1] - qPos[0] -1);
-        strSource = strSource.substr( newStr.length() + 2, strSource.length() - newStr.length() );
+        strSource = strSource.substr( qPos[1] + 1, strSource.length() - newStr.length() );
         return newStr;
     }
 }
