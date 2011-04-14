@@ -21,8 +21,8 @@ namespace sbe
     {
         public:
             Ship() {}
-            Ship(const sf::Image& img, const int& max = 15, const unsigned int& dMod = 65, const unsigned int& oMod = 30);
-            Ship(const std::string& imgStr, ImageHandler* iHandler, const int& max = 15, const unsigned int& dMod = 65, const unsigned int& oMod = 30);
+            Ship(const sf::Image& img, float r = 25, const int max = 15, const unsigned int dMod = 65, const unsigned int oMod = 30);
+            Ship(const std::string& imgStr, ImageHandler* iHandler, float r = 25, const int max = 15, const unsigned int dMod = 65, const unsigned int oMod = 30);
             ~Ship();
 
             enum Dir
@@ -50,7 +50,13 @@ namespace sbe
                 !def ? modifier = otherMod : modifier = defMod;
             }
 
+            int returnRadius()
+            {
+                return hitBoxRadius;
+            }
+
         protected:
+            float hitBoxRadius;
             sf::Vector2f speedV;
             int maxSpeed;
             unsigned int modifier;
