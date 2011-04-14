@@ -139,7 +139,8 @@ namespace sbe
                         {
                             Logger::writeMsg(1) << "Hit";
 
-                            enmHandler->getEnemy(n).kill();
+                            enmHandler->hitEnemy(n);
+                            wpn1->removeProjectile(i);
                             //enmHandler->removeEnemy(n);
                             /*
                             renderList.clear();

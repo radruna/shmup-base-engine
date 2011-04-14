@@ -48,6 +48,7 @@ namespace sbe
         std::string enemyName = "none";
         std::string pathName = "none";
         std::string pSysDeath = "none";
+        int life = 1;
         //float moveSpeed;
         float radius;
         Path::pathContent stats;
@@ -212,6 +213,8 @@ namespace sbe
                                             pathName = parameterValue;
                                         else if(parameterKey == "hitbox_radius")
                                             radius = atof(parameterValue.c_str());
+                                        else if(parameterKey == "life")
+                                            life = atoi(parameterValue.c_str());
                                         else
                                             Logger::writeMsg(1) << "Invalid enemy parameter: " << parameterKey;  //Variable not found
 
@@ -222,7 +225,7 @@ namespace sbe
                                     Logger::writeMsg(1) << "Failed to load enemy \"" << enemyName << "\". Reason: Enemy key already in system";
                                 else
                                 {
-                                    Enemy enemy(imgHandler,spriteName, getPath(pathName), radius, pSysDeath);
+                                    Enemy enemy(imgHandler,spriteName, getPath(pathName), radius, pSysDeath, life);
                                     //Add to enemyMap
                                     enemyMap[enemyName] = enemy;
                                     //Debug output
@@ -298,7 +301,7 @@ namespace sbe
             for(int i=0; i<amount; i++){
                 Enemy enm = getEnemy(type);
                 enm.SetPosition(res.x + interval*i, (res.y-width)/2 + (i*spacing) + offset);
-                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x + interval*i<<","<<(res.y-width)/2 + (i*spacing) + offset;
                 enemyList.push_back(enm);
             }
         }else if(side == 1)
@@ -306,7 +309,7 @@ namespace sbe
              for(int i=0; i<amount; i++){
                 Enemy enm = getEnemy(type);
                 enm.SetPosition((res.x-width)/2 + (i*spacing) + offset, res.y + interval*i);
-                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<(res.x-width)/2 + (i*spacing) + offset<<","<<res.y + interval*i;
                 enemyList.push_back(enm);
             }
         }else if(side == 2)
@@ -314,7 +317,7 @@ namespace sbe
             for(int i=0; i<amount; i++){
                 Enemy enm = getEnemy(type);
                 enm.SetPosition(0 - interval*i, (res.y-width)/2 + (i*spacing) + offset);
-                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<0 - interval*i<<","<<(res.y-width)/2 + (i*spacing) + offset;
                 enemyList.push_back(enm);
             }
         }else if(side == 3)
@@ -322,7 +325,7 @@ namespace sbe
             for(int i=0; i<amount; i++){
                 Enemy enm = getEnemy(type);
                 enm.SetPosition((res.x-width)/2 + (i*spacing) + offset, 0 - interval*i);
-                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<res.x<<","<<i*100;
+                Logger::writeMsg(1) << "Enemy"<<i<<" spawned at "<<(res.x-width)/2 + (i*spacing) + offset<<","<<0 - interval*i;
                 enemyList.push_back(enm);
             }
         }
@@ -343,8 +346,8 @@ namespace sbe
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
             it->update(elapsed);
-            if(it->death()>= 0)
-                enemyList.erase(it);
+            //if(it->isDead())
+                //enemyList.erase(it);
         }
     }
 
@@ -380,13 +383,15 @@ namespace sbe
         return it->yPos();
     }
 
-    void EnemyHandler::removeEnemy(unsigned int index)
+    void EnemyHandler::hitEnemy(unsigned int index)
     {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
 
-        enemyList.erase(it);
+        it->hit();
+        if(it->isDead())
+            enemyList.erase(it);
     }
 
 }

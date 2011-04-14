@@ -27,14 +27,16 @@ namespace sbe
                 const std::string spriteName,
                 Path pth,
                 float r,
-                std::string pSysDeath
+                std::string pSysDeath,
+                int l
             );
             ~Enemy();
             void update(const float& elapsed);
             void kill();
             float xPos();
             float yPos();
-            float death();
+            float isDead();
+            void hit();
         private:
 
             ParticleSystem *pSysDeath;
@@ -58,10 +60,10 @@ namespace sbe
                         rotationTime,
                         angleTime,
                         angle,
-                        speed,
-                        deathTimer;
+                        speed;
             int         orientDir,
-                        dir;
+                        dir,
+                        life;
             unsigned    i;
             int        alive;
         protected:
