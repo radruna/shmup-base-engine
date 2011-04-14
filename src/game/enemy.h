@@ -30,17 +30,16 @@ namespace sbe
                 std::string pSysDeath
             );
             ~Enemy();
-            int returnRadius();
             void update(const float& elapsed);
             void kill();
             float xPos();
             float yPos();
+            float death();
         private:
 
             ParticleSystem *pSysDeath;
             std::string pSysDeath_f;
 
-            float hitBoxRadius;
             //Hitbox* hitbox;
             Path path;
             float       Time,
@@ -60,11 +59,12 @@ namespace sbe
                         angleTime,
                         angle,
                         speed,
-                        deathTimer;
+                        deathTimer,
+                        hej;
             int         orientDir,
                         dir;
             unsigned    i;
-            bool        alive;
+            int        alive;
         protected:
             void Render(sf::RenderTarget& Target) const;
     };

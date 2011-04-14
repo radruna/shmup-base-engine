@@ -343,6 +343,8 @@ namespace sbe
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
             it->update(elapsed);
+            if(it->death()>= 0)
+                enemyList.erase(it);
         }
     }
 
