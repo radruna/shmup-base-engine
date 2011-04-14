@@ -1,0 +1,5 @@
+"enemy_name" 		"enemy2"
+"explosion"			"scripts/particles/explosion/explosion1.ast"
+"sprite_name"		"enemy_03_s"
+"path_name"			"path1"
+"hitbox_radius"		"50"

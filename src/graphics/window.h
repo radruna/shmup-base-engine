@@ -116,6 +116,9 @@ namespace sbe
             sbe::Enemy* enm1;
             sbe::Stage* stage;
 
+            sbe::Movable *text1;
+            sbe::Movable *text2;
+
             sf::Vector2i res;
             bool respawn,
                  pause,
