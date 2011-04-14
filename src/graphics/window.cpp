@@ -140,7 +140,7 @@ namespace sbe
                             Logger::writeMsg(1) << "Hit";
 
                             enmHandler->getEnemy(n).kill();
-
+                            //enmHandler->removeEnemy(n);
                             /*
                             renderList.clear();
                             renderList.push_back(stage);

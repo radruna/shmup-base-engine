@@ -243,7 +243,8 @@ namespace sbe
     }
 
     //Unload all enemies
-    void EnemyHandler::unloadAssets(){
+    void EnemyHandler::unloadAssets()
+    {
         //FileHandler::unloadAssets(enemyMap);
         enemyMap.clear();
         pathList.clear();
@@ -251,7 +252,8 @@ namespace sbe
     }
 
     //Handle enemy requests
-    sbe::Enemy EnemyHandler::getEnemy(const std::string& enemyKey){
+    sbe::Enemy EnemyHandler::getEnemy(const std::string& enemyKey)
+    {
         //Search enemyMap
         if( enemyMap.find(enemyKey) != enemyMap.end() )
         {
@@ -264,7 +266,8 @@ namespace sbe
         }
     }
 
-    sbe::Enemy EnemyHandler::getEnemy(unsigned int index){
+    sbe::Enemy EnemyHandler::getEnemy(unsigned int index)
+    {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
@@ -273,7 +276,8 @@ namespace sbe
     }
 
     //Handle path requests
-    sbe::Path EnemyHandler::getPath(const std::string& enemyKey){
+    sbe::Path EnemyHandler::getPath(const std::string& enemyKey)
+    {
         //Search enemyMap
         if( pathList.find(enemyKey) != pathList.end() )
         {
@@ -336,18 +340,21 @@ namespace sbe
 
     void EnemyHandler::update(const float& elapsed)
     {
-
         for(std::list<Enemy>::iterator it = enemyList.begin(); it != enemyList.end(); it++)
         {
             it->update(elapsed);
+            if(it->death()>= 0)
+                enemyList.erase(it);
         }
     }
 
-    int EnemyHandler::enemyListSize() {
+    int EnemyHandler::enemyListSize()
+    {
         return enemyList.size();
     }
 
-    float EnemyHandler::enemyRadius(unsigned int index) {
+    float EnemyHandler::enemyRadius(unsigned int index)
+    {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
@@ -355,7 +362,8 @@ namespace sbe
         return it->returnRadius();
     }
 
-    float EnemyHandler::enemyXpos(unsigned int index) {
+    float EnemyHandler::enemyXpos(unsigned int index)
+    {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
@@ -363,12 +371,22 @@ namespace sbe
         return it->xPos();
     }
 
-    float EnemyHandler::enemyYpos(unsigned int index) {
+    float EnemyHandler::enemyYpos(unsigned int index)
+    {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
 
         return it->yPos();
+    }
+
+    void EnemyHandler::removeEnemy(unsigned int index)
+    {
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        enemyList.erase(it);
     }
 
 }

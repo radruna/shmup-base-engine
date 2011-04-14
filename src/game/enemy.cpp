@@ -19,7 +19,10 @@ namespace sbe
         hitBoxRadius = r;
         path = pth;
         i = 0;
+        hej = 23;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
+        alive = 1;
+        deathTimer = -1;
         //hitbox = new Hitbox(hitBoxRadius);
     }
 
@@ -42,7 +45,7 @@ namespace sbe
     {
             pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
             pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
-            Logger::writeMsg(1) << "Hit";
+            alive = 0;
     }
 
     void Enemy::update(const float& elapsed)
@@ -78,6 +81,11 @@ namespace sbe
 
         //Will it stop or loop at end of orientation
         stopMax = path.getVector()[i].stopMax;
+
+        if(alive == 0){
+            Logger::writeMsg(1) << "Nu";
+            deathTimer += elapsed;
+        }
 
         //Changes path when duration time reached
         if(Time > duration && i != (path.getVector().size()-1)){
@@ -156,6 +164,11 @@ namespace sbe
 
     float Enemy::yPos() {
         return GetPosition().y;
+    }
+
+    float Enemy::death()
+    {
+        return deathTimer;
     }
 
 }

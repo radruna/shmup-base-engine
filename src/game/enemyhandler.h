@@ -53,6 +53,7 @@ namespace sbe
             float enemyRadius(unsigned int index);
             float enemyXpos(unsigned int index);
             float enemyYpos(unsigned int index);
+            void removeEnemy(unsigned int index);
 
         private:
             //Enemy list
