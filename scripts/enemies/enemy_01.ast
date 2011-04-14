@@ -1,6 +1,6 @@
 "enemy_name" 		"enemy1"
 "explosion"			"scripts/particles/explosion/explosion1.ast"
-"sprite_name"		"enemy_03_s"
+"sprite_name"		"enemy_01_s"
 "path_name"			"path1"
 "hitbox_radius"		"20"
 "life"				"3"

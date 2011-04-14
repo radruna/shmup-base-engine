@@ -8,7 +8,6 @@
 "hitbox_radius"						"50"
 
 "firing_sound"						"blaster_1"
-"impact_sound"						"pop_1"
 
 "shots_per_wave"					"1"
 "waves_per_attack"					"1"				
