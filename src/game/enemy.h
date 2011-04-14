@@ -35,6 +35,7 @@ namespace sbe
             void kill();
             float xPos();
             float yPos();
+            float death();
         private:
 
             ParticleSystem *pSysDeath;
@@ -60,11 +61,12 @@ namespace sbe
                         angleTime,
                         angle,
                         speed,
-                        deathTimer;
+                        deathTimer,
+                        hej;
             int         orientDir,
                         dir;
             unsigned    i;
-            bool        alive;
+            int        alive;
         protected:
             void Render(sf::RenderTarget& Target) const;
     };
