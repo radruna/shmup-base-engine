@@ -406,16 +406,18 @@ namespace sbe
         return it->yPos();
     }
 
-    void EnemyHandler::hitEnemy(unsigned int index)
+    bool EnemyHandler::hitEnemy(unsigned int index)
     {
         std::list<Enemy>::iterator it = enemyList.begin();
         for(unsigned int i = 0; i < index; i++)
             it++;
 
-        if(it->readyToDie()) return;
+        if(it->readyToDie()) return false;
         it->hit();
         if(it->isDead())
             it->kill();
+
+        return true;
     }
 
 }
