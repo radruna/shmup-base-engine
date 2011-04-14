@@ -130,24 +130,28 @@ namespace sbe
             if(wpn1 != NULL && enm1 != NULL)
             {
                 int projectileSize = wpn1->projectileSize();
+                int enemyListSize = enmHandler->enemyListSize();
                 for(int i=0; i<projectileSize; i++)
                 {
-                    if((enm1->returnRadius() + wpn1->projectileRadius(i)) >= sqrt(pow((enm1->GetPosition().x - wpn1->projectileXpos(i)),2) + pow((enm1->GetPosition().y - wpn1->projectileYpos(i)),2)))
+                    for(int n=0; n<enemyListSize; n++)
                     {
-                        Logger::writeMsg(1) << "Hit";
+                        if((enmHandler->enemyRadius(n) + wpn1->projectileRadius(i)) >= sqrt(pow((enmHandler->enemyXpos(n) - wpn1->projectileXpos(i)),2) + pow((enmHandler->enemyYpos(n) - wpn1->projectileYpos(i)),2)))
+                        {
+                            Logger::writeMsg(1) << "Hit";
 
-                        enm1->kill();
+                            enmHandler->getEnemy(n).kill();
 
-                        /*
-                        renderList.clear();
-                        renderList.push_back(stage);
-                        renderList.push_back(testShip);
-                        renderList.push_back(pSystem2);
-                        renderList.push_back(wpn1);
-                        renderList.push_back(gui);
+                            /*
+                            renderList.clear();
+                            renderList.push_back(stage);
+                            renderList.push_back(testShip);
+                            renderList.push_back(pSystem2);
+                            renderList.push_back(wpn1);
+                            renderList.push_back(gui);
 
-                        safeDelete(enm1);
-                        */
+                            safeDelete(enm1);
+                            */
+                        }
                     }
                 }
             }

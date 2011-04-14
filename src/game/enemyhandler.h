@@ -46,8 +46,13 @@ namespace sbe
             void spawnEnemies(const std::string& type, const int& amount, const float& interval, const float& spacing, const float& offset, const int& side);
             //Handle image requests
             Enemy getEnemy(const std::string& enemyKey);
+            Enemy getEnemy(unsigned int);
             Path getPath(const std::string& enemyKey);
             void update(const float& elapsed);
+            int enemyListSize();
+            float enemyRadius(unsigned int index);
+            float enemyXpos(unsigned int index);
+            float enemyYpos(unsigned int index);
 
         private:
             //Enemy list

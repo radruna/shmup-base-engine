@@ -42,6 +42,7 @@ namespace sbe
     {
             pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
             pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
+            Logger::writeMsg(1) << "Hit";
     }
 
     void Enemy::update(const float& elapsed)
@@ -151,6 +152,14 @@ namespace sbe
 
     int Enemy::returnRadius() {
         return hitBoxRadius;
+    }
+
+    float Enemy::xPos() {
+        return GetPosition().x;
+    }
+
+    float Enemy::yPos() {
+        return GetPosition().y;
     }
 
 }

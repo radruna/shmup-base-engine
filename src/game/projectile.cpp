@@ -169,7 +169,7 @@ namespace sbe
         return proj.GetPosition().x;
     }
 
-        float Projectile::yPos() {
+    float Projectile::yPos() {
         return proj.GetPosition().y;
     }
 }

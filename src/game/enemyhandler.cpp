@@ -264,6 +264,14 @@ namespace sbe
         }
     }
 
+    sbe::Enemy EnemyHandler::getEnemy(unsigned int index){
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        return *it;
+    }
+
     //Handle path requests
     sbe::Path EnemyHandler::getPath(const std::string& enemyKey){
         //Search enemyMap
@@ -333,6 +341,34 @@ namespace sbe
         {
             it->update(elapsed);
         }
+    }
+
+    int EnemyHandler::enemyListSize() {
+        return enemyList.size();
+    }
+
+    float EnemyHandler::enemyRadius(unsigned int index) {
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        return it->returnRadius();
+    }
+
+    float EnemyHandler::enemyXpos(unsigned int index) {
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        return it->xPos();
+    }
+
+    float EnemyHandler::enemyYpos(unsigned int index) {
+        std::list<Enemy>::iterator it = enemyList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        return it->yPos();
     }
 
 }

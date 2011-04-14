@@ -33,6 +33,8 @@ namespace sbe
             int returnRadius();
             void update(const float& elapsed);
             void kill();
+            float xPos();
+            float yPos();
         private:
 
             ParticleSystem *pSysDeath;
