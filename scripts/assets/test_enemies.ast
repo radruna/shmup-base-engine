@@ -5,4 +5,7 @@ path
 enemies
 {
 	"enemy"	"scripts/enemies/enemy_01.ast"
+	"enemy"	"scripts/enemies/enemy_02.ast"
+	"enemy"	"scripts/enemies/enemy_03.ast"
+	"enemy"	"scripts/enemies/enemy_04.ast"
 }
