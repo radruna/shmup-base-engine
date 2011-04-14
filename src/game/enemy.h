@@ -28,7 +28,12 @@ namespace sbe
                 Path pth,
                 float r,
                 std::string pSysDeath,
-                int l
+
+                int l,
+
+                float scale_x,
+                float scale_y
+
             );
             ~Enemy();
             void update(const float& elapsed);
