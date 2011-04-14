@@ -16,3 +16,11 @@
 "landscape"			"assets/image/backgrounds/foggy/landscape.jpg"
 "rain"			"assets/image/backgrounds/rain.png"
 "hil"	"assets/image/hilarious.jpg"
+
+"player_s"		"assets/sbe/player.png"
+"enemy_01_s"	"assets/sbe/enemy1.png"
+"enemy_02_s"	"assets/sbe/enemy2.png"
+"enemy_03_s"	"assets/sbe/enemy3.png"
+"enemy_04_s"	"assets/sbe/enemy4.png"
+
+"bg_sbe"		"assets/sbe/bg_stars.png"

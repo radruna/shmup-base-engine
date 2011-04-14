@@ -1,0 +1,48 @@
+layer
+{
+	"sprite_name"				"bg_sbe"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-50"
+	"fit_x"						"0"
+	"fit_y"						"0"
+	"scale_x"					"4"
+	"scale_y"					"4"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+layer
+{
+	"sprite_name"				"bg_sbe"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-100"
+	"fit_x"						"0"
+	"fit_y"						"0"
+	"scale_x"					"3"
+	"scale_y"					"3"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+layer
+{
+	"sprite_name"				"bg_sbe"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-150"
+	"fit_x"						"0"
+	"fit_y"						"0"
+	"scale_x"					"2"
+	"scale_y"					"2"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
+layer
+{
+	"sprite_name"				"bg_sbe"
+	"movement_angle"			"0" 					//0 = 0 degrees, 1 = 180 degrees, 2 = 90 degrees, 3 = 270 degrees 
+	"movement_speed"			"-200"
+	"fit_x"						"0"
+	"fit_y"						"0"
+	"scale_x"					"1"
+	"scale_y"					"1"
+	"tile_x"					"1"
+	"tile_y"					"1"
+}
