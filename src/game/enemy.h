@@ -27,7 +27,9 @@ namespace sbe
                 const std::string spriteName,
                 Path pth,
                 float r,
-                std::string pSysDeath
+                std::string pSysDeath,
+                float scale_x,
+                float scale_y
             );
             ~Enemy();
             int returnRadius();
