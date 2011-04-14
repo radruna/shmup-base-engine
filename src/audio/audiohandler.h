@@ -99,7 +99,7 @@ namespace sbe
                 song->SetLoop(loop);
             }
             //Fade out the music for s seconds
-            void fadeOut(int s = 5);
+            void fadeOut(float elapsed, int s = 5);
             void getAudioList();
             float getSFXVol()
             {

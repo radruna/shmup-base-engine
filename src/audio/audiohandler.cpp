@@ -204,7 +204,7 @@ namespace sbe
         return false;
     }
 
-    void AudioHandler::fadeOut(float eleapsed, int s)
+    void AudioHandler::fadeOut(float elapsed, int s)
     {
         //Fade out music during s seconds.
         fadeCounter = elapsed;
@@ -217,7 +217,7 @@ namespace sbe
 
         fadeCounter += elapsed;
 
-        song->SetVolume(mVol - (fadeCounter * interval))
+        song->SetVolume(mVol - (fadeCounter * interval));
 
     }
 
