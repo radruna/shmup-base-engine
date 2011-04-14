@@ -61,8 +61,7 @@ namespace sbe
                         angleTime,
                         angle,
                         speed,
-                        deathTimer,
-                        hej;
+                        deathTimer;
             int         orientDir,
                         dir;
             unsigned    i;

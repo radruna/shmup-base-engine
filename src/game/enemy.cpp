@@ -19,7 +19,6 @@ namespace sbe
         hitBoxRadius = r;
         path = pth;
         i = 0;
-        hej = 23;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
         alive = 1;
         deathTimer = -1;
