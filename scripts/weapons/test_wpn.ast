@@ -2,7 +2,7 @@
 //						Generic blaster
 //----------------------------------------------------------
 "name"								"wpn1"			//Weapon name
-"sprite_name"						"white"				//Sprite to use. Needs to be loaded by asset file
+"sprite_name"						"white"			//Sprite to use. Needs to be loaded by asset file
 "particle_system"					"scripts/particles/trails/smoke_1.ast"
 
 "hitbox_radius"						"50"
@@ -13,7 +13,7 @@
 "shots_per_wave"					"1"
 "waves_per_attack"					"1"				
 
-"emission_rate"						"5"					//Projectiles per second
+"emission_rate"						"10"					//Projectiles per second
 
 "emission_angle_min"				"-3"					//Emission angle minimum
 "emission_angle_max"				"3"					//Emission angle maximum

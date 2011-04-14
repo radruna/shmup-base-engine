@@ -378,9 +378,12 @@ namespace sbe
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
-            testShip = new sbe::Ship("cross", imgHandler);
+            testShip = new sbe::Ship("player_s", imgHandler);
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(0.f, 0.f);
+            testShip->SetScale(1.5,1.5);
+            //testShip->SetCenter( testShip->GetSize().x / 2, testShip->GetSize().y / 2 );
+            testShip->SetRotation(0);
             //testShip->SetScale(0.5, 0.5);
             //testShip->SetAlpha(0);
 
@@ -402,9 +405,9 @@ namespace sbe
 
             renderList.push_back(stage);
             renderList.push_back(enm1);
-            renderList.push_back(testShip);
-            renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
+            renderList.push_back(pSystem2);
+            renderList.push_back(testShip);
             renderList.push_back(gui);
             //renderList.push_back(enmHandler->getEnemy("enemy1"));
 
