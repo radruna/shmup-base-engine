@@ -11,7 +11,7 @@
 
 namespace sbe
 {
-    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysExpl)
+    Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysExpl, float scale_x, float scale_y)
     : Ship(spriteName, imgHandler)
     {
         pSysDeath = NULL;
@@ -21,6 +21,7 @@ namespace sbe
         i = 0;
         hej = 23;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
+        sbe::Sprite::SetScale(scale_x, scale_y);
         alive = 1;
         deathTimer = -1;
         //hitbox = new Hitbox(hitBoxRadius);

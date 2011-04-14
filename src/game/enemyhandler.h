@@ -63,6 +63,8 @@ namespace sbe
             std::list<Enemy> enemyList;
             std::vector <Path::pathContent> pathContentList;
             sf::Vector2i res;
+            float scale_x;
+            float scale_y;
 
         protected:
             ImageHandler* imgHandler;

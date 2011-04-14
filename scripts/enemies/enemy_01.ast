@@ -3,3 +3,5 @@
 "sprite_name"		"enemy_03_s"
 "path_name"			"path1"
 "hitbox_radius"		"50"
+"scale_x"			"1"
+"scale_y"			"1"
