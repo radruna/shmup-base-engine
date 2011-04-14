@@ -212,6 +212,10 @@ namespace sbe
                                             pathName = parameterValue;
                                         else if(parameterKey == "hitbox_radius")
                                             radius = atof(parameterValue.c_str());
+                                        else if(parameterKey == "scale_x")
+                                            scale_x = atof(parameterValue.c_str());
+                                        else if(parameterKey == "scale_y")
+                                            scale_y = atof(parameterValue.c_str());
                                         else
                                             Logger::writeMsg(1) << "Invalid enemy parameter: " << parameterKey;  //Variable not found
 
@@ -222,7 +226,7 @@ namespace sbe
                                     Logger::writeMsg(1) << "Failed to load enemy \"" << enemyName << "\". Reason: Enemy key already in system";
                                 else
                                 {
-                                    Enemy enemy(imgHandler,spriteName, getPath(pathName), radius, pSysDeath);
+                                    Enemy enemy(imgHandler,spriteName, getPath(pathName), radius, pSysDeath, scale_x, scale_y);
                                     //Add to enemyMap
                                     enemyMap[enemyName] = enemy;
                                     //Debug output
