@@ -21,8 +21,8 @@ namespace sbe
     {
         public:
             Ship() {}
-            Ship(const sf::Image& img, float r = 25, const int max = 15, const unsigned int dMod = 65, const unsigned int oMod = 30);
-            Ship(const std::string& imgStr, ImageHandler* iHandler, float r = 25, const int max = 15, const unsigned int dMod = 65, const unsigned int oMod = 30);
+            Ship(const sf::Image& img, float r = 25, const int max = 15, const unsigned int dMod = 400, const unsigned int oMod = 200);
+            Ship(const std::string& imgStr, ImageHandler* iHandler, float r = 25, const int max = 15, const unsigned int dMod = 400, const unsigned int oMod = 200);
             ~Ship();
 
             enum Dir

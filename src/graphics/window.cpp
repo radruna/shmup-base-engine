@@ -163,8 +163,8 @@ namespace sbe
                         {
                             Logger::writeMsg(1) << "Hit";
 
-                            enmHandler->hitEnemy(n);
-                            wpn1->removeProjectile(i);
+
+                            if(enmHandler->hitEnemy(n)) wpn1->removeProjectile(i);
                             //enmHandler->removeEnemy(n);
                             /*
                             renderList.clear();
