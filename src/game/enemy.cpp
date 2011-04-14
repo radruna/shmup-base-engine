@@ -158,6 +158,19 @@ namespace sbe
 
         //Moves the enemy
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
+
+        sf::Color col = GetColor();
+        if( col.b + 20 > 255 )
+        {
+            col.b = 255;
+            col.g = 255;
+        }
+        else if(col.b < 255)
+        {
+            col.b += 20;
+            col.g += 20;
+        }
+        SetColor( col );
     }
 
     float Enemy::xPos() {
@@ -181,6 +194,12 @@ namespace sbe
 
     void Enemy::hit()
     {
+        sf::Color col = GetColor();
+        col.r = 255;
+        col.b = 0;
+        col.g = 0;
+        SetColor( col );
+
         life--;
         Logger::writeMsg(1) << life;
     }

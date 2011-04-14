@@ -5,7 +5,7 @@
 "sprite_name"						"white"			//Sprite to use. Needs to be loaded by asset file
 "particle_system"					"scripts/particles/trails/smoke_1.ast"
 
-"hitbox_radius"						"50"
+"hitbox_radius"						"25"
 
 "firing_sound"						"blaster_1"
 
@@ -14,8 +14,8 @@
 
 "emission_rate"						"10"					//Projectiles per second
 
-"emission_angle_min"				"-3"					//Emission angle minimum
-"emission_angle_max"				"3"					//Emission angle maximum
+"emission_angle_min"				"0"					//Emission angle minimum
+"emission_angle_max"				"0"					//Emission angle maximum
 "emission_angle_random"				"1"
 
 "rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
