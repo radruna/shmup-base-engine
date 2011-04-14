@@ -45,8 +45,9 @@ namespace sbe
         std::string parameterKey;
         std::string parameterValue;
         std::string targetPath;
-        std::string enemyName;
-        std::string pathName;
+        std::string enemyName = "none";
+        std::string pathName = "none";
+        std::string pSysDeath = "none";
         //float moveSpeed;
         float radius;
         Path::pathContent stats;

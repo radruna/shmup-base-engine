@@ -51,7 +51,6 @@ namespace sbe
 
         private:
             //Enemy list
-            std::string pSysDeath;
             std::map<std::string, Enemy> enemyMap;
             //Path list
             std::map<std::string, Path> pathList;
