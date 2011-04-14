@@ -68,6 +68,18 @@ namespace sbe
         enm1 = NULL;
         stage = NULL;
 
+        text1 = new Movable(imgHandler->getImage("text_getready"));
+        text1->SetCenter(text1->GetSize().x / 2, text1->GetSize().y / 2);
+        text1->SetScale(20, 20);
+
+        text2 = new Movable(imgHandler->getImage("text_go"));
+        text2->SetCenter(text2->GetSize().x / 2, text2->GetSize().y / 2);
+        text2->SetScale(20, 20);
+
+        text1->SetPosition(cfgReader->getRes().x / 2, cfgReader->getRes().y / 2);
+        text2->SetPosition(cfgReader->getRes().x / 2, cfgReader->getRes().y / 2);
+        text2->SetAlpha(0);
+
         !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
     }
@@ -104,6 +116,18 @@ namespace sbe
         {
             Logger::write();
 
+            if(text1->GetScale().x > 1)
+                text1->SetScale(text1->GetScale().x * 0.96, text1->GetScale().y * 0.96);
+            else if(text1->GetAlpha() > 0)
+                text1->SetAlpha(text1->GetAlpha() - 10);
+            else if(text2->GetScale().x > 1)
+            {
+                text2->SetAlpha(255);
+                text2->SetScale(text2->GetScale().x * 0.92, text2->GetScale().y * 0.92);
+            }
+            else if(text2->GetAlpha() > 0)
+                text2->SetAlpha(text2->GetAlpha() - 5);
+
             sf::Event event;
             while(GetEvent(event))
             {
@@ -139,7 +163,8 @@ namespace sbe
                         {
                             Logger::writeMsg(1) << "Hit";
 
-                            enmHandler->removeEnemy(n);
+                            enmHandler->hitEnemy(n);
+                            wpn1->removeProjectile(i);
                             //enmHandler->removeEnemy(n);
                             /*
                             renderList.clear();
@@ -378,9 +403,12 @@ namespace sbe
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
-            testShip = new sbe::Ship("cross", imgHandler);
+            testShip = new sbe::Ship("player_s", imgHandler);
             //*ships["testShip"] = *testShip;
-            testShip->SetPosition(0.f, 0.f);
+            testShip->SetPosition(75, cfgReader->getRes().y / 2 - testShip->GetSize().y / 2);
+            testShip->SetScale(1.5,1.5);
+            //testShip->SetCenter( testShip->GetSize().x / 2, testShip->GetSize().y / 2 );
+            testShip->SetRotation(0);
             //testShip->SetScale(0.5, 0.5);
             //testShip->SetAlpha(0);
 
@@ -402,8 +430,11 @@ namespace sbe
 
             renderList.push_back(stage);
             renderList.push_back(testShip);
-            renderList.push_back(pSystem2);
             renderList.push_back(wpn1);
+            renderList.push_back(pSystem2);
+            renderList.push_back(testShip);
+            renderList.push_back(text1);
+            renderList.push_back(text2);
             renderList.push_back(gui);
             //renderList.push_back(enmHandler->getEnemy("enemy1"));
 

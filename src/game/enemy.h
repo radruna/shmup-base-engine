@@ -27,7 +27,13 @@ namespace sbe
                 const std::string spriteName,
                 Path pth,
                 float r,
-                std::string pSysDeath
+                std::string pSysDeath,
+
+                int l,
+
+                float scale_x,
+                float scale_y
+
             );
             ~Enemy();
             void update(const float elapsed);
@@ -40,6 +46,8 @@ namespace sbe
 
                 return false;
             }
+            float isDead();
+            void hit();
         private:
 
             ParticleSystem *pSysDeath;
@@ -67,7 +75,8 @@ namespace sbe
                         deathTimer,
                         deathDelay;
             int         orientDir,
-                        dir;
+                        dir,
+                        life;
             unsigned    i;
         protected:
             void Render(sf::RenderTarget& Target) const;

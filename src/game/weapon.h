@@ -48,6 +48,7 @@ namespace sbe
             float projectileRadius(unsigned int index);
             float projectileXpos(unsigned int index);
             float projectileYpos(unsigned int index);
+            void removeProjectile(unsigned int index);
         protected:
             void Render(sf::RenderTarget& Target) const;
 

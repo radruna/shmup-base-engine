@@ -9,3 +9,6 @@
 "dev1"					"assets/debug/dev1.jpg"
 "white"					"assets/debug/white.jpg"
 "smoke_01"				"assets/image/smoke01.png"
+
+"text_getready"			"assets/debug/get_ready.png"
+"text_go"				"assets/debug/go.png"

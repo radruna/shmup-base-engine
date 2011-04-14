@@ -1,8 +1,15 @@
 path
 {
 	"path"	"scripts/paths/path_01.ast"
+	"path"	"scripts/paths/path_02.ast"
 }
 enemies
 {
 	"enemy"	"scripts/enemies/enemy_01.ast"
+	"enemy"	"scripts/enemies/enemy_02.ast"
+<<<<<<< HEAD
+=======
+	"enemy"	"scripts/enemies/enemy_03.ast"
+	"enemy"	"scripts/enemies/enemy_04.ast"
+>>>>>>> f6ed1b5fcdbf6810543495755e31b4d966bfa5a0
 }

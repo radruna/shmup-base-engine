@@ -506,32 +506,44 @@ namespace sbe
 
     }
 
-    int Weapon::projectileSize() {
+    int Weapon::projectileSize()
+    {
         return projectileList.size();
     }
 
-    float Weapon::projectileRadius(unsigned int index) {
-            std::list<Projectile>::iterator it = projectileList.begin();
-            for(unsigned int i = 0; i < index; i++)
-                it++;
+    float Weapon::projectileRadius(unsigned int index)
+    {
+        std::list<Projectile>::iterator it = projectileList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
 
-            return it->returnRadius();
+        return it->returnRadius();
     }
 
-    float Weapon::projectileXpos(unsigned int index) {
-            std::list<Projectile>::iterator it = projectileList.begin();
-            for(unsigned int i = 0; i < index; i++)
-                it++;
+    float Weapon::projectileXpos(unsigned int index)
+    {
+        std::list<Projectile>::iterator it = projectileList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
 
-            return it->xPos();
+        return it->xPos();
     }
 
-    float Weapon::projectileYpos(unsigned int index) {
-            std::list<Projectile>::iterator it = projectileList.begin();
-            for(unsigned int i = 0; i < index; i++)
-                it++;
+    float Weapon::projectileYpos(unsigned int index)
+    {
+        std::list<Projectile>::iterator it = projectileList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
 
-            return it->yPos();
+        return it->yPos();
+    }
+    void Weapon::removeProjectile(unsigned int index)
+    {
+        std::list<Projectile>::iterator it = projectileList.begin();
+        for(unsigned int i = 0; i < index; i++)
+            it++;
+
+        projectileList.erase(it);
     }
 
 }

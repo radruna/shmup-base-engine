@@ -53,7 +53,7 @@ namespace sbe
             float enemyRadius(unsigned int index);
             float enemyXpos(unsigned int index);
             float enemyYpos(unsigned int index);
-            void removeEnemy(unsigned int index);
+            void hitEnemy(unsigned int index);
 
         private:
             //Enemy list
@@ -63,6 +63,8 @@ namespace sbe
             std::list<Enemy> enemyList;
             std::vector <Path::pathContent> pathContentList;
             sf::Vector2i res;
+            float scale_x;
+            float scale_y;
 
         protected:
             ImageHandler* imgHandler;

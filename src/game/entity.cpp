@@ -51,6 +51,12 @@ namespace sbe
         SetColor( col );
     }
 
+    float Entity::GetAlpha()
+    {
+        sf::Color col = GetColor();
+        return col.a;
+    }
+
     void Entity::SetDiffuseColor(const int& r, const int& g, const int& b)
     {
         sf::Color col = GetColor();
