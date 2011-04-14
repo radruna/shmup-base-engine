@@ -59,10 +59,12 @@ namespace sbe
                         rotationTime,
                         angleTime,
                         angle,
-                        speed;
+                        speed,
+                        deathTimer;
             int         orientDir,
                         dir;
             unsigned    i;
+            bool        alive;
         protected:
             void Render(sf::RenderTarget& Target) const;
     };
