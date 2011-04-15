@@ -68,6 +68,7 @@ namespace sbe
             }
 
         protected:
+            void Render(sf::RenderTarget& Target) const;
             ParticleSystem *pSysDeath;
             std::string pSysDeath_f;
             float hitBoxRadius,

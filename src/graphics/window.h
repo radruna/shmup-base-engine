@@ -46,12 +46,12 @@ namespace sbe
         public:
             Window(sf::VideoMode Mode, //The video mode of the window, used for res etc
                    ConfigReader* reader, //Loads all the settings and stuff
-                   bool respawned = 0, //If optionsmenu should be loaded first
+                   int respawned = 0, //If optionsmenu should be loaded first
                    unsigned long WindowStyle = sf::Style::Resize | sf::Style::Close, //Style of the window, used for fullscreen etc
                    const sf::WindowSettings& Params = sf::WindowSettings()); //Setting params, used for stuff like bit depth and AA
             ~Window();
 
-            bool exec(); //Main game loop, returns respawn
+            int exec(); //Main game loop, returns respawn
 
         private:
             static void select(void* object);
@@ -86,7 +86,7 @@ namespace sbe
                 gui->showConsole();
             }
 
-            void gameOver();
+            //void gameOver();
 
             void pauseGame();
             void flyShip(const Ship::Dir& dir)

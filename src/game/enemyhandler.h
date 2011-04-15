@@ -54,7 +54,7 @@ namespace sbe
             float enemyRadius(unsigned int index);
             float enemyXpos(unsigned int index);
             float enemyYpos(unsigned int index);
-            bool hitEnemy(unsigned int index);
+            int hitEnemy(unsigned int index);
 
             void loadSound(AudioHandler* audHandler)
             {

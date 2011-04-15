@@ -35,7 +35,7 @@ namespace sbe
             }
 
             //Handles the events and tells the actions that should act to act
-            void processEvents(const sf::Event& evt);
+            void processEvents(const sf::Event& evt, bool c = 0);
             void processInput(const sf::Input& input);
 
             void addAction(const std::string& name,

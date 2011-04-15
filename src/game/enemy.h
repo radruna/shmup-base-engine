@@ -63,8 +63,6 @@ namespace sbe
                         dir,
                         life;
             unsigned    i;
-        protected:
-            void Render(sf::RenderTarget& Target) const;
     };
 }
 

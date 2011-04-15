@@ -27,16 +27,6 @@ namespace sbe
         //safeDelete(hitbox);
     }
 
-    void Enemy::Render(sf::RenderTarget& Target) const
-    {
-        if(deathTimer == -1 || deathTimer >= deathDelay) Ship::Render(Target);
-
-        if(pSysDeath != NULL)
-        {
-            Target.Draw(*pSysDeath);
-        }
-    }
-
     void Enemy::update(const float elapsed)
     {
         if(pSysDeath != NULL)

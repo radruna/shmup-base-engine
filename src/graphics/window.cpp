@@ -30,12 +30,14 @@
 
 namespace sbe
 {
-    Window::Window(sf::VideoMode Mode, ConfigReader* reader, bool respawned, unsigned long WindowStyle, const sf::WindowSettings& Params)
-        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(reader->getRes()), respawn(false), pause(false)
+    Window::Window(sf::VideoMode Mode, ConfigReader* reader, int r, unsigned long WindowStyle, const sf::WindowSettings& Params)
+        : RenderWindow(Mode, reader->getSetting<std::string>("title"), WindowStyle, Params), res(reader->getRes()), respawn(0), pause(false)
     {
         /*
             Purpose: Constructor for sbe::Window.
         */
+        bool respawned = false;
+        if(r == 1) respawned = true;
         cfgReader = reader;
         SetFramerateLimit(cfgReader->getSetting<int>("limit_fps"));
         UseVerticalSync(cfgReader->getSetting<int>("vsync"));
@@ -49,7 +51,7 @@ namespace sbe
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
-        evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
+        //evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
         evtHandler->addAction("Console", sf::Key::Tab, this, console);
         gui = new Gui("scripts/assets/fonts.ast", res, this, exit);
         Logger::writeMsg(1) << "Handlers loaded!";
@@ -105,7 +107,7 @@ namespace sbe
         safeDelete(loli);
     }
 
-    bool Window::exec()
+    int Window::exec()
     {
         /*
             Purpose: Main game loop, IsOpened with a nicer name basically
@@ -134,7 +136,7 @@ namespace sbe
             sf::Event event;
             while(GetEvent(event))
             {
-                evtHandler->processEvents(event);
+                evtHandler->processEvents(event, gui->consoleShown());
 
                 if (event.Type == sf::Event::Closed)
                     Close();
@@ -144,7 +146,7 @@ namespace sbe
                     gui->type(event);
             }
 
-            evtHandler->processInput(GetInput());
+            if(!gui->consoleShown()) evtHandler->processInput(GetInput());
 
             gui->hover(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
 
@@ -166,19 +168,12 @@ namespace sbe
                         {
                             Logger::writeMsg(1) << "Hit";
 
-
-                            if(enmHandler->hitEnemy(n)) wpn1->removeProjectile(i);
-                            //enmHandler->removeEnemy(n);
-                            /*
-                            renderList.clear();
-                            renderList.push_back(stage);
-                            renderList.push_back(testShip);
-                            renderList.push_back(pSystem2);
-                            renderList.push_back(wpn1);
-                            renderList.push_back(gui);
-
-                            safeDelete(enm1);
-                            */
+                            int hit = enmHandler->hitEnemy(n);
+                            if(hit != -1)
+                            {
+                                wpn1->removeProjectile(i);
+                                if(hit == 0) gui->increaseScore();
+                            }
                         }
                     }
                 }
@@ -191,7 +186,16 @@ namespace sbe
                 for(int i = 0; i < enemyListSize; i++)
                 {
                     if((enmHandler->enemyRadius(i) + testShip->returnRadius()) >= sqrt(pow((enmHandler->enemyXpos(i) - testShip->GetPosition().x),2) + pow((enmHandler->enemyYpos(i) - testShip->GetPosition().y), 2)))
-                        testShip->kill();
+                    {
+                        Clear(sf::Color(0, 0, 0, 100));
+                        /*sf::String gameOver("Game Over", gui->getFont("consolas"), 40);
+                        gameOver.SetPosition(res.x / 2, res.y / 2);
+                        gameOver.SetColor(sf::Color(225, 200, 200, 255));
+                        Draw(gameOver);*/
+                        audHandler->stopMusic();
+                        sf::Sleep(5.f);
+                        return 2;
+                    }
                 }
             }
 
@@ -200,8 +204,13 @@ namespace sbe
                 if(!pause) (*it)->update(ElapsedTime);
             audHandler->update(ElapsedTime);
 
-            if(testShip != NULL && testShip->death()) gameOver();
-
+            if(testShip != NULL)
+            {
+                if(testShip->GetPosition().x < -10) testShip->SetPosition(-10, testShip->GetPosition().y);
+                if(testShip->GetPosition().x > (res.x - 100)) testShip->SetPosition(res.x - 100, testShip->GetPosition().y);
+                if(testShip->GetPosition().y < 0) testShip->SetPosition(testShip->GetPosition().x, 0);
+                if(testShip->GetPosition().y > (res.y - 105)) testShip->SetPosition(testShip->GetPosition().x, res.y - 105);
+            }
             Clear();
 
             // Draw stuff
@@ -391,7 +400,7 @@ namespace sbe
 
     void Window::applyOptions()
     {
-        respawn = true;
+        respawn = 1;
         Close();
     }
 
@@ -468,10 +477,5 @@ namespace sbe
             evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
             evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
         }
-    }
-
-    void Window::gameOver()
-    {
-
     }
 }

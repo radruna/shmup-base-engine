@@ -34,6 +34,16 @@ namespace sbe
         delete pSysDeath;
     }
 
+    void Ship::Render(sf::RenderTarget& Target) const
+    {
+        if(deathTimer == -1 || deathTimer >= deathDelay) Movable::Render(Target);
+
+        if(pSysDeath != NULL)
+        {
+            Target.Draw(*pSysDeath);
+        }
+    }
+
     void Ship::kill(float s)
     {
         pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );

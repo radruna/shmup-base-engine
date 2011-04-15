@@ -24,25 +24,29 @@
 namespace sbe
 {
     Gui::Gui(const std::string& fontFile, const sf::Vector2i& res, void* object, void (*exitFunc) (void* object))
-        : delMain(false), delOpt(false), delSec(false), delDia(false), showPause(false), showFps(true), fpsCount(0)
+        : delMain(false), delOpt(false), delSec(false), delDia(false), showPause(false), showFps(true), showDia(false), score(0), fpsCount(0)
     {
         loadFonts(fontFile);
 
-        fps = new sf::String("0", fonts["chiller"], 20);
+        fps = new sf::String("0", fonts["consolas"], 20);
         fps->SetPosition(10, 10);
         fps->SetColor(sf::Color::White);
-        fps2 = new sf::String("0", fonts["chiller"], 20);
+        fps2 = new sf::String("0", fonts["consolas"], 20);
         fps2->SetPosition(12, 12);
         fps2->SetColor(sf::Color(0, 0, 0, 150));
 
-        pauseStr = new sf::String("Paused", fonts["chiller"], 30);
+        pauseStr = new sf::String("Paused", fonts["consolas"], 30);
         pauseStr->SetCenter(pauseStr->GetRect().GetWidth() / 2, pauseStr->GetRect().GetHeight() / 2);
         pauseStr->SetPosition(res.x / 2, (res.y - 50) / 2);
         pauseStr->SetColor(sf::Color::White);
-        pauseStrShadow = new sf::String("Paused", fonts["chiller"], 30);
+        pauseStrShadow = new sf::String("Paused", fonts["consolas"], 30);
         pauseStrShadow->SetCenter(pauseStrShadow->GetRect().GetWidth() / 2, pauseStrShadow->GetRect().GetHeight() / 2);
         pauseStrShadow->SetPosition((res.x / 2) + 2, ((res.y - 50) / 2) + 2);
         pauseStrShadow->SetColor(sf::Color(0, 0, 0, 150));
+
+        scoreShow = new sf::String("Score: 0", fonts["consolas"], 26);
+        scoreShow->SetPosition(10, res.y - 40);
+        scoreShow->SetColor(sf::Color::White);
 
         mainMenu = NULL;
         optionsMenu = NULL;
@@ -51,6 +55,7 @@ namespace sbe
         console = new Console(res, fonts["consolas"]);
         console->addCommand("exit", "Exit the game.", object, exitFunc);
         console->addCommand("showfps", "Display the frames per second counter.", this, frames);
+        console->addCommand("showdia", "Display the dialog panel.", this, dialog);
     }
 
     Gui::~Gui()
@@ -130,7 +135,7 @@ namespace sbe
                 optionsMenu->click(mousePos);
             if(selectMenu != NULL && !delMain)
                 selectMenu->click(mousePos);
-            if(diagPanel != NULL)
+            if(showDia && diagPanel != NULL)
                 diagPanel->click(mousePos);
         }
 
@@ -177,7 +182,7 @@ namespace sbe
                 optionsMenu->hover(mousePos);
             if(selectMenu != NULL)
                 selectMenu->hover(mousePos);
-            if(diagPanel != NULL)
+            if(showDia && diagPanel != NULL)
                 diagPanel->hover(mousePos);
         }
     }
@@ -230,7 +235,7 @@ namespace sbe
             target.Draw(*optionsMenu);
         if(selectMenu != NULL)
             target.Draw(*selectMenu);
-        if(diagPanel != NULL)
+        if(showDia && diagPanel != NULL)
             target.Draw(*diagPanel);
 
         if(showFps)
@@ -245,6 +250,11 @@ namespace sbe
             target.Draw(*pauseStr);
         }
 
+        if(diagPanel != NULL)
+        {
+            target.Draw(*scoreShow);
+        }
+
         if(console->isShown())
             target.Draw(*console);
     }
@@ -256,6 +266,15 @@ namespace sbe
 
         //Call member
         self->showFrames(args);
+    }
+
+    void Gui::dialog(void* object, StrVec args)
+    {
+        //Explicitly cast to a pointer to Gui
+        Gui* self = (Gui*) object;
+
+        //Call member
+        self->showDialog(args);
     }
 
     void Gui::loadFonts(const std::string& fontFile)

@@ -17,12 +17,12 @@ namespace sbe
     }
 
     //Handles the events and tells the actions that should act to act
-    void EventHandler::processEvents(const sf::Event& evt)
+    void EventHandler::processEvents(const sf::Event& evt, bool c)
     {
         if(evt.Type == sf::Event::KeyReleased)
         {
             for(actionMap::iterator it = actions.begin(); it != actions.end(); it++)
-                isKeyReleased(it->second.getKey(), evt) ? it->second.act() : it->second.act(1);
+                if(!c || it->first == "Console") isKeyReleased(it->second.getKey(), evt) ? it->second.act() : it->second.act(1);
         }
     }
 

@@ -25,10 +25,11 @@ int main()
     sbe::ConfigReader *cfgReader = new sbe::ConfigReader();
     sbe::Logger::init(cfgReader->getSetting<int>("log"));
     sbe::Window *mainWindow;
-    bool respawn = false;
+    int respawn = 0;
 
     do
     {
+        respawn = 0;
         //Create the main window
         if(cfgReader->getSetting<int>("fullscreen"))
             mainWindow = new sbe::Window(sf::VideoMode(cfgReader->getRes().x, cfgReader->getRes().y), cfgReader, respawn, sf::Style::Fullscreen);
@@ -38,7 +39,7 @@ int main()
         respawn = mainWindow->exec();
 
         safeDelete(mainWindow);
-    }while(respawn); //While the mainWindow wants to respawn
+    }while(respawn != 0); //While the mainWindow wants to respawn
 
     sbe::Logger::close();
 

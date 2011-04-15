@@ -105,15 +105,39 @@ namespace sbe
 
             void pause();
 
+            bool consoleShown()
+            {
+                return console->isShown();
+            }
+
+            void increaseScore()
+            {
+                score += 100;
+                scoreStr << "Score: " << score;
+                scoreShow->SetText(scoreStr.str());
+                scoreStr.str("");
+            }
+
+            sf::Font getFont(const std::string& name)
+            {
+                return fonts[name];
+            }
+
         protected:
             void Render(sf::RenderTarget& target) const;
 
         private:
             static void frames(void* object, StrVec args);
+            static void dialog(void* object, StrVec args);
             void showFrames(StrVec args)
             {
                 if(args[0] == "1" || args[0] == "true") showFps = true;
                 else if(args[0] == "0" || args[0] == "false") showFps = false;
+            }
+            void showDialog(StrVec args)
+            {
+                if(args[0] == "1" || args[0] == "true") showDia = true;
+                else if(args[0] == "0" || args[0] == "false") showDia = false;
             }
             void loadFonts(const std::string& fontFile);
             void unloadFonts()
@@ -126,7 +150,8 @@ namespace sbe
                   delSec,
                   delDia,
                   showPause,
-                  showFps;
+                  showFps,
+                  showDia;
             sbe::MainMenu *mainMenu;
             sbe::OptionsMenu *optionsMenu;
             sbe::SelectMenu *selectMenu;
@@ -136,7 +161,10 @@ namespace sbe
             FontMap fonts;
             sf::String *fps;
             sf::String *fps2;
+            int score;
+            sf::String *scoreShow;
             std::stringstream fpsStr;
+            std::stringstream scoreStr;
             sf::String *pauseStr,
                        *pauseStrShadow;
             short fpsCount;

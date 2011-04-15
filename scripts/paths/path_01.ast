@@ -2,7 +2,7 @@
 
 path
 {
-"movement_speed"					"100"
+"movement_speed"					"150"
 "movement_duration" 				"4"
 "start_angle"						"180"
 "stop_angle"						"180"
