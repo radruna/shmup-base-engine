@@ -20,44 +20,25 @@ namespace sbe
     {
         public:
             Enemy()
-                //: hitbox(NULL)
+                : Ship::Ship()
             {}
             Enemy(
                 ImageHandler* imgHandler,
                 const std::string spriteName,
                 Path pth,
                 float r,
-                std::string pSysDeath,
-
+                std::string pSysExpl,
                 int l,
-
                 float scale_x,
                 float scale_y
-
             );
             ~Enemy();
             void update(const float elapsed);
-            void kill(float s = 0.5);
             float xPos();
             float yPos();
-            bool death()
-            {
-                if(deathTimer != -1 && deathTimer <= 0) return true;
-
-                return false;
-            }
-            bool readyToDie()
-            {
-                if(deathTimer != -1) return true;
-
-                return false;
-            }
             float isDead();
             void hit();
         private:
-
-            ParticleSystem *pSysDeath;
-            std::string pSysDeath_f;
 
             //Hitbox* hitbox;
             Path path;
@@ -77,9 +58,7 @@ namespace sbe
                         rotationTime,
                         angleTime,
                         angle,
-                        speed,
-                        deathTimer,
-                        deathDelay;
+                        speed;
             int         orientDir,
                         dir,
                         life;

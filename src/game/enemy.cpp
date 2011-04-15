@@ -12,18 +12,13 @@
 namespace sbe
 {
     Enemy::Enemy(ImageHandler* imgHandler, const std::string spriteName, Path pth, float r, std::string pSysExpl, int l, float scale_x, float scale_y)
-    : Ship(spriteName, imgHandler), deathDelay(0)
+    : Ship(spriteName, imgHandler, pSysExpl, r)
     {
-        pSysDeath = NULL;
-        pSysDeath_f = pSysExpl;
-        hitBoxRadius = r;
         path = pth;
         i = 0;
         sbe::Sprite::SetCenter(sbe::Sprite::GetSize().x/2, sbe::Sprite::GetSize().y/2);
-        deathTimer = -1;
         life = l;
         sbe::Sprite::SetScale(scale_x, scale_y);
-        deathTimer = -1;
         //hitbox = new Hitbox(hitBoxRadius);
     }
 
@@ -40,14 +35,6 @@ namespace sbe
         {
             Target.Draw(*pSysDeath);
         }
-    }
-
-    void Enemy::kill(float s)
-    {
-        pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
-        pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
-        deathTimer = s;
-        deathDelay = s - 0.1;
     }
 
     void Enemy::update(const float elapsed)
@@ -85,7 +72,6 @@ namespace sbe
         stopMax = path.getVector()[i].stopMax;
 
         if(deathTimer != -1){
-            Logger::writeMsg(1) << "Nu";
             deathTimer -= elapsed;
         }
 
@@ -201,6 +187,5 @@ namespace sbe
         SetColor( col );
 
         life--;
-        Logger::writeMsg(1) << life;
     }
 }

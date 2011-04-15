@@ -415,7 +415,10 @@ namespace sbe
         if(it->readyToDie()) return false;
         it->hit();
         if(it->isDead())
+        {
             it->kill();
+            deathSound.Play();
+        }
 
         return true;
     }

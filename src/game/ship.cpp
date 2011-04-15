@@ -15,20 +15,31 @@
 
 namespace sbe
 {
-    Ship::Ship(const sf::Image& img, float r, const int max, const unsigned int dMod, const unsigned int oMod)
-        : Movable(img, 0, 0), hitBoxRadius(r), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
+    Ship::Ship(const sf::Image& img, const std::string& pSysExpl, float r, const int max, const unsigned int dMod, const unsigned int oMod)
+        : Movable(img, 0, 0), hitBoxRadius(r), deathTimer(-1), deathDelay(0), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
     {
-
+        pSysDeath = NULL;
+        pSysDeath_f = pSysExpl;
     }
 
-    Ship::Ship(const std::string& imgStr, ImageHandler* iHandler, float r, const int max, const unsigned int dMod, const unsigned int oMod)
-        : Movable(imgStr, iHandler, 0, 0), hitBoxRadius(r), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
+    Ship::Ship(const std::string& imgStr, ImageHandler* iHandler, const std::string& pSysExpl, float r, const int max, const unsigned int dMod, const unsigned int oMod)
+        : Movable(imgStr, iHandler, 0, 0), hitBoxRadius(r), deathTimer(-1), deathDelay(0), speedV(0, 0), maxSpeed(max), modifier(dMod), xDir(0), yDir(0), defMod(dMod), otherMod(oMod)
     {
+        pSysDeath = NULL;
+        pSysDeath_f = pSysExpl;
     }
 
     Ship::~Ship()
     {
+        delete pSysDeath;
+    }
 
+    void Ship::kill(float s)
+    {
+        pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
+        pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
+        deathTimer = s;
+        deathDelay = s - 0.1;
     }
 
     void Ship::update(const float& elapsed)
@@ -38,6 +49,14 @@ namespace sbe
             It checks the previously set xDir and yDir vars and checks the current speed
             which makes for a nice flying algorithm.
         */
+        if(pSysDeath != NULL)
+        {
+            pSysDeath->update(elapsed);
+        }
+        if(deathTimer != -1){
+            deathTimer -= elapsed;
+            return;
+        }
         //Use angle method instead
         if(xDir == -1 && speedV.x > (maxSpeed * -1))
             speedV.x--;

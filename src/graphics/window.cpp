@@ -110,7 +110,6 @@ namespace sbe
             Purpose: Main game loop, IsOpened with a nicer name basically
         */
 
-        sf::Sound laser(audHandler->getSound("laser"));
 
         while(IsOpened())
         {
@@ -181,10 +180,23 @@ namespace sbe
                 }
             }
 
+            if(testShip != NULL && !testShip->readyToDie())
+            {
+                int enemyListSize = enmHandler->enemyListSize();
+
+                for(int i = 0; i < enemyListSize; i++)
+                {
+                    if((enmHandler->enemyRadius(i) + testShip->returnRadius()) >= sqrt(pow((enmHandler->enemyXpos(i) - testShip->GetPosition().x),2) + pow((enmHandler->enemyYpos(i) - testShip->GetPosition().y), 2)))
+                        testShip->kill();
+                }
+            }
+
             //Update everything
             for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)
                 if(!pause) (*it)->update(ElapsedTime);
             audHandler->update(ElapsedTime);
+
+            if(testShip != NULL && testShip->death()) gameOver();
 
             Clear();
 
@@ -403,7 +415,8 @@ namespace sbe
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
-            testShip = new sbe::Ship("player_s", imgHandler);
+            enmHandler->loadSound(audHandler);
+            testShip = new sbe::Ship("player_s", imgHandler, "explosion_01");
             //*ships["testShip"] = *testShip;
             testShip->SetPosition(75, cfgReader->getRes().y / 2 - testShip->GetSize().y / 2);
             testShip->SetScale(1.5,1.5);
@@ -449,5 +462,10 @@ namespace sbe
             evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
             evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
         }
+    }
+
+    void Window::gameOver()
+    {
+
     }
 }

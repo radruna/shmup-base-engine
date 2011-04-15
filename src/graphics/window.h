@@ -86,6 +86,8 @@ namespace sbe
                 gui->showConsole();
             }
 
+            void gameOver();
+
             void pauseGame();
             void flyShip(const Ship::Dir& dir)
             {

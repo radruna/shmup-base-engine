@@ -17,6 +17,7 @@
 
 #include "../sys/filehandler.h" //Abstract base class
 #include "../graphics/particlesystem.h" //Particle system
+#include "../audio/audiohandler.h"
 
 #include "../game/enemy.h"
 #include "../game/path.h"
@@ -55,6 +56,11 @@ namespace sbe
             float enemyYpos(unsigned int index);
             bool hitEnemy(unsigned int index);
 
+            void loadSound(AudioHandler* audHandler)
+            {
+                deathSound = sf::Sound(audHandler->getSound("explosion_1"));
+            }
+
         private:
             //Enemy list
             std::map<std::string, Enemy> enemyMap;
@@ -65,6 +71,7 @@ namespace sbe
             sf::Vector2i res;
             float scale_x;
             float scale_y;
+            sf::Sound deathSound;
 
         protected:
             ImageHandler* imgHandler;
