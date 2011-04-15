@@ -122,7 +122,8 @@ namespace sbe
             sf::Vector2i res;
             bool respawn,
                  pause,
-                 menu;
+                 menu,
+                 displayText;
 
             RenderList renderList;
             std::list<Projectile> projectileList;
