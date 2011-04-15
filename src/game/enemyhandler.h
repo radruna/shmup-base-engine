@@ -59,6 +59,7 @@ namespace sbe
             void loadSound(AudioHandler* audHandler)
             {
                 deathSound = sf::Sound(audHandler->getSound("explosion_1"));
+                deathSound.SetVolume( audHandler->getSFXVol() );
             }
 
         private:

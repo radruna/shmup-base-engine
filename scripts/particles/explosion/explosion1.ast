@@ -1,4 +1,4 @@
-//----------------------------------------------------------
+ //----------------------------------------------------------
 //						Generic explosion
 //----------------------------------------------------------
 
@@ -21,8 +21,8 @@
 //Emission parameters
 "emission_type"						"2"						//Not implemented yet.	1 = continuous, 2 = instant
 "emission_rate"						"2000"					//Particles per second
-"emission_max"						"40"					//Not implemented yet.	Particles to emit if type = 2
-"emission_force_min"				"75"					//Emission force minimum
+"emission_max"						"100"					//Not implemented yet.	Particles to emit if type = 2
+"emission_force_min"				"200"					//Emission force minimum
 "emission_force_max"				"1800"					//Emission force maximum
 "emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
 "emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
@@ -36,13 +36,13 @@
 //Size parameters
 "size_min"							"0.1"					//Scale minimum
 "size_max"							"1"					//Scale maximum
-"size_ratio"						"1"						//x/y ratio. 1 = normal
+"size_ratio"						"0.35"						//x/y ratio. 1 = normal
 
 //Rotation parameters
 "rotation_rate_min"					"-0"					//Rotation rate minimum
 "rotation_rate_max"					"0"						//Rotation rate maximum
 "rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
-"rotation_align"					"0"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
 "rotation"							"0"						//If not random, then this
 
 //Fade parameters
