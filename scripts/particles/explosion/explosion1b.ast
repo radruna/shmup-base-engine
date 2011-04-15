@@ -11,8 +11,8 @@
 
 //Color parameters
 "initial_color_r"					"255"
-"initial_color_g"					"0"
-"initial_color_b"					"0"
+"initial_color_g"					"255"
+"initial_color_b"					"255"
 
 
 

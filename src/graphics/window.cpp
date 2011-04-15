@@ -82,6 +82,7 @@ namespace sbe
 
         !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
+        displayText = false;
     }
 
     Window::~Window()
@@ -115,17 +116,20 @@ namespace sbe
         {
             Logger::write();
 
-            if(text1->GetScale().x > 1)
-                text1->SetScale(text1->GetScale().x * 0.96, text1->GetScale().y * 0.96);
-            else if(text1->GetAlpha() > 0)
-                text1->SetAlpha(text1->GetAlpha() - 10);
-            else if(text2->GetScale().x > 1)
+            if(displayText)
             {
-                text2->SetAlpha(255);
-                text2->SetScale(text2->GetScale().x * 0.92, text2->GetScale().y * 0.92);
+                if(text1->GetScale().x > 1)
+                    text1->SetScale(text1->GetScale().x * 0.9, text1->GetScale().y * 0.9);
+                else if(text1->GetAlpha() > 0)
+                    text1->SetAlpha(text1->GetAlpha() - 6);
+                else if(text2->GetScale().x > 1)
+                {
+                    text2->SetAlpha(255);
+                    text2->SetScale(text2->GetScale().x * 0.9, text2->GetScale().y * 0.9);
+                }
+                else if(text2->GetAlpha() > 0)
+                    text2->SetAlpha(text2->GetAlpha() - 5);
             }
-            else if(text2->GetAlpha() > 0)
-                text2->SetAlpha(text2->GetAlpha() - 5);
 
             sf::Event event;
             while(GetEvent(event))
@@ -412,6 +416,8 @@ namespace sbe
             menu = false;
             gui->deleteSelectMenu();
             renderList.pop_back();
+
+            displayText = true;
 
             stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
 
