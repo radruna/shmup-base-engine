@@ -2,7 +2,7 @@
 / Select menu
 / Author: Victor Rådmark
 / Created: 2011-03-12
-/ Updated: 2011-03-23
+/ Updated: 2011-05-19
 / License: GPL v3
 */
 #ifndef SELECTMENU_H_INCLUDED
@@ -16,12 +16,12 @@
 
 namespace sbe
 {
-    class SelectMenu : public sbe::Menu
+    class SelectMenu : public sbe::Menu, public sbe::FileHandler
     {
         public:
             SelectMenu();
             SelectMenu(void* callObject,
-                       void (*loadFunction) (void* object, int map),
+                       void (*loadFunction) (void* object, const std::string& map),
                        void (*backFunction) (void* object),
                        ConfigReader* cReader,
                        const sf::Vector2i& r,
@@ -29,12 +29,14 @@ namespace sbe
             ~SelectMenu() {}
 
         private:
-            static void loadLevel(void* object, const std::string& name);
+            static void loadLevel(void* object, const std::string& map);
 
-            void load(int map = 0);
+            void load(const std::string& map = "");
+
+            void loadMaps(const sf::Font& font, const std::string& mapFile);
 
             void *funcObject;
-            void (*loadFunc) (void* object, int map);
+            void (*loadFunc) (void* object, const std::string& map);
     };
 }
 

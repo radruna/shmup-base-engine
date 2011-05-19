@@ -84,7 +84,7 @@ namespace sbe
         optionsMenu = new OptionsMenu(callObject, applyFunction, backFunction, psFile, imgHandler, cReader, r, fonts["consolas"], psPos, next);
     }
 
-    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, int map), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r)
+    void Gui::createSelectMenu(void* callObject, void (*selectFunction) (void* object, const std::string& map), void (*backFunction) (void* object), ConfigReader* cReader, const sf::Vector2i& r)
     {
         selectMenu = new SelectMenu(callObject, selectFunction, backFunction, cReader, r, fonts["consolas"]);
     }

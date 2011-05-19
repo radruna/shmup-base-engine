@@ -50,7 +50,7 @@ namespace sbe
         std::string pSysDeath = "none";
         int life = 1;
         //float moveSpeed;
-        float radius;
+        float radius = 1;
         Path::pathContent stats;
 
 

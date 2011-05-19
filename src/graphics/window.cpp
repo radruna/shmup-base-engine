@@ -2,7 +2,7 @@
 / The rendering window class
 / Author: Victor Rådmark
 / File created: 2010-11-14
-/ File updated: 2011-04-12
+/ File updated: 2011-05-19
 / License: GPLv3
 */
 #include <string> //For strings
@@ -51,16 +51,11 @@ namespace sbe
         audHandler->setMusicVol(cfgReader->getSetting<short>("music_volume"));
         audHandler->setSFXVol(cfgReader->getSetting<short>("sfx_volume"));
         evtHandler = new EventHandler();
-        //evtHandler->addAction("Exit", sf::Key::Escape, this, exit);
         evtHandler->addAction("Console", sf::Key::Tab, this, console);
         gui = new Gui("scripts/assets/fonts.ast", res, this, exit);
         Logger::writeMsg(1) << "Handlers loaded!";
 
         imgHandler->loadAssets("scripts/assets/system_images.ast");
-        //enmHandler->loadAssets("scripts/assets/test_enemies.ast");
-        //imgHandler->loadAssets("scripts/assets/images.ast");
-        //audHandler->loadMusic("scripts/assets/music.ast");
-        //audHandler->loadSound("scripts/assets/sound.ast");
         Logger::writeMsg(1) << "\nAssets loaded!";
         testShip = NULL;
         pSystem2 = NULL;
@@ -156,7 +151,7 @@ namespace sbe
             //Get elapsed time since last frame to ensure constant speed
             float ElapsedTime = GetFrameTime();
 
-            if(wpn1 != NULL && enm1 != NULL)
+            if(wpn1 != NULL)
             {
                 int projectileSize = wpn1->projectileSize();
                 int enemyListSize = enmHandler->enemyListSize();
@@ -193,7 +188,7 @@ namespace sbe
                         gameOver.SetColor(sf::Color(225, 200, 200, 255));
                         Draw(gameOver);*/
                         audHandler->stopMusic();
-                        sf::Sleep(5.f);
+                        sf::Sleep(1.f);
                         return 2;
                     }
                 }
@@ -233,7 +228,7 @@ namespace sbe
         self->showSelect();
     }
 
-    void Window::load(void* object, int map)
+    void Window::load(void* object, const std::string& map)
     {
         //Explicitly cast to a pointer to Window
         Window* self = (Window*) object;
@@ -418,32 +413,28 @@ namespace sbe
         gui->pause();
     }
 
-    void Window::loadStuff(int map)
+    void Window::loadStuff(const std::string& map)
     {
-        if(map == 1)
-        {
-            menu = false;
-            gui->deleteSelectMenu();
-            renderList.pop_back();
 
+        menu = false;
+        gui->deleteSelectMenu();
+        renderList.pop_back();
+
+        std::string mapStr = "scripts/maps/" + map;
+        stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, mapStr);
+        enmHandler->loadSound(audHandler);
+
+        //Custom stuff for each map, durr
+        if(map.compare("test_map.ast") == 0)
+        {
             displayText = true;
 
-            stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, "scripts/maps/test_map.ast");
-
-            enmHandler->loadSound(audHandler);
             testShip = new sbe::Ship("player_s", imgHandler, "explosion_01");
-            //*ships["testShip"] = *testShip;
             testShip->SetPosition(75, cfgReader->getRes().y / 2 - testShip->GetSize().y / 2);
             testShip->SetScale(1.5,1.5);
-            //testShip->SetCenter( testShip->GetSize().x / 2, testShip->GetSize().y / 2 );
             testShip->SetRotation(0);
-            //testShip->SetScale(0.5, 0.5);
-            //testShip->SetAlpha(0);
 
             pSystem2 = new ParticleSystem("scripts/particles/plasma_blast.ast", imgHandler, cfgReader->getSetting<float>("ps_reload"));
-            //scroll = new Background(cfgReader, "scripts/maps/background/bg_foggy.ast", imgHandler);
-            enm1 = new Enemy(enmHandler->getEnemy("enemy1"));
-            enm1->SetPosition(1000, 100);
             wpn1 = new Weapon("scripts/weapons/test_wpn.ast", imgHandler, cfgReader, audHandler);
 
             std::vector<std::string> diag;
@@ -453,29 +444,24 @@ namespace sbe
             diag.push_back("Well I'm alone now... In our 'special place'...");
             diag.push_back("Waiting for you...");
             gui->createDialogPanel(res, diag);
-
-            //renderList.push_back(scroll);
-
-            renderList.push_back(stage);
-            renderList.push_back(testShip);
-            renderList.push_back(wpn1);
-            renderList.push_back(pSystem2);
-            renderList.push_back(testShip);
-            renderList.push_back(text1);
-            renderList.push_back(text2);
-            renderList.push_back(gui);
-            //renderList.push_back(enmHandler->getEnemy("enemy1"));
-
-            audHandler->setMusic("loli2");
-
-            evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
-
-            evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
-            evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
-            evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
-            evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
-            evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
-            evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
         }
+
+        renderList.push_back(stage);
+        renderList.push_back(testShip);
+        renderList.push_back(wpn1);
+        if(map == "test_map.ast") renderList.push_back(pSystem2);
+        renderList.push_back(testShip);
+        renderList.push_back(text1);
+        renderList.push_back(text2);
+        renderList.push_back(gui);
+
+        evtHandler->addAction("Pause", sf::Key::P, this, pauseG);
+
+        evtHandler->addInputAction("Mod", sf::Key::LShift, this, othShipMod, defShipMod);
+        evtHandler->addInputAction("Right", sf::Key::Right, this, flyR);
+        evtHandler->addInputAction("Left", sf::Key::Left, this, flyL);
+        evtHandler->addInputAction("Up", sf::Key::Up, this, flyU);
+        evtHandler->addInputAction("Down", sf::Key::Down, this, flyD);
+        evtHandler->addInputAction("Fire", sf::Key::Space, this, startFire, stopFire);
     }
 }
