@@ -20,7 +20,6 @@
 
 namespace sbe
 {
-
     Stage::Stage
     (
         ConfigReader* configReader,
@@ -28,7 +27,8 @@ namespace sbe
         AudioHandler* audioHandler,
         EnemyHandler* enemyHandler,
         ParticleHandler* particleHandler,
-        const std::string& stageScriptFile
+        const std::string& stageScriptFile,
+        sf::Color* clearClr
     )
 
     {
@@ -44,6 +44,8 @@ namespace sbe
         prcHandler = particleHandler;
         //Save stage file
         stageFile = stageScriptFile;
+
+        clearColor = clearClr;
 
         eventPos = 0;
         eventCounter = 0;
@@ -274,6 +276,14 @@ namespace sbe
                     else if(quote == "fin")
                     {
                         //HOLY SHIT YOU WON
+                    }
+                    else if(quote == "change_color")
+                    {
+                        std::string what = nextQuote(eventList.at(eventPos));
+                         if(clearColor->r == 255)
+                            *clearColor = sf::Color(15, 15, 15, 255);
+                        else
+                            *clearColor = sf::Color::White;
                     }
                 }
                 eventPos++;

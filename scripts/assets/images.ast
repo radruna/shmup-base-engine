@@ -16,6 +16,7 @@
 "landscape"			"assets/image/backgrounds/foggy/landscape.jpg"
 "rain"			"assets/image/backgrounds/rain.png"
 "hil"	"assets/image/hilarious.jpg"
+"particle_2" "assets/image/particle2.png"
 
 "player_s"		"assets/sbe/player.png"
 "enemy_01_s"	"assets/sbe/enemy1.png"
@@ -24,3 +25,10 @@
 "enemy_04_s"	"assets/sbe/enemy4.png"
 
 "bg_sbe"		"assets/sbe/bg_stars.png"
+"bg_ano"        "assets/another/bg_stars.png"
+
+"player_a"		"assets/another/player.png"
+"enemy_01_a"	"assets/another/enemy1.png"
+"enemy_02_a"	"assets/another/enemy2.png"
+"enemy_03_a"	"assets/another/enemy3.png"
+"enemy_04_a"	"assets/another/enemy4.png"

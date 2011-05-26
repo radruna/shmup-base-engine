@@ -39,7 +39,8 @@ namespace sbe
                 AudioHandler* audioHandler,
                 EnemyHandler* enemyHandler,
                 ParticleHandler* particleHandler,
-                const std::string& stageFile
+                const std::string& stageFile,
+                sf::Color* clearColor
             );
             ~Stage()
             {
@@ -59,6 +60,7 @@ namespace sbe
             std::vector <std::string> eventList;
             unsigned int eventPos;
             float eventCounter;
+            sf::Color* clearColor;
 
     };
 }

@@ -1,0 +1,29 @@
+//----------------------------------------------------------
+//						Generic blaster
+//----------------------------------------------------------
+"name"								"wpn1"			//Weapon name
+"sprite_name"						"particle_2"			//Sprite to use. Needs to be loaded by asset file
+"particle_system"					"scripts/particles/trails/smoke_1_a.ast"
+
+"hitbox_radius"						"25"
+
+"firing_sound"						"none"
+
+"shots_per_wave"					"1"
+"waves_per_attack"					"1"				
+
+"emission_rate"						"5"					//Projectiles per second
+
+"emission_angle_min"				"0"					//Emission angle minimum
+"emission_angle_max"				"0"					//Emission angle maximum
+"emission_angle_random"				"0"
+
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation"							"90"						//If not random, then this
+
+"emission_force_min"				"1000"					//Emission force minimum
+"emission_force_max"				"1000"					//Emission force maximum
+
+"size_min"							"0.2"					//Scale minimum
+"size_max"							"0.2"					//Scale maximum
+"size_ratio"						"4"					//x/y ratio. 1 = normal

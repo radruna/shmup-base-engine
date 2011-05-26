@@ -458,6 +458,28 @@ namespace sbe
                     projectileList.push_back( Projectile(imageHandler, configReader, xPos, yPos, sprite, emissionAngle, emissionForce, pSystemFile, radie ));
                     //Handle size/ratio
                     projectileList.back().SetScale(scale, scale * sizeRatio);
+                    int setColors = sf::Randomizer::Random(1, 6);
+                    switch(setColors)
+                    {
+                        case 1:
+                            projectileList.back().setColor(100, 100, 0);
+                            break;
+                        case 2:
+                            projectileList.back().setColor(100, 0, 100);
+                            break;
+                        case 3:
+                            projectileList.back().setColor(0, 100, 100);
+                            break;
+                        case 4:
+                            projectileList.back().setColor(100, 0, 0);
+                            break;
+                        case 5:
+                            projectileList.back().setColor(0, 100, 0);
+                            break;
+                        case 6:
+                            projectileList.back().setColor(0, 0, 100);
+                            break;
+                    }
 
                     if(sndKeyFiring == "none")
                     {}

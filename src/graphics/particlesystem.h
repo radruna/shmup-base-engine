@@ -54,12 +54,27 @@ namespace sbe
             void turnOff();
             void kill();
 
+            void setColor(int r, int g, int b, int modR = -1, int modG = -1, int modB = -1)
+            {
+                manualColor = true;
+                colorInitial.r = r;
+                colorInitial.g = g;
+                colorInitial.b = b;
+                if(modR != -1)
+                {
+                    colorModified.r = r;
+                    colorModified.g = g;
+                    colorModified.b = b;
+                }
+            }
+
         protected:
             void Render(sf::RenderTarget& Target) const;
 
         private:
             bool isChild;
             bool on;
+            bool manualColor;
             ImageHandler *imageHandler;
             std::string scriptFile;
             std::string fileContents;

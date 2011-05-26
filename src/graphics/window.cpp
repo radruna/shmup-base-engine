@@ -65,6 +65,8 @@ namespace sbe
         enm1 = NULL;
         stage = NULL;
 
+        clearColor = sf::Color::Black;
+
         text1 = new Movable(imgHandler->getImage("text_getready"));
         text1->SetCenter(text1->GetSize().x / 2, text1->GetSize().y / 2);
         text1->SetScale(20, 20);
@@ -80,6 +82,7 @@ namespace sbe
         !respawned ? gui->createMainMenu(this, select, options, hiscore, credits, exit, "scripts/particles/menu/mainmenu.ast", imgHandler, cfgReader, res) : gui->createOptionsMenu(this, apply, back, "scripts/particles/menu/options.ast", imgHandler, cfgReader, res);
         renderList.push_back(gui);
         displayText = false;
+        gameOver = false;
     }
 
     Window::~Window()
@@ -145,68 +148,78 @@ namespace sbe
 
             gui->hover(sf::Vector2i(GetInput().GetMouseX(), GetInput().GetMouseY()));
 
-            if(pSystem2 != NULL && !pause) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-            if(wpn1 != NULL && !pause) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
-
-            //Get elapsed time since last frame to ensure constant speed
-            float ElapsedTime = GetFrameTime();
-
-            if(wpn1 != NULL)
+            if(!gameOver)
             {
-                int projectileSize = wpn1->projectileSize();
-                int enemyListSize = enmHandler->enemyListSize();
-                for(int i=0; i<projectileSize; i++)
-                {
-                    for(int n=0; n<enemyListSize; n++)
-                    {
-                        if((enmHandler->enemyRadius(n) + wpn1->projectileRadius(i)) >= sqrt(pow((enmHandler->enemyXpos(n) - wpn1->projectileXpos(i)),2) + pow((enmHandler->enemyYpos(n) - wpn1->projectileYpos(i)),2)))
-                        {
-                            Logger::writeMsg(1) << "Hit";
+                if(pSystem2 != NULL && !pause) pSystem2->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
+                if(wpn1 != NULL && !pause) wpn1->SetPosition(testShip->GetPosition().x + testShip->GetSize().x / 2, testShip->GetPosition().y + testShip->GetSize().y / 2);
 
-                            int hit = enmHandler->hitEnemy(n);
-                            if(hit != -1)
+                //Get elapsed time since last frame to ensure constant speed
+                float ElapsedTime = GetFrameTime();
+
+                if(wpn1 != NULL)
+                {
+                    int projectileSize = wpn1->projectileSize();
+                    int enemyListSize = enmHandler->enemyListSize();
+                    for(int i=0; i<projectileSize; i++)
+                    {
+                        for(int n=0; n<enemyListSize; n++)
+                        {
+                            if((enmHandler->enemyRadius(n) + wpn1->projectileRadius(i)) >= sqrt(pow((enmHandler->enemyXpos(n) - wpn1->projectileXpos(i)),2) + pow((enmHandler->enemyYpos(n) - wpn1->projectileYpos(i)),2)))
                             {
-                                wpn1->removeProjectile(i);
-                                if(hit == 0) gui->increaseScore();
+                                Logger::writeMsg(1) << "Hit";
+
+                                int hit = enmHandler->hitEnemy(n);
+                                if(hit != -1)
+                                {
+                                    wpn1->removeProjectile(i);
+                                    if(hit == 0) gui->increaseScore();
+                                }
                             }
                         }
                     }
                 }
-            }
 
-            if(testShip != NULL && !testShip->readyToDie())
-            {
-                int enemyListSize = enmHandler->enemyListSize();
-
-                for(int i = 0; i < enemyListSize; i++)
+                if(testShip != NULL && !testShip->readyToDie())
                 {
-                    if((enmHandler->enemyRadius(i) + testShip->returnRadius()) >= sqrt(pow((enmHandler->enemyXpos(i) - testShip->GetPosition().x),2) + pow((enmHandler->enemyYpos(i) - testShip->GetPosition().y), 2)))
+                    int enemyListSize = enmHandler->enemyListSize();
+
+                    for(int i = 0; i < enemyListSize; i++)
                     {
-                        Clear(sf::Color(0, 0, 0, 100));
-                        /*sf::String gameOver("Game Over", gui->getFont("consolas"), 40);
-                        gameOver.SetPosition(res.x / 2, res.y / 2);
-                        gameOver.SetColor(sf::Color(225, 200, 200, 255));
-                        Draw(gameOver);*/
-                        audHandler->stopMusic();
-                        sf::Sleep(1.f);
-                        return 2;
+                        if((enmHandler->enemyRadius(i) + testShip->returnRadius()) >= sqrt(pow((enmHandler->enemyXpos(i) - testShip->GetPosition().x),2) + pow((enmHandler->enemyYpos(i) - testShip->GetPosition().y), 2)))
+                        {
+                            gameOver = true;
+                            (clearColor == sf::Color::Black) ? clearColor = sf::Color(1, 1, 1, 255) : clearColor = sf::Color(226, 226, 226, 255);
+                        }
                     }
+                }
+
+                //Update everything
+                for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)
+                    if(!pause) (*it)->update(ElapsedTime);
+                audHandler->update(ElapsedTime);
+
+                if(testShip != NULL)
+                {
+                    if(testShip->GetPosition().x < -10) testShip->SetPosition(-10, testShip->GetPosition().y);
+                    if(testShip->GetPosition().x > (res.x - 100)) testShip->SetPosition(res.x - 100, testShip->GetPosition().y);
+                    if(testShip->GetPosition().y < 0) testShip->SetPosition(testShip->GetPosition().x, 0);
+                    if(testShip->GetPosition().y > (res.y - 105)) testShip->SetPosition(testShip->GetPosition().x, res.y - 105);
                 }
             }
 
-            //Update everything
-            for(RenderList::iterator it = renderList.begin(); it != renderList.end(); it++)
-                if(!pause) (*it)->update(ElapsedTime);
-            audHandler->update(ElapsedTime);
+            Clear(clearColor);
 
-            if(testShip != NULL)
+            if(gameOver && displayText)
+              clearColor = sf::Color(clearColor.r + 2, clearColor.g + 2, clearColor.b + 2, clearColor.a);
+            else if(gameOver)
+              clearColor = sf::Color(clearColor.r - 2, clearColor.g - 2, clearColor.b - 2, clearColor.a);
+
+            if(gameOver && (clearColor.r == 0 || clearColor.r == 255))
             {
-                if(testShip->GetPosition().x < -10) testShip->SetPosition(-10, testShip->GetPosition().y);
-                if(testShip->GetPosition().x > (res.x - 100)) testShip->SetPosition(res.x - 100, testShip->GetPosition().y);
-                if(testShip->GetPosition().y < 0) testShip->SetPosition(testShip->GetPosition().x, 0);
-                if(testShip->GetPosition().y > (res.y - 105)) testShip->SetPosition(testShip->GetPosition().x, res.y - 105);
+                audHandler->stopMusic();
+                sf::Sleep(0.2);
+                return 2;
             }
-            Clear();
 
             // Draw stuff
             for(RenderList::const_iterator it = renderList.begin(); it != renderList.end(); it++)
@@ -421,7 +434,7 @@ namespace sbe
         renderList.pop_back();
 
         std::string mapStr = "scripts/maps/" + map;
-        stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, mapStr);
+        stage = new Stage(cfgReader, imgHandler, audHandler, enmHandler, prcHandler, mapStr, (&clearColor));
         enmHandler->loadSound(audHandler);
 
         //Custom stuff for each map, durr
@@ -445,14 +458,26 @@ namespace sbe
             diag.push_back("Waiting for you...");
             gui->createDialogPanel(res, diag);
         }
+        else if(map.compare("another_map.ast") == 0)
+        {
+            clearColor = sf::Color::White;
+
+            testShip = new sbe::Ship("player_a", imgHandler, "explosion_01");
+            testShip->SetPosition(75, cfgReader->getRes().y / 2 - testShip->GetSize().y / 2);
+            testShip->SetRotation(0);
+
+            wpn1 = new Weapon("scripts/weapons/another_weapon.ast", imgHandler, cfgReader, audHandler);
+
+            audHandler->setSFXVol(20);
+        }
 
         renderList.push_back(stage);
         renderList.push_back(testShip);
         renderList.push_back(wpn1);
         if(map == "test_map.ast") renderList.push_back(pSystem2);
         renderList.push_back(testShip);
-        renderList.push_back(text1);
-        renderList.push_back(text2);
+        if(map == "test_map.ast") renderList.push_back(text1);
+        if(map == "test_map.ast") renderList.push_back(text2);
         renderList.push_back(gui);
 
         evtHandler->addAction("Pause", sf::Key::P, this, pauseG);

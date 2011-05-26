@@ -1,0 +1,64 @@
+ //----------------------------------------------------------
+//						Generic explosion
+//----------------------------------------------------------
+
+//Most values are randomized between the minimum and maximum parameters.
+//Min = max means no randomization.
+
+//Generic parameters
+"name"								"explosion_01"									//Particle system name
+"sprite_name"						"particle_2"										//Sprite to use. Needs to be loaded by asset file
+"/child1"							"scripts/particles/explosion/explosion1b.ast"
+
+//Color parameters
+"initial_color_r"					"100"
+"initial_color_g"					"0"
+"initial_color_b"					"100"
+
+"color_mod_duration"				"0.2"					//Color mod duration. If 0 then duration = particle lifetime
+"color_mod_offset"					"0"						//Particle mod starts after this many seconds
+
+//Emission parameters
+"emission_type"						"1"						//Not implemented yet.	1 = continuous, 2 = instant
+"emission_rate"						"2000"					//Particles per second
+"emission_max"						"100"					//Not implemented yet.	Particles to emit if type = 2
+"emission_force_min"				"200"					//Emission force minimum
+"emission_force_max"				"1800"					//Emission force maximum
+"emission_friction_min"				"0.9"					//Emission friction minimum. Closer to 1 = less friction
+"emission_friction_max"				"0.9"					//Emission friction maximum. Closer to 1 = less friction
+"emission_angle_min"				"-180"					//Emission angle minimum
+"emission_angle_max"				"180"					//Emission angle maximum
+
+//Lifespan parameters
+"lifespan_min"						"0.3"						//Lifespan duration minimum
+"lifespan_max"						"0.3"						//Lifespan duration maximum
+
+//Size parameters
+"size_min"							"0.1"					//Scale minimum
+"size_max"							"0.8"					//Scale maximum
+"size_ratio"						"0.35"						//x/y ratio. 1 = normal
+
+//Rotation parameters
+"rotation_rate_min"					"-0"					//Rotation rate minimum
+"rotation_rate_max"					"0"						//Rotation rate maximum
+"rotation_random"					"0"						//Particles spawn with random rotation. Is overridden by rotation alignment
+"rotation_align"					"1"						//Align rotation to emission angle. Use rotation parameter to adjust. Overrides random rotation
+"rotation"							"0"						//If not random, then this
+
+//Fade parameters
+"fade_in_min"						"0.1"					//Fade in duration minimum
+"fade_in_max"						"0.1"					//Fade in duration maximum
+"fade_out_min"						"0.1"						//Fade out duration minimum
+"fade_out_max"						"0.1"						//Fade out duration maximum
+
+//Mod parameters
+
+"internal_oscillation"				"0"						//Controls how parameter values oscillate. 1 = particles use their internal clock, 0 = particles use particle system's global clock.
+
+//Size modification parameters
+"size_mod_scalar_rate_min"			"0.9"					//Size modification minimum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+"size_mod_scalar_rate_max"			"0.95"					//Size modification maximum (scalar). After 1s the sprite will be of this size compared to 1s ago.
+
+//Alpha modification parameters
+"alpha_min"							"225"					//Minimum alpha value
+"alpha_max"							"225"					//Maximum alpha value

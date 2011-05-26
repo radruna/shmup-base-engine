@@ -78,7 +78,6 @@
 		<Unit filename="assets\sound\durr.wav" />
 		<Unit filename="assets\sound\error.wav" />
 		<Unit filename="assets\sound\pop1.wav" />
-		<Unit filename="maps\default\1.map" />
 		<Unit filename="scripts\assets\fonts.ast" />
 		<Unit filename="scripts\assets\images.ast" />
 		<Unit filename="scripts\assets\music.ast" />

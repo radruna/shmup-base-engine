@@ -150,7 +150,7 @@ namespace sbe
         if(soundList.find(soundKey) == soundList.end())
         {
             Logger::writeMsg(1) << "Failed to get sound \"" << soundKey << "\".";
-            sndbfr->LoadFromFile("assets/sound/error.wav");
+            //sndbfr->LoadFromFile("assets/sound/error.wav");
             return *sndbfr;
         }
         else

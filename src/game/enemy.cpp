@@ -136,15 +136,13 @@ namespace sbe
         Move( (cos((angle) / (180/PI)) * speed) * elapsed,(sin((angle) / (180/PI)) * speed) * elapsed);
 
         sf::Color col = GetColor();
-        if( col.b + 20 > 255 )
+        if( col.a + 20 > 255 )
         {
-            col.b = 255;
-            col.g = 255;
+            col.a = 255;
         }
-        else if(col.b < 255)
+        else if(col.a < 255)
         {
-            col.b += 20;
-            col.g += 20;
+            col.a += 20;
         }
         SetColor( col );
     }
@@ -171,9 +169,7 @@ namespace sbe
     void Enemy::hit()
     {
         sf::Color col = GetColor();
-        col.r = 255;
-        col.b = 0;
-        col.g = 0;
+        col.a = 0;
         SetColor( col );
 
         life--;

@@ -1,0 +1,13 @@
+path
+{
+	"path"	"scripts/paths/path_01.ast"
+    "path"  "scripts/paths/another_path.ast"
+    "path"  "scripts/paths/another_path_2.ast"
+}
+enemies
+{
+	"enemy"	"scripts/enemies/another/enemy_01.ast"
+	"enemy"	"scripts/enemies/another/enemy_02.ast"
+	"enemy"	"scripts/enemies/another/enemy_03.ast"
+	"enemy"	"scripts/enemies/another/enemy_04.ast"
+}

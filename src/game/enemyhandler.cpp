@@ -417,7 +417,7 @@ namespace sbe
         if(it->isDead())
         {
             it->kill();
-            deathSound.Play();
+            //deathSound.Play();
             return 0;
         }
 

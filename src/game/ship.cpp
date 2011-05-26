@@ -48,6 +48,28 @@ namespace sbe
     {
         pSysDeath = new ParticleSystem( pSysDeath_f, imgHandler, 0 );
         pSysDeath->SetPosition(GetSize().x / 2, GetSize().x / 2);
+        int setColors = sf::Randomizer::Random(1, 6);
+        switch(setColors)
+        {
+            case 1:
+                pSysDeath->setColor(50, 50, 0);
+                break;
+            case 2:
+                pSysDeath->setColor(50, 0, 50);
+                break;
+            case 3:
+                pSysDeath->setColor(0, 50, 50);
+                break;
+            case 4:
+                pSysDeath->setColor(50, 0, 0);
+                break;
+            case 5:
+                pSysDeath->setColor(0, 50, 0);
+                break;
+            case 6:
+                pSysDeath->setColor(0, 0, 50);
+                break;
+        }
         deathTimer = s;
         deathDelay = s - 0.1;
     }

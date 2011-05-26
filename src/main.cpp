@@ -26,6 +26,7 @@ int main()
     sbe::Logger::init(cfgReader->getSetting<int>("log"));
     sbe::Window *mainWindow;
     int respawn = 0;
+    sf::Randomizer::SetSeed(43674);
 
     do
     {

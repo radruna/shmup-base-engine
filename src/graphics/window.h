@@ -121,11 +121,14 @@ namespace sbe
             sbe::Movable *text1;
             sbe::Movable *text2;
 
+            sf::Color clearColor;
+
             sf::Vector2i res;
             bool respawn,
                  pause,
                  menu,
-                 displayText;
+                 displayText,
+                 gameOver;
 
             RenderList renderList;
             std::list<Projectile> projectileList;

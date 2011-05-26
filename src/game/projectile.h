@@ -61,6 +61,11 @@ namespace sbe
             float xPos();
             float yPos();
 
+            void setColor(int r, int g, int b, int modR = -1, int modG = -1, int modB = -1)
+            {
+                if(pSys != NULL)
+                    pSys->setColor(r, g, b, modR, modG, modB);
+            }
         protected:
             void Render(sf::RenderTarget& Target) const;
             Hitbox* hitbox;

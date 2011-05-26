@@ -33,6 +33,7 @@ namespace sbe
         )
     {
         on = true;
+        manualColor = false;
         scriptFile = particleSystemFile;
         imageHandler = imgHandler;
         reloadInterval = r;
@@ -185,11 +186,11 @@ namespace sbe
                     moveY = atof(parameterValue.c_str());
 
                 //Color parameters
-                else if(parameterKey == "initial_color_r")
+                else if(parameterKey == "initial_color_r" && !manualColor)
                     colorInitial.r = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "initial_color_g")
+                else if(parameterKey == "initial_color_g" && !manualColor)
                     colorInitial.g = atof(parameterValue.c_str());//Convert string to float
-                else if(parameterKey == "initial_color_b")
+                else if(parameterKey == "initial_color_b" && !manualColor)
                     colorInitial.b = atof(parameterValue.c_str());//Convert string to float
 
                 else if(parameterKey == "modified_color_r")
@@ -203,7 +204,6 @@ namespace sbe
                     colorModData.duration = atof(parameterValue.c_str());//Convert string to float
                 else if(parameterKey == "color_mod_offset")
                     colorModData.offset = atof(parameterValue.c_str());//Convert string to float
-
                 //Emission parameters
                 else if(parameterKey == "emission_type")
                     emissionType = atoi(parameterValue.c_str());//Convert string to int
